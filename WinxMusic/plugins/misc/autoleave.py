@@ -11,7 +11,7 @@ from datetime import datetime
 
 import config
 from WinxMusic import app
-from WinxMusic.core.call import Yukki, autoend
+from WinxMusic.core.call import Winx, autoend
 from WinxMusic.utils.database import (get_client, is_active_chat,
                                       is_autoend)
 
@@ -68,7 +68,7 @@ async def auto_end():
                     continue
                 autoend[chat_id] = {}
                 try:
-                    await Yukki.stop_stream(chat_id)
+                    await Winx.stop_stream(chat_id)
                 except:
                     continue
                 try:

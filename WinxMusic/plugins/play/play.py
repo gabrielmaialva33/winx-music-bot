@@ -21,7 +21,7 @@ from config import BANNED_USERS, lyrical
 from strings import get_command
 from WinxMusic import (Apple, Resso, SoundCloud, Spotify, Telegram,
                        YouTube, app)
-from WinxMusic.core.call import Yukki
+from WinxMusic.core.call import Winx
 from WinxMusic.utils import seconds_to_min, time_to_seconds
 from WinxMusic.utils.channelplay import get_channeplayCB
 from WinxMusic.utils.database import is_video_allowed
@@ -335,7 +335,7 @@ async def play_commnd(
             return await mystic.delete()
         else:
             try:
-                await Yukki.stream_call(url)
+                await Winx.stream_call(url)
             except NoActiveGroupCall:
                 await mystic.edit_text(
                     "There's an issue with the bot. Please report it to my owner and ask them to check logger group."
@@ -599,7 +599,7 @@ async def anonymous_check(client, CallbackQuery):
 
 
 @app.on_callback_query(
-    filters.regex("YukkiPlaylists") & ~BANNED_USERS
+    filters.regex("WinxPlaylists") & ~BANNED_USERS
 )
 @languageCB
 async def play_playlists_command(client, CallbackQuery, _):

@@ -18,7 +18,7 @@ from pytgcalls.exceptions import NoActiveGroupCall
 import config
 from config import BANNED_USERS
 from WinxMusic import LOGGER, app, userbot
-from WinxMusic.core.call import Yukki
+from WinxMusic.core.call import Winx
 from WinxMusic.plugins import ALL_MODULES
 from WinxMusic.utils.database import get_banned_users, get_gbanned
 
@@ -60,9 +60,9 @@ async def init():
         "Successfully Imported Modules "
     )
     await userbot.start()
-    await Yukki.start()
+    await Winx.start()
     try:
-        await Yukki.stream_call(
+        await Winx.stream_call(
             "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
         )
     except NoActiveGroupCall:
@@ -72,11 +72,11 @@ async def init():
         sys.exit()
     except:
         pass
-    await Yukki.decorators()
-    LOGGER("WinxMusic").info("Yukki Music Bot Started Successfully")
+    await Winx.decorators()
+    LOGGER("WinxMusic").info("Winx Music Bot Started Successfully")
     await idle()
 
 
 if __name__ == "__main__":
     loop.run_until_complete(init())
-    LOGGER("WinxMusic").info("Stopping Yukki Music Bot! GoodBye")
+    LOGGER("WinxMusic").info("Stopping Winx Music Bot! GoodBye")

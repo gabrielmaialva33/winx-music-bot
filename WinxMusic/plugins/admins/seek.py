@@ -13,7 +13,7 @@ from pyrogram.types import Message
 from config import BANNED_USERS
 from strings import get_command
 from WinxMusic import YouTube, app
-from WinxMusic.core.call import Yukki
+from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils import AdminRightsCheck, seconds_to_min
 
@@ -70,7 +70,7 @@ async def seek_comm(cli, message: Message, _, chat_id):
         if n == 0:
             return await message.reply_text(_["admin_30"])
     try:
-        await Yukki.seek_stream(
+        await Winx.seek_stream(
             chat_id,
             file_path,
             seconds_to_min(to_seek),

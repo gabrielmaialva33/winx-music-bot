@@ -8,7 +8,7 @@
 # All rights reserved.
 
 
-from WinxMusic.core.bot import YukkiBot
+from WinxMusic.core.bot import WinxBot
 from WinxMusic.core.dir import dirr
 from WinxMusic.core.git import git
 from WinxMusic.core.userbot import Userbot
@@ -32,7 +32,7 @@ heroku()
 sudo()
 
 # Bot Client
-app = YukkiBot()
+app = WinxBot()
 
 # Assistant Client
 userbot = Userbot()
