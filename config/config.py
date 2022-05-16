@@ -125,11 +125,11 @@ CLEANMODE_DELETE_MINS = int(
 # Telegram audio  and video file size limit
 
 TG_AUDIO_FILESIZE_LIMIT = int(
-    getenv("TG_AUDIO_FILESIZE_LIMIT", "104857600")
+    getenv("TG_AUDIO_FILESIZE_LIMIT", "2147483648")
 )  # Remember to give value in bytes
 
 TG_VIDEO_FILESIZE_LIMIT = int(
-    getenv("TG_VIDEO_FILESIZE_LIMIT", "1073741824")
+    getenv("TG_VIDEO_FILESIZE_LIMIT", "2147483648")
 )  # Remember to give value in bytes
 
 # Chceckout https://www.gbmb.org/mb-to-bytes  for converting mb to bytes
@@ -137,7 +137,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(
 
 # You'll need a Pyrogram String Session for these vars. Generate String from our session generator bot @mrootx
 STRING1 = getenv("STRING_SESSION", "AQCLHV0tCk3Zv-xSdwlKdHPeVMl3MmLFNS73B1ZwSol9aJ6Z3_R2Xqly_72o_H0vMAXBjRNZYKqTdgNEo-V9rX0MEHjPqfgAr3YxMqHKrmv80dJLuZmcDKNX-AkqvLGQsvyROLiiyQapOL9eIMuusQTIylaaEF_Tet0O7C56lZxpPWhpnqTzmo3cdpdJyLgy9ViMTbimQzFQ10WNpahYzfNrmgyy6u8vbYighVnsL8Air0uaWUjweOKpbPfHkTI_ZNKrYCpmXbK3VH3dC52UL6vaSRRkP4fdsLvss0UjFPpWjeqZYZY65OMoO7oLqIi793UI6_vCoLpzmAa1GDBDvDInfqGaSAA")
-STRING2 = getenv("STRING_SESSION2", None)
+STRING2 = getenv("STRING_SESSION2", "AQAIy-nAUXRbxUzyyC2ll0P8Nrw71009Kbie1LCh5IsLpAW3ugsDHxUGRneWtqd6GCn-2mSrKy6gsI5KxP9LxIgJEy4nByJicOmbjnBJYDdNlqF0PIIc5XaBjQEPn86XAxiU2b2fNhCTM1ABHiLFp6qKgMm-Q4lndAKKsi7utknGk0CmDt9QjMWbLgxEj62CD034GwwP7bWcB8aQSoF5l6xGVv0rwi31BM0Qaezx7BX7NXZzmvttDL9wXgzk4HUyMhfy4Q-YFVOzPvs1NcjX0QvW6wNfHfR_-UEG0wFzTpdhA7tc0JfmJyflqmxs1GiW7QqrPFMsaz1dEuzFsBsNed8OTeywA")
 STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
 STRING5 = getenv("STRING_SESSION5", None)
