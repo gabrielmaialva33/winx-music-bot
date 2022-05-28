@@ -25,7 +25,8 @@ API_HASH = getenv("API_HASH", "ff4f2c98db47e59046552b301722a0f2")
 BOT_TOKEN = getenv("BOT_TOKEN", "2133083118:AAH1V7K-ENJ2j7O4mfkQs2iKFvwEthm-e9c")
 
 # Database to save your chats and stats... Get MongoDB:-  https://telegra.ph/How-To-get-Mongodb-URI-04-06
-MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://mrootx:RQvzwLBHpqRtjMNj@cluster.ivlkp.gcp.mongodb.net/music?retryWrites=true&w=majority")
+MONGO_DB_URI = getenv("MONGO_DB_URI",
+                      "mongodb+srv://mrootx:RQvzwLBHpqRtjMNj@cluster.ivlkp.gcp.mongodb.net/music?retryWrites=true&w=majority")
 
 # Custom max audio(music) duration for voice chat. set DURATION_LIMIT in variables with your own time(mins), Default to 60 mins.
 DURATION_LIMIT_MIN = int(
@@ -38,7 +39,7 @@ SONG_DOWNLOAD_DURATION = int(
 )  # Remember to give value in Minutes
 
 # You'll need a Private Group ID for this.
-LOG_GROUP_ID = int(getenv("LOG_GROUP_ID", "-1001308762937"))
+LOG_GROUP_ID = int(getenv("LOG_GROUP_ID", "-1001285436101"))
 
 # A name for your Music bot.
 MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", "Winx Bot")
@@ -121,7 +122,6 @@ CLEANMODE_DELETE_MINS = int(
     getenv("CLEANMODE_MINS", "5")
 )  # Remember to give value in Seconds
 
-
 # Telegram audio  and video file size limit
 
 TG_AUDIO_FILESIZE_LIMIT = int(
@@ -136,12 +136,12 @@ TG_VIDEO_FILESIZE_LIMIT = int(
 
 
 # You'll need a Pyrogram String Session for these vars. Generate String from our session generator bot @mrootx
-STRING1 = getenv("STRING_SESSION", "AQCLHV0tCk3Zv-xSdwlKdHPeVMl3MmLFNS73B1ZwSol9aJ6Z3_R2Xqly_72o_H0vMAXBjRNZYKqTdgNEo-V9rX0MEHjPqfgAr3YxMqHKrmv80dJLuZmcDKNX-AkqvLGQsvyROLiiyQapOL9eIMuusQTIylaaEF_Tet0O7C56lZxpPWhpnqTzmo3cdpdJyLgy9ViMTbimQzFQ10WNpahYzfNrmgyy6u8vbYighVnsL8Air0uaWUjweOKpbPfHkTI_ZNKrYCpmXbK3VH3dC52UL6vaSRRkP4fdsLvss0UjFPpWjeqZYZY65OMoO7oLqIi793UI6_vCoLpzmAa1GDBDvDInfqGaSAA")
+STRING1 = getenv("STRING_SESSION",
+                 "AQCLHV0tCk3Zv-xSdwlKdHPeVMl3MmLFNS73B1ZwSol9aJ6Z3_R2Xqly_72o_H0vMAXBjRNZYKqTdgNEo-V9rX0MEHjPqfgAr3YxMqHKrmv80dJLuZmcDKNX-AkqvLGQsvyROLiiyQapOL9eIMuusQTIylaaEF_Tet0O7C56lZxpPWhpnqTzmo3cdpdJyLgy9ViMTbimQzFQ10WNpahYzfNrmgyy6u8vbYighVnsL8Air0uaWUjweOKpbPfHkTI_ZNKrYCpmXbK3VH3dC52UL6vaSRRkP4fdsLvss0UjFPpWjeqZYZY65OMoO7oLqIi793UI6_vCoLpzmAa1GDBDvDInfqGaSAA")
 STRING2 = getenv("STRING_SESSION2", None)
 STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
 STRING5 = getenv("STRING_SESSION5", None)
-
 
 ### DONT TOUCH or EDIT codes after this line
 BANNED_USERS = filters.user()
@@ -155,7 +155,6 @@ userstats = {}
 clean = {}
 
 autoclean = []
-
 
 # Images
 START_IMG_URL = getenv("START_IMG_URL", None)
@@ -224,7 +223,7 @@ SPOTIFY_PLAYLIST_IMG_URL = getenv(
 def time_to_seconds(time):
     stringt = str(time)
     return sum(
-        int(x) * 60**i
+        int(x) * 60 ** i
         for i, x in enumerate(reversed(stringt.split(":")))
     )
 
@@ -262,7 +261,6 @@ if GITHUB_REPO:
         )
         sys.exit()
 
-
 if PING_IMG_URL:
     if PING_IMG_URL != "assets/Ping.jpeg":
         if not re.match("(?:http|https)://", PING_IMG_URL):
@@ -287,7 +285,6 @@ if GLOBAL_IMG_URL:
             )
             sys.exit()
 
-
 if STATS_IMG_URL:
     if STATS_IMG_URL != "assets/Stats.jpeg":
         if not re.match("(?:http|https)://", STATS_IMG_URL):
@@ -295,7 +292,6 @@ if STATS_IMG_URL:
                 "[ERROR] - Your STATS_IMG_URL url is wrong. Please ensure that it starts with https://"
             )
             sys.exit()
-
 
 if TELEGRAM_AUDIO_URL:
     if TELEGRAM_AUDIO_URL != "assets/Audio.jpeg":
@@ -305,7 +301,6 @@ if TELEGRAM_AUDIO_URL:
             )
             sys.exit()
 
-
 if STREAM_IMG_URL:
     if STREAM_IMG_URL != "assets/Stream.jpeg":
         if not re.match("(?:http|https)://", STREAM_IMG_URL):
@@ -313,7 +308,6 @@ if STREAM_IMG_URL:
                 "[ERROR] - Your STREAM_IMG_URL url is wrong. Please ensure that it starts with https://"
             )
             sys.exit()
-
 
 if SOUNCLOUD_IMG_URL:
     if SOUNCLOUD_IMG_URL != "assets/Soundcloud.jpeg":
@@ -331,7 +325,6 @@ if YOUTUBE_IMG_URL:
             )
             sys.exit()
 
-
 if TELEGRAM_VIDEO_URL:
     if TELEGRAM_VIDEO_URL != "assets/Video.jpeg":
         if not re.match("(?:http|https)://", TELEGRAM_VIDEO_URL):
@@ -339,7 +332,6 @@ if TELEGRAM_VIDEO_URL:
                 "[ERROR] - Your TELEGRAM_VIDEO_URL url is wrong. Please ensure that it starts with https://"
             )
             sys.exit()
-
 
 if not MUSIC_BOT_NAME.isascii():
     print(
