@@ -18,6 +18,8 @@ from WinxMusic.utils.formatters import seconds_to_min
 from WinxMusic.utils.inline import (stream_markup_timer,
                                     telegram_markup_timer)
 
+from ..admins.callback import wrong
+
 checker = {}
 
 
@@ -61,7 +63,7 @@ async def markup_timer():
                 except:
                     continue
                 try:
-                    check = checker[chat_id][mystic.message_id]
+                    check = wrong[chat_id][mystic.message_id]
                     if check is False:
                         continue
                 except:
