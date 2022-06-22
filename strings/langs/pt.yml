@@ -75,7 +75,7 @@ admin_34: "Falha ao buscar o fluxo atual."
 
 # Start
 start_1: "Obrigado por me receber em {0}.\n{1} está vivo.\n\nPara qualquer assistência ou ajuda, confira nosso grupo de suporte e canal."
-start_2: "Olá, meu nome é {0}.\n\nSou um bot de streaming de telegrama com alguns recursos úteis. Suporte a plataformas como Youtube, Spotify, Resso, AppleMusic, Soundcloud etc.\n\nSinta-se à vontade para me adicionar a seus grupos."
+start_2: "Olá, meu nome é {0}.\n\nSou um bot de streaming pata o Telegram com alguns recursos úteis. Suporte a plataformas como Youtube, Spotify, Resso, AppleMusic, Soundcloud etc.\n\nSinta-se à vontade para me adicionar a seus grupos."
 start_3: "Bem-vindo a {0}\n\nNão preciso de nenhuma **permissão de administrador** para trabalhar (até que seja solicitado).\n\nNome de usuário do assistente:- @{1}\nID do assistente:- {2} "
 start_4: "O Proprietário de {0}[{1}] acabou de entrar no seu chat."
 start_5: "Um membro do usuário Sudo de {0}[{1}] acabou de entrar no seu chat."
@@ -251,12 +251,12 @@ S_B_7: "👤 Dono do bot"
 S_B_8: "🔎 Como Usar? Menu de Comandos."
 
 #Ajuda
-H_B_1: "Comandos de administrador"
-H_B_2: "Tocar comandos"
-H_B_3: "Comandos de bot"
-H_B_4: "Comandos Extras"
+H_B_1: "Administradores"
+H_B_2: "Play"
+H_B_3: "Bot"
+H_B_4: "Extras"
 H_B_5: "Fechar menu"
-H_B_6: "Comandos SudoUser"
+H_B_6: "SudoUser"
 
 #PlayMode
 PM_B_1: "Reprodução Direta"
