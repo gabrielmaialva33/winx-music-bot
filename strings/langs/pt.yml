@@ -3,10 +3,10 @@ name: Portuguese
 # General Strings
 general_1: "Responda à mensagem de um usuário ou passe um username/user_id."
 general_2: "Erro! Comando Inválido."
-general_3: "Algum **error ocorreu** ao processar a busca.\n\nTipo de erro:- {0}"
+general_3: "Algum **error ocorreu** ao processar a busca.\n\nErro:- {0}"
 general_4: "Você é um administrador anônimo no grupo\nUse sua conta de usuário para usar os comandos."
 general_5: "Você precisa ser administrador com permissões de gerenciamento de chat de voz."
-general_6: "O bot não está transmitindo no chat de voz."
+general_6: "O bot não está transmitindo nada."
 
 # Classes - Telegram.py
 tg_1: "O bot está **sobrecarregado** com downloads no momento.\n\n**Tente depois:** {0} (__expected time__)"
@@ -140,7 +140,7 @@ cplay_5: "Somente Canais são suportados."
 cplay_6: "Você precisa ser o **Proprietário** do canal[{0}] para conectá-lo a este grupo.\n**Proprietário do canal:** @{1}\n\nAlternativamente, você pode vincular seu grupo para esse canal e tente conectar com `/channelplay linked`"
 
 #Play
-play_1: "🔄 Processando consulta... Aguarde!"
+play_1: "🔄 Processando sua busca... Aguarde!"
 play_2: "**🏷Modo de reprodução do canal**\n\n🔄 Processando consulta... Aguarde!\n**Canal vinculado:** {0}"
 play_3: "Falha ao processar a consulta!"
 play_4: "🖇 **Admins Only Play**\nSomente Admins e Auth Users podem tocar música neste grupo.\n\nAltere o modo via /playmode e se você já for admin, recarregue o admincache via /admincache"
@@ -163,9 +163,9 @@ play_18: "**Nenhum bate-papo por voz ativo encontrado**\n\nPara forçar a reprod
 playlist_1: "**Uso:** /play [Nome da Música ou Link do Youtube ou Responder ao Áudio]\n\nSe você quiser tocar a Lista de Reprodução do Servidor do Bot! Pressione o botão abaixo."
 playlist_2: "Recuperando sua playlist. Aguarde"
 playlist_3: "Você não tem playlist no Servidor do Bot."
-playlist_4: "Lista de reprodução buscada:\n\n"
+playlist_4: "Playlist buscada:\n\n"
 playlist_5: " Duração - {0} minutos"
-playlist_6: "Contacte-me em PM para eliminação de listas de reprodução."
+playlist_6: "Contacte-me em PM para deletar a playlist."
 playlist_7: "Faixas dentro da lista de reprodução: {0}\n\nPressione os botões para excluir uma faixa específica em sua lista de reprodução.\n\nPara excluir toda a lista de reprodução: Pressione o botão Del Whole Playlist."
 playlist_8: "Já existe\n\nEsta faixa existe em sua playlist."
 playlist_9: "Desculpe! Você só pode ter {0} músicas em uma playlist."
@@ -175,7 +175,7 @@ playlist_12: "Falha ao excluir sua faixa."
 playlist_13: "Excluiu todas as suas playlists do servidor."
 playlist_14: "**Tem certeza de que deseja excluir toda a sua playlist?**\n\nVocê perderá sua playlist e não poderá ser recuperada mais tarde."
 playlist_15: "[Confira toda a lista de reprodução]({0})"
-playlist_16: "Lista de reprodução na fila:"
+playlist_16: "Playlist na fila:"
 playlist_17: "Posição na fila-"
 playlist_18: "[Checkout Whole Queued Playlist]({0})\n\nÚltima posição na fila: **{1}**"
 
@@ -271,7 +271,7 @@ P_B_4: "🎵 Playlist"
 
 #Lista de reprodução
 PL_B_1: "🚀 Playlist"
-PL_B_2: "✚ Listas de reprodução"
+PL_B_2: "✚ Playlist"
 PL_B_3: "✚ CPanel"
 PL_B_4: "📡 Modo Play"
 PL_B_5: "🔄 De toda a lista de reprodução"
@@ -327,8 +327,8 @@ SA_B_7: "🔢 Estatísticas do Top 10 Global"
 SA_B_8: "🤖 Estatísticas do bot"
 
 #Fila
-QU_B_1: "📑 Lista em fila"
-QU_B_2: "Tocou {0} de {1} minutos"
+QU_B_1: "📑 Lista de reprodução"
+QU_B_2: "Reproduziu {0} de {1} minutos"
 
 #Sudo
 sudo_1: "{0} já é um usuário sudo."
