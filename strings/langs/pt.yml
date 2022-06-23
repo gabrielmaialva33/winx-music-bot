@@ -3,7 +3,7 @@ name: Portuguese
 # General Strings
 general_1: "Responda à mensagem de um usuário ou passe um username/user_id."
 general_2: "Erro! Comando Inválido."
-general_3: "Algum **error ocorreu** ao processar a busca.\n\nErro:- {0}"
+general_3: "Um **erro ocorreu** ao processar seu pedido. Desculpa 😔\n\nErro:- {0}"
 general_4: "Você é um administrador anônimo no grupo\nUse sua conta de usuário para usar os comandos."
 general_5: "Você precisa ser administrador com permissões de gerenciamento de chat de voz."
 general_6: "O bot não está transmitindo nada."
@@ -140,7 +140,7 @@ cplay_5: "Somente Canais são suportados."
 cplay_6: "Você precisa ser o **Proprietário** do canal[{0}] para conectá-lo a este grupo.\n**Proprietário do canal:** @{1}\n\nAlternativamente, você pode vincular seu grupo para esse canal e tente conectar com `/channelplay linked`"
 
 #Play
-play_1: "🔄 Processando sua busca... Aguarde!"
+play_1: "🔄 Processando sue pedido... Aguarde!"
 play_2: "**🏷Modo de reprodução do canal**\n\n🔄 Processando consulta... Aguarde!\n**Canal vinculado:** {0}"
 play_3: "Falha ao processar a consulta!"
 play_4: "🖇 **Admins Only Play**\nSomente Admins e Auth Users podem tocar música neste grupo.\n\nAltere o modo via /playmode e se você já for admin, recarregue o admincache via /admincache"
