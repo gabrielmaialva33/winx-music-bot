@@ -222,7 +222,7 @@ song_11: "Carregamento iniciado\n\nA velocidade de carregamento pode ser lenta. 
 queue_1: "Aguarde.. Buscando fila.."
 queue_2: "Lista na fila está vazia. Nenhuma trilha encontrada"
 queue_3: "<u>**Faixas na fila:</u>** [Compre mais trilhas na fila daqui]({0})"
-queue_4: "⏳ Adicionado à fila em **#{0}\n\n💡Título:** {1}\n**⏱Duração:** {2}\n👤**Adicionado por:** {3 }"
+queue_4: "⏳ Adicionado à fila em **#{0}\n\n💡Título:** {1}\n**⏱Duração:** {2}\n👤**Adicionado por:** {3}"
 queue_5: "Apenas uma faixa dentro da fila, por favor adicione mais algumas à lista de verificação"
 
 # Todas as linhas de streaming
