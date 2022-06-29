@@ -6,7 +6,7 @@
 # Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
 #
 # All rights reserved.
-import logging
+
 import random
 import string
 from ast import ExceptHandler
@@ -120,7 +120,6 @@ async def play_commnd(
                 )
             except Exception as e:
                 ex_type = type(e).__name__
-                logging.error(e)
                 err = (
                     e
                     if ex_type == "AssistantErr"
@@ -171,7 +170,6 @@ async def play_commnd(
                 )
             except Exception as e:
                 ex_type = type(e).__name__
-                logging.error(e)
                 err = (
                     e
                     if ex_type == "AssistantErr"
@@ -328,7 +326,6 @@ async def play_commnd(
                 )
             except Exception as e:
                 ex_type = type(e).__name__
-                logging.error(e)
                 err = (
                     e
                     if ex_type == "AssistantErr"
@@ -348,7 +345,6 @@ async def play_commnd(
                     "Please turn on Voice Chat.. Bot is not able to stream urls..",
                 )
             except Exception as e:
-                logging.error(e)
                 return await mystic.edit_text(
                     _["general_3"].format(type(e).__name__)
                 )
@@ -368,7 +364,6 @@ async def play_commnd(
                 )
             except Exception as e:
                 ex_type = type(e).__name__
-                logging.error(e)
                 err = (
                     e
                     if ex_type == "AssistantErr"
@@ -436,7 +431,6 @@ async def play_commnd(
             )
         except Exception as e:
             ex_type = type(e).__name__
-            logging.error(e)
             err = (
                 e
                 if ex_type == "AssistantErr"
@@ -582,7 +576,6 @@ async def play_music(client, CallbackQuery, _):
         )
     except Exception as e:
         ex_type = type(e).__name__
-        logging.error(e)
         err = (
             e
             if ex_type == "AssistantErr"
@@ -692,7 +685,6 @@ async def play_playlists_command(client, CallbackQuery, _):
             forceplay=ffplay,
         )
     except Exception as e:
-        logging.error(e)
         ex_type = type(e).__name__
         err = (
             e
