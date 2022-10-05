@@ -58,6 +58,6 @@ for filename in os.listdir(r"./strings/langs/"):
         ]
     except:
         print(
-            "There is some issue with the language file inside bot. Please report it to the mrootx at @WinxSupport on Telegram"
+            "There is some issue with the language file inside bot. Please report it to the mrootx at @mrootx on Telegram"
         )
         sys.exit()

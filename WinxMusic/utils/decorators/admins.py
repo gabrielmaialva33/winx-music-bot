@@ -38,7 +38,7 @@ def AdminRightsCheck(mystic):
             language = await get_lang(message.chat.id)
             _ = get_string(language)
         except:
-            _ = get_string("en")
+            _ = get_string("pt")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
                 [
@@ -95,7 +95,7 @@ def AdminActual(mystic):
             language = await get_lang(message.chat.id)
             _ = get_string(language)
         except:
-            _ = get_string("en")
+            _ = get_string("pt")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
                 [
@@ -136,7 +136,7 @@ def ActualAdminCB(mystic):
             language = await get_lang(CallbackQuery.message.chat.id)
             _ = get_string(language)
         except:
-            _ = get_string("en")
+            _ = get_string("pt")
         if CallbackQuery.message.chat.type == "private":
             return await mystic(client, CallbackQuery, _)
         is_non_admin = await is_nonadmin_chat(
