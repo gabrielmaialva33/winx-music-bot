@@ -25,7 +25,7 @@ BOT_TOKEN = getenv("BOT_TOKEN", "2133083118:AAH1V7K-ENJ2j7O4mfkQs2iKFvwEthm-e9c"
 
 # Database to save your chats and stats... Get MongoDB:-  https://telegra.ph/How-To-get-Mongodb-URI-04-06
 MONGO_DB_URI = getenv("MONGO_DB_URI",
-                      "mongodb+srv://mrootx:RQvzwLBHpqRtjMNj@cluster.ivlkp.gcp.mongodb.net/winxdb?retryWrites=true&w=majority")
+                      "mongodb+srv://mrootx:kdWeKCAALvoNoRh8@cluster0.0tunx.mongodb.net/?retryWrites=true&w=majority")
 
 # Custom max audio(music) duration for voice chat. set DURATION_LIMIT in variables with your own time(mins), Default to 60 mins.
 DURATION_LIMIT_MIN = int(
