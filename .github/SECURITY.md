@@ -4,7 +4,7 @@
 
 If there are any vulnerabilities in **WinxMusicBot**, don't hesitate to _report them_.
 
-1. Use any of the [private contact addresses](https://github.com/gabrielmaialva33/WinxMusicBot#support).
+1. Use any of the [private contact addresses](https://github.com/gabrielmaialva33/winx-music-bot#support).
 2. Describe the vulnerability.
 
    If you have a fix, that is most welcome -- please attach or summarize it in your message!

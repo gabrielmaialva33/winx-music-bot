@@ -1,8 +1,6 @@
-<img src="https://telegra.ph/file/c0e014ff34f34d1056627.png" align="right" width="200" height="200"/>
+<img src="https://telegra.ph/file/4bbfc8edc21183f0fafcd.jpg" align="right" width="200" height="200"/>
 
-# WinxMusic Bot <img src="https://img.shields.io/github/v/release/mrootx/WinxMusicBot?color=black&logo=github&logoColor=black&style=social" alt="RELEASE">
-
-[WinxMusic Bot](https://github.com/gabrielmaialva33/WinxMusicBot) is a Powerful Telegram Music+Video Bot written in Python using Pyrogram and Py-Tgcalls by which you can stream songs, video and even live streams in your group calls via various sources.
+[WinxMusic Bot](https://github.com/gabrielmaialva33/winx-music-bot) is a Powerful Telegram Music+Video Bot written in Python using Pyrogram and Py-Tgcalls by which you can stream songs, video and even live streams in your group calls via various sources.
 
 * Youtube, Soundcloud, Apple Music, Spotify, Resso, Live Streams and Telegram Audios & Videos support.
 * Written from scratch, making it stable and less crashes with attractive thumbnails.
@@ -10,9 +8,9 @@
 * Multi-Language support
 
 
-# ⚡️ Getting Started [[Documentation](https://notreallyshikhar.gitbook.io/WinxMusicbot/)]
+# ⚡️ Getting Started [[Documentation](https://notreallyshikhar.gitbook.io/winx-music-bot/)]
 
-> The official [documentation site](https://notreallyshikhar.gitbook.io/WinxMusicbot/) contains a lot of information. The best place to start is from the deployment section.
+> The official [documentation site](https://notreallyshikhar.gitbook.io/winx-music-bot/) contains a lot of information. The best place to start is from the deployment section.
 
 ## ⚠️ Heroku / Okteto / Railway
 
@@ -21,8 +19,8 @@ We have temporarily disabled the deployment for  all these cloud service platfor
 ## 🖇 Generating Pyrogram String Session
 
 <p>
-<a href="https://replit.com/@NotReallyShikhar/Winx-Music-String-Gen"><img src="https://img.shields.io/badge/Generate%20On%20Repl-blueviolet?style=for-the-badge&logo=appveyor" width="200""/></a>
-<a href="https://t.me/WinxStringBot"><img src="https://img.shields.io/badge/TG%20String%20Gen%20Bot-blueviolet?style=for-the-badge&logo=appveyor" width="200""/></a>
+<a href="https://replit.com/@mrootx/Winx-Music-String-Gen"><img src="https://img.shields.io/badge/Generate%20On%20Repl-blueviolet?style=for-the-badge&logo=appveyor" width="200""/></a>
+<a href="https://t.me/@mrootx"><img src="https://img.shields.io/badge/TG%20String%20Gen%20Bot-blueviolet?style=for-the-badge&logo=appveyor" width="200""/></a>
 </p>
 
 ## 🖇 VPS Deployment
@@ -34,13 +32,13 @@ Checkout [Docs](https://notreallyshikhar.gitbook.io/WinxMusicbot/deployment/loca
 
 Reach out to the maintainer at one of the following places:
 
-- [GitHub Issues](https://github.com/gabrielmaialva33/WinxMusicbot/issues/new?assignees=&labels=question&template=SUPPORT_QUESTION.md&title=support%3A+)
+- [GitHub Issues](https://github.com/gabrielmaialva33/winx-music-bot/issues/new?assignees=&labels=question&template=SUPPORT_QUESTION.md&title=support%3A+)
 - Contact options listed on [this GitHub profile](https://github.com/gabrielmaialva33)
-- [Telegram Support](https://t.me/WinxSupport)
+- [Telegram Support](https://t.me/mrootx)
 
 If you want to say **thank you** or/and support active development of WinxMusicBot:
 
-- Add a [GitHub Star](https://github.com/gabrielmaialva33/WinxMusicBot) to the project.
+- Add a [GitHub Star](https://github.com/gabrielmaialva33/winx-music-bot) to the project.
 - Fork the Repo :)
 - Write interesting articles about the project on [Dev.to](https://dev.to/), [Medium](https://medium.com/) or your personal blog.
 

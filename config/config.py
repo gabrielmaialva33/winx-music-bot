@@ -1,9 +1,9 @@
 #
 # Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
 #
-# This file is part of < https://github.com/gabrielmaialva33/WinxMusicBot > project,
+# This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/gabrielmaialva33/WinxMusicBot/blob/master/LICENSE >
+# Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
 #
 # All rights reserved.
 
@@ -57,7 +57,7 @@ HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 # For customized or modified Repository
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/gabrielmaialva33/WinxMusicBot",
+    "https://github.com/gabrielmaialva33/winx-music-bot",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
 
