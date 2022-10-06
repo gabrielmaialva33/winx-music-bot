@@ -142,7 +142,7 @@ cplay_5: "Somente Canais são suportados."
 cplay_6: "Você precisa ser o **Proprietário** do canal[{0}] para conectá-lo a este grupo.\n**Proprietário do canal:** @{1}\n\nAlternativamente, você pode vincular seu grupo para esse canal e tente conectar com `/channelplay linked`"
 
 #Play
-play_1: "🔄 Processando sue pedido... Aguarde!"
+play_1: "🔄 Processando seu pedido... Aguarde!"
 play_2: "**🏷Modo de reprodução do canal**\n\n🔄 Processando consulta... Aguarde!\n**Canal vinculado:** {0}"
 play_3: "Falha ao processar a consulta!"
 play_4: "🖇 **Admins Only Play**\nSomente Admins e Auth Users podem tocar música neste grupo.\n\nAltere o modo via /playmode e se você já for admin, recarregue o admincache via /admincache"
