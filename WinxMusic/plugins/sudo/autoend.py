@@ -9,12 +9,10 @@
 
 from pyrogram import filters
 
-import config
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import autoend_off, autoend_on
-from WinxMusic.utils.decorators.language import language
+from strings import get_command
 
 # Commands
 AUTOEND_COMMAND = get_command("AUTOEND_COMMAND")

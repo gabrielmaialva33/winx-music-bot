@@ -350,7 +350,7 @@ async def get_particulars(chat_id: int) -> Dict[str, int]:
 
 
 async def get_particular_top(
-    chat_id: int, name: str
+        chat_id: int, name: str
 ) -> Union[bool, dict]:
     ids = await get_particulars(chat_id)
     if name in ids:

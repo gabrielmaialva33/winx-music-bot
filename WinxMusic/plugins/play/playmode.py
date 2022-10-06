@@ -10,13 +10,13 @@
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.utils.database import (get_playmode, get_playtype,
-                                       is_nonadmin_chat)
+                                      is_nonadmin_chat)
 from WinxMusic.utils.decorators import language
 from WinxMusic.utils.inline.settings import playmode_users_markup
+from config import BANNED_USERS
+from strings import get_command
 
 ### Commands
 PLAYMODE_COMMAND = get_command("PLAYMODE_COMMAND")

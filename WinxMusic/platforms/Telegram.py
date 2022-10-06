@@ -17,9 +17,8 @@ from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup, Voice)
 
 import config
-from config import MUSIC_BOT_NAME, lyrical
 from WinxMusic import app
-
+from config import MUSIC_BOT_NAME, lyrical
 from ..utils.formatters import (convert_bytes, get_readable_time,
                                 seconds_to_min)
 
@@ -33,7 +32,7 @@ class TeleAPI:
 
     async def send_split_text(self, message, string):
         n = self.chars_limit
-        out = [(string[i : i + n]) for i in range(0, len(string), n)]
+        out = [(string[i: i + n]) for i in range(0, len(string), n)]
         j = 0
         for x in out:
             if j <= 2:
@@ -50,7 +49,7 @@ class TeleAPI:
         return link
 
     async def get_filename(
-        self, file, audio: Union[bool, str] = None
+            self, file, audio: Union[bool, str] = None
     ):
         try:
             file_name = file.file_name
@@ -77,20 +76,20 @@ class TeleAPI:
         return dur
 
     async def get_filepath(
-        self,
-        audio: Union[bool, str] = None,
-        video: Union[bool, str] = None,
+            self,
+            audio: Union[bool, str] = None,
+            video: Union[bool, str] = None,
     ):
         if audio:
             try:
                 file_name = (
-                    audio.file_unique_id
-                    + "."
-                    + (
-                        (audio.file_name.split(".")[-1])
-                        if (not isinstance(audio, Voice))
-                        else "ogg"
-                    )
+                        audio.file_unique_id
+                        + "."
+                        + (
+                            (audio.file_name.split(".")[-1])
+                            if (not isinstance(audio, Voice))
+                            else "ogg"
+                        )
                 )
             except:
                 file_name = audio.file_unique_id + "." + ".ogg"
@@ -100,9 +99,9 @@ class TeleAPI:
         if video:
             try:
                 file_name = (
-                    video.file_unique_id
-                    + "."
-                    + (video.file_name.split(".")[-1])
+                        video.file_unique_id
+                        + "."
+                        + (video.file_name.split(".")[-1])
                 )
             except:
                 file_name = video.file_unique_id + "." + "mp4"

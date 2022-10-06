@@ -12,9 +12,9 @@ from pyrogram.types import (InlineKeyboardButton,
                             InlineQueryResultPhoto)
 from youtubesearchpython.__future__ import VideosSearch
 
-from config import BANNED_USERS, MUSIC_BOT_NAME
 from WinxMusic import app
 from WinxMusic.utils.inlinequery import answer
+from config import BANNED_USERS, MUSIC_BOT_NAME
 
 
 @app.on_inline_query(~BANNED_USERS)

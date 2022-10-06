@@ -9,23 +9,22 @@
 
 import asyncio
 import os
-from random import randint
 
 from pyrogram import filters
 from pyrogram.errors import FloodWait
 from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 
 import config
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import db
 from WinxMusic.utils import (Winxbin, get_channeplayCB,
-                              seconds_to_min)
+                             seconds_to_min)
 from WinxMusic.utils.database import (get_cmode, is_active_chat,
-                                       is_music_playing)
+                                      is_music_playing)
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.inline import queue_back_markup, queue_markup
+from config import BANNED_USERS
+from strings import get_command
 
 ###Commands
 QUEUE_COMMAND = get_command("QUEUE_COMMAND")

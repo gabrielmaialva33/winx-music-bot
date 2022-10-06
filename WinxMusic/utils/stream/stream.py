@@ -17,13 +17,12 @@ import config
 from WinxMusic import Carbon, YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
-from WinxMusic.utils.database import (add_active_chat,
-                                       add_active_video_chat,
-                                       is_active_chat,
-                                       is_video_allowed, music_on)
+from WinxMusic.utils.database import (add_active_video_chat,
+                                      is_active_chat,
+                                      is_video_allowed)
 from WinxMusic.utils.exceptions import AssistantErr
 from WinxMusic.utils.inline.play import (stream_markup,
-                                          telegram_markup)
+                                         telegram_markup)
 from WinxMusic.utils.inline.playlist import close_markup
 from WinxMusic.utils.pastebin import Winxbin
 from WinxMusic.utils.stream.queue import put_queue, put_queue_index
@@ -31,17 +30,17 @@ from WinxMusic.utils.thumbnails import gen_thumb
 
 
 async def stream(
-    _,
-    mystic,
-    user_id,
-    result,
-    chat_id,
-    user_name,
-    original_chat_id,
-    video: Union[bool, str] = None,
-    streamtype: Union[bool, str] = None,
-    spotify: Union[bool, str] = None,
-    forceplay: Union[bool, str] = None,
+        _,
+        mystic,
+        user_id,
+        result,
+        chat_id,
+        user_name,
+        original_chat_id,
+        video: Union[bool, str] = None,
+        streamtype: Union[bool, str] = None,
+        spotify: Union[bool, str] = None,
+        forceplay: Union[bool, str] = None,
 ):
     if not result:
         return

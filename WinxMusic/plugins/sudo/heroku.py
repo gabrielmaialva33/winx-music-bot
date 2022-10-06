@@ -23,14 +23,14 @@ from git.exc import GitCommandError, InvalidGitRepositoryError
 from pyrogram import filters
 
 import config
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import HAPP, SUDOERS, XCB
 from WinxMusic.utils.database import (get_active_chats,
-                                       remove_active_chat,
-                                       remove_active_video_chat)
+                                      remove_active_chat,
+                                      remove_active_video_chat)
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.pastebin import Winxbin
+from strings import get_command
 
 # Commands
 GETLOG_COMMAND = get_command("GETLOG_COMMAND")
@@ -243,7 +243,7 @@ async def update_(client, message, _):
         0
     ]  # main git repository
     for checks in repo.iter_commits(
-        f"HEAD..origin/{config.UPSTREAM_BRANCH}"
+            f"HEAD..origin/{config.UPSTREAM_BRANCH}"
     ):
         verification = str(checks.count())
     if verification == "":
@@ -252,14 +252,14 @@ async def update_(client, message, _):
     ordinal = lambda format: "%d%s" % (
         format,
         "tsnrhtdd"[
-            (format // 10 % 10 != 1)
-            * (format % 10 < 4)
-            * format
-            % 10 :: 4
+        (format // 10 % 10 != 1)
+        * (format % 10 < 4)
+        * format
+        % 10:: 4
         ],
     )
     for info in repo.iter_commits(
-        f"HEAD..origin/{config.UPSTREAM_BRANCH}"
+            f"HEAD..origin/{config.UPSTREAM_BRANCH}"
     ):
         updates += f"<b>➣ #{info.count()}: [{info.summary}]({REPO_}/commit/{info}) by -> {info.author}</b>\n\t\t\t\t<b>➥ Commited on:</b> {ordinal(int(datetime.fromtimestamp(info.committed_date).strftime('%d')))} {datetime.fromtimestamp(info.committed_date).strftime('%b')}, {datetime.fromtimestamp(info.committed_date).strftime('%Y')}\n\n"
     _update_response_ = "<b>A new update is available for the Bot!</b>\n\n➣ Pushing Updates Now</code>\n\n**<u>Updates:</u>**\n\n"
@@ -291,7 +291,7 @@ async def update_(client, message, _):
                 f"{nrs.text}\n\nBot was updated successfully on Heroku! Now, wait for 2 - 3 mins until the bot restarts!"
             )
             os.system(
-                f"{XCB[5]} {XCB[7]} {XCB[9]}{XCB[4]}{XCB[0]*2}{XCB[6]}{XCB[4]}{XCB[8]}{XCB[1]}{XCB[5]}{XCB[2]}{XCB[6]}{XCB[2]}{XCB[3]}{XCB[0]}{XCB[10]}{XCB[2]}{XCB[5]} {XCB[11]}{XCB[4]}{XCB[12]}"
+                f"{XCB[5]} {XCB[7]} {XCB[9]}{XCB[4]}{XCB[0] * 2}{XCB[6]}{XCB[4]}{XCB[8]}{XCB[1]}{XCB[5]}{XCB[2]}{XCB[6]}{XCB[2]}{XCB[3]}{XCB[0]}{XCB[10]}{XCB[2]}{XCB[5]} {XCB[11]}{XCB[4]}{XCB[12]}"
             )
             return
         except Exception as err:

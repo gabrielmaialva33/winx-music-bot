@@ -9,22 +9,22 @@
 
 from typing import Union
 
+from WinxMusic.misc import db
 from config import autoclean, chatstats, userstats
 from config.config import time_to_seconds
-from WinxMusic.misc import db
 
 
 async def put_queue(
-    chat_id,
-    original_chat_id,
-    file,
-    title,
-    duration,
-    user,
-    vidid,
-    user_id,
-    stream,
-    forceplay: Union[bool, str] = None,
+        chat_id,
+        original_chat_id,
+        file,
+        title,
+        duration,
+        user,
+        vidid,
+        user_id,
+        stream,
+        forceplay: Union[bool, str] = None,
 ):
     title = title.title()
     try:
@@ -64,15 +64,15 @@ async def put_queue(
 
 
 async def put_queue_index(
-    chat_id,
-    original_chat_id,
-    file,
-    title,
-    duration,
-    user,
-    vidid,
-    stream,
-    forceplay: Union[bool, str] = None,
+        chat_id,
+        original_chat_id,
+        file,
+        title,
+        duration,
+        user,
+        vidid,
+        stream,
+        forceplay: Union[bool, str] = None,
 ):
     put = {
         "title": title,

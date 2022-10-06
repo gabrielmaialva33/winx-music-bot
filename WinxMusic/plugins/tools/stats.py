@@ -19,24 +19,24 @@ from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 from pytgcalls.__version__ import __version__ as pytgver
 
 import config
-from config import BANNED_USERS, MUSIC_BOT_NAME
-from strings import get_command
 from WinxMusic import YouTube, app
 from WinxMusic.core.userbot import assistants
 from WinxMusic.misc import SUDOERS, pymongodb
 from WinxMusic.plugins import ALL_MODULES
 from WinxMusic.utils.database import (get_global_tops,
-                                       get_particulars, get_queries,
-                                       get_served_chats,
-                                       get_served_users, get_sudoers,
-                                       get_top_chats, get_topp_users)
+                                      get_particulars, get_queries,
+                                      get_served_chats,
+                                      get_served_users, get_sudoers,
+                                      get_top_chats, get_topp_users)
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.inline.stats import (back_stats_buttons,
-                                           back_stats_markup,
-                                           get_stats_markup,
-                                           overallback_stats_markup,
-                                           stats_buttons,
-                                           top_ten_stats_markup)
+                                          back_stats_markup,
+                                          get_stats_markup,
+                                          overallback_stats_markup,
+                                          stats_buttons,
+                                          top_ten_stats_markup)
+from config import BANNED_USERS, MUSIC_BOT_NAME
+from strings import get_command
 
 loop = asyncio.get_running_loop()
 
@@ -331,8 +331,8 @@ async def overall_stats(client, CallbackQuery, _):
     p_core = psutil.cpu_count(logical=False)
     t_core = psutil.cpu_count(logical=True)
     ram = (
-        str(round(psutil.virtual_memory().total / (1024.0**3)))
-        + " GB"
+            str(round(psutil.virtual_memory().total / (1024.0 ** 3)))
+            + " GB"
     )
     try:
         cpu_freq = psutil.cpu_freq().current
@@ -343,11 +343,11 @@ async def overall_stats(client, CallbackQuery, _):
     except:
         cpu_freq = "Unable to Fetch"
     hdd = psutil.disk_usage("/")
-    total = hdd.total / (1024.0**3)
+    total = hdd.total / (1024.0 ** 3)
     total = str(total)
-    used = hdd.used / (1024.0**3)
+    used = hdd.used / (1024.0 ** 3)
     used = str(used)
-    free = hdd.free / (1024.0**3)
+    free = hdd.free / (1024.0 ** 3)
     free = str(free)
     mod = len(ALL_MODULES)
     db = pymongodb

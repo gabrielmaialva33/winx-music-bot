@@ -16,10 +16,10 @@ from pyrogram import filters
 from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
-from config import BANNED_USERS, lyrical
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.utils.decorators.language import language
+from config import BANNED_USERS, lyrical
+from strings import get_command
 
 ###Commands
 LYRICS_COMMAND = get_command("LYRICS_COMMAND")

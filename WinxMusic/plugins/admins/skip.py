@@ -11,17 +11,17 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
 import config
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils.database import get_loop
 from WinxMusic.utils.decorators import AdminRightsCheck
 from WinxMusic.utils.inline.play import (stream_markup,
-                                          telegram_markup)
+                                         telegram_markup)
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import gen_thumb
+from config import BANNED_USERS
+from strings import get_command
 
 # Commands
 SKIP_COMMAND = get_command("SKIP_COMMAND")
@@ -58,8 +58,8 @@ async def skip(cli, message: Message, _, chat_id):
                                 )
                             if popped:
                                 if (
-                                    config.AUTO_DOWNLOADS_CLEAR
-                                    == str(True)
+                                        config.AUTO_DOWNLOADS_CLEAR
+                                        == str(True)
                                 ):
                                     await auto_clean(popped)
                             if not check:

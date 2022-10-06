@@ -12,16 +12,15 @@ import random
 from datetime import datetime, timedelta
 
 import config
-from config import clean
-from strings import get_string
 from WinxMusic import app
 from WinxMusic.utils.database import (get_lang,
-                                       get_private_served_chats,
-                                       get_served_chats,
-                                       is_suggestion)
+                                      get_private_served_chats,
+                                      get_served_chats,
+                                      is_suggestion)
+from config import clean
+from strings import get_string
 
 LEAVE_TIME = config.AUTO_SUGGESTION_TIME
-
 
 strings = []
 suggestor = {}
@@ -74,7 +73,7 @@ async def dont_do_this():
                         put = {
                             "msg_id": sent.message_id,
                             "timer_after": time_now
-                            + timedelta(
+                                           + timedelta(
                                 minutes=config.CLEANMODE_DELETE_MINS
                             ),
                         }

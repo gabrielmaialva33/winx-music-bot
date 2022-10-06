@@ -12,15 +12,15 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup
 
-from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import (get_global_tops,
-                                       get_particulars, get_userss)
+                                      get_particulars, get_userss)
 from WinxMusic.utils.decorators.language import languageCB
 from WinxMusic.utils.inline.playlist import (botplaylist_markup,
-                                              failed_top_markup,
-                                              top_play_markup)
+                                             failed_top_markup,
+                                             top_play_markup)
 from WinxMusic.utils.stream.stream import stream
+from config import BANNED_USERS
 
 loop = asyncio.get_running_loop()
 
