@@ -247,7 +247,7 @@ async def welcome(client, message: Message):
     if config.PRIVATE_BOT_MODE == str(True):
         if not await is_served_private_chat(message.chat.id):
             await message.reply_text(
-                "**Private Music Bot**\n\nOnly for authorized chats from the owner. Ask my owner to allow your chat first."
+                "**Private Music Bot**\n\nApenas para bate-papos autorizados do proprietário. Peça ao meu proprietário para permitir seu bate-papo primeiro."
             )
             return await app.leave_chat(message.chat.id)
     else:
