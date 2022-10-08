@@ -238,7 +238,7 @@ stream_4: "📡 **Transmissão iniciada** 💡\n\n**🏷Título:** [{0}]({1})\n�
 
 #General Buttons
 CLOSE_BUTTON: "🗑 Fechar"
-CLOSEMENU_BUTTON: "🗑 Fechar Menu"
+CLOSEMENU_BUTTON: "🗑 Fechar"
 BACK_BUTTON: "⬅ Voltar"
 UNBAN_BUTTON: "🗑 Assistente de desbanimento"
 
@@ -260,7 +260,7 @@ H_B_1: "Administradores"
 H_B_2: "Play"
 H_B_3: "Bot"
 H_B_4: "Extras"
-H_B_5: "Fechar menu"
+H_B_5: "Fechar"
 H_B_6: "SudoUser"
 
 #PlayMode
