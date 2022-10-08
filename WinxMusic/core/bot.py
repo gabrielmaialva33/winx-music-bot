@@ -43,15 +43,17 @@ class WinxBot(Client):
             sys.exit()
         try:
             await self.set_bot_commands([
-                BotCommand("ping", "Check that bot is alive or dead"),
-                BotCommand("play", "Starts playing the requested song"),
-                BotCommand("skip", "Moves to the next track in queue"),
-                BotCommand("pause", "Pause the current playing song"),
-                BotCommand("resume", "Resume the paused song"),
-                BotCommand("end", "Clear the queue and leave voice chat"),
-                BotCommand("shuffle", "Randomly shuffles the queued playlist."),
-                BotCommand("playmode", "Allows you to change the default playmode for your chat"),
-                BotCommand("settings", "Open the settings of the music bot for your chat.")])
+                BotCommand("ping", "Verifique se o bot está vivo"),
+                BotCommand("play", "Reproduzir música/vídeo"),
+                BotCommand("skip", "Pular música/vídeo"),
+                BotCommand("pause", "Pausar música/vídeo"),
+                BotCommand("resume", "Retomar música/vídeo"),
+                BotCommand("end", "Parar música/vídeo"),
+                BotCommand("shuffle", "Embaralhar fila"),
+                BotCommand("playmode", "Alterar modo de reprodução"),
+                BotCommand("settings", "Alterar configurações"),
+                BotCommand("queue", "Mostrar fila"),
+                BotCommand("help", "Mostrar ajuda")])
         except:
             pass
         a = await self.get_chat_member(config.LOG_GROUP_ID, self.id)
