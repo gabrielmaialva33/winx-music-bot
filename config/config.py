@@ -121,7 +121,6 @@ CLEANMODE_DELETE_MINS = int(
     getenv("CLEANMODE_MINS", "5")
 )  # Remember to give value in Seconds
 
-
 # Telegram audio  and video file size limit
 
 TG_AUDIO_FILESIZE_LIMIT = int(
@@ -136,14 +135,15 @@ TG_VIDEO_FILESIZE_LIMIT = int(
 
 
 # You'll need a Pyrogram String Session for these vars. Generate String from our session generator bot @WinxStringBot
-STRING1 = getenv("STRING_SESSION2", "AQAZBl2m1tfFo2FnNK5_6MKoBe5K3Es-x-rbkXdRyxhGrXhSjq4fs61yNylZ2nMNcLmP8BWqa2oFOkZ0iPaKR0zjKyeD8FYDcIAJgVh-H0EEp0Xy6yhLxjBWY1eZ29FMcm5X__JpbjondxxQIZ-9NY8QkV7ToUPNAYev708DrLgklVz8b2UrltN5fzxooKI0s8IeB5c9zay_2TvU0nOG6oywAsOVcofqNRWQh_kgscCDPLLpFBhwK8q-pomLlRjNvfGWFBukZHThNOE352jGJr4nsbi4TxgVJnup9RdiX9k7Wwa0ekjxtv1948W4o4jBPayugK-smfqqtWUJe3UwOyifAAAAATZPF5oA")
+STRING1 = getenv("STRING_SESSION2", None)
 STRING2 = getenv("STRING_SESSION",
                  "AQCLHV0tCk3Zv-xSdwlKdHPeVMl3MmLFNS73B1ZwSol9aJ6Z3_R2Xqly_72o_H0vMAXBjRNZYKqTdgNEo-V9rX0MEHjPqfgAr3YxMqHKrmv80dJLuZmcDKNX-AkqvLGQsvyROLiiyQapOL9eIMuusQTIylaaEF_Tet0O7C56lZxpPWhpnqTzmo3cdpdJyLgy9ViMTbimQzFQ10WNpahYzfNrmgyy6u8vbYighVnsL8Air0uaWUjweOKpbPfHkTI_ZNKrYCpmXbK3VH3dC52UL6vaSRRkP4fdsLvss0UjFPpWjeqZYZY65OMoO7oLqIi793UI6_vCoLpzmAa1GDBDvDInfqGaSAA")
-STRING3 = getenv("STRING_SESSION3", "AQCj7pMSsVHAr1t08ykcD54fQt6ESlEZeewly4kOCkGxsL1dJEaa09acZ0wRyxdiwh3HmxQ0FewTsxCUxPrCG9tWgeY8xsP5j7gcz_OWtt6iREmWEb1E9z_L1Tagi0a6csqhLEefVFc0vrenyGerD-xEwcMTIb9vEl9NrQKs91nrbHEHqQA3862HJGG-zINXuq6cbHCP-BdK95KNdLougv5bTgl4AHzCyCC3JINIv1pM6vHQ5THCwf3ilOlOJNBE702DmcOoDnNwWad9PwGFaBj4ywfqX92M1Nu91on40oOD9BrSNPtgxolXDnYCSOJ-Tm3QVSV81VFMb_2zeaHbGkBATe__ywA")
-STRING4 = getenv("STRING_SESSION4", "AQDFqwz9nBs2my0l2bm8jUNeaztXxY0sB58tYrBjyWhCEts33Rnqilb6NncWUjDAfkhVc8xydsi9dMToXj7dJ7ixfWn-I-EHNWtxmzyQZuVKcOCICS3MhyhITWTzX9Z2n8A1chgD5VX-ujwJZYWZ_WJge5G93aOLsuxW2B51qQ7RJtwgkmqoIPMV8Hx53FtSAahaNA4yToYQGeiRsEVWpOcNz76fHlXOJaaUs5am2NYEtmFscPzERh1Veu5KaIMZRBXIu2Vcwh7V4ndpCYqY0fkG9gYdRKWQ4BAlUuRjT9jfj7sKbOlXOiwsJ9BKlcN4uvzU6Tz1O7F05HzqS2oPMSOMAAAAAViJMXIA")
-STRING5 = getenv("STRING_SESSION5", "AQCXiRns-mVtD9et_2IrUPrJ9p1wQq8a4nD1xoQXt22toOVIn8WTeP2hjkI8sTMY6r_NX0ewzmWklh35FQzqMmwIyowsMvlbZEW5TNtdvuTmzrgnXw7RbSJ5xMnAcEch8ZBg3CD-sEIkStScnjF9yKGIK4sGcJ1bqK27SwfHQjRvuzJggE5sluCN6tSN9eATHiLr75mzyuBApjC2FNEFymHuCq44yGBoBWI4ua8p_jlOAfYdY2tob10cJUt_n6ngrYNvMK0MN5RORWuFv_kQljhkdRGX3Yhu-R2ugSpKUhewtAZY-16UpjWEvrlDWxI9ePF-AWsm4tiQrAvTSZR7rev5AAAAAVFqwCgA")
-
-
+STRING3 = getenv("STRING_SESSION3",
+                 "AQCj7pMSsVHAr1t08ykcD54fQt6ESlEZeewly4kOCkGxsL1dJEaa09acZ0wRyxdiwh3HmxQ0FewTsxCUxPrCG9tWgeY8xsP5j7gcz_OWtt6iREmWEb1E9z_L1Tagi0a6csqhLEefVFc0vrenyGerD-xEwcMTIb9vEl9NrQKs91nrbHEHqQA3862HJGG-zINXuq6cbHCP-BdK95KNdLougv5bTgl4AHzCyCC3JINIv1pM6vHQ5THCwf3ilOlOJNBE702DmcOoDnNwWad9PwGFaBj4ywfqX92M1Nu91on40oOD9BrSNPtgxolXDnYCSOJ-Tm3QVSV81VFMb_2zeaHbGkBATe__ywA")
+STRING4 = getenv("STRING_SESSION4",
+                 "AQDFqwz9nBs2my0l2bm8jUNeaztXxY0sB58tYrBjyWhCEts33Rnqilb6NncWUjDAfkhVc8xydsi9dMToXj7dJ7ixfWn-I-EHNWtxmzyQZuVKcOCICS3MhyhITWTzX9Z2n8A1chgD5VX-ujwJZYWZ_WJge5G93aOLsuxW2B51qQ7RJtwgkmqoIPMV8Hx53FtSAahaNA4yToYQGeiRsEVWpOcNz76fHlXOJaaUs5am2NYEtmFscPzERh1Veu5KaIMZRBXIu2Vcwh7V4ndpCYqY0fkG9gYdRKWQ4BAlUuRjT9jfj7sKbOlXOiwsJ9BKlcN4uvzU6Tz1O7F05HzqS2oPMSOMAAAAAViJMXIA")
+STRING5 = getenv("STRING_SESSION5",
+                 "AQCXiRns-mVtD9et_2IrUPrJ9p1wQq8a4nD1xoQXt22toOVIn8WTeP2hjkI8sTMY6r_NX0ewzmWklh35FQzqMmwIyowsMvlbZEW5TNtdvuTmzrgnXw7RbSJ5xMnAcEch8ZBg3CD-sEIkStScnjF9yKGIK4sGcJ1bqK27SwfHQjRvuzJggE5sluCN6tSN9eATHiLr75mzyuBApjC2FNEFymHuCq44yGBoBWI4ua8p_jlOAfYdY2tob10cJUt_n6ngrYNvMK0MN5RORWuFv_kQljhkdRGX3Yhu-R2ugSpKUhewtAZY-16UpjWEvrlDWxI9ePF-AWsm4tiQrAvTSZR7rev5AAAAAVFqwCgA")
 
 ### DONT TOUCH or EDIT codes after this line
 BANNED_USERS = filters.user()
@@ -158,9 +158,9 @@ clean = {}
 
 autoclean = []
 
-
 # Images
-START_IMG_URL = getenv("START_IMG_URL", "https://64.media.tumblr.com/79bb5c54237323c17c93af4c3c83671b/667b875d0810726a-86/s1280x1920/018a7062497c7599991eac83a4f41844484e90e7.gifv")
+START_IMG_URL = getenv("START_IMG_URL",
+                       "https://64.media.tumblr.com/79bb5c54237323c17c93af4c3c83671b/667b875d0810726a-86/s1280x1920/018a7062497c7599991eac83a4f41844484e90e7.gifv")
 
 PING_IMG_URL = getenv(
     "PING_IMG_URL",
@@ -226,7 +226,7 @@ SPOTIFY_PLAYLIST_IMG_URL = getenv(
 def time_to_seconds(time):
     stringt = str(time)
     return sum(
-        int(x) * 60**i
+        int(x) * 60 ** i
         for i, x in enumerate(reversed(stringt.split(":")))
     )
 
@@ -264,7 +264,6 @@ if GITHUB_REPO:
         )
         sys.exit()
 
-
 if PING_IMG_URL:
     if PING_IMG_URL != "assets/Ping.jpeg":
         if not re.match("(?:http|https)://", PING_IMG_URL):
@@ -289,7 +288,6 @@ if GLOBAL_IMG_URL:
             )
             sys.exit()
 
-
 if STATS_IMG_URL:
     if STATS_IMG_URL != "assets/Stats.jpeg":
         if not re.match("(?:http|https)://", STATS_IMG_URL):
@@ -297,7 +295,6 @@ if STATS_IMG_URL:
                 "[ERROR] - Your STATS_IMG_URL url is wrong. Please ensure that it starts with https://"
             )
             sys.exit()
-
 
 if TELEGRAM_AUDIO_URL:
     if TELEGRAM_AUDIO_URL != "assets/Audio.jpeg":
@@ -307,7 +304,6 @@ if TELEGRAM_AUDIO_URL:
             )
             sys.exit()
 
-
 if STREAM_IMG_URL:
     if STREAM_IMG_URL != "assets/Stream.jpeg":
         if not re.match("(?:http|https)://", STREAM_IMG_URL):
@@ -315,7 +311,6 @@ if STREAM_IMG_URL:
                 "[ERROR] - Your STREAM_IMG_URL url is wrong. Please ensure that it starts with https://"
             )
             sys.exit()
-
 
 if SOUNCLOUD_IMG_URL:
     if SOUNCLOUD_IMG_URL != "assets/Soundcloud.jpeg":
@@ -333,7 +328,6 @@ if YOUTUBE_IMG_URL:
             )
             sys.exit()
 
-
 if TELEGRAM_VIDEO_URL:
     if TELEGRAM_VIDEO_URL != "assets/Video.jpeg":
         if not re.match("(?:http|https)://", TELEGRAM_VIDEO_URL):
@@ -341,7 +335,6 @@ if TELEGRAM_VIDEO_URL:
                 "[ERROR] - Your TELEGRAM_VIDEO_URL url is wrong. Please ensure that it starts with https://"
             )
             sys.exit()
-
 
 if not MUSIC_BOT_NAME.isascii():
     print(
