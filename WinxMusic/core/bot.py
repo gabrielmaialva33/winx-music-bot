@@ -41,20 +41,23 @@ class WinxBot(Client):
                 "e promovido como administrador! "
             )
             sys.exit()
-        try:
-            await self.set_bot_commands([
-                BotCommand("ping", "Verifique se o bot está vivo"),
-                BotCommand("play", "Reproduzir música/vídeo"),
-                BotCommand("skip", "Pular música/vídeo"),
-                BotCommand("pause", "Pausar música/vídeo"),
-                BotCommand("resume", "Retomar música/vídeo"),
-                BotCommand("end", "Parar música/vídeo"),
-                BotCommand("shuffle", "Embaralhar fila"),
-                BotCommand("playmode", "Alterar modo de reprodução"),
-                BotCommand("settings", "Alterar configurações"),
-                BotCommand("queue", "Mostrar fila"),
-                BotCommand("help", "Mostrar ajuda")])
-        except:
+        if config.SET_CMDS == str(True):
+            try:
+                await self.set_bot_commands([
+                    BotCommand("ping", "Verifique se o bot está vivo"),
+                    BotCommand("play", "Reproduzir música/vídeo"),
+                    BotCommand("skip", "Pular música/vídeo"),
+                    BotCommand("pause", "Pausar música/vídeo"),
+                    BotCommand("resume", "Retomar música/vídeo"),
+                    BotCommand("end", "Parar música/vídeo"),
+                    BotCommand("shuffle", "Embaralhar fila"),
+                    BotCommand("playmode", "Alterar modo de reprodução"),
+                    BotCommand("settings", "Alterar configurações"),
+                    BotCommand("queue", "Mostrar fila"),
+                    BotCommand("help", "Mostrar ajuda")])
+            except:
+                pass
+        else:
             pass
         a = await self.get_chat_member(config.LOG_GROUP_ID, self.id)
         if a.status != "administrator":

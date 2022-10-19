@@ -17,15 +17,14 @@ from pyrogram import filters
 load_dotenv()
 
 # Get it from my.telegram.org
-API_ID = int(getenv("API_ID", "16533947"))
-API_HASH = getenv("API_HASH", "ff4f2c98db47e59046552b301722a0f2")
+API_ID = int(getenv("API_ID", None))
+API_HASH = getenv("API_HASH", None)
 
 ## Get it from @Botfather in Telegram.
-BOT_TOKEN = getenv("BOT_TOKEN", "2133083118:AAH1V7K-ENJ2j7O4mfkQs2iKFvwEthm-e9c")
+BOT_TOKEN = getenv("BOT_TOKEN", None)
 
 # Database to save your chats and stats... Get MongoDB:-  https://telegra.ph/How-To-get-Mongodb-URI-04-06
-MONGO_DB_URI = getenv("MONGO_DB_URI",
-                      "mongodb+srv://mrootx:kdWeKCAALvoNoRh8@cluster0.0tunx.mongodb.net/winx?retryWrites=true&w=majority")
+MONGO_DB_URI = getenv("MONGO_DB_URI", None)
 
 # Custom max audio(music) duration for voice chat. set DURATION_LIMIT in variables with your own time(mins), Default to 60 mins.
 DURATION_LIMIT_MIN = int(
@@ -104,8 +103,8 @@ TELEGRAM_DOWNLOAD_EDIT_SLEEP = int(getenv("TELEGRAM_EDIT_SLEEP", "5"))
 GITHUB_REPO = getenv("GITHUB_REPO", None)
 
 # Spotify Client.. Get it from https://developer.spotify.com/dashboard
-SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "64d70e908bbe4818a618d021cb38b554")
-SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "ae804c4a3fb84812837558558ea64051")
+SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", None)
+SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", None)
 
 # Maximum number of video calls allowed on bot. You can later set it via /set_video_limit on telegram
 VIDEO_STREAM_LIMIT = int(getenv("VIDEO_STREAM_LIMIT", "100"))
@@ -133,17 +132,15 @@ TG_VIDEO_FILESIZE_LIMIT = int(
 
 # Chceckout https://www.gbmb.org/mb-to-bytes  for converting mb to bytes
 
+# If you want your bot to setup the commands automatically in the bot's menu set it to true.
+SET_CMDS = getenv("SET_CMDS", False)
 
 # You'll need a Pyrogram String Session for these vars. Generate String from our session generator bot @WinxStringBot
 STRING1 = getenv("STRING_SESSION2", None)
-STRING2 = getenv("STRING_SESSION",
-                 "AQCLHV0tCk3Zv-xSdwlKdHPeVMl3MmLFNS73B1ZwSol9aJ6Z3_R2Xqly_72o_H0vMAXBjRNZYKqTdgNEo-V9rX0MEHjPqfgAr3YxMqHKrmv80dJLuZmcDKNX-AkqvLGQsvyROLiiyQapOL9eIMuusQTIylaaEF_Tet0O7C56lZxpPWhpnqTzmo3cdpdJyLgy9ViMTbimQzFQ10WNpahYzfNrmgyy6u8vbYighVnsL8Air0uaWUjweOKpbPfHkTI_ZNKrYCpmXbK3VH3dC52UL6vaSRRkP4fdsLvss0UjFPpWjeqZYZY65OMoO7oLqIi793UI6_vCoLpzmAa1GDBDvDInfqGaSAA")
-STRING3 = getenv("STRING_SESSION3",
-                 "AQCj7pMSsVHAr1t08ykcD54fQt6ESlEZeewly4kOCkGxsL1dJEaa09acZ0wRyxdiwh3HmxQ0FewTsxCUxPrCG9tWgeY8xsP5j7gcz_OWtt6iREmWEb1E9z_L1Tagi0a6csqhLEefVFc0vrenyGerD-xEwcMTIb9vEl9NrQKs91nrbHEHqQA3862HJGG-zINXuq6cbHCP-BdK95KNdLougv5bTgl4AHzCyCC3JINIv1pM6vHQ5THCwf3ilOlOJNBE702DmcOoDnNwWad9PwGFaBj4ywfqX92M1Nu91on40oOD9BrSNPtgxolXDnYCSOJ-Tm3QVSV81VFMb_2zeaHbGkBATe__ywA")
-STRING4 = getenv("STRING_SESSION4",
-                 "AQDFqwz9nBs2my0l2bm8jUNeaztXxY0sB58tYrBjyWhCEts33Rnqilb6NncWUjDAfkhVc8xydsi9dMToXj7dJ7ixfWn-I-EHNWtxmzyQZuVKcOCICS3MhyhITWTzX9Z2n8A1chgD5VX-ujwJZYWZ_WJge5G93aOLsuxW2B51qQ7RJtwgkmqoIPMV8Hx53FtSAahaNA4yToYQGeiRsEVWpOcNz76fHlXOJaaUs5am2NYEtmFscPzERh1Veu5KaIMZRBXIu2Vcwh7V4ndpCYqY0fkG9gYdRKWQ4BAlUuRjT9jfj7sKbOlXOiwsJ9BKlcN4uvzU6Tz1O7F05HzqS2oPMSOMAAAAAViJMXIA")
-STRING5 = getenv("STRING_SESSION5",
-                 "AQCXiRns-mVtD9et_2IrUPrJ9p1wQq8a4nD1xoQXt22toOVIn8WTeP2hjkI8sTMY6r_NX0ewzmWklh35FQzqMmwIyowsMvlbZEW5TNtdvuTmzrgnXw7RbSJ5xMnAcEch8ZBg3CD-sEIkStScnjF9yKGIK4sGcJ1bqK27SwfHQjRvuzJggE5sluCN6tSN9eATHiLr75mzyuBApjC2FNEFymHuCq44yGBoBWI4ua8p_jlOAfYdY2tob10cJUt_n6ngrYNvMK0MN5RORWuFv_kQljhkdRGX3Yhu-R2ugSpKUhewtAZY-16UpjWEvrlDWxI9ePF-AWsm4tiQrAvTSZR7rev5AAAAAVFqwCgA")
+STRING2 = getenv("STRING_SESSION", None)
+STRING3 = getenv("STRING_SESSION3", None)
+STRING4 = getenv("STRING_SESSION4", None)
+STRING5 = getenv("STRING_SESSION5", None)
 
 ### DONT TOUCH or EDIT codes after this line
 BANNED_USERS = filters.user()
