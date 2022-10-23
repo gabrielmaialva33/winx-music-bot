@@ -21,7 +21,7 @@ from WinxMusic.plugins import ALL_MODULES
 from WinxMusic.utils.database import get_banned_users, get_gbanned
 from config import BANNED_USERS
 
-loop = asyncio.get_event_loop()
+loop = asyncio.get_event_loop_policy().get_event_loop()
 
 
 async def init():

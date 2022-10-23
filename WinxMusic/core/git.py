@@ -11,11 +11,14 @@ import asyncio
 import shlex
 from typing import Tuple
 
+from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
 
 import config
-from git import Repo
+
 from ..logging import LOGGER
+
+loop = asyncio.get_event_loop_policy().get_event_loop()
 
 
 def install_req(cmd: str) -> Tuple[str, str, int, int]:
@@ -34,9 +37,9 @@ def install_req(cmd: str) -> Tuple[str, str, int, int]:
             process.pid,
         )
 
-    return asyncio.get_event_loop().run_until_complete(
-        install_requirements()
-    )
+    return loop.run_until_complete(
+         install_requirements()
+     )
 
 
 def git():

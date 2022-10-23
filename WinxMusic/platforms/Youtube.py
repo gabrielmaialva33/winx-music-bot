@@ -6,6 +6,7 @@
 # Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
 #
 # All rights reserved.
+from youtubesearchpython.__future__ import VideosSearch
 
 import asyncio
 import os
@@ -13,8 +14,8 @@ import re
 from typing import Union
 
 import yt_dlp
+from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
-from youtubesearchpython.__future__ import VideosSearch
 
 import config
 from WinxMusic.utils.database import is_on_off
@@ -71,13 +72,13 @@ class YouTubeAPI:
                 break
             if message.entities:
                 for entity in message.entities:
-                    if entity.type == "url":
+                    if entity.type == MessageEntityType.URL:
                         text = message.text or message.caption
                         offset, length = entity.offset, entity.length
                         break
             elif message.caption_entities:
                 for entity in message.caption_entities:
-                    if entity.type == "text_link":
+                    if entity.type == MessageEntityType.TEXT_LINK:
                         return entity.url
         if offset in (None,):
             return None

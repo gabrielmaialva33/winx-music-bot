@@ -9,7 +9,7 @@
 
 from WinxMusic import app
 from WinxMusic.utils.database import is_on_off
-from config import LOG, LOG_GROUP_ID
+from config import LOG, LOG_GROUP_ID, MUSIC_BOT_NAME
 
 
 async def play_logs(message, streamtype):
@@ -19,7 +19,7 @@ async def play_logs(message, streamtype):
         else:
             chatusername = "Private Group"
         logger_text = f"""
-**Winx PLAY LOG**
+**{MUSIC_BOT_NAME}**
 
 **Chat:** {message.chat.title} [`{message.chat.id}`]
 **User:** {message.from_user.mention}
