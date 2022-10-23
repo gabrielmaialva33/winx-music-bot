@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -18,13 +18,13 @@ from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup, InputMediaAudio,
                             InputMediaVideo, Message)
 
+from config import (BANNED_USERS, SONG_DOWNLOAD_DURATION,
+                    SONG_DOWNLOAD_DURATION_LIMIT)
+from strings import get_command
 from WinxMusic import YouTube, app
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.formatters import convert_bytes
 from WinxMusic.utils.inline.song import song_markup
-from config import (BANNED_USERS, SONG_DOWNLOAD_DURATION,
-                    SONG_DOWNLOAD_DURATION_LIMIT)
-from strings import get_command
 
 # Command
 SONG_COMMAND = get_command("SONG_COMMAND")
@@ -33,7 +33,6 @@ SONG_COMMAND = get_command("SONG_COMMAND")
 @app.on_message(
     filters.command(SONG_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @language
@@ -57,7 +56,6 @@ async def song_commad_group(client, message: Message, _):
 @app.on_message(
     filters.command(SONG_COMMAND)
     & filters.private
-
     & ~BANNED_USERS
 )
 @language
@@ -194,7 +192,7 @@ async def song_helper_cb(client, CallbackQuery, _):
             print(e)
             return await CallbackQuery.edit_message_text(_["song_7"])
         keyboard = InlineKeyboard()
-        # AVC Formats Only [ WinxMusic BOT ]
+        # AVC Formats Only [ Winx MUSIC BOT ]
         done = [160, 133, 134, 135, 136, 137, 298, 299, 264, 304, 266]
         for x in formats_available:
             check = x["format"]

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -15,18 +15,18 @@ from pyrogram import filters
 from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
-from WinxMusic import Carbon, YouTube, app
-from WinxMusic.utils.database import (delete_playlist, get_playlist,
-                                      get_playlist_names,
-                                      save_playlist)
-from WinxMusic.utils.decorators.language import language, languageCB
-from WinxMusic.utils.inline.playlist import (botplaylist_markup,
-                                             get_playlist_markup,
-                                             warning_markup)
-from WinxMusic.utils.pastebin import Winxbin
-from WinxMusic.utils.stream.stream import stream
 from config import BANNED_USERS, SERVER_PLAYLIST_LIMIT
 from strings import get_command
+from WinxMusic import Carbon, YouTube, app
+from WinxMusic.utils.database import (delete_playlist, get_playlist,
+                                       get_playlist_names,
+                                       save_playlist)
+from WinxMusic.utils.decorators.language import language, languageCB
+from WinxMusic.utils.inline.playlist import (botplaylist_markup,
+                                              get_playlist_markup,
+                                              warning_markup)
+from WinxMusic.utils.pastebin import Winxbin
+from WinxMusic.utils.stream.stream import stream
 
 # Command
 PLAYLIST_COMMAND = get_command("PLAYLIST_COMMAND")
@@ -35,7 +35,6 @@ DELETEPLAYLIST_COMMAND = get_command("DELETEPLAYLIST_COMMAND")
 
 @app.on_message(
     filters.command(PLAYLIST_COMMAND)
-
     & ~BANNED_USERS
 )
 @language
@@ -71,7 +70,6 @@ async def check_playlist(client, message: Message, _):
 @app.on_message(
     filters.command(DELETEPLAYLIST_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @language
@@ -118,7 +116,6 @@ async def get_keyboard(_, user_id):
 @app.on_message(
     filters.command(DELETEPLAYLIST_COMMAND)
     & filters.private
-
     & ~BANNED_USERS
 )
 @language

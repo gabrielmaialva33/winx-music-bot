@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -91,7 +91,7 @@ async def executor(client, message):
                 [
                     InlineKeyboardButton(
                         text="⏳",
-                        callback_data=f"runtime {t2 - t1} Seconds",
+                        callback_data=f"runtime {t2-t1} Seconds",
                     )
                 ]
             ]
@@ -111,7 +111,7 @@ async def executor(client, message):
                 [
                     InlineKeyboardButton(
                         text="⏳",
-                        callback_data=f"runtime {round(t2 - t1, 3)} Seconds",
+                        callback_data=f"runtime {round(t2-t1, 3)} Seconds",
                     ),
                     InlineKeyboardButton(
                         text="🗑",

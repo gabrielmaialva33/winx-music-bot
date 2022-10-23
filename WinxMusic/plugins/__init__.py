@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -20,8 +20,8 @@ def __list_all_modules():
         (((f.replace(work_dir, "")).replace("/", "."))[:-3])
         for f in mod_paths
         if isfile(f)
-           and f.endswith(".py")
-           and not f.endswith("__init__.py")
+        and f.endswith(".py")
+        and not f.endswith("__init__.py")
     ]
 
     return all_modules

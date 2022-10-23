@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -10,15 +10,16 @@
 from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+from config import adminlist
+from strings import get_string
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (get_authuser_names, get_cmode,
-                                      get_lang, is_active_chat,
-                                      is_commanddelete_on,
-                                      is_maintenance,
-                                      is_nonadmin_chat)
-from config import adminlist
-from strings import get_string
+                                       get_lang, is_active_chat,
+                                       is_commanddelete_on,
+                                       is_maintenance,
+                                       is_nonadmin_chat)
+
 from ..formatters import int_to_alpha
 
 

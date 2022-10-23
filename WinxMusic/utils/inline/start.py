@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -11,8 +11,8 @@ from typing import Union
 
 from pyrogram.types import InlineKeyboardButton
 
-from WinxMusic import app
 from config import GITHUB_REPO, SUPPORT_CHANNEL, SUPPORT_GROUP
+from WinxMusic import app
 
 
 def start_pannel(_):

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -48,10 +48,10 @@ def setting_markup(_):
 
 
 def audio_quality_markup(
-        _,
-        low: Union[bool, str] = None,
-        medium: Union[bool, str] = None,
-        high: Union[bool, str] = None,
+    _,
+    low: Union[bool, str] = None,
+    medium: Union[bool, str] = None,
+    high: Union[bool, str] = None,
 ):
     buttons = [
         [
@@ -92,10 +92,10 @@ def audio_quality_markup(
 
 
 def video_quality_markup(
-        _,
-        low: Union[bool, str] = None,
-        medium: Union[bool, str] = None,
-        high: Union[bool, str] = None,
+    _,
+    low: Union[bool, str] = None,
+    medium: Union[bool, str] = None,
+    high: Union[bool, str] = None,
 ):
     buttons = [
         [
@@ -136,10 +136,10 @@ def video_quality_markup(
 
 
 def cleanmode_settings_markup(
-        _,
-        status: Union[bool, str] = None,
-        dels: Union[bool, str] = None,
-        sug: Union[bool, str] = None,
+    _,
+    status: Union[bool, str] = None,
+    dels: Union[bool, str] = None,
+    sug: Union[bool, str] = None,
 ):
     buttons = [
         [
@@ -212,10 +212,10 @@ def auth_users_markup(_, status: Union[bool, str] = None):
 
 
 def playmode_users_markup(
-        _,
-        Direct: Union[bool, str] = None,
-        Group: Union[bool, str] = None,
-        Playtype: Union[bool, str] = None,
+    _,
+    Direct: Union[bool, str] = None,
+    Group: Union[bool, str] = None,
+    Playtype: Union[bool, str] = None,
 ):
     buttons = [
         [

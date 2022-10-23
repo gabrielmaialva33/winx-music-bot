@@ -1,5 +1,5 @@
 #!/bin/bash
-### WinxMusic Bot Installer
+### Winx Music Bot Installer
 
 pprint (){
 	cred='\033[0;31m'
@@ -76,7 +76,7 @@ node(){
 repo(){
 	# Get git repo if the installer is runned standalone
 	[[ ! "WinxMusicBot" == $(basename -s .git `git config --get remote.origin.url`) ]] &&
-	git clone https://github.com/notreallyshikhar/WinxMusicBot &&  cd WinxMusicBot
+	git clone https://github.com/gabrielmaialva33/winx-music-bot &&  cd WinxMusicBot
 }
 
 
@@ -90,7 +90,7 @@ installation(){
 }
 
 clear
-pprint "Welcome to WinxMusic Bot Setup Installer\n\n"
+pprint "Welcome to Winx Music Bot Setup Installer\n\n"
 pprint "If you see any error during Installation Process, Please refer to these files for logs: "
 pprint "\nFor node js errors , Checkout nodelog.txt"
 pprint "\nFor pypi packages errors , Checkout pypilog.txt"
@@ -103,7 +103,7 @@ packages
 node
 repo
 installation
-pprint "\n\n\n\n\nWinxMusic Bot Installation Completed!" "cgreen"
+pprint "\n\n\n\n\nWinx Music Bot Installation Completed!" "cgreen"
 sleep 4
 clear
 

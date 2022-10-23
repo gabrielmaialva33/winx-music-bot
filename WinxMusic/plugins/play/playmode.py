@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -10,13 +10,13 @@
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
-from WinxMusic import app
-from WinxMusic.utils.database import (get_playmode, get_playtype,
-                                      is_nonadmin_chat)
-from WinxMusic.utils.decorators import language
-from WinxMusic.utils.inline.settings import playmode_users_markup
 from config import BANNED_USERS
 from strings import get_command
+from WinxMusic import app
+from WinxMusic.utils.database import (get_playmode, get_playtype,
+                                       is_nonadmin_chat)
+from WinxMusic.utils.decorators import language
+from WinxMusic.utils.inline.settings import playmode_users_markup
 
 ### Commands
 PLAYMODE_COMMAND = get_command("PLAYMODE_COMMAND")
@@ -25,7 +25,6 @@ PLAYMODE_COMMAND = get_command("PLAYMODE_COMMAND")
 @app.on_message(
     filters.command(PLAYMODE_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @language

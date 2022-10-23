@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -16,20 +16,20 @@ from pyrogram.errors import FloodWait
 from pyrogram.raw import types
 
 import config
-from WinxMusic import app
-from WinxMusic.misc import SUDOERS
-from WinxMusic.utils.database import (get_active_chats,
-                                      get_authuser_names, get_client,
-                                      get_particular_top,
-                                      get_served_chats,
-                                      get_served_users, get_user_top,
-                                      is_cleanmode_on, set_queries,
-                                      update_particular_top,
-                                      update_user_top)
-from WinxMusic.utils.decorators.language import language
-from WinxMusic.utils.formatters import alpha_to_int
 from config import adminlist, chatstats, clean, userstats
 from strings import get_command
+from WinxMusic import app, userbot
+from WinxMusic.misc import SUDOERS
+from WinxMusic.utils.database import (get_active_chats,
+                                       get_authuser_names, get_client,
+                                       get_particular_top,
+                                       get_served_chats,
+                                       get_served_users, get_user_top,
+                                       is_cleanmode_on, set_queries,
+                                       update_particular_top,
+                                       update_user_top)
+from WinxMusic.utils.decorators.language import language
+from WinxMusic.utils.formatters import alpha_to_int
 
 BROADCAST_COMMAND = get_command("BROADCAST_COMMAND")
 AUTO_DELETE = config.CLEANMODE_DELETE_MINS
@@ -251,7 +251,7 @@ async def auto_clean():
                                 chat_id, x["msg_id"]
                             )
                         except FloodWait as e:
-                            await asyncio.sleep(e.x)
+                            await asyncio.sleep(e.value)
                         except:
                             continue
                     else:
@@ -263,10 +263,10 @@ async def auto_clean():
             for chat_id in served_chats:
                 if chat_id not in adminlist:
                     adminlist[chat_id] = []
-                    admins = await app.get_chat_members(
+                    admins = app.get_chat_members(
                         chat_id, filter=ChatMembersFilter.ADMINISTRATORS
                     )
-                    for user in admins:
+                    async for user in admins:
                         if user.privileges.can_manage_video_chats:
                             adminlist[chat_id].append(user.user.id)
                     authusers = await get_authuser_names(chat_id)

@@ -3,26 +3,26 @@ import random
 from pyrogram import filters
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup
 
+from config import (AUTO_DOWNLOADS_CLEAR, BANNED_USERS,
+                    SOUNCLOUD_IMG_URL, STREAM_IMG_URL,
+                    TELEGRAM_AUDIO_URL, TELEGRAM_VIDEO_URL, adminlist)
 from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import SUDOERS, db
 from WinxMusic.utils.database import (is_active_chat,
-                                      is_music_playing, is_muted,
-                                      is_nonadmin_chat, music_off,
-                                      music_on, mute_off, mute_on,
-                                      set_loop)
+                                       is_music_playing, is_muted,
+                                       is_nonadmin_chat, music_off,
+                                       music_on, mute_off, mute_on,
+                                       set_loop)
 from WinxMusic.utils.decorators.language import languageCB
 from WinxMusic.utils.formatters import seconds_to_min
 from WinxMusic.utils.inline.play import (panel_markup_1,
-                                         panel_markup_2,
-                                         panel_markup_3,
-                                         stream_markup,
-                                         telegram_markup)
+                                          panel_markup_2,
+                                          panel_markup_3,
+                                          stream_markup,
+                                          telegram_markup)
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import gen_thumb
-from config import (AUTO_DOWNLOADS_CLEAR, BANNED_USERS,
-                    SOUNCLOUD_IMG_URL, STREAM_IMG_URL,
-                    TELEGRAM_AUDIO_URL, TELEGRAM_VIDEO_URL, adminlist)
 
 wrong = {}
 
@@ -407,8 +407,8 @@ async def del_back_playlist(client, CallbackQuery, _):
             to_seek = duration_played - duration_to_skip + 1
         else:
             if (
-                    duration_seconds
-                    - (duration_played + duration_to_skip)
+                duration_seconds
+                - (duration_played + duration_to_skip)
             ) <= 10:
                 bet = seconds_to_min(duration_played)
                 return await CallbackQuery.answer(

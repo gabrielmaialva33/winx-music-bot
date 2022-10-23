@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -9,17 +9,17 @@
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+from config import PLAYLIST_IMG_URL, PRIVATE_BOT_MODE, adminlist
+from strings import get_string
 from WinxMusic import YouTube, app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (get_cmode, get_lang,
-                                      get_playmode, get_playtype,
-                                      is_active_chat,
-                                      is_commanddelete_on,
-                                      is_served_private_chat)
+                                       get_playmode, get_playtype,
+                                       is_active_chat,
+                                       is_commanddelete_on,
+                                       is_served_private_chat)
 from WinxMusic.utils.database.memorydatabase import is_maintenance
 from WinxMusic.utils.inline.playlist import botplaylist_markup
-from config import PLAYLIST_IMG_URL, PRIVATE_BOT_MODE, adminlist
-from strings import get_string
 
 
 def PlayWrapper(command):
@@ -32,7 +32,7 @@ def PlayWrapper(command):
         if PRIVATE_BOT_MODE == str(True):
             if not await is_served_private_chat(message.chat.id):
                 await message.reply_text(
-                    "**Private Music Bot**\n\nApenas para bate-papos autorizados do proprietário. Peça ao meu proprietário para permitir seu bate-papo primeiro."
+                    "**Private Music Bot**\n\nOnly for authorized chats from the owner. Ask my owner to allow your chat first."
                 )
                 return await app.leave_chat(message.chat.id)
         if await is_commanddelete_on(message.chat.id):
@@ -44,25 +44,25 @@ def PlayWrapper(command):
         _ = get_string(language)
         audio_telegram = (
             (
-                    message.reply_to_message.audio
-                    or message.reply_to_message.voice
+                message.reply_to_message.audio
+                or message.reply_to_message.voice
             )
             if message.reply_to_message
             else None
         )
         video_telegram = (
             (
-                    message.reply_to_message.video
-                    or message.reply_to_message.document
+                message.reply_to_message.video
+                or message.reply_to_message.document
             )
             if message.reply_to_message
             else None
         )
         url = await YouTube.url(message)
         if (
-                audio_telegram is None
-                and video_telegram is None
-                and url is None
+            audio_telegram is None
+            and video_telegram is None
+            and url is None
         ):
             if len(message.command) < 2:
                 if "stream" in message.command:

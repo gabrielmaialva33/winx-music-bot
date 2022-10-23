@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -9,11 +9,11 @@
 
 from pyrogram import filters
 
+from config import BANNED_USERS
 from WinxMusic import YouTube, app
 from WinxMusic.utils.channelplay import get_channeplayCB
 from WinxMusic.utils.decorators.language import languageCB
 from WinxMusic.utils.stream.stream import stream
-from config import BANNED_USERS
 
 
 @app.on_callback_query(filters.regex("LiveStream") & ~BANNED_USERS)

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -10,12 +10,12 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
+from config import BANNED_USERS
+from strings import get_command
 from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils import AdminRightsCheck, seconds_to_min
-from config import BANNED_USERS
-from strings import get_command
 
 # Commands
 SEEK_COMMAND = get_command("SEEK_COMMAND")
@@ -24,7 +24,6 @@ SEEK_COMMAND = get_command("SEEK_COMMAND")
 @app.on_message(
     filters.command(SEEK_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @AdminRightsCheck
@@ -56,7 +55,7 @@ async def seek_comm(cli, message: Message, _, chat_id):
         to_seek = duration_played - duration_to_skip + 1
     else:
         if (
-                duration_seconds - (duration_played + duration_to_skip)
+            duration_seconds - (duration_played + duration_to_skip)
         ) <= 10:
             return await message.reply_text(
                 _["admin_31"].format(

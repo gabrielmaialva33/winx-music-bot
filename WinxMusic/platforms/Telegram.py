@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -33,7 +33,7 @@ class TeleAPI:
 
     async def send_split_text(self, message, string):
         n = self.chars_limit
-        out = [(string[i: i + n]) for i in range(0, len(string), n)]
+        out = [(string[i : i + n]) for i in range(0, len(string), n)]
         j = 0
         for x in out:
             if j <= 2:
@@ -50,7 +50,7 @@ class TeleAPI:
         return link
 
     async def get_filename(
-            self, file, audio: Union[bool, str] = None
+        self, file, audio: Union[bool, str] = None
     ):
         try:
             file_name = file.file_name
@@ -77,20 +77,20 @@ class TeleAPI:
         return dur
 
     async def get_filepath(
-            self,
-            audio: Union[bool, str] = None,
-            video: Union[bool, str] = None,
+        self,
+        audio: Union[bool, str] = None,
+        video: Union[bool, str] = None,
     ):
         if audio:
             try:
                 file_name = (
-                        audio.file_unique_id
-                        + "."
-                        + (
-                            (audio.file_name.split(".")[-1])
-                            if (not isinstance(audio, Voice))
-                            else "ogg"
-                        )
+                    audio.file_unique_id
+                    + "."
+                    + (
+                        (audio.file_name.split(".")[-1])
+                        if (not isinstance(audio, Voice))
+                        else "ogg"
+                    )
                 )
             except:
                 file_name = audio.file_unique_id + "." + ".ogg"
@@ -100,9 +100,9 @@ class TeleAPI:
         if video:
             try:
                 file_name = (
-                        video.file_unique_id
-                        + "."
-                        + (video.file_name.split(".")[-1])
+                    video.file_unique_id
+                    + "."
+                    + (video.file_name.split(".")[-1])
                 )
             except:
                 file_name = video.file_unique_id + "." + "mp4"

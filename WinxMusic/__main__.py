@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -15,30 +15,30 @@ from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
+from config import BANNED_USERS
 from WinxMusic import LOGGER, app, userbot
 from WinxMusic.core.call import Winx
 from WinxMusic.plugins import ALL_MODULES
 from WinxMusic.utils.database import get_banned_users, get_gbanned
-from config import BANNED_USERS
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
 
 
 async def init():
     if (
-            not config.STRING1
-            and not config.STRING2
-            and not config.STRING3
-            and not config.STRING4
-            and not config.STRING5
+        not config.STRING1
+        and not config.STRING2
+        and not config.STRING3
+        and not config.STRING4
+        and not config.STRING5
     ):
         LOGGER("WinxMusic").error(
             "No Assistant Clients Vars Defined!.. Exiting Process."
         )
         return
     if (
-            not config.SPOTIFY_CLIENT_ID
-            and not config.SPOTIFY_CLIENT_SECRET
+        not config.SPOTIFY_CLIENT_ID
+        and not config.SPOTIFY_CLIENT_SECRET
     ):
         LOGGER("WinxMusic").warning(
             "No Spotify Vars defined. Your bot won't be able to play spotify queries."
@@ -72,10 +72,10 @@ async def init():
     except:
         pass
     await Winx.decorators()
-    LOGGER("WinxMusic").info("WinxMusic Bot Started Successfully")
+    LOGGER("WinxMusic").info("Winx Music Bot Started Successfully")
     await idle()
 
 
 if __name__ == "__main__":
     loop.run_until_complete(init())
-    LOGGER("WinxMusic").info("Stopping WinxMusic Bot! GoodBye")
+    LOGGER("WinxMusic").info("Stopping Winx Music Bot! GoodBye")

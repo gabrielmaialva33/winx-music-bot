@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -12,6 +12,7 @@ import sys
 from pyrogram import Client
 
 import config
+
 from ..logging import LOGGER
 
 assistants = []
@@ -21,35 +22,35 @@ assistantids = []
 class Userbot(Client):
     def __init__(self):
         self.one = Client(
-            "Winx1",
+            "Winxstring1",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING1),
             no_updates=True,
         )
         self.two = Client(
-            "Winx2",
+            "Winxstring2",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING2),
             no_updates=True,
         )
         self.three = Client(
-            "Winx3",
+            "Winxstring3",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
             no_updates=True,
         )
         self.four = Client(
-            "Winx4",
+            "Winxstring4",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
             no_updates=True,
         )
         self.five = Client(
-            "Winx5",
+            "Winxstring5",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING5),
@@ -61,7 +62,9 @@ class Userbot(Client):
         if config.STRING1:
             await self.one.start()
             try:
-                await self.one.join_chat("https://t.me/polclubdaswinx")
+                await self.one.join_chat("TeamWinx")
+                await self.one.join_chat("TheWinx")
+                await self.one.join_chat("WinxSupport")
             except:
                 pass
             assistants.append(1)
@@ -80,7 +83,7 @@ class Userbot(Client):
             assistantids.append(get_me.id)
             if get_me.last_name:
                 self.one.name = (
-                        get_me.first_name + " " + get_me.last_name
+                    get_me.first_name + " " + get_me.last_name
                 )
             else:
                 self.one.name = get_me.first_name
@@ -90,7 +93,9 @@ class Userbot(Client):
         if config.STRING2:
             await self.two.start()
             try:
-                await self.two.join_chat("https://t.me/polclubdaswinx")
+                await self.two.join_chat("TeamWinx")
+                await self.two.join_chat("TheWinx")
+                await self.two.join_chat("WinxSupport")
             except:
                 pass
             assistants.append(2)
@@ -109,7 +114,7 @@ class Userbot(Client):
             assistantids.append(get_me.id)
             if get_me.last_name:
                 self.two.name = (
-                        get_me.first_name + " " + get_me.last_name
+                    get_me.first_name + " " + get_me.last_name
                 )
             else:
                 self.two.name = get_me.first_name
@@ -119,7 +124,9 @@ class Userbot(Client):
         if config.STRING3:
             await self.three.start()
             try:
-                await self.three.join_chat("https://t.me/polclubdaswinx")
+                await self.three.join_chat("TeamWinx")
+                await self.three.join_chat("TheWinx")
+                await self.three.join_chat("WinxSupport")
             except:
                 pass
             assistants.append(3)
@@ -138,7 +145,7 @@ class Userbot(Client):
             assistantids.append(get_me.id)
             if get_me.last_name:
                 self.three.name = (
-                        get_me.first_name + " " + get_me.last_name
+                    get_me.first_name + " " + get_me.last_name
                 )
             else:
                 self.three.name = get_me.first_name
@@ -148,7 +155,9 @@ class Userbot(Client):
         if config.STRING4:
             await self.four.start()
             try:
-                await self.four.join_chat("https://t.me/polclubdaswinx")
+                await self.four.join_chat("TeamWinx")
+                await self.four.join_chat("TheWinx")
+                await self.four.join_chat("WinxSupport")
             except:
                 pass
             assistants.append(4)
@@ -167,7 +176,7 @@ class Userbot(Client):
             assistantids.append(get_me.id)
             if get_me.last_name:
                 self.four.name = (
-                        get_me.first_name + " " + get_me.last_name
+                    get_me.first_name + " " + get_me.last_name
                 )
             else:
                 self.four.name = get_me.first_name
@@ -177,7 +186,9 @@ class Userbot(Client):
         if config.STRING5:
             await self.five.start()
             try:
-                await self.five.join_chat("https://t.me/polclubdaswinx")
+                await self.five.join_chat("TeamWinx")
+                await self.five.join_chat("TheWinx")
+                await self.five.join_chat("WinxSupport")
             except:
                 pass
             assistants.append(5)
@@ -196,7 +207,7 @@ class Userbot(Client):
             assistantids.append(get_me.id)
             if get_me.last_name:
                 self.five.name = (
-                        get_me.first_name + " " + get_me.last_name
+                    get_me.first_name + " " + get_me.last_name
                 )
             else:
                 self.five.name = get_me.first_name

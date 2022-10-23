@@ -1,11 +1,15 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
 # Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
 #
 # All rights reserved.
+
+from typing import Union
+
+from pyrogram.types import Message
 
 
 def get_readable_time(seconds: int) -> str:
@@ -67,7 +71,7 @@ async def alpha_to_int(user_id_alphabet: str) -> int:
 def time_to_seconds(time):
     stringt = str(time)
     return sum(
-        int(x) * 60 ** i
+        int(x) * 60**i
         for i, x in enumerate(reversed(stringt.split(":")))
     )
 

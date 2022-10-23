@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -11,11 +11,11 @@ from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter, ChatMemberStatus
 from pyrogram.types import Message
 
+from config import BANNED_USERS
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.utils.database import set_cmode
 from WinxMusic.utils.decorators.admins import AdminActual
-from config import BANNED_USERS
-from strings import get_command
 
 ### Multi-Lang Commands
 CHANNELPLAY_COMMAND = get_command("CHANNELPLAY_COMMAND")
@@ -24,7 +24,6 @@ CHANNELPLAY_COMMAND = get_command("CHANNELPLAY_COMMAND")
 @app.on_message(
     filters.command(CHANNELPLAY_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @AdminActual
@@ -59,12 +58,12 @@ async def playmode_(client, message: Message, _):
         if chat.type != "channel":
             return await message.reply_text(_["cplay_5"])
         try:
-            admins = await app.get_chat_members(
+            admins = app.get_chat_members(
                 chat.id, filter=ChatMembersFilter.ADMINISTRATORS
             )
         except:
             return await message.reply_text(_["cplay_4"])
-        for users in admins:
+        async for users in admins:
             if users.status == ChatMemberStatus.OWNER:
                 creatorusername = users.user.username
                 creatorid = users.user.id

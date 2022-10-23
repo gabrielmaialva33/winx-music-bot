@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -12,15 +12,15 @@ from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter
 from pyrogram.types import CallbackQuery, Message
 
+from config import BANNED_USERS, MUSIC_BOT_NAME, adminlist, lyrical
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils.database import get_authuser_names, get_cmode
 from WinxMusic.utils.decorators import (ActualAdminCB, AdminActual,
-                                        language)
+                                         language)
 from WinxMusic.utils.formatters import alpha_to_int
-from config import BANNED_USERS, MUSIC_BOT_NAME, adminlist, lyrical
-from strings import get_command
 
 ### Multi-Lang Commands
 RELOAD_COMMAND = get_command("RELOAD_COMMAND")
@@ -30,19 +30,18 @@ RESTART_COMMAND = get_command("RESTART_COMMAND")
 @app.on_message(
     filters.command(RELOAD_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @language
 async def reload_admin_cache(client, message: Message, _):
     try:
         chat_id = message.chat.id
-        admins = await app.get_chat_members(
+        admins = app.get_chat_members(
             chat_id, filter=ChatMembersFilter.ADMINISTRATORS
         )
         authusers = await get_authuser_names(chat_id)
         adminlist[chat_id] = []
-        for user in admins:
+        async for user in admins:
             if user.privileges.can_manage_video_chats:
                 adminlist[chat_id].append(user.user.id)
         for user in authusers:
@@ -58,7 +57,6 @@ async def reload_admin_cache(client, message: Message, _):
 @app.on_message(
     filters.command(RESTART_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @AdminActual

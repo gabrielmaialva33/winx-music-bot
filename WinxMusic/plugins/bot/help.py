@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -13,16 +13,16 @@ from typing import Union
 from pyrogram import filters, types
 from pyrogram.types import InlineKeyboardMarkup, Message
 
+from config import BANNED_USERS
+from strings import get_command, get_string, helpers
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils import help_pannel
 from WinxMusic.utils.database import get_lang, is_commanddelete_on
 from WinxMusic.utils.decorators.language import (LanguageStart,
-                                                 languageCB)
+                                                  languageCB)
 from WinxMusic.utils.inline.help import (help_back_markup,
-                                         private_help_panel)
-from config import BANNED_USERS
-from strings import get_command, get_string, helpers
+                                          private_help_panel)
 
 ### Command
 HELP_COMMAND = get_command("HELP_COMMAND")
@@ -31,14 +31,13 @@ HELP_COMMAND = get_command("HELP_COMMAND")
 @app.on_message(
     filters.command(HELP_COMMAND)
     & filters.private
-
     & ~BANNED_USERS
 )
 @app.on_callback_query(
     filters.regex("settings_back_helper") & ~BANNED_USERS
 )
 async def helper_private(
-        client: app, update: Union[types.Message, types.CallbackQuery]
+    client: app, update: Union[types.Message, types.CallbackQuery]
 ):
     is_callback = isinstance(update, types.CallbackQuery)
     if is_callback:
@@ -75,7 +74,6 @@ async def helper_private(
 @app.on_message(
     filters.command(HELP_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @LanguageStart

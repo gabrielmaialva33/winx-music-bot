@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -26,24 +26,24 @@ from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from pytgcalls.types.stream import StreamAudioEnded
 
 import config
+from strings import get_string
 from WinxMusic import LOGGER, YouTube, app
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (add_active_chat,
-                                      add_active_video_chat,
-                                      get_assistant,
-                                      get_audio_bitrate, get_lang,
-                                      get_loop, get_video_bitrate,
-                                      group_assistant, is_autoend,
-                                      music_on, mute_off,
-                                      remove_active_chat,
-                                      remove_active_video_chat,
-                                      set_loop)
+                                       add_active_video_chat,
+                                       get_assistant,
+                                       get_audio_bitrate, get_lang,
+                                       get_loop, get_video_bitrate,
+                                       group_assistant, is_autoend,
+                                       music_on, mute_off,
+                                       remove_active_chat,
+                                       remove_active_video_chat,
+                                       set_loop)
 from WinxMusic.utils.exceptions import AssistantErr
 from WinxMusic.utils.inline.play import (stream_markup,
-                                         telegram_markup)
+                                          telegram_markup)
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import gen_thumb
-from strings import get_string
 
 autoend = {}
 counter = {}
@@ -59,7 +59,7 @@ async def _clear_(chat_id):
 class Call(PyTgCalls):
     def __init__(self):
         self.userbot1 = Client(
-            "Winx1",
+            "Winxstring1",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING1),
@@ -69,7 +69,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot2 = Client(
-            "Winx2",
+            "Winxstring2",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING2),
@@ -79,7 +79,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot3 = Client(
-            "Winx3",
+            "Winxstring3",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
@@ -89,7 +89,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot4 = Client(
-            "Winx4",
+            "Winxstring4",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
@@ -99,7 +99,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot5 = Client(
-            "Winx5",
+            "Winxstring5",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING5),
@@ -148,7 +148,7 @@ class Call(PyTgCalls):
             pass
 
     async def skip_stream(
-            self, chat_id: int, link: str, video: Union[bool, str] = None
+        self, chat_id: int, link: str, video: Union[bool, str] = None
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -170,7 +170,7 @@ class Call(PyTgCalls):
         )
 
     async def seek_stream(
-            self, chat_id, file_path, to_seek, duration, mode
+        self, chat_id, file_path, to_seek, duration, mode
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -261,11 +261,11 @@ class Call(PyTgCalls):
                     raise AssistantErr(_["call_3"].format(e))
 
     async def join_call(
-            self,
-            chat_id: int,
-            original_chat_id: int,
-            link,
-            video: Union[bool, str] = None,
+        self,
+        chat_id: int,
+        original_chat_id: int,
+        link,
+        video: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -596,7 +596,7 @@ class Call(PyTgCalls):
         @self.five.on_participants_change()
         async def participants_change_handler(client, update: Update):
             if not isinstance(
-                    update, JoinedGroupCallParticipant
+                update, JoinedGroupCallParticipant
             ) and not isinstance(update, LeftGroupCallParticipant):
                 return
             chat_id = update.chat_id

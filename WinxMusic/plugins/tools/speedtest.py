@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -8,13 +8,11 @@
 # All rights reserved.
 
 import asyncio
-
-from pyrogram import filters
-
 import speedtest
+from pyrogram import filters
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
-from strings import get_command
 
 # Commands
 SPEEDTEST_COMMAND = get_command("SPEEDTEST_COMMAND")
@@ -54,8 +52,8 @@ async def speedtest_function(client, message):
 **__Latency:__** {result['server']['latency']}  
 **__Ping:__** {result['ping']}"""
     msg = await app.send_photo(
-        chat_id=message.chat.id,
-        photo=result["share"],
+        chat_id=message.chat.id, 
+        photo=result["share"], 
         caption=output
     )
     await m.delete()

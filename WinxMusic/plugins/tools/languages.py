@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -11,13 +11,12 @@ from pykeyboard import InlineKeyboard
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, Message
 
+from config import BANNED_USERS
+from strings import get_command, get_string, languages_present
 from WinxMusic import app
 from WinxMusic.utils.database import get_lang, set_lang
 from WinxMusic.utils.decorators import (ActualAdminCB, language,
-                                        languageCB)
-from config import BANNED_USERS
-from strings import get_command, get_string, languages_present
-
+                                         languageCB)
 
 # Languages Available
 
@@ -53,7 +52,6 @@ LANGUAGE_COMMAND = get_command("LANGUAGE_COMMAND")
 @app.on_message(
     filters.command(LANGUAGE_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @language

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -10,14 +10,14 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
+from config import BANNED_USERS
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (blacklist_chat,
-                                      blacklisted_chats,
-                                      whitelist_chat)
+                                       blacklisted_chats,
+                                       whitelist_chat)
 from WinxMusic.utils.decorators.language import language
-from config import BANNED_USERS
-from strings import get_command
 
 # Commands
 

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -11,9 +11,8 @@ import sys
 
 from pyrogram import Client
 from pyrogram.enums import ChatMemberStatus
-from pyrogram.types import BotCommand
-
 import config
+
 from ..logging import LOGGER
 
 
@@ -38,32 +37,13 @@ class WinxBot(Client):
             )
         except:
             LOGGER(__name__).error(
-                "O bot falhou ao acessar o grupo de logs. Certifique-se de ter adicionado seu bot ao seu canal de log "
-                "e promovido como administrador! "
+                "Bot has failed to access the log Group. Make sure that you have added your bot to your log channel and promoted as admin!"
             )
             sys.exit()
-        if config.SET_CMDS == str(True):
-            try:
-                await self.set_bot_commands([
-                    BotCommand("ping", "Verifique se o bot está vivo"),
-                    BotCommand("play", "Reproduzir música/vídeo"),
-                    BotCommand("skip", "Pular música/vídeo"),
-                    BotCommand("pause", "Pausar música/vídeo"),
-                    BotCommand("resume", "Retomar música/vídeo"),
-                    BotCommand("end", "Parar música/vídeo"),
-                    BotCommand("shuffle", "Embaralhar fila"),
-                    BotCommand("playmode", "Alterar modo de reprodução"),
-                    BotCommand("settings", "Alterar configurações"),
-                    BotCommand("queue", "Mostrar fila"),
-                    BotCommand("help", "Mostrar ajuda")])
-            except:
-                pass
-        else:
-            pass
         a = await self.get_chat_member(config.LOG_GROUP_ID, self.id)
         if a.status != ChatMemberStatus.ADMINISTRATOR:
             LOGGER(__name__).error(
-                "Por favor, promova o Bot como Admin no Grupo de Logs!"
+                "Please promote Bot as Admin in Logger Group"
             )
             sys.exit()
         if get_me.last_name:

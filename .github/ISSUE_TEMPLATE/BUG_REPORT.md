@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: ''
 labels: ''
-assignees: 'mrootx'
+assignees: 'TeamWinx'
 ---
 > Provide a general summary of the issue in the Title above.
 

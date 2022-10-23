@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -10,12 +10,12 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from WinxMusic import app
-from WinxMusic.utils.database.memorydatabase import (get_loop,
-                                                     set_loop)
-from WinxMusic.utils.decorators import AdminRightsCheck
 from config import BANNED_USERS
 from strings import get_command
+from WinxMusic import app
+from WinxMusic.utils.database.memorydatabase import (get_loop,
+                                                      set_loop)
+from WinxMusic.utils.decorators import AdminRightsCheck
 
 # Commands
 LOOP_COMMAND = get_command("LOOP_COMMAND")
@@ -24,7 +24,6 @@ LOOP_COMMAND = get_command("LOOP_COMMAND")
 @app.on_message(
     filters.command(LOOP_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @AdminRightsCheck
@@ -52,7 +51,7 @@ async def admins(cli, message: Message, _, chat_id):
     elif state.lower() == "enable":
         await set_loop(chat_id, 10)
         return await message.reply_text(
-            _["admin_25"].format(message.from_user.first_name, 10)
+            _["admin_25"].format(message.from_user.first_name, state)
         )
     elif state.lower() == "disable":
         await set_loop(chat_id, 0)

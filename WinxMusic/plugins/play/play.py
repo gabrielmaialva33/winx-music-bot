@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -9,6 +9,7 @@
 
 import random
 import string
+from ast import ExceptHandler
 
 from pyrogram import filters
 from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
@@ -16,8 +17,10 @@ from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
+from config import BANNED_USERS, lyrical
+from strings import get_command
 from WinxMusic import (Apple, Resso, SoundCloud, Spotify, Telegram,
-                       YouTube, app)
+                        YouTube, app)
 from WinxMusic.core.call import Winx
 from WinxMusic.utils import seconds_to_min, time_to_seconds
 from WinxMusic.utils.channelplay import get_channeplayCB
@@ -26,13 +29,11 @@ from WinxMusic.utils.decorators.language import languageCB
 from WinxMusic.utils.decorators.play import PlayWrapper
 from WinxMusic.utils.formatters import formats
 from WinxMusic.utils.inline.play import (livestream_markup,
-                                         playlist_markup,
-                                         slider_markup, track_markup)
+                                          playlist_markup,
+                                          slider_markup, track_markup)
 from WinxMusic.utils.inline.playlist import botplaylist_markup
 from WinxMusic.utils.logger import play_logs
 from WinxMusic.utils.stream.stream import stream
-from config import BANNED_USERS, lyrical
-from strings import get_command
 
 # Command
 PLAY_COMMAND = get_command("PLAY_COMMAND")
@@ -41,20 +42,19 @@ PLAY_COMMAND = get_command("PLAY_COMMAND")
 @app.on_message(
     filters.command(PLAY_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @PlayWrapper
 async def play_commnd(
-        client,
-        message: Message,
-        _,
-        chat_id,
-        video,
-        channel,
-        playmode,
-        url,
-        fplay,
+    client,
+    message: Message,
+    _,
+    chat_id,
+    video,
+    channel,
+    playmode,
+    url,
+    fplay,
 ):
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
@@ -67,16 +67,16 @@ async def play_commnd(
     user_name = message.from_user.first_name
     audio_telegram = (
         (
-                message.reply_to_message.audio
-                or message.reply_to_message.voice
+            message.reply_to_message.audio
+            or message.reply_to_message.voice
         )
         if message.reply_to_message
         else None
     )
     video_telegram = (
         (
-                message.reply_to_message.video
-                or message.reply_to_message.document
+            message.reply_to_message.video
+            or message.reply_to_message.document
         )
         if message.reply_to_message
         else None
@@ -212,8 +212,8 @@ async def play_commnd(
         elif await Spotify.valid(url):
             spotify = True
             if (
-                    not config.SPOTIFY_CLIENT_ID
-                    and not config.SPOTIFY_CLIENT_SECRET
+                not config.SPOTIFY_CLIENT_ID
+                and not config.SPOTIFY_CLIENT_SECRET
             ):
                 return await mystic.edit_text(
                     "This bot isn't able to play spotify queries. Please ask my owner to enable spotify."

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -7,9 +7,9 @@
 #
 # All rights reserved.
 
+from config import LOG, LOG_GROUP_ID, MUSIC_BOT_NAME
 from WinxMusic import app
 from WinxMusic.utils.database import is_on_off
-from config import LOG, LOG_GROUP_ID, MUSIC_BOT_NAME
 
 
 async def play_logs(message, streamtype):
@@ -19,7 +19,7 @@ async def play_logs(message, streamtype):
         else:
             chatusername = "Private Group"
         logger_text = f"""
-**{MUSIC_BOT_NAME}**
+**{MUSIC_BOT_NAME} Play Log**
 
 **Chat:** {message.chat.title} [`{message.chat.id}`]
 **User:** {message.from_user.mention}

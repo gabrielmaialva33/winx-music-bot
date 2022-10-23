@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -12,15 +12,15 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup
 
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import (get_global_tops,
-                                      get_particulars, get_userss)
+                                       get_particulars, get_userss)
 from WinxMusic.utils.decorators.language import languageCB
 from WinxMusic.utils.inline.playlist import (botplaylist_markup,
-                                             failed_top_markup,
-                                             top_play_markup)
+                                              failed_top_markup,
+                                              top_play_markup)
 from WinxMusic.utils.stream.stream import stream
-from config import BANNED_USERS
 
 loop = asyncio.get_running_loop()
 

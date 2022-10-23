@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -9,8 +9,8 @@
 
 
 import config
-from WinxMusic.core.mongo import mongodb
 from config import PRIVATE_BOT_MODE
+from WinxMusic.core.mongo import mongodb
 
 channeldb = mongodb.cplaymode
 commanddb = mongodb.commands
@@ -23,6 +23,7 @@ videodb = mongodb.Winxvideocalls
 onoffdb = mongodb.onoffper
 suggdb = mongodb.suggestion
 autoenddb = mongodb.autoend
+
 
 # Shifting to memory [ mongo sucks often]
 loop = {}

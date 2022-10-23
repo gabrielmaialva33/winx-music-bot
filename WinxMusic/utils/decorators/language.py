@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -8,10 +8,10 @@
 # All rights reserved.
 
 
+from strings import get_string
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (get_lang, is_commanddelete_on,
-                                      is_maintenance)
-from strings import get_string
+                                       is_maintenance)
 
 
 def language(mystic):

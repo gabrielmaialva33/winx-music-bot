@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -15,13 +15,13 @@ from pyrogram.enums import ChatType
 from WinxMusic import app
 from WinxMusic.core.call import Winx, autoend
 from WinxMusic.utils.database import (get_client, is_active_chat,
-                                      is_autoend)
+                                       is_autoend)
 
 
 async def auto_leave():
     if config.AUTO_LEAVING_ASSISTANT == str(True):
         while not await asyncio.sleep(
-                config.AUTO_LEAVE_ASSISTANT_TIME
+            config.AUTO_LEAVE_ASSISTANT_TIME
         ):
             from WinxMusic.core.userbot import assistants
 
@@ -38,10 +38,10 @@ async def auto_leave():
                         ]:
                             chat_id = i.chat.id
                             if (
-                                    chat_id != config.LOG_GROUP_ID
-                                    and chat_id != -1001190342892
-                                    and chat_id != -1001733534088
-                                    and chat_id != -1001443281821
+                                chat_id != config.LOG_GROUP_ID
+                                and chat_id != -1001190342892
+                                and chat_id != -1001733534088
+                                and chat_id != -1001443281821
                             ):
                                 if left == 20:
                                     continue

@@ -1,12 +1,11 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
 # Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
 #
 # All rights reserved.
-from youtubesearchpython.__future__ import VideosSearch
 
 import asyncio
 
@@ -14,24 +13,25 @@ from pyrogram import filters
 from pyrogram.enums import ParseMode, ChatType
 from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
+from youtubesearchpython.__future__ import VideosSearch
 
 import config
+from config import BANNED_USERS
+from config.config import OWNER_ID
+from strings import get_command, get_string
 from WinxMusic import Telegram, YouTube, app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.plugins.play.playlist import del_plist_msg
 from WinxMusic.plugins.sudo.sudoers import sudoers_list
 from WinxMusic.utils.database import (add_served_chat,
-                                      add_served_user,
-                                      blacklisted_chats,
-                                      get_assistant, get_lang,
-                                      get_userss, is_on_off,
-                                      is_served_private_chat)
+                                       add_served_user,
+                                       blacklisted_chats,
+                                       get_assistant, get_lang,
+                                       get_userss, is_on_off,
+                                       is_served_private_chat)
 from WinxMusic.utils.decorators.language import LanguageStart
 from WinxMusic.utils.inline import (help_pannel, private_panel,
-                                    start_pannel)
-from config import BANNED_USERS
-from config.config import OWNER_ID
-from strings import get_command, get_string
+                                     start_pannel)
 
 loop = asyncio.get_running_loop()
 
@@ -39,7 +39,6 @@ loop = asyncio.get_running_loop()
 @app.on_message(
     filters.command(get_command("START_COMMAND"))
     & filters.private
-
     & ~BANNED_USERS
 )
 @LanguageStart
@@ -225,7 +224,6 @@ async def start_comm(client, message: Message, _):
 @app.on_message(
     filters.command(get_command("START_COMMAND"))
     & filters.group
-
     & ~BANNED_USERS
 )
 @LanguageStart
@@ -248,7 +246,7 @@ async def welcome(client, message: Message):
     if config.PRIVATE_BOT_MODE == str(True):
         if not await is_served_private_chat(message.chat.id):
             await message.reply_text(
-                "**Private Music Bot**\n\nApenas para grupos autorizados pelo dono. Peça ao meu dono para permitir seu grupo primeiro."
+                "**Private Music Bot**\n\nOnly for authorized chats from the owner. Ask my owner to allow your chat first."
             )
             return await app.leave_chat(message.chat.id)
     else:

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -12,15 +12,16 @@ import random
 from datetime import datetime, timedelta
 
 import config
-from WinxMusic import app
-from WinxMusic.utils.database import (get_lang,
-                                      get_private_served_chats,
-                                      get_served_chats,
-                                      is_suggestion)
 from config import clean
 from strings import get_string
+from WinxMusic import app
+from WinxMusic.utils.database import (get_lang,
+                                       get_private_served_chats,
+                                       get_served_chats,
+                                       is_suggestion)
 
 LEAVE_TIME = config.AUTO_SUGGESTION_TIME
+
 
 strings = []
 suggestor = {}
@@ -73,7 +74,7 @@ async def dont_do_this():
                         put = {
                             "msg_id": sent.id,
                             "timer_after": time_now
-                                           + timedelta(
+                            + timedelta(
                                 minutes=config.CLEANMODE_DELETE_MINS
                             ),
                         }

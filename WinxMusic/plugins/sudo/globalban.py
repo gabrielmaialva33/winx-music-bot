@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -7,23 +7,24 @@
 #
 # All rights reserved.
 import asyncio
+import time
 
 from pyrogram import filters
 from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 
+from config import BANNED_USERS
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils import get_readable_time
 from WinxMusic.utils.database import (add_banned_user,
-                                      get_banned_count,
-                                      get_banned_users,
-                                      get_served_chats,
-                                      is_banned_user,
-                                      remove_banned_user)
+                                       get_banned_count,
+                                       get_banned_users,
+                                       get_served_chats,
+                                       is_banned_user,
+                                       remove_banned_user)
 from WinxMusic.utils.decorators.language import language
-from config import BANNED_USERS
-from strings import get_command
 
 # Command
 GBAN_COMMAND = get_command("GBAN_COMMAND")

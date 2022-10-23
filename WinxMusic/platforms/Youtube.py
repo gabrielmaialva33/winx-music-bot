@@ -1,21 +1,22 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
 # Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
 #
 # All rights reserved.
-from youtubesearchpython.__future__ import VideosSearch
 
 import asyncio
 import os
 import re
 from typing import Union
 
+import aiohttp
 import yt_dlp
 from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
+from youtubesearchpython.__future__ import VideosSearch
 
 import config
 from WinxMusic.utils.database import is_on_off
@@ -31,8 +32,8 @@ async def shell_cmd(cmd):
     out, errorz = await proc.communicate()
     if errorz:
         if (
-                "unavailable videos are hidden"
-                in (errorz.decode("utf-8")).lower()
+            "unavailable videos are hidden"
+            in (errorz.decode("utf-8")).lower()
         ):
             return out.decode("utf-8")
         else:
@@ -51,7 +52,7 @@ class YouTubeAPI:
         )
 
     async def exists(
-            self, link: str, videoid: Union[bool, str] = None
+        self, link: str, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.base + link
@@ -82,10 +83,10 @@ class YouTubeAPI:
                         return entity.url
         if offset in (None,):
             return None
-        return text[offset: offset + length]
+        return text[offset : offset + length]
 
     async def details(
-            self, link: str, videoid: Union[bool, str] = None
+        self, link: str, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.base + link
@@ -104,7 +105,7 @@ class YouTubeAPI:
         return title, duration_min, duration_sec, thumbnail, vidid
 
     async def title(
-            self, link: str, videoid: Union[bool, str] = None
+        self, link: str, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.base + link
@@ -116,7 +117,7 @@ class YouTubeAPI:
         return title
 
     async def duration(
-            self, link: str, videoid: Union[bool, str] = None
+        self, link: str, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.base + link
@@ -128,7 +129,7 @@ class YouTubeAPI:
         return duration
 
     async def thumbnail(
-            self, link: str, videoid: Union[bool, str] = None
+        self, link: str, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.base + link
@@ -140,7 +141,7 @@ class YouTubeAPI:
         return thumbnail
 
     async def video(
-            self, link: str, videoid: Union[bool, str] = None
+        self, link: str, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.base + link
@@ -162,7 +163,7 @@ class YouTubeAPI:
             return 0, stderr.decode()
 
     async def playlist(
-            self, link, limit, user_id, videoid: Union[bool, str] = None
+        self, link, limit, user_id, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.listbase + link
@@ -181,7 +182,7 @@ class YouTubeAPI:
         return result
 
     async def track(
-            self, link: str, videoid: Union[bool, str] = None
+        self, link: str, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.base + link
@@ -204,7 +205,7 @@ class YouTubeAPI:
         return track_details, vidid
 
     async def formats(
-            self, link: str, videoid: Union[bool, str] = None
+        self, link: str, videoid: Union[bool, str] = None
     ):
         if videoid:
             link = self.base + link
@@ -242,10 +243,10 @@ class YouTubeAPI:
         return formats_available, link
 
     async def slider(
-            self,
-            link: str,
-            query_type: int,
-            videoid: Union[bool, str] = None,
+        self,
+        link: str,
+        query_type: int,
+        videoid: Union[bool, str] = None,
     ):
         if videoid:
             link = self.base + link
@@ -262,15 +263,15 @@ class YouTubeAPI:
         return title, duration_min, thumbnail, vidid
 
     async def download(
-            self,
-            link: str,
-            mystic,
-            video: Union[bool, str] = None,
-            videoid: Union[bool, str] = None,
-            songaudio: Union[bool, str] = None,
-            songvideo: Union[bool, str] = None,
-            format_id: Union[bool, str] = None,
-            title: Union[bool, str] = None,
+        self,
+        link: str,
+        mystic,
+        video: Union[bool, str] = None,
+        videoid: Union[bool, str] = None,
+        songaudio: Union[bool, str] = None,
+        songvideo: Union[bool, str] = None,
+        format_id: Union[bool, str] = None,
+        title: Union[bool, str] = None,
     ) -> str:
         if videoid:
             link = self.base + link

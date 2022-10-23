@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -10,14 +10,14 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from WinxMusic import app
-from WinxMusic.utils.database import (delete_authuser, get_authuser,
-                                      get_authuser_names,
-                                      save_authuser)
-from WinxMusic.utils.decorators import AdminActual, language
-from WinxMusic.utils.formatters import int_to_alpha
 from config import BANNED_USERS, adminlist
 from strings import get_command
+from WinxMusic import app
+from WinxMusic.utils.database import (delete_authuser, get_authuser,
+                                       get_authuser_names,
+                                       save_authuser)
+from WinxMusic.utils.decorators import AdminActual, language
+from WinxMusic.utils.formatters import int_to_alpha
 
 # Command
 AUTH_COMMAND = get_command("AUTH_COMMAND")
@@ -28,7 +28,6 @@ AUTHUSERS_COMMAND = get_command("AUTHUSERS_COMMAND")
 @app.on_message(
     filters.command(AUTH_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @AdminActual
@@ -132,7 +131,6 @@ async def unauthusers(client, message: Message, _):
 @app.on_message(
     filters.command(AUTHUSERS_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @language

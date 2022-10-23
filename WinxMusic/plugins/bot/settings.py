@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -13,24 +13,27 @@ from pyrogram.errors import MessageNotModified
 from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
+from config import (BANNED_USERS, CLEANMODE_DELETE_MINS,
+                    MUSIC_BOT_NAME, OWNER_ID)
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.utils.database import (add_nonadmin_chat,
-                                      cleanmode_off, cleanmode_on,
-                                      commanddelete_off,
-                                      commanddelete_on,
-                                      get_aud_bit_name, get_authuser,
-                                      get_authuser_names,
-                                      get_playmode, get_playtype,
-                                      get_vid_bit_name,
-                                      is_cleanmode_on,
-                                      is_commanddelete_on,
-                                      is_nonadmin_chat,
-                                      is_suggestion,
-                                      remove_nonadmin_chat,
-                                      save_audio_bitrate,
-                                      save_video_bitrate,
-                                      set_playmode, set_playtype,
-                                      suggestion_off, suggestion_on)
+                                       cleanmode_off, cleanmode_on,
+                                       commanddelete_off,
+                                       commanddelete_on,
+                                       get_aud_bit_name, get_authuser,
+                                       get_authuser_names,
+                                       get_playmode, get_playtype,
+                                       get_vid_bit_name,
+                                       is_cleanmode_on,
+                                       is_commanddelete_on,
+                                       is_nonadmin_chat,
+                                       is_suggestion,
+                                       remove_nonadmin_chat,
+                                       save_audio_bitrate,
+                                       save_video_bitrate,
+                                       set_playmode, set_playtype,
+                                       suggestion_off, suggestion_on)
 from WinxMusic.utils.decorators.admins import ActualAdminCB
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.inline.settings import (
@@ -38,9 +41,6 @@ from WinxMusic.utils.inline.settings import (
     cleanmode_settings_markup, playmode_users_markup, setting_markup,
     video_quality_markup)
 from WinxMusic.utils.inline.start import private_panel
-from config import (BANNED_USERS, CLEANMODE_DELETE_MINS,
-                    MUSIC_BOT_NAME, OWNER_ID)
-from strings import get_command
 
 ### Command
 SETTINGS_COMMAND = get_command("SETTINGS_COMMAND")
@@ -49,7 +49,6 @@ SETTINGS_COMMAND = get_command("SETTINGS_COMMAND")
 @app.on_message(
     filters.command(SETTINGS_COMMAND)
     & filters.group
-
     & ~BANNED_USERS
 )
 @language
@@ -85,7 +84,7 @@ async def settings_cb(client, CallbackQuery, _):
 )
 @languageCB
 async def settings_back_markup(
-        client, CallbackQuery: CallbackQuery, _
+    client, CallbackQuery: CallbackQuery, _
 ):
     try:
         await CallbackQuery.answer()

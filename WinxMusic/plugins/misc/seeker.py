@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -11,13 +11,14 @@ import asyncio
 
 from pyrogram.types import InlineKeyboardMarkup
 
+from strings import get_string
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (get_active_chats, get_lang,
-                                      is_music_playing)
+                                       is_music_playing)
 from WinxMusic.utils.formatters import seconds_to_min
 from WinxMusic.utils.inline import (stream_markup_timer,
-                                    telegram_markup_timer)
-from strings import get_string
+                                     telegram_markup_timer)
+
 from ..admins.callback import wrong
 
 checker = {}

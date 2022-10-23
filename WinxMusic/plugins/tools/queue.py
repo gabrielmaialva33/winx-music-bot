@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -9,22 +9,23 @@
 
 import asyncio
 import os
+from random import randint
 
 from pyrogram import filters
 from pyrogram.errors import FloodWait
 from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 
 import config
+from config import BANNED_USERS
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import db
 from WinxMusic.utils import (Winxbin, get_channeplayCB,
-                             seconds_to_min)
+                              seconds_to_min)
 from WinxMusic.utils.database import (get_cmode, is_active_chat,
-                                      is_music_playing)
+                                       is_music_playing)
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.inline import queue_back_markup, queue_markup
-from config import BANNED_USERS
-from strings import get_command
 
 ###Commands
 QUEUE_COMMAND = get_command("QUEUE_COMMAND")
@@ -96,16 +97,16 @@ async def ping_com(client, message: Message, _):
         else:
             IMAGE = get_image(videoid)
     send = (
-        "**⌛️Duration:** Unknown Duration Stream\n\nClique no botão abaixo para obter toda a playlist."
+        "**⌛️Duration:** Unknown Duration Stream\n\nClick on button below to get whole queued list."
         if DUR == "Unknown"
-        else "\nClique no botão abaixo para obter toda a playlist."
+        else "\nClick on button below to get whole queued list."
     )
     cap = f"""**{config.MUSIC_BOT_NAME} Player**
 
-🎥**Tocando:** {title}
+🎥**Playing:** {title}
 
-🔗**Tipo:** {typo}
-🙍‍♂️**Pedido por:** {user}
+🔗**Stream Type:** {typo}
+🙍‍♂️**Played By:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, "c" if cplay else "g", videoid)
@@ -193,7 +194,7 @@ async def queued_tracks(client, CallbackQuery: CallbackQuery, _):
     basic[videoid] = False
     buttons = queue_back_markup(_, what)
     med = InputMediaPhoto(
-        media="https://telegra.ph/file/c28ce5238867a5229f31d.gif",
+        media="https://telegra.ph//file/6f7d35131f69951c74ee5.jpg",
         caption=_["queue_1"],
     )
     await CallbackQuery.edit_message_media(media=med)
@@ -282,10 +283,10 @@ async def queue_back(client, CallbackQuery: CallbackQuery, _):
     )
     cap = f"""**{config.MUSIC_BOT_NAME} Player**
 
-🎥**Tocando:** {title}
+🎥**Playing:** {title}
 
-🔗**Tipo:** {typo}
-🙍‍♂️**Pedido por:** {user}
+🔗**Stream Type:** {typo}
+🙍‍♂️**Played By:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, cplay, videoid)
