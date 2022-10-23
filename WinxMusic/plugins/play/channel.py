@@ -24,7 +24,7 @@ CHANNELPLAY_COMMAND = get_command("CHANNELPLAY_COMMAND")
 @app.on_message(
     filters.command(CHANNELPLAY_COMMAND)
     & filters.group
-    
+
     & ~BANNED_USERS
 )
 @AdminActual

@@ -38,8 +38,8 @@ def install_req(cmd: str) -> Tuple[str, str, int, int]:
         )
 
     return loop.run_until_complete(
-         install_requirements()
-     )
+        install_requirements()
+    )
 
 
 def git():
