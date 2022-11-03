@@ -11,14 +11,13 @@ import asyncio
 
 from pyrogram.types import InlineKeyboardMarkup
 
-from strings import get_string
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (get_active_chats, get_lang,
-                                       is_music_playing)
+                                      is_music_playing)
 from WinxMusic.utils.formatters import seconds_to_min
 from WinxMusic.utils.inline import (stream_markup_timer,
-                                     telegram_markup_timer)
-
+                                    telegram_markup_timer)
+from strings import get_string
 from ..admins.callback import wrong
 
 checker = {}

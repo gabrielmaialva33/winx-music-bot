@@ -190,7 +190,7 @@ def livestream_markup(_, videoid, user_id, mode, channel, fplay):
 
 
 def slider_markup(
-    _, videoid, user_id, query, query_type, channel, fplay
+        _, videoid, user_id, query, query_type, channel, fplay
 ):
     query = f"{query[:20]}"
     buttons = [

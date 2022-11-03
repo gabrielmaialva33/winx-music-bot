@@ -10,12 +10,12 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import add_gban_user, remove_gban_user
 from WinxMusic.utils.decorators.language import language
+from config import BANNED_USERS
+from strings import get_command
 
 # Command
 BLOCK_COMMAND = get_command("BLOCK_COMMAND")

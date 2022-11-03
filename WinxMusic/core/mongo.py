@@ -12,11 +12,9 @@ from pymongo import MongoClient
 from pyrogram import Client
 
 import config
-
 from ..logging import LOGGER
 
 TEMP_MONGODB = "mongodb+srv://shikhar:shikhar@cluster0.6xzlh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-
 
 if config.MONGO_DB_URI is None:
     LOGGER(__name__).warning(

@@ -10,11 +10,11 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database.memorydatabase import (
     get_active_chats, get_active_video_chats)
+from strings import get_command
 
 # Commands
 ACTIVEVC_COMMAND = get_command("ACTIVEVC_COMMAND")

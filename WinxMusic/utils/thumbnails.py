@@ -35,7 +35,7 @@ async def gen_thumb(videoid):
 
     url = f"https://www.youtube.com/watch?v={videoid}"
     try:
-        results = VideosSearch(url, limit=1)
+        results = VideosSearch(url, limit=1, language="pt", region="BR")
         for result in (await results.next())["result"]:
             try:
                 title = result["title"]

@@ -18,13 +18,13 @@ from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup, InputMediaAudio,
                             InputMediaVideo, Message)
 
-from config import (BANNED_USERS, SONG_DOWNLOAD_DURATION,
-                    SONG_DOWNLOAD_DURATION_LIMIT)
-from strings import get_command
 from WinxMusic import YouTube, app
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.formatters import convert_bytes
 from WinxMusic.utils.inline.song import song_markup
+from config import (BANNED_USERS, SONG_DOWNLOAD_DURATION,
+                    SONG_DOWNLOAD_DURATION_LIMIT)
+from strings import get_command
 
 # Command
 SONG_COMMAND = get_command("SONG_COMMAND")

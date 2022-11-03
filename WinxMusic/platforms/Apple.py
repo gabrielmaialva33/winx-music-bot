@@ -41,7 +41,7 @@ class AppleAPI:
                 search = tag.get("content", None)
         if search is None:
             return False
-        results = VideosSearch(search, limit=1)
+        results = VideosSearch(search, limit=1, language="pt", region="BR")
         for result in (await results.next())["result"]:
             title = result["title"]
             ytlink = result["link"]

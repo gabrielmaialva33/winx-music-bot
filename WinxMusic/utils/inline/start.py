@@ -11,8 +11,8 @@ from typing import Union
 
 from pyrogram.types import InlineKeyboardButton
 
-from config import GITHUB_REPO, SUPPORT_CHANNEL, SUPPORT_GROUP
 from WinxMusic import app
+from config import GITHUB_REPO, SUPPORT_CHANNEL, SUPPORT_GROUP
 
 
 def start_pannel(_):

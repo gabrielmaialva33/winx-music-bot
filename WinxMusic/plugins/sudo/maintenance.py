@@ -10,13 +10,12 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from strings import get_command, get_string
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (get_lang, is_maintenance,
-                                       maintenance_off,
-                                       maintenance_on)
-from WinxMusic.utils.decorators.language import language
+                                      maintenance_off,
+                                      maintenance_on)
+from strings import get_command, get_string
 
 # Commands
 MAINTENANCE_COMMAND = get_command("MAINTENANCE_COMMAND")

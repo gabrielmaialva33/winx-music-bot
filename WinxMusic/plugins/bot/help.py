@@ -13,16 +13,16 @@ from typing import Union
 from pyrogram import filters, types
 from pyrogram.types import InlineKeyboardMarkup, Message
 
-from config import BANNED_USERS
-from strings import get_command, get_string, helpers
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils import help_pannel
 from WinxMusic.utils.database import get_lang, is_commanddelete_on
 from WinxMusic.utils.decorators.language import (LanguageStart,
-                                                  languageCB)
+                                                 languageCB)
 from WinxMusic.utils.inline.help import (help_back_markup,
-                                          private_help_panel)
+                                         private_help_panel)
+from config import BANNED_USERS
+from strings import get_command, get_string, helpers
 
 ### Command
 HELP_COMMAND = get_command("HELP_COMMAND")
@@ -37,7 +37,7 @@ HELP_COMMAND = get_command("HELP_COMMAND")
     filters.regex("settings_back_helper") & ~BANNED_USERS
 )
 async def helper_private(
-    client: app, update: Union[types.Message, types.CallbackQuery]
+        client: app, update: Union[types.Message, types.CallbackQuery]
 ):
     is_callback = isinstance(update, types.CallbackQuery)
     if is_callback:

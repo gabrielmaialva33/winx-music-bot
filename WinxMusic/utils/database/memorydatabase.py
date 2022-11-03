@@ -6,11 +6,11 @@
 # Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
 #
 # All rights reserved.
-
+from typing import Any
 
 import config
-from config import PRIVATE_BOT_MODE
 from WinxMusic.core.mongo import mongodb
+from config import PRIVATE_BOT_MODE
 
 channeldb = mongodb.cplaymode
 commanddb = mongodb.commands
@@ -23,7 +23,6 @@ videodb = mongodb.Winxvideocalls
 onoffdb = mongodb.onoffper
 suggdb = mongodb.suggestion
 autoenddb = mongodb.autoend
-
 
 # Shifting to memory [ mongo sucks often]
 loop = {}
@@ -120,7 +119,7 @@ async def set_loop(chat_id: int, mode: int):
 
 
 # Channel Play IDS
-async def get_cmode(chat_id: int) -> int:
+async def get_cmode(chat_id: int) -> Any | None:
     mode = channelconnect.get(chat_id)
     if not mode:
         mode = await channeldb.find_one({"chat_id": chat_id})
@@ -351,7 +350,7 @@ async def remove_nonadmin_chat(chat_id: int):
 
 
 # Video Limit
-async def is_video_allowed(chat_idd) -> str:
+async def is_video_allowed(chat_idd) -> bool:
     chat_id = 123456
     if not vlimit:
         dblimit = await videodb.find_one({"chat_id": chat_id})
@@ -488,11 +487,11 @@ async def get_vid_bit_name(chat_id: int) -> str:
         if PRIVATE_BOT_MODE == str(True):
             return "High"
         else:
-            return "Medium"
+            return "High"
     return mode
 
 
-async def get_audio_bitrate(chat_id: int) -> str:
+async def get_audio_bitrate(chat_id: int) -> MediumQualityAudio | HighQualityAudio | LowQualityAudio:
     mode = audio.get(chat_id)
     if not mode:
         return MediumQualityAudio()
@@ -504,13 +503,13 @@ async def get_audio_bitrate(chat_id: int) -> str:
         return LowQualityAudio()
 
 
-async def get_video_bitrate(chat_id: int) -> str:
+async def get_video_bitrate(chat_id: int) -> HighQualityVideo | MediumQualityVideo | LowQualityVideo:
     mode = video.get(chat_id)
     if not mode:
         if PRIVATE_BOT_MODE == str(True):
             return HighQualityVideo()
         else:
-            return MediumQualityVideo()
+            return HighQualityVideo()
     if str(mode) == "High":
         return HighQualityVideo()
     elif str(mode) == "Medium":

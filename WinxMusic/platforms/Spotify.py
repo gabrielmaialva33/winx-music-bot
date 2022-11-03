@@ -46,7 +46,7 @@ class SpotifyAPI:
             fetched = f' {artist["name"]}'
             if "Various Artists" not in fetched:
                 info += fetched
-        results = VideosSearch(info, limit=1)
+        results = VideosSearch(info, limit=1, language="pt", region="BR")
         for result in (await results.next())["result"]:
             ytlink = result["link"]
             title = result["title"]

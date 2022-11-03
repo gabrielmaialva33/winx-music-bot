@@ -10,11 +10,11 @@
 from pyrogram import filters
 
 import config
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import add_off, add_on
 from WinxMusic.utils.decorators.language import language
+from strings import get_command
 
 # Commands
 LOGGER_COMMAND = get_command("LOGGER_COMMAND")

@@ -12,9 +12,9 @@ from pyrogram.types import (InlineKeyboardButton,
                             InlineQueryResultPhoto)
 from youtubesearchpython.__future__ import VideosSearch
 
-from config import BANNED_USERS, MUSIC_BOT_NAME
 from WinxMusic import app
 from WinxMusic.utils.inlinequery import answer
+from config import BANNED_USERS, MUSIC_BOT_NAME
 
 
 @app.on_inline_query(~BANNED_USERS)
@@ -29,7 +29,7 @@ async def inline_query_handler(client, query):
         except:
             return
     else:
-        a = VideosSearch(text, limit=20)
+        a = VideosSearch(text, limit=20, language="pt", region="BR")
         result = (await a.next()).get("result")
         for x in range(15):
             title = (result[x]["title"]).title()
