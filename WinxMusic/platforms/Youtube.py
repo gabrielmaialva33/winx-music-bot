@@ -11,7 +11,7 @@ from youtubesearchpython.__future__ import VideosSearch
 import asyncio
 import os
 import re
-from typing import Union, Tuple
+from typing import Union
 
 import yt_dlp
 from pyrogram.enums import MessageEntityType

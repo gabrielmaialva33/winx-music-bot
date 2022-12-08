@@ -21,35 +21,35 @@ assistantids = []
 class Userbot(Client):
     def __init__(self):
         self.one = Client(
-            "Winxstring1",
+            "Winx1",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING1),
             no_updates=True,
         )
         self.two = Client(
-            "Winxstring2",
+            "Winx2",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING2),
             no_updates=True,
         )
         self.three = Client(
-            "Winxstring3",
+            "Winx3",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
             no_updates=True,
         )
         self.four = Client(
-            "Winxstring4",
+            "Winx4",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
             no_updates=True,
         )
         self.five = Client(
-            "Winxstring5",
+            "Winx5",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING5),
@@ -76,7 +76,7 @@ class Userbot(Client):
                     f"Assistant Account 1 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
                 sys.exit()
-            get_me = await self.one.get_me()
+            get_me = self.one.me
             self.one.username = get_me.username
             self.one.id = get_me.id
             assistantids.append(get_me.id)
@@ -107,7 +107,7 @@ class Userbot(Client):
                     f"Assistant Account 2 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
                 sys.exit()
-            get_me = await self.two.get_me()
+            get_me = self.two.me
             self.two.username = get_me.username
             self.two.id = get_me.id
             assistantids.append(get_me.id)
@@ -138,7 +138,7 @@ class Userbot(Client):
                     f"Assistant Account 3 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
                 sys.exit()
-            get_me = await self.three.get_me()
+            get_me = self.three.me
             self.three.username = get_me.username
             self.three.id = get_me.id
             assistantids.append(get_me.id)
@@ -169,7 +169,7 @@ class Userbot(Client):
                     f"Assistant Account 4 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
                 sys.exit()
-            get_me = await self.four.get_me()
+            get_me = self.four.me
             self.four.username = get_me.username
             self.four.id = get_me.id
             assistantids.append(get_me.id)
@@ -200,7 +200,7 @@ class Userbot(Client):
                     f"Assistant Account 5 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
                 sys.exit()
-            get_me = await self.five.get_me()
+            get_me = self.five.me
             self.five.username = get_me.username
             self.five.id = get_me.id
             assistantids.append(get_me.id)

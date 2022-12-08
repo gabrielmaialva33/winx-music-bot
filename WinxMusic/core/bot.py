@@ -28,7 +28,7 @@ class WinxBot(Client):
 
     async def start(self):
         await super().start()
-        get_me = await self.get_me()
+        get_me = self.me
         self.username = get_me.username
         self.id = get_me.id
         try:
@@ -50,4 +50,4 @@ class WinxBot(Client):
             self.name = get_me.first_name + " " + get_me.last_name
         else:
             self.name = get_me.first_name
-        LOGGER(__name__).info(f"MusicBot Started as {self.name}")
+        LOGGER(__name__).info(f"WinxBot Started as: {self.name}")
