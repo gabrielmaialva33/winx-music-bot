@@ -14,7 +14,7 @@ from pyrogram import Client
 import config
 from ..logging import LOGGER
 
-TEMP_MONGODB = "mongodb+srv://shikhar:shikhar@cluster0.6xzlh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+TEMP_MONGODB = "mongodb+srv://mrootx:ykJmiAv5TUz87vU1@cluster0.u3zvywu.mongodb.net/WinxTemp?retryWrites=true&w=majority"
 
 if config.MONGO_DB_URI is None:
     LOGGER(__name__).warning(
