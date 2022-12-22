@@ -18,6 +18,7 @@ from config import BANNED_USERS
 @app.on_message()
 async def reply_gab(client, message: Message):
     if message.from_user.id == 387011206:
-        await message.reply_text(
-            "VC 🫵".format(message.from_user.mention)
-        )
+        if "vc" in message.text.lower():
+            await message.reply_text(
+                "VC 🫵".format(message.from_user.mention)
+            )
