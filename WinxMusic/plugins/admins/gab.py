@@ -18,7 +18,8 @@ WORD = ["vc", "voce", "you", "v.c", "ce", "você", "🫵"]
 @app.on_message()
 async def reply_gab(client, message: Message):
     if message.from_user.id == 387011206:
-        if any(word in message.text.lower() for word in WORD):
-            await message.reply_text(
-                "VC 🫵".format(message.from_user.mention)
-            )
+        if message.text.isalpha():
+            if any(word in message.text.lower() for word in WORD):
+                await message.reply_text(
+                    "VC 🫵".format(message.from_user.mention)
+                )
