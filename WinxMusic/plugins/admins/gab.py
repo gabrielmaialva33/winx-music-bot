@@ -7,18 +7,18 @@
 #
 # All rights reserved.
 
-from pyrogram import filters
+
 from pyrogram.types import Message
 
 from WinxMusic import app
-from WinxMusic.utils.decorators import AdminRightsCheck
-from config import BANNED_USERS
+
+WORD = ["vc", "voce", "you", "v.c", "ce", "você", "🫵"]
 
 
 @app.on_message()
 async def reply_gab(client, message: Message):
     if message.from_user.id == 387011206:
-        if "vc" in message.text.lower():
+        if any(word in message.text.lower() for word in WORD):
             await message.reply_text(
                 "VC 🫵".format(message.from_user.mention)
             )
