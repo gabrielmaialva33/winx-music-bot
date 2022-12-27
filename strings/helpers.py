@@ -9,167 +9,171 @@
 
 HELP_1 = """✅**<u>Admin Commands:</u>**
 
-**c** stands for channel play.
+**c** para reprodução de canal.
+**v** para reprodução de voz.
+**force** para reprodução forçada.
 
-/pause or /cpause - Pause the playing music.
-/resume or /cresume- Resume the paused music.
-/mute or /cmute- Mute the playing music.
-/unmute or /cunmute- Unmute the muted music.
-/skip or /cskip- Skip the current playing music.
-/stop or /cstop- Stop the playing music.
-/shuffle or /cshuffle- Randomly shuffles the queued playlist.
-/seek or /cseek - Forward Seek the music to your duration
-/seekback or /cseekback - Backward Seek the music to your duration
-/restart - Restart bot for your chat .
+/pause or /cpause - Pause a música.
+/resume or /cresume- Continuar a música.
+/mute or /cmute- Mute a música.
+/unmute or /cunmute- Desmute a música.
+/skip or /cskip- Pular a música.
+/stop or /cstop- Parar a música.
+/shuffle or /cshuffle- Embaralhar a fila.
+/seek or /cseek - Pular para um tempo específico da música.
+/seekback or /cseekback - Voltar para um tempo específico da música.
+/restart - Reiniciar o bot.
 
 
 ✅<u>**Specific Skip:**</u>
-/skip or /cskip [Number(example: 3)] 
-    - Skips music to a the specified queued number. Example: /skip 3 will skip music to third queued music and will ignore 1 and 2 music in queue.
+/skip or /cskip [Número(example: 3)] 
+    - Pula a música para um número especificado na fila. Exemplo: /skip 3 ou /cskip 3 para pular para a terceira música na fila.
 
-✅<u>**Loop Play:**</u>
-/loop or /cloop [enable/disable] or [Numbers between 1-10] 
-    - When activated, bot loops the current playing music to 1-10 times on voice chat. Default to 10 times.
+✅<u>**Em loop:**</u>
+/loop or /cloop [enable/disable] ou [Um número entre 1-10] 
+    - Quando ativado, o bot repete a reprodução da música atual de 1 a 10 vezes no bate-papo por voz. Padrão para 10 vezes.
 
 ✅<u>**Auth Users:**</u>
-Auth Users can use admin commands without admin rights in your chat.
+Auth Users podem usar comandos administrativos sem direitos administrativos em seu chat.
 
-/auth [Username] - Add a user to AUTH LIST of the group.
-/unauth [Username] - Remove a user from AUTH LIST of the group.
-/authusers - Check AUTH LIST of the group."""
+/auth [Username] - Adicionar um usuário à lista de usuários autorizados.
+/unauth [Username] - Remover um usuário da lista de usuários autorizados.
+/authusers - Lista de usuários autorizados."""
+
 
 
 HELP_2 = """✅<u>**Play Commands:**</u>
 
-Available Commands = play , vplay , cplay
+Comandos Disponíveis = play , vplay , cplay
 
-ForcePlay Commands = playforce , vplayforce , cplayforce
+ForcePlay Comandos = playforce , vplayforce , cplayforce
 
-**c** stands for channel play.
-**v** stands for video play.
-**force** stands for force play.
+**c** para reprodução de canal.
+**v** para reprodução de voz.
+**force** para reprodução forçada.
 
-/play or /vplay or /cplay  - Bot will start playing your given query on voice chat or Stream live links on voice chats.
+/play or /vplay or /cplay  - O bot começará a reproduzir sua consulta no chat de voz ou transmitir links ao vivo em seu chat de voz.
 
-/playforce or /vplayforce or /cplayforce -  **Force Play** stops the current playing track on voice chat and starts playing the searched track instantly without disturbing/clearing queue.
+/playforce or /vplayforce or /cplayforce -  O bot começará a reproduzir sua consulta no chat de voz ou transmitir links ao vivo em seu chat de voz. Se o bot estiver reproduzindo algo, ele será parado e a nova música será reproduzida.
 
-/channelplay [Chat username or id] or [Disable] - Connect channel to a group and stream music on channel's voice chat from your group.
+/channelplay [Chat username or id] or [Disable] - Reproduzir música em um canal específico. Exemplo: /channelplay @WinxMusicBot ou /channelplay -1001234567890
 
 
 ✅**<u>Bot's Server Playlists:</u>**
-/playlist  - Check Your Saved Playlist On Servers.
-/deleteplaylist - Delete any saved music in your playlist
-/play  - Start playing Your Saved Playlist from Servers."""
+/playlist  - Mostra todas as playlists disponíveis no servidor.
+/deleteplaylist - Deletar uma playlist do servidor.
+/play  - Reproduzir uma playlist do servidor."""
 
 
 HELP_3 = """✅<u>**Bot Commands:**</u>
 
-/stats - Get Top 10 Tracks Global Stats, Top 10 Users of bot, Top 10 Chats on bot, Top 10 Played in a chat etc etc.
+/stats - Mostra as estatísticas do bot.
 
-/sudolist - Check Sudo Users of Winx Music Bot
+/sudolist - Mostra todos os usuários sudo.
 
-/lyrics [Music Name] - Searches Lyrics for the particular Music on web.
+/lyrics [Music Name] - Mostra a letra da música.
 
-/song [Track Name] or [YT Link] - Download any track from youtube in mp3 or mp4 formats.
+/song [Track Name] or [YT Link] - Baixar música.
 
-/player -  Get a interactive Playing Panel.
+/player -  Mostra as configurações do player.
 
-**c** stands for channel play.
+**c** para reprodução de canal.
 
-/queue or /cqueue- Check Queue List of Music."""
+/queue or /cqueue- Mostra a fila de reprodução."""
 
 HELP_4 = """✅<u>**Extra  Commands:**</u>
-/start - Start the Music Bot.
-/help  - Get Commands Helper Menu with detailed explanations of commands.
-/ping- Ping the Bot and check Ram, Cpu etc stats of Bot.
+/start - Iniciar o bot.
+/help  - Mostra todos os comandos disponíveis.
+/ping  - Mostra o ping do bot.
 
 ✅<u>**Group Settings:**</u>
-/settings - Get a complete group's settings with inline buttons
+/settings - Mostra as configurações do grupo.
 
-🔗 **Options in Settings:**
+🔗 **Opções em Configurações:**
 
-1️⃣ You can set **Audio Quality** you want to stream on voice chat.
+1️⃣ Você pode definir a **Qualidade de áudio** que deseja transmitir no chat de voz.
 
-2️⃣ You can set **Video Quality** you want to stream on voice chat.
+2️⃣ Você pode definir a **Qualidade de video** que deseja transmitir no chat de voz.
 
-3️⃣ **Auth Users**:- You can change admin commands mode from here to everyone or admins only. If everyone, anyone present in you group will be able to use admin commands(like /skip, /stop etc)
+3️⃣ **Auth Users**:- Você pode alterar o modo de comandos administrativos daqui para todos ou somente administradores. Se todos, qualquer pessoa presente em seu grupo poderá usar comandos de administração (como /skip, /stop etc)
 
-4️⃣ **Clean Mode:** When enabled deletes the bot's messages after 5 mins from your group to make sure your chat remains clean and good.
+4️⃣ **Clean Mode:** Quando ativado, o bot limpará todas as mensagens de comando do bot após 5 minutos.
 
-5️⃣ **Command Clean** : When activated, Bot will delete its executed commands (/play, /pause, /shuffle, /stop etc) immediately.
+5️⃣ **Command Clean** : Quando ativado, o bot limpará todos (/play, /pause, /shuffle, /stop etc) imediatamente após o comando ser executado.
 
 6️⃣ **Play Settings:**
 
-/playmode - Get a complete play settings panel with buttons where you can set your group's play settings. 
+/playmode - Você pode alterar o modo de reprodução do bot aqui.
 
 <u>Options in playmode:</u>
 
-1️⃣ **Search Mode** [Direct or Inline] - Changes your search mode while you give /play mode. 
+1️⃣ **Search Mode** [Direct or Inline] - Quando definido como direto, o bot irá reproduzir a música diretamente. Quando definido como inline, o bot irá enviar uma mensagem inline com a música que você deseja reproduzir.
 
-2️⃣ **Admin Commands** [Everyone or Admins] - If everyone, anyone present in you group will be able to use admin commands(like /skip, /stop etc)
+2️⃣ **Admin Commands** [Everyone or Admins] - Quando definido como todos, qualquer pessoa presente em seu grupo poderá usar comandos de administração (como /skip, /stop etc). Quando definido como administradores, apenas administradores poderão usar comandos de administração.
 
-3️⃣ **Play Type** [Everyone or Admins] - If admins, only admins present in group can play music on voice chat."""
+3️⃣ **Play Type** [Everyone or Admins] - Quando definido como todos, qualquer pessoa presente em seu grupo poderá usar comandos de reprodução (como /play, /pause etc). Quando definido como administradores, apenas administradores poderão usar comandos de reprodução."""
 
 HELP_5 = """🔰**<u>ADD & REMOVE SUDO USERS :</u>**
-/addsudo [Username or Reply to a user]
-/delsudo [Username or Reply to a user]
+/addsudo [Username or Reply to a user] - Adicionar um usuário sudo.
+/delsudo [Username or Reply to a user] - Remover um usuário sudo.
 
 🛃**<u>HEROKU:</u>**
 /usage - Dyno Usage.
 
 🌐**<u>CONFIG VARS:</u>**
-/get_var - Get a config var from Heroku or .env.
-/del_var - Delete any var on Heroku or .env.
-/set_var [Var Name] [Value] - Set a Var or Update a Var on heroku or .env. Seperate Var and its Value with a space.
+/get_var - Mostra todas as variáveis de configuração do Heroku.
+/del_var - Deletar uma variável de configuração do Heroku.
+/set_var [Var Name] [Value] - Definir uma variável de configuração do Heroku.
 
 🤖**<u>BOT COMMANDS:</u>**
-/reboot - Reboot your Bot. 
-/update - Update Bot.
-/speedtest - Check server speeds
-/maintenance [enable / disable] 
-/logger [enable / disable] - Bot logs the searched queries in logger group.
-/get_log [Number of Lines] - Get log of your bot from heroku or vps. Works for both.
-/autoend [enable|disable] - Enable Auto stream end after 3 mins if no one is listening.
+/reboot - Reiniciar o bot.
+/update - Atualizar o bot.
+/speedtest - Teste de velocidade do servidor.
+/maintenance [enable / disable] - Ativar / desativar o modo de manutenção.
+/logger [enable / disable] - Ativar / desativar o modo de log.
+/get_log [Number of Lines] - Obter o log do bot.
+/autoend [enable|disable] - Ativar / desativar a saida automática do bot quando não houver usuários no chat de voz. Apos 3 minutos o bot sai do chat de voz.
 
 📈**<u>STATS COMMANDS:</u>**
-/activevoice - Check active voice chats on bot.
-/activevideo - Check active video calls on bot.
-/stats - Check Bots Stats
+/activevoice - Mostra todos os chats de voz ativos.
+/activevideo - Mostra todos os chats de vídeo ativos.
+/stats - Mostra as estatísticas do bot.
 
 ⚠️**<u>BLACKLIST CHAT FUNCTION:</u>**
-/blacklistchat [CHAT_ID] - Blacklist any chat from using Music Bot
-/whitelistchat [CHAT_ID] - Whitelist any blacklisted chat from using Music Bot
-/blacklistedchat - Check all blacklisted chats.
+/blacklistchat [CHAT_ID] - Adicionar um chat à lista negra.
+/whitelistchat [CHAT_ID] - Remover um chat da lista negra.
+/blacklistedchat - Mostrar todos os chats na lista negra.
 
 👤**<u>BLOCKED FUNCTION:</u>**
-/block [Username or Reply to a user] - Prevents a user from using bot commands.
-/unblock [Username or Reply to a user] - Remove a user from Bot's Blocked List.
-/blockedusers - Check blocked Users Lists
+/block [Username or Reply to a user] - Bloquear um usuário.
+/unblock [Username or Reply to a user] - Desbloquear um usuário.
+/blockedusers - Mostrar todos os usuários bloqueados.
 
 👤**<u>GBAN FUNCTION:</u>**
-/gban [Username or Reply to a user] - Gban a user from bot's served chat and stop him from using your bot.
-/ungban [Username or Reply to a user] - Remove a user from Bot's gbanned List and allow him for using your bot
-/gbannedusers - Check Gbanned Users Lists
+/gban [Username or Reply to a user] - Banir globalmente um usuário.
+/ungban [Username or Reply to a user] - Desbanir globalmente um usuário.
+/gbannedusers - Mostrar todos os usuários banidos globalmente.
 
 🎥**<u>VIDEOCALLS FUNCTION:</u>**
-/set_video_limit [Number of Chats] - Set a maximum Number of Chats allowed for Video Calls at a time. Default to 3 chats.
-/videomode [download|m3u8] - If download mode is enabled, Bot will download videos instead of playing them in M3u8 form. ByDefault to M3u8. You can use download mode when any query doesnt plays in m3u8 mode.
+/set_video_limit [Number of Chats] - Definir o limite de chats de vídeo. (Padrão: 3)
+/videomode [download|m3u8] - Se o modo de download estiver ativado, o Bot baixará os vídeos em vez de reproduzi-los no formato M3u8. Por padrão para M3u8. Você pode usar o modo de download quando qualquer consulta não for reproduzida no modo m3u8.
 
 ⚡️**<u>PRIVATE BOT FUNCTION:</u>**
-/authorize [CHAT_ID] - Allow a chat for using your bot.
-/unauthorize [CHAT_ID] - Disallow a chat from using your bot.
-/authorized - Check all allowed chats of your bot.
+/authorize [CHAT_ID] - Autorizar um chat para usar o bot.
+/unauthorize [CHAT_ID] - Desautorizar um chat para usar o bot.
+/authorized - Mostrar todos os chats autorizados para usar o bot.
 
 🌐**<u>BROADCAST FUNCTION:</u>**
-/broadcast [Message or Reply to a Message] - Broadcast any message to Bot's Served Chats.
+/broadcast [Message or Reply to a Message] - Enviar uma mensagem para todos os chats autorizados.
 
-<u>options for broadcast:</u>
-**-pin** : This will pin your message 
-**-pinloud** : This will pin your message with loud notification
-**-user** : This will broadcast your message to the users who have started your bot.
-**-assistant** : This will broadcast your message from assistant account of your bot.
-**-nobot** : This will force your bot to not broadcast message
+<u>opcões de broadcast:</u>
 
-**Example:** `/broadcast -user -assistant -pin Hello Testing`
+**-pin** : Fixar a mensagem enviada.
+**-pinloud** : Fixar a mensagem enviada e enviar uma mensagem de alerta.
+**-user** : Enviar a mensagem para todos os usuários autorizados.
+**-assistant** : Enviar a mensagem para todos os usuários autorizados e o assistente.
+**-nobot** : Enviar a mensagem para todos os usuários autorizados, exceto o bot.
+
+**Exemplo:** `/broadcast -user -assistant -pin Boe die!`
 
 """
