@@ -7,7 +7,7 @@
 #
 # All rights reserved.
 
-HELP_1 = """✅**<u>Admin Commands:</u>**
+HELP_1 = """✅**<u>Admin Comandos</u>**✅
 
 **c** para reprodução de canal.
 **v** para reprodução de voz.
@@ -25,7 +25,7 @@ HELP_1 = """✅**<u>Admin Commands:</u>**
 /restart - Reiniciar o bot.
 
 
-✅<u>**Specific Skip:**</u>
+✅<u>**Comandos de Música**</u>✅
 /skip or /cskip [Número(example: 3)] 
     - Pula a música para um número especificado na fila. Exemplo: /skip 3 ou /cskip 3 para pular para a terceira música na fila.
 
@@ -33,8 +33,8 @@ HELP_1 = """✅**<u>Admin Commands:</u>**
 /loop or /cloop [enable/disable] ou [Um número entre 1-10] 
     - Quando ativado, o bot repete a reprodução da música atual de 1 a 10 vezes no bate-papo por voz. Padrão para 10 vezes.
 
-✅<u>**Auth Users:**</u>
-Auth Users podem usar comandos administrativos sem direitos administrativos em seu chat.
+✅<u>**Usuários Autorizados:**</u>
+Usuários Autorizados podem usar comandos administrativos sem direitos administrativos em seu chat.
 
 /auth [Username] - Adicionar um usuário à lista de usuários autorizados.
 /unauth [Username] - Remover um usuário da lista de usuários autorizados.
@@ -42,11 +42,11 @@ Auth Users podem usar comandos administrativos sem direitos administrativos em s
 
 
 
-HELP_2 = """✅<u>**Play Commands:**</u>
+HELP_2 = """✅<u>**Reprodução de Música/Vídeo:**</u>
 
 Comandos Disponíveis = play , vplay , cplay
 
-ForcePlay Comandos = playforce , vplayforce , cplayforce
+Comandos Forçar = playforce , vplayforce , cplayforce
 
 **c** para reprodução de canal.
 **v** para reprodução de voz.
@@ -59,13 +59,13 @@ ForcePlay Comandos = playforce , vplayforce , cplayforce
 /channelplay [Chat username or id] or [Disable] - Reproduzir música em um canal específico. Exemplo: /channelplay @WinxMusicBot ou /channelplay -1001234567890
 
 
-✅**<u>Bot's Server Playlists:</u>**
+✅**<u>Playlist</u>**✅
 /playlist  - Mostra todas as playlists disponíveis no servidor.
 /deleteplaylist - Deletar uma playlist do servidor.
 /play  - Reproduzir uma playlist do servidor."""
 
 
-HELP_3 = """✅<u>**Bot Commands:**</u>
+HELP_3 = """✅<u>**Bot Comandos**</u>✅
 
 /stats - Mostra as estatísticas do bot.
 
@@ -81,12 +81,12 @@ HELP_3 = """✅<u>**Bot Commands:**</u>
 
 /queue or /cqueue- Mostra a fila de reprodução."""
 
-HELP_4 = """✅<u>**Extra  Commands:**</u>
+HELP_4 = """✅<u>**Comandos Extras**</u>✅
 /start - Iniciar o bot.
 /help  - Mostra todos os comandos disponíveis.
 /ping  - Mostra o ping do bot.
 
-✅<u>**Group Settings:**</u>
+✅<u>**Cofiurações do Grupo**</u>✅
 /settings - Mostra as configurações do grupo.
 
 🔗 **Opções em Configurações:**
@@ -105,7 +105,7 @@ HELP_4 = """✅<u>**Extra  Commands:**</u>
 
 /playmode - Você pode alterar o modo de reprodução do bot aqui.
 
-<u>Options in playmode:</u>
+<u>Opções de tipo de reprodução:</u>
 
 1️⃣ **Search Mode** [Direct or Inline] - Quando definido como direto, o bot irá reproduzir a música diretamente. Quando definido como inline, o bot irá enviar uma mensagem inline com a música que você deseja reproduzir.
 
