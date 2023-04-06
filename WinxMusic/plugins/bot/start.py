@@ -134,7 +134,7 @@ async def start_comm(client, message: Message, _):
             m = await message.reply_text("🔎 Fetching Info!")
             query = (str(name)).replace("info_", "", 1)
             query = f"https://www.youtube.com/watch?v={query}"
-            results = VideosSearch(query, limit=1, language="pt", region="BR")
+            results = VideosSearch(query, limit=1, language="en", region="US")
             for result in (await results.next())["result"]:
                 title = result["title"]
                 duration = result["duration"]
