@@ -6,6 +6,8 @@
 # Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
 #
 # All rights reserved.
+from __future__ import annotations
+
 from typing import Any
 
 import config
