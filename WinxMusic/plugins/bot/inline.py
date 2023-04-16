@@ -29,7 +29,7 @@ async def inline_query_handler(client, query):
         except:
             return
     else:
-        a = VideosSearch(text, limit=20, language="pt", region="BR")
+        a = VideosSearch(text, limit=20, language="en", region="US")
         result = (await a.next()).get("result")
         for x in range(15):
             title = (result[x]["title"]).title()
