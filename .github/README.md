@@ -2,21 +2,25 @@
 
 # Winx Music Bot <img src="https://img.shields.io/github/v/release/TeamWinx/WinxMusicBot?color=black&logo=github&logoColor=black&style=social" alt="RELEASE">
 
-[Winx Music Bot](https://github.com/gabrielmaialva33/winx-music-bot) is a Powerful Telegram Music+Video Bot written in Python using Pyrogram and Py-Tgcalls by which you can stream songs, video and even live streams in your group calls via various sources.
+[Winx Music Bot](https://github.com/gabrielmaialva33/winx-music-bot) is a Powerful Telegram Music+Video Bot written in
+Python using Pyrogram and Py-Tgcalls by which you can stream songs, video and even live streams in your group calls via
+various sources.
 
 * Youtube, Soundcloud, Apple Music, Spotify, Resso, Live Streams and Telegram Audios & Videos support.
 * Written from scratch, making it stable and less crashes with attractive thumbnails.
 * Loop, Seek, Shuffle, Specific Skip, Playlists etc support
 * Multi-Language support
 
-
 # ⚡️ Getting Started [[Documentation](https://notreallyshikhar.gitbook.io/Winxmusicbot/)]
 
-> The official [documentation site](https://notreallyshikhar.gitbook.io/Winxmusicbot/) contains a lot of information. The best place to start is from the deployment section.
+> The official [documentation site](https://notreallyshikhar.gitbook.io/Winxmusicbot/) contains a lot of information.
+> The best place to start is from the deployment section.
 
 ## ⚠️ Heroku / Okteto / Railway
 
-We have temporarily disabled the deployment for  all these cloud service platforms due to security and ban issues. We don't want innocent users who sign up there to be banned from the platform as a result of this deployment. [Read More](https://t.me/TheWinx/2541)
+We have temporarily disabled the deployment for all these cloud service platforms due to security and ban issues. We
+don't want innocent users who sign up there to be banned from the platform as a result of this
+deployment. [Read More](https://t.me/TheWinx/2541)
 
 ## 🖇 Generating Pyrogram String Session
 
@@ -27,8 +31,8 @@ We have temporarily disabled the deployment for  all these cloud service platfor
 
 ## 🖇 VPS Deployment
 
-Checkout [Docs](https://notreallyshikhar.gitbook.io/Winxmusicbot/deployment/local-hosting-or-vps) for Detailed Explanation on VPS Deploy
-
+Checkout [Docs](https://notreallyshikhar.gitbook.io/Winxmusicbot/deployment/local-hosting-or-vps) for Detailed
+Explanation on VPS Deploy
 
 # 🏷 Support / Assistance
 
@@ -42,9 +46,11 @@ If you want to say **thank you** or/and support active development of WinxMusicB
 
 - Add a [GitHub Star](https://github.com/gabrielmaialva33/winx-music-bot) to the project.
 - Fork the Repo :)
-- Write interesting articles about the project on [Dev.to](https://dev.to/), [Medium](https://medium.com/) or your personal blog.
+- Write interesting articles about the project on [Dev.to](https://dev.to/), [Medium](https://medium.com/) or your
+  personal blog.
 
 Together, we can make **WinxMusicBot** better!
+
 # 📑 Acknowledgement / Credits
 
 Special thanks to these amazing projects/people which/who help power Winx Music Bot:
@@ -55,5 +61,5 @@ Special thanks to these amazing projects/people which/who help power Winx Music 
 - [TheHamkerCat](https://github.com/TheHamkerCat)
 - [Charon Baglari](https://github.com/XCBv021)
 
-
-Reminder that you are great, you are enough, and your presence is valued. If you are struggling with your mental health, please reach out to someone you love and consult a professional.
+Reminder that you are great, you are enough, and your presence is valued. If you are struggling with your mental health,
+please reach out to someone you love and consult a professional.

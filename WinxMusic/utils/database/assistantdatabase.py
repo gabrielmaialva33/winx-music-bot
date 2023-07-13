@@ -28,6 +28,8 @@ async def get_client(assistant: int):
         return userbot.four
     elif int(assistant) == 5:
         return userbot.five
+    elif int(assistant) == 6:
+        return userbot.six
 
 
 async def set_assistant(chat_id):
@@ -114,3 +116,5 @@ async def group_assistant(self, chat_id: int) -> int:
         return self.four
     elif int(assis) == 5:
         return self.five
+    elif int(assis) == 6:
+        return self.six

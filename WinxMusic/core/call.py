@@ -108,6 +108,16 @@ class Call(PyTgCalls):
             self.userbot5,
             cache_duration=100,
         )
+        self.userbot6 = Client(
+            "Winxstring6",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=str(config.STRING6),
+        )
+        self.six = PyTgCalls(
+            self.userbot6,
+            cache_duration=100,
+        )
 
     async def pause_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
@@ -545,6 +555,8 @@ class Call(PyTgCalls):
             pings.append(await self.four.ping)
         if config.STRING5:
             pings.append(await self.five.ping)
+        if config.STRING6:
+            pings.append(await self.six.ping)
         return str(round(sum(pings) / len(pings), 3))
 
     async def start(self):
@@ -559,6 +571,8 @@ class Call(PyTgCalls):
             await self.four.start()
         if config.STRING5:
             await self.five.start()
+        if config.STRING6:
+            await self.six.start()
 
     async def decorators(self):
         @self.one.on_kicked()
@@ -566,16 +580,19 @@ class Call(PyTgCalls):
         @self.three.on_kicked()
         @self.four.on_kicked()
         @self.five.on_kicked()
+        @self.six.on_kicked()
         @self.one.on_closed_voice_chat()
         @self.two.on_closed_voice_chat()
         @self.three.on_closed_voice_chat()
         @self.four.on_closed_voice_chat()
         @self.five.on_closed_voice_chat()
+        @self.six.on_closed_voice_chat()
         @self.one.on_left()
         @self.two.on_left()
         @self.three.on_left()
         @self.four.on_left()
         @self.five.on_left()
+        @self.six.on_left()
         async def stream_services_handler(_, chat_id: int):
             await self.stop_stream(chat_id)
 
@@ -584,6 +601,7 @@ class Call(PyTgCalls):
         @self.three.on_stream_end()
         @self.four.on_stream_end()
         @self.five.on_stream_end()
+        @self.six.on_stream_end()
         async def stream_end_handler1(client, update: Update):
             if not isinstance(update, StreamAudioEnded):
                 return
@@ -594,6 +612,7 @@ class Call(PyTgCalls):
         @self.three.on_participants_change()
         @self.four.on_participants_change()
         @self.five.on_participants_change()
+        @self.six.on_participants_change()
         async def participants_change_handler(client, update: Update):
             if not isinstance(
                     update, JoinedGroupCallParticipant

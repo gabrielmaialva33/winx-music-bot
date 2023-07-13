@@ -141,12 +141,13 @@ STRING2 = getenv("STRING_SESSION", None)
 STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
 STRING5 = getenv("STRING_SESSION5", None)
+STRING6 = getenv("STRING_SESSION6", None)
 
 ### DONT TOUCH or EDIT codes after this line
 BANNED_USERS = filters.user()
 YTDOWNLOADER = 1
 LOG = 2
-LOG_FILE_NAME = "Winxlogs.txt"
+LOG_FILE_NAME = "WinxLogs.txt"
 adminlist = {}
 lyrical = {}
 chatstats = {}

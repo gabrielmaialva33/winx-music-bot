@@ -31,6 +31,7 @@ async def init():
             and not config.STRING3
             and not config.STRING4
             and not config.STRING5
+            and not config.STRING6
     ):
         LOGGER("WinxMusic").error(
             "No Assistant Clients Vars Defined!.. Exiting Process."

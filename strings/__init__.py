@@ -16,7 +16,6 @@ import yaml
 languages = {}
 commands = {}
 
-
 languages_present = {}
 
 
@@ -34,7 +33,6 @@ for filename in os.listdir(r"./strings"):
         commands[language_name] = yaml.safe_load(
             open(r"./strings/" + filename, encoding="utf8")
         )
-
 
 for filename in os.listdir(r"./strings/langs/"):
     if "pt" not in languages:

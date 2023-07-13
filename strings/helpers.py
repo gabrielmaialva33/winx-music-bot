@@ -40,8 +40,6 @@ Usuários Autorizados podem usar comandos administrativos sem direitos administr
 /unauth [Username] - Remover um usuário da lista de usuários autorizados.
 /authusers - Lista de usuários autorizados."""
 
-
-
 HELP_2 = """✅<u>**Reprodução de Música/Vídeo:**</u>
 
 Comandos Disponíveis = play , vplay , cplay
@@ -63,7 +61,6 @@ Comandos Forçar = playforce , vplayforce , cplayforce
 /playlist  - Mostra todas as playlists disponíveis no servidor.
 /deleteplaylist - Deletar uma playlist do servidor.
 /play  - Reproduzir uma playlist do servidor."""
-
 
 HELP_3 = """✅<u>**Bot Comandos**</u>✅
 
