@@ -44,7 +44,7 @@ PLAY_COMMAND = get_command("PLAY_COMMAND")
     & ~BANNED_USERS
 )
 @PlayWrapper
-async def play_commnd(
+async def play_command(
         client,
         message: Message,
         _,

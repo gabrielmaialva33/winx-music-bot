@@ -6,9 +6,10 @@ ffmpeg-python
 gitpython
 hachoir
 heroku3
+httpx
 lyricsgenius
 motor
-pillow
+pillow==9.5.0
 psutil
 py-tgcalls
 pykeyboard
@@ -21,4 +22,4 @@ spotipy
 tgcrypto
 youtube-search
 youtube-search-python
-yt-dlp
+git+https://github.com/yt-dlp/yt-dlp.git

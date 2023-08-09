@@ -13,7 +13,7 @@ tg_1: "O bot está **sobrecarregado** com downloads no momento.\n\n**Tente depoi
 tg_2: "Falha ao baixar a arquivo do telegram."
 
 # Core - Call.py
-call_1: "O bot requer permissão de **Admin** para convidar uma conta de assistente para seu canal."
+call_1: "O bot requer permissão de **Admin** para convidar uma conta de assistente para seu canal ou grupo."
 call_2: "O assistente foi banido em seu grupo ou canal, por favor, desbana.\n\n**Username do assistente:** @{0}\n**Assistant ID:** {1}"
 call_3: "Ocorreu um erro ao convidar uma conta de assistente para seu grupo.\n\n**Motivo**: {0}"
 call_4: "O bot requer permissão **Convidar usuários via link** para convidar a conta de assistente para seu grupo."
@@ -153,8 +153,8 @@ play_8: "Não é uma extensão de arquivo de vídeo válida!\n\n**Formatos supor
 play_9: "O tamanho do arquivo de vídeo deve ser inferior a 2 GiB"
 play_10: "**Recurso de playlist do YouTube**\n\nSelecione o modo em que deseja reproduzir toda a playlist do YouTube"
 play_11: "📎Título: **{0}\n\n⏳Duração:** {1} Mins"
-play_12: "**Modo de Reprodução do Spotify**\n\nSolicitado por:- {0}"
-play_13: "**Playlists da Apple**\n\nSolicitado por:- {0}"
+play_12: "**Modo de Reprodução do Spotify**\n\nPedida por:- {0}"
+play_13: "**Playlists da Apple**\n\nPedida por:- {0}"
 play_14: "**Não foi possível verificar o URL.**\nBot se pergunta se este URL pertence a alguma das seguintes plataformas: Youtube, AppleMusic, Spotify, Resso e Soundcloud.\n\nVocê pode usar /stream para M3u8 ou Links Remotos ."
 play_15: "**Transmissão ao vivo detectada**\n\nOs sistemas detectaram o link da sua faixa como transmissão ao vivo. Deseja reproduzir a transmissão ao vivo ?"
 play_16: "Falha ao buscar detalhes da faixa. Tente reproduzir qualquer outra."
@@ -192,7 +192,7 @@ str_2: "✅ Stream válido verificado\n\nAguarde o processamento do link.."
 str_3: "Não foi possível transmitir transmissões ao vivo do youtube. Nenhum formato ao vivo encontrado"
 
 #TopPlay
-tracks_1: "**Processando {0} Top 10 Playlist**\nIsso pode levar alguns minutos (cerca de 3-4 minutos). Aguarde...\n\n**👤Solicitado por:** {1}\ n\nVerifique as 10 principais faixas de /gstats"
+tracks_1: "**Processando {0} Top 10 Playlist**\nIsso pode levar alguns minutos (cerca de 3-4 minutos). Aguarde...\n\n**👤Pedida por:** {1}\ n\nVerifique as 10 principais faixas de /gstats"
 tracks_2: "**Erro**\n\nNão há **{0} Top 10 Playlist** nos servidores do bot. Tente qualquer outra playlist"
 
 # TOOLS
@@ -218,21 +218,21 @@ song_6: "Carregando Formatos.. \n\nAguarde.."
 song_7: "Falha ao obter os formatos disponíveis para o vídeo. Tente qualquer outra faixa."
 song_8: "Download iniciado\n\nA velocidade de download pode ser lenta. Aguarde.."
 song_9: "Falha ao baixar a música do Youtube-DL\n\n**Motivo:** {0}"
-song_10: "Falha ao carregar no telegrama dos servidores."
+song_10: "Falha ao carregar no telegram dos servidores."
 song_11: "Carregamento iniciado\n\nA velocidade de carregamento pode ser lenta. Aguarde.."
 
 # Tools - Queue
 queue_1: "Aguarde.. Buscando fila.."
-queue_2: "Lista na fila está vazia. Nenhuma trilha encontrada"
-queue_3: "<u>**Faixas na fila:</u>** [Compre mais trilhas na fila daqui]({0})"
+queue_2: "Lista na fila está vazia. Nenhuma faixa encontrada"
+queue_3: "<u>**Faixas na fila:</u>** [Mais faixas]({0})"
 queue_4: "⏳ Adicionado à fila em **#{0}\n\n💡Título:** {1}\n**⏱Duração:** {2}\n👤**Adicionado por:** {3}"
 queue_5: "Apenas uma faixa dentro da fila, por favor adicione mais algumas à lista de verificação"
 
 # All Streaming Lines
-stream_1: "📡 **Transmissão iniciada** 💡\n\n👤**Solicitado por:** {0}\n🔦**Informações: **[Aqui]({1})"
-stream_2: "📡 **Iniciou a transmissão via URL ** 💡\n\n👤**Solicitado por:** {0}"
-stream_3: "📡 **Transmissão iniciada** 💡\n\n**🏷Título:** {0}\n⌛️**Duração**: {1}\n👤**Solicitado por:** {2} "
-stream_4: "📡 **Transmissão iniciada** 💡\n\n**🏷Título:** [{0}]({1})\n⌛️**Duração**: {2}\n👤**Solicitado Por:** {3}"
+stream_1: "📡 **Steam iniciada** 💡\n\n👤**Pedida por:** {0}\n🔦**Informações: **[Aqui]({1})"
+stream_2: "📡 **Iniciou a steam via URL ** 💡\n\n👤**Pedida por:** {0}"
+stream_3: "📡 **Steam iniciada** 💡\n\n**🏷Título:** {0}\n⌛️**Duração**: {1}\n👤**Pedida por:** {2} "
+stream_4: "📡 **Steam iniciada** 💡\n\n**🏷Título:** [{0}]({1})\n⌛️**Duração**: {2}\n👤**Pedida por:** {3}"
 
 # Inline Buttons
 

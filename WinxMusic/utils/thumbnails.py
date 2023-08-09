@@ -6,6 +6,7 @@
 # Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
 #
 # All rights reserved.
+from youtubesearchpython.__future__ import VideosSearch
 
 import os
 import re
@@ -15,7 +16,6 @@ import aiofiles
 import aiohttp
 from PIL import (Image, ImageDraw, ImageEnhance, ImageFilter,
                  ImageFont, ImageOps)
-from youtubesearchpython.__future__ import VideosSearch
 
 from config import MUSIC_BOT_NAME, YOUTUBE_IMG_URL
 
@@ -83,10 +83,10 @@ async def gen_thumb(videoid):
         logo = ImageOps.expand(logo, border=15, fill="white")
         background.paste(logo, (50, 100))
         draw = ImageDraw.Draw(background)
-        font = ImageFont.truetype("assets/font2.otf", 40)
-        font2 = ImageFont.truetype("assets/font2.otf", 70)
-        arial = ImageFont.truetype("assets/font2.otf", 30)
-        name_font = ImageFont.truetype("assets/font.otf", 30)
+        font = ImageFont.truetype("assets/RobotoBold.ttf", 40, encoding="utf-8")
+        font2 = ImageFont.truetype("assets/RobotoBold.ttf", 70, encoding="utf-8")
+        arial = ImageFont.truetype("assets/RobotoBold.ttf", 30, encoding="utf-8")
+        name_font = ImageFont.truetype("assets/RobotoRegular.ttf", 30, encoding="utf-8")
         para = textwrap.wrap(title, width=32)
         j = 0
         draw.text(
@@ -146,5 +146,6 @@ async def gen_thumb(videoid):
             pass
         background.save(f"cache/{videoid}.png")
         return f"cache/{videoid}.png"
-    except Exception:
+    except Exception as e:
+        print(e)
         return YOUTUBE_IMG_URL
