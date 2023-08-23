@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://64.media.tumblr.com/b20a9df719f8420ac7aa02ece2cb1774/5f8ef1a042cf9e6b-7f/s540x810/eba21bbdb525e72f84be27d439c156b4dfa6b31a.gifv" alt="Winx Bot" width="200">
+  <img src="https://64.media.tumblr.com/b20a9df719f8420ac7aa02ece2cb1774/5f8ef1a042cf9e6b-7f/s540x810/eba21bbdb525e72f84be27d439c156b4dfa6b31a.gifv" alt="Winx Bot" width="400">
   <br>
   Winx Bot for <a href="https://telegram.org/">Telegram</a>
   <br>
