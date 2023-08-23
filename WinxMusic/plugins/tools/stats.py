@@ -15,7 +15,7 @@ import psutil
 from pyrogram import __version__ as pyrover
 from pyrogram import filters
 from pyrogram.errors import MessageIdInvalid
-from pyrogram.types import CallbackQuery, InputMediaPhoto, Message, InputMediaAnimation
+from pyrogram.types import CallbackQuery, Message, InputMediaAnimation
 from pytgcalls.__version__ import __version__ as pytgver
 
 import config

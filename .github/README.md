@@ -31,7 +31,8 @@
 
 ## :bookmark: About
 
-**Winx Bot** é um bot de música e vídeo para o Telegram escrito em Elixir, utilizando Phoenix, através do qual você pode transmitir músicas, vídeos e até mesmo transmissões ao vivo nas suas chamadas em grupo por meio de várias fontes. 🎵🎥✨
+**Winx Bot** é um bot de música e vídeo para o Telegram escrito em Elixir, utilizando Phoenix, através do qual você pode
+transmitir músicas, vídeos e até mesmo transmissões ao vivo nas suas chamadas em grupo por meio de várias fontes. 🎵🎥✨
 
 * YouTube, Soundcloud, Apple Music, Spotify, Resso, Live Streams and Telegram Audios & Videos support.
 * Written from scratch, making it stable and less crashes with attractive thumbnails.
