@@ -1,65 +1,93 @@
-<img src="https://telegra.ph/file/4bbfc8edc21183f0fafcd.jpg" align="right" width="200" height="200"/>
+<h1 align="center">
+  <br>
+  <img src="https://64.media.tumblr.com/b20a9df719f8420ac7aa02ece2cb1774/5f8ef1a042cf9e6b-7f/s540x810/eba21bbdb525e72f84be27d439c156b4dfa6b31a.gifv" alt="Winx Bot" width="200">
+  <br>
+  Winx Bot for <a href="https://telegram.org/">Telegram</a>
+  <br>
+</h1>
 
-# Winx Music Bot <img src="https://img.shields.io/github/v/release/TeamWinx/WinxMusicBot?color=black&logo=github&logoColor=black&style=social" alt="RELEASE">
+<p align="center">
+  <img src="https://wakatime.com/badge/user/e61842d0-c588-4586-96a3-f0448a434be4/project/606f5c48-9148-446c-b6f7-d12aafbaaee8.svg" alt="wakatime">
+  <img src="https://img.shields.io/github/languages/top/gabrielmaialva33/winx-music-bot?style=flat&logo=appveyor" alt="GitHub top language" >
+  <img src="https://img.shields.io/github/languages/count/gabrielmaialva33/winx-music-bot?style=flat&logo=appveyor" alt="GitHub language count" >
+  <img src="https://img.shields.io/github/repo-size/gabrielmaialva33/winx-music-bot?style=flat&logo=appveyor" alt="Repository size" >
+  <img src="https://img.shields.io/github/license/gabrielmaialva33/winx-music-bot?color=00b8d3?style=flat&logo=appveyor" alt="License" /> 
+  <a href="https://github.com/gabrielmaialva33/winx-music-bot/commits/master">
+    <img src="https://img.shields.io/github/last-commit/gabrielmaialva33/winx-music-bot?style=flat&logo=appveyor" alt="GitHub last commit" >
+    <img src="https://img.shields.io/badge/made%20by-Maia-15c3d6?style=flat&logo=appveyor" alt="Maia" >  
+  </a>
+</p>
 
-[Winx Music Bot](https://github.com/gabrielmaialva33/winx-music-bot) is a Powerful Telegram Music+Video Bot written in
-Python using Pyrogram and Py-Tgcalls by which you can stream songs, video and even live streams in your group calls via
-various sources.
+<p align="center">
+  <a href="#bookmark-about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#computer-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#package-installation">Installation</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#wrench-configuration">Configuration</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-documentation">Documentation</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-license">License</a>
+</p>
 
-* Youtube, Soundcloud, Apple Music, Spotify, Resso, Live Streams and Telegram Audios & Videos support.
+<br>
+
+## :bookmark: About
+
+**Winx Bot** é um bot de música e vídeo para o Telegram escrito em Elixir, utilizando Phoenix, através do qual você pode transmitir músicas, vídeos e até mesmo transmissões ao vivo nas suas chamadas em grupo por meio de várias fontes. 🎵🎥✨
+
+* YouTube, Soundcloud, Apple Music, Spotify, Resso, Live Streams and Telegram Audios & Videos support.
 * Written from scratch, making it stable and less crashes with attractive thumbnails.
 * Loop, Seek, Shuffle, Specific Skip, Playlists etc support
 * Multi-Language support
 
-# ⚡️ Getting Started [[Documentation](https://notreallyshikhar.gitbook.io/Winxmusicbot/)]
+<br>
 
-> The official [documentation site](https://notreallyshikhar.gitbook.io/Winxmusicbot/) contains a lot of information.
-> The best place to start is from the deployment section.
+## :computer: Technologies
 
-## ⚠️ Heroku / Okteto / Railway
+- **[Python](https://www.python.org/)**
+- **[PyTgCalls](https://github.com/pytgcalls/pytgcalls)**
+- **[Pyrogram](https://docs.pyrogram.org/)**
+- **[MongoDB](https://www.mongodb.com/)**
+- **[FFmpeg](https://ffmpeg.org/)**
+- **[Pillow](https://pillow.readthedocs.io/en/stable/)**
 
-We have temporarily disabled the deployment for all these cloud service platforms due to security and ban issues. We
-don't want innocent users who sign up there to be banned from the platform as a result of this
-deployment. [Read More](https://t.me/TheWinx/2541)
+## :package: Installation
 
-## 🖇 Generating Pyrogram String Session
+```bash
+# install ffmpeg
+sudo apt-get update -y && sudo apt-get upgrade -y
+sudo apt-get install -y --no-install-recommends ffmpeg
+# clone the repository
+git clone https://github.com/gabrielmaialva33/winx-music-bot.git
+# enter the directory
+cd winx-music-bot
+# install the dependencies
+pip3 install --no-cache-dir --upgrade --requirement requirements.txt
+```
 
-<p>
-<a href="https://replit.com/@NotReallyShikhar/Winx-Music-String-Gen"><img src="https://img.shields.io/badge/Generate%20On%20Repl-blueviolet?style=for-the-badge&logo=appveyor" width="200""/></a>
-<a href="https://t.me/WinxStringBot"><img src="https://img.shields.io/badge/TG%20String%20Gen%20Bot-blueviolet?style=for-the-badge&logo=appveyor" width="200""/></a>
-</p>
+### :wrench: **Configuration**
 
-## 🖇 VPS Deployment
+copy the sample.env file to .env and fill the values
 
-Checkout [Docs](https://notreallyshikhar.gitbook.io/Winxmusicbot/deployment/local-hosting-or-vps) for Detailed
-Explanation on VPS Deploy
+```bash
+# Configure .env file
+cp sample.env .env
+# generate session string
+python3 genstring.py
+# run the bot
+python3 -m WinxMusic
+```
 
-# 🏷 Support / Assistance
+### :memo: **Documentation**
 
-Reach out to the maintainer at one of the following places:
+```md
+# coming soon
+```
 
-- [GitHub Issues](https://github.com/gabrielmaialva33/winx-music-bot/issues/new?assignees=&labels=question&template=SUPPORT_QUESTION.md&title=support%3A+)
-- Contact options listed on [this GitHub profile](https://github.com/gabrielmaialva33)
-- [Telegram Support](https://t.me/WinxSupport)
+### :writing_hand: **Author**
 
-If you want to say **thank you** or/and support active development of WinxMusicBot:
+| [![Maia](https://avatars.githubusercontent.com/u/26732067?size=100)](https://github.com/gabrielmaialva33) |
+|-----------------------------------------------------------------------------------------------------------|
+| [Maia](https://github.com/gabrielmaialva33)                                                               |
 
-- Add a [GitHub Star](https://github.com/gabrielmaialva33/winx-music-bot) to the project.
-- Fork the Repo :)
-- Write interesting articles about the project on [Dev.to](https://dev.to/), [Medium](https://medium.com/) or your
-  personal blog.
+## License
 
-Together, we can make **WinxMusicBot** better!
-
-# 📑 Acknowledgement / Credits
-
-Special thanks to these amazing projects/people which/who help power Winx Music Bot:
-
-- [Pyrogram](https://github.com/pyrogram/pyrogram)
-- [Py-Tgcalls](https://github.com/pytgcalls/pytgcalls)
-- [CallsMusic Team](https://github.com/Callsmusic)
-- [TheHamkerCat](https://github.com/TheHamkerCat)
-- [Charon Baglari](https://github.com/XCBv021)
-
-Reminder that you are great, you are enough, and your presence is valued. If you are struggling with your mental health,
-please reach out to someone you love and consult a professional.
+[MIT License](./LICENSE)

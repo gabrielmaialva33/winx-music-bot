@@ -44,7 +44,7 @@ MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", "Winx")
 
 # Your User ID.
 OWNER_ID = list(
-    map(int, getenv("OWNER_ID", "1307574219").split())
+    map(int, getenv("OWNER_ID", "5643634626").split())
 )  # Input type must be interger
 
 # Get it from http://dashboard.heroku.com/account
@@ -68,7 +68,7 @@ SUPPORT_CHANNEL = getenv(
     "SUPPORT_CHANNEL", "https://t.me/clubdaswinxcanal"
 )  # Example:- https://t.me/politicament
 SUPPORT_GROUP = getenv(
-    "SUPPORT_GROUP", "https://t.me/polclubdaswinx"
+    "SUPPORT_GROUP", "https://t.me/winxmusicsupport"
 )  # Example:- https://t.me/politicament
 
 # Set it in True if you want to leave your assistant after a certain amount of time. [Set time via AUTO_LEAVE_ASSISTANT_TIME]
@@ -158,7 +158,7 @@ autoclean = []
 
 # Images
 START_IMG_URL = getenv("START_IMG_URL",
-                       "https://64.media.tumblr.com/79bb5c54237323c17c93af4c3c83671b/667b875d0810726a-86/s1280x1920/018a7062497c7599991eac83a4f41844484e90e7.gifv")
+                       "https://64.media.tumblr.com/b20a9df719f8420ac7aa02ece2cb1774/5f8ef1a042cf9e6b-7f/s540x810/eba21bbdb525e72f84be27d439c156b4dfa6b31a.gifv")
 
 PING_IMG_URL = getenv(
     "PING_IMG_URL",
@@ -167,7 +167,7 @@ PING_IMG_URL = getenv(
 
 PLAYLIST_IMG_URL = getenv(
     "PLAYLIST_IMG_URL",
-    "https://64.media.tumblr.com/19067267b1b1dab89c0677a8f751c202/3404a3875a48338e-04/s1280x1920/cf82b0e99a4b4a249d4a5542c65e003a495187ea.gifv",
+    "https://64.media.tumblr.com/73084dccbeffd73655bb3a07cef7904a/ca2e3db2a56b2f2d-71/s540x810/747f6f9a572be30f47bb428e51aa66d9c2435b35.gifv",
 )
 
 GLOBAL_IMG_URL = getenv(

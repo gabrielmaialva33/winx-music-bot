@@ -337,8 +337,17 @@ async def del_back_playlist(client, CallbackQuery, _):
                 )
             if videoid == "telegram":
                 button = telegram_markup(_, chat_id)
-                run = await CallbackQuery.message.reply_photo(
-                    photo=TELEGRAM_AUDIO_URL
+                # run = await CallbackQuery.message.reply_photo(
+                #     photo=TELEGRAM_AUDIO_URL
+                #     if str(streamtype) == "audio"
+                #     else TELEGRAM_VIDEO_URL,
+                #     caption=_["stream_3"].format(
+                #         title, check[0]["dur"], user
+                #     ),
+                #     reply_markup=InlineKeyboardMarkup(button),
+                # )
+                run = await CallbackQuery.message.reply_animation(
+                    animation=TELEGRAM_AUDIO_URL
                     if str(streamtype) == "audio"
                     else TELEGRAM_VIDEO_URL,
                     caption=_["stream_3"].format(
