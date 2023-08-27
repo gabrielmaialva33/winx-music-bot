@@ -96,10 +96,16 @@ async def helper_cb(client, CallbackQuery, _):
                 "Only for Sudo Users", show_alert=True
             )
         else:
-            await CallbackQuery.edit_message_text(
+            # await CallbackQuery.edit_message_text(
+            #     helpers.HELP_5, reply_markup=keyboard
+            # )
+            # return await CallbackQuery.answer()
+
+            # refactor delete message and send new message
+            await CallbackQuery.message.delete()
+            await CallbackQuery.message.reply_text(
                 helpers.HELP_5, reply_markup=keyboard
             )
-            return await CallbackQuery.answer()
     try:
         await CallbackQuery.answer()
     except:
