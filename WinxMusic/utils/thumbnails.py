@@ -85,7 +85,7 @@ async def gen_thumb(videoid):
         font = ImageFont.truetype("assets/RobotoBold.ttf", 40, encoding="utf-8")
         font2 = ImageFont.truetype("assets/RobotoBold.ttf", 70, encoding="utf-8")
         arial = ImageFont.truetype("assets/RobotoBold.ttf", 30, encoding="utf-8")
-        name_font = ImageFont.truetype("assets/RobotoRegular.ttf", 70, encoding="utf-8")
+        name_font = ImageFont.truetype("assets/RobotoRegular.ttf", 60, encoding="utf-8")
         para = textwrap.wrap(title, width=32)
         j = 0
         draw.text(
