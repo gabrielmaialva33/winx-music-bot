@@ -96,12 +96,6 @@ async def helper_cb(client, CallbackQuery, _):
                 "Only for Sudo Users", show_alert=True
             )
         else:
-            # await CallbackQuery.edit_message_text(
-            #     helpers.HELP_5, reply_markup=keyboard
-            # )
-            # return await CallbackQuery.answer()
-
-            # refactor delete message and send new message
             await CallbackQuery.message.delete()
             await CallbackQuery.message.reply_text(
                 helpers.HELP_5, reply_markup=keyboard
@@ -111,18 +105,22 @@ async def helper_cb(client, CallbackQuery, _):
     except:
         pass
     if cb == "hb1":
-        await CallbackQuery.edit_message_text(
+        await CallbackQuery.message.delete()
+        await CallbackQuery.message.reply_text(
             helpers.HELP_1, reply_markup=keyboard
         )
     elif cb == "hb2":
-        await CallbackQuery.edit_message_text(
+        await CallbackQuery.message.delete()
+        await CallbackQuery.message.reply_text(
             helpers.HELP_2, reply_markup=keyboard
         )
     elif cb == "hb3":
-        await CallbackQuery.edit_message_text(
+        await CallbackQuery.message.delete()
+        await CallbackQuery.message.reply_text(
             helpers.HELP_3, reply_markup=keyboard
         )
     elif cb == "hb4":
-        await CallbackQuery.edit_message_text(
+        await CallbackQuery.message.delete()
+        await CallbackQuery.message.reply_text(
             helpers.HELP_4, reply_markup=keyboard
         )
