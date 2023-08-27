@@ -150,7 +150,7 @@ HELP_5 = """🔰<u>**ADD & REMOVE SUDO USERS:**</u>
 
 🎥<u>**FUNÇÃO DE CHAMADAS DE VÍDEO:**</u>
 /set_video_limit [Número de Chats] - Define o limite de chats de vídeo. (Padrão: 3)
-/videomode [baixar|m3u8] - Se o modo baixar estiver ativado, o bot baixará os vídeos em vez de reproduzi-los no formato M3u8. O padrão é M3u8. Use o modo baixar se uma consulta não for reproduzida no modo m3u8.
+/videomode [download|m3u8] - Se o modo baixar estiver ativado, o bot baixará os vídeos em vez de reproduzi-los no formato M3u8. O padrão é M3u8. Use o modo baixar se uma consulta não for reproduzida no modo m3u8.
 
 ⚡️<u>**FUNÇÃO DE BOT PRIVADO:**</u>
 /authorize [CHAT_ID] - Autoriza um chat a usar o bot.
