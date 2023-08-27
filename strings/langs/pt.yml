@@ -1,16 +1,17 @@
 name: 🇧🇷 Portuguese
 
 # General Strings
-general_1: "Responda à mensagem de um usuário ou passe um username/user_id."
-general_2: "Erro! Comando Inválido."
-general_3: "Um **erro ocorreu** ao processar seu pedido. Desculpa 😔\n\nErro:- {0}"
-general_4: "Você é um administrador anônimo no grupo\nUse sua conta de usuário para usar os comandos."
-general_5: "Você precisa ser administrador com permissões de gerenciamento de chat de voz."
-general_6: "O bot não está transmitindo nada."
+general_1: "Por favor, responda à mensagem de um usuário ou passe um username/user_id.🙏"
+general_2: "Ops! 😅 Comando Inválido."
+general_3: "Oh não! 😞 Um **erro ocorreu** ao processar seu pedido. Desculpe 😔\n\nErro: {0}"
+general_4: "Você é um administrador anônimo no grupo.🕵️‍♂️\nUse sua conta de usuário para usar os comandos."
+general_5: "Você precisa ser administrador com permissões de gerenciamento de chat de voz.🎙️"
+general_6: "O bot não está transmitindo nada no momento.📡"
 
 # Classes - Telegram.py
-tg_1: "O bot está **sobrecarregado** com downloads no momento.\n\n**Tente depois:** {0} (__expected time__)"
-tg_2: "Falha ao baixar a arquivo do telegram."
+tg_1: "O bot está **sobrecarregado** com downloads no momento.😓\n\n**Tente depois:** {0} (__expected time__)"
+tg_2: "Falha ao baixar o arquivo do telegram.😢"
+
 
 # Core - Call.py
 call_1: "O bot requer permissão de **Admin** para convidar uma conta de assistente para seu canal ou grupo."
@@ -204,8 +205,8 @@ lyrics_3: "❌ Falha ao buscar letras😭.\n\n💡**Tentei pesquisar por:** {0}"
 lyrics_4: "Clique no botão abaixo e obtenha letras pesquisadas para evitar longas pesquisas de letras de tipos de spam."
 
 #Ping
-ping_1: "Pong!!!!"
-ping_2: "{0} está funcionando bem com um ping de `{1}` ms.\n\nO tempo de atividade do bot é {2} e usou um total de {3} armazenamento do servidor. A carga da CPU é de cerca de {4} com um consumo de {5} Ram. O cliente Py-Tgcalls também está tendo um bom ping de `{6}` ms."
+ping_1: "🏓 Pong!!!! 🥳"
+ping_2: "{0} está funcionando perfeitamente com um ping de `{1}` ms!🚀\n\n🤖O tempo de atividade do bot é {2} e ele usou um total de {3} de armazenamento do servidor. A carga da CPU é de aproximadamente {4} com um consumo de {5} de RAM.💻\n\n✨O cliente Py-Tgcalls também está tendo um ótimo ping de `{6}` ms!🌟"
 
 
 # Song
@@ -229,10 +230,10 @@ queue_4: "⏳ Adicionado à fila em **#{0}\n\n💡Título:** {1}\n**⏱Duração
 queue_5: "Apenas uma faixa dentro da fila, por favor adicione mais algumas à lista de verificação"
 
 # All Streaming Lines
-stream_1: "📡 **Steam iniciada** 💡\n\n👤**Pedida por:** {0}\n🔦**Informações: **[Aqui]({1})"
-stream_2: "📡 **Iniciou a steam via URL ** 💡\n\n👤**Pedida por:** {0}"
-stream_3: "📡 **Steam iniciada** 💡\n\n**🏷Título:** {0}\n⌛️**Duração**: {1}\n👤**Pedida por:** {2} "
-stream_4: "📡 **Steam iniciada** 💡\n\n**🏷Título:** [{0}]({1})\n⌛️**Duração**: {2}\n👤**Pedida por:** {3}"
+stream_1: "📡 **Stream iniciada** 💡🌈\n\n👤**Pedida por:** {0}\n🔦**Informações: **[Aqui]({1})"
+stream_2: "📡 **Iniciou a stream via URL** 💡🌈\n\n👤**Pedida por:** {0}"
+stream_3: "📡 **Stream iniciada** 💡🌈\n\n**🏷Título:** {0}\n⌛️**Duração**: {1}\n👤**Pedida por:** {2} "
+stream_4: "📡 **Stream iniciada** 💡🌈\n\n**🏷Título:** [{0}]({1})\n⌛️**Duração**: {2}\n👤**Pedida por:** {3}"
 
 # Inline Buttons
 
