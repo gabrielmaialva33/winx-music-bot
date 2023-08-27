@@ -23,7 +23,7 @@ call_6: "Conta do Assistente[{0}] Entrou com sucesso.\n\nComeçando a música ag
 call_7: "**Direito de administrador prejudicial dado **\n\nPor favor remova a permissão **BANIR USUÁRIOS** do bot."
 call_8: "**Direito de administrador prejudicial dado **\n\nPor favor remova a permissão **ADICIONAR NOVOS ADMINS** do bot."
 call_9: "**Falha ao mudar de stream**\nPor favor use o comando /skip para avançar."
-call_10: "Baixando a próxima faixa da Playlist"
+call_10: "Baixando a próxima faixa da Playlist 🎵🌈"
 call_11: "Adicione @{0} ao seu canal[ ID: {1}].\n\nO bot não consegue obter detalhes do canal."
 
 # PLUGINS - Auth.py
