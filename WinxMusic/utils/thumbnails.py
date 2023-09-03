@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2023 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -85,11 +85,11 @@ async def gen_thumb(videoid):
         font = ImageFont.truetype("assets/RobotoBold.ttf", 40, encoding="utf-8")
         font2 = ImageFont.truetype("assets/RobotoBold.ttf", 70, encoding="utf-8")
         arial = ImageFont.truetype("assets/RobotoBold.ttf", 30, encoding="utf-8")
-        name_font = ImageFont.truetype("assets/RobotoRegular.ttf", 30, encoding="utf-8")
+        name_font = ImageFont.truetype("assets/RobotoRegular.ttf", 60, encoding="utf-8")
         para = textwrap.wrap(title, width=32)
         j = 0
         draw.text(
-            (5, 5), f"{MUSIC_BOT_NAME}", fill="white", font=name_font
+            (5, 5), f"@clubdaswinxcanal", fill="white", font=name_font
         )
         draw.text(
             (600, 150),

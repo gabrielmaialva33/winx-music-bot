@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2023 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -96,14 +96,13 @@ async def ping_com(client, message: Message, _):
         else:
             IMAGE = get_image(videoid)
     send = (
-        "**⌛️Duration:** Unknown Duration Stream\n\nClick on button below to get whole queued list."
+        "**⌛️Duração:** Transmissão de duração desconhecida\n\nClique no botão abaixo para obter toda a lista em fila."
         if DUR == "Unknown"
-        else "\nClick on button below to get whole queued list."
+        else "\nClique no botão abaixo para obter toda a lista em fila."
     )
     cap = f"""**{config.MUSIC_BOT_NAME} Player**
 
 🎥**Playing:** {title}
-
 🔗**Stream Type:** {typo}
 🙍‍♂️**Played By:** {user}
 {send}"""
@@ -193,7 +192,7 @@ async def queued_tracks(client, CallbackQuery: CallbackQuery, _):
     basic[videoid] = False
     buttons = queue_back_markup(_, what)
     med = InputMediaPhoto(
-        media="https://telegra.ph//file/6f7d35131f69951c74ee5.jpg",
+        media="https://telegra.ph/file/a52fcc73359b00743e75b.jpg",
         caption=_["queue_1"],
     )
     await CallbackQuery.edit_message_media(media=med)

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2023 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -17,7 +17,7 @@ API_HASH = input("\nEnter Your API_HASH:\n > ")
 
 print("\n\n Enter Phone number when asked.\n\n")
 
-i = c("Winxstring", in_memory=True, api_id=API_ID, api_hash=API_HASH)
+i = c("WinxString", in_memory=True, api_id=API_ID, api_hash=API_HASH)
 
 
 async def main():

@@ -1,16 +1,17 @@
 name: 🇧🇷 Portuguese
 
 # General Strings
-general_1: "Responda à mensagem de um usuário ou passe um username/user_id."
-general_2: "Erro! Comando Inválido."
-general_3: "Um **erro ocorreu** ao processar seu pedido. Desculpa 😔\n\nErro:- {0}"
-general_4: "Você é um administrador anônimo no grupo\nUse sua conta de usuário para usar os comandos."
-general_5: "Você precisa ser administrador com permissões de gerenciamento de chat de voz."
-general_6: "O bot não está transmitindo nada."
+general_1: "Por favor, responda à mensagem de um usuário ou passe um username/user_id.🙏"
+general_2: "Ops! 😅 Comando Inválido."
+general_3: "Oh não! 😞 Um **erro ocorreu** ao processar seu pedido. Desculpe 😔\n\nErro: {0}"
+general_4: "Você é um administrador anônimo no grupo.🕵️‍♂️\nUse sua conta de usuário para usar os comandos."
+general_5: "Você precisa ser administrador com permissões de gerenciamento de chat de voz.🎙️"
+general_6: "O bot não está transmitindo nada no momento.📡"
 
 # Classes - Telegram.py
-tg_1: "O bot está **sobrecarregado** com downloads no momento.\n\n**Tente depois:** {0} (__expected time__)"
-tg_2: "Falha ao baixar a arquivo do telegram."
+tg_1: "O bot está **sobrecarregado** com downloads no momento.😓\n\n**Tente depois:** {0} (__expected time__)"
+tg_2: "Falha ao baixar o arquivo do telegram.😢"
+
 
 # Core - Call.py
 call_1: "O bot requer permissão de **Admin** para convidar uma conta de assistente para seu canal ou grupo."
@@ -22,7 +23,7 @@ call_6: "Conta do Assistente[{0}] Entrou com sucesso.\n\nComeçando a música ag
 call_7: "**Direito de administrador prejudicial dado **\n\nPor favor remova a permissão **BANIR USUÁRIOS** do bot."
 call_8: "**Direito de administrador prejudicial dado **\n\nPor favor remova a permissão **ADICIONAR NOVOS ADMINS** do bot."
 call_9: "**Falha ao mudar de stream**\nPor favor use o comando /skip para avançar."
-call_10: "Baixando a próxima faixa da Playlist"
+call_10: "Baixando a próxima faixa da Playlist 🎵🌈"
 call_11: "Adicione @{0} ao seu canal[ ID: {1}].\n\nO bot não consegue obter detalhes do canal."
 
 # PLUGINS - Auth.py
@@ -74,8 +75,6 @@ admin_34: "Falha ao buscar o fluxo atual."
 # Bot
 
 # Start
-#start_1: "Obrigado por me receber em {0}.\n{1} está vivo.\n\nPara qualquer assistência ou ajuda, confira nosso grupo de suporte e canal."
-#start_2: "Olá, meu nome é {0}.\n\nSou um bot de streaming para o Telegram com alguns recursos úteis. Suporte a plataformas como Youtube, Spotify, Resso, AppleMusic, Soundcloud etc.\n\nSinta-se à vontade para me adicionar a seus grupos."
 start_1: "🌟 Bem-vindo ao {0}! 🎉\n{1} está vivo e pulsando com energia! 💥\n\nSe você precisar de qualquer ajuda ou assistência, não hesite em conferir nosso grupo de suporte e canal. Estamos aqui para tornar sua experiência excepcional! 🎵🤖"
 start_2: "🎵 Olá, pessoal! Sou o {0}, seu companheiro musical aqui no Telegram! 🤖💃\n\nCom suporte para plataformas incríveis como Youtube, Spotify, Resso, Apple Music, Soundcloud e muito mais, estou aqui para encher seus dias com batidas contagiante e melodias envolventes! 🎶🎉\n\nAdicione-me ao seu grupo e vamos começar a festa musical juntos! 🎧🎈"
 start_3: "Bem-vindo a {0}\n\nNão preciso de nenhuma **permissão de administrador** para trabalhar (até que seja solicitado).\n\nNome de usuário do assistente:- @{1}\nID do assistente:- {2} \n\nCaso a assistente não esteja no grupo, você pode adicionar manualmente usando o ID do assistente.\n\nPara obter ajuda, use /help"
@@ -86,7 +85,7 @@ start_7: "**Chat na Lista Negra**\n\nSeu chat foi colocado na lista negra pelo B
 
 # Help
 help_1: "Clique nos botões abaixo para obter mais informações. Se você estiver enfrentando algum problema no comando, pode entrar em contato com o proprietário do bot ou perguntar no chat de suporte.\n\nTodos os comandos podem ser usados com: /"
-help_2: "Contate-me em PM para obter ajuda."
+help_2: "Contate-me em PV para obter ajuda."
 
 # Settings
 setting_1: "⚙️ **Configurações da Winx**\n\n🖇**Grupo:** {0}\n🔖**ID do grupo:** `{1}`\n\n💡**Escolha a função nos botões abaixo que você deseja editar ou alterar.**"
@@ -170,7 +169,7 @@ playlist_2: "Recuperando sua playlist. Aguarde"
 playlist_3: "Você não tem playlist no Servidor do Bot."
 playlist_4: "Playlist buscada:\n\n"
 playlist_5: " Duração - {0} minutos"
-playlist_6: "Contacte-me em PM para deletar a playlist."
+playlist_6: "Contacte-me em PV para deletar a playlist."
 playlist_7: "Faixas dentro da playlist: {0}\n\nPressione os botões para excluir uma faixa específica em sua playlist.\n\nPara excluir toda a playlist: Pressione o botão Del Whole Playlist."
 playlist_8: "Já existe\n\nEsta faixa existe em sua playlist."
 playlist_9: "Desculpe! Você só pode ter {0} músicas em uma playlist."
@@ -200,19 +199,19 @@ tracks_2: "**Erro**\n\nNão há **{0} Top 10 Playlist** nos servidores do bot. T
 # TOOLS
 
 #Lyrics
-lyrics_1: "**Uso:**\n\n/letras [Nome da música]"
+lyrics_1: "**Uso:**\n\n/lyrics [Nome da música]"
 lyrics_2: "Pesquisando Letras"
 lyrics_3: "❌ Falha ao buscar letras😭.\n\n💡**Tentei pesquisar por:** {0}"
 lyrics_4: "Clique no botão abaixo e obtenha letras pesquisadas para evitar longas pesquisas de letras de tipos de spam."
 
 #Ping
-ping_1: "Pong!!!!"
-ping_2: "{0} está funcionando bem com um ping de `{1}` ms.\n\nO tempo de atividade do bot é {2} e usou um total de {3} armazenamento do servidor. A carga da CPU é de cerca de {4} com um consumo de {5} Ram. O cliente Py-Tgcalls também está tendo um bom ping de `{6}` ms."
+ping_1: "🏓 Pong!!!! 🥳"
+ping_2: "{0} está funcionando perfeitamente com um ping de `{1}` ms!🚀\n\n🤖O tempo de atividade do bot é {2} e ele usou um total de {3} de armazenamento do servidor. A carga da CPU é de aproximadamente {4} com um consumo de {5} de RAM.💻\n\n✨O cliente Py-Tgcalls também está tendo um ótimo ping de `{6}` ms!🌟"
 
 
 # Song
 song_1: "Você pode baixar músicas ou vídeos do YouTube apenas no chat privado. Por favor, inicie-me no chat privado."
-song_2: "**Uso:**\n\n/música [Nome da música] ou [Link do YouTube]"
+song_2: "**Uso:**\n\n/song [Nome da música] ou [Link do YouTube]"
 song_3: "Link ao vivo detectado. Não consigo baixar vídeos ao vivo do youtube."
 song_4: "**🔗Title:**- {0}\n\nSelecione o tipo em que deseja fazer o download."
 song_5: "Não é um link válido do Youtube"
@@ -231,10 +230,10 @@ queue_4: "⏳ Adicionado à fila em **#{0}\n\n💡Título:** {1}\n**⏱Duração
 queue_5: "Apenas uma faixa dentro da fila, por favor adicione mais algumas à lista de verificação"
 
 # All Streaming Lines
-stream_1: "📡 **Steam iniciada** 💡\n\n👤**Pedida por:** {0}\n🔦**Informações: **[Aqui]({1})"
-stream_2: "📡 **Iniciou a steam via URL ** 💡\n\n👤**Pedida por:** {0}"
-stream_3: "📡 **Steam iniciada** 💡\n\n**🏷Título:** {0}\n⌛️**Duração**: {1}\n👤**Pedida por:** {2} "
-stream_4: "📡 **Steam iniciada** 💡\n\n**🏷Título:** [{0}]({1})\n⌛️**Duração**: {2}\n👤**Pedida por:** {3}"
+stream_1: "📡 **Stream iniciada** 💡🌈\n\n👤**Pedida por:** {0}\n🔦**Informações: **[Aqui]({1})"
+stream_2: "📡 **Iniciou a stream via URL** 💡🌈\n\n👤**Pedida por:** {0}"
+stream_3: "📡 **Stream iniciada** 💡🌈\n\n**🏷Título:** {0}\n⌛️**Duração**: {1}\n👤**Pedida por:** {2} "
+stream_4: "📡 **Stream iniciada** 💡🌈\n\n**🏷Título:** [{0}]({1})\n⌛️**Duração**: {2}\n👤**Pedida por:** {3}"
 
 # Inline Buttons
 
@@ -374,17 +373,17 @@ vid_3: "Limite máximo de chamadas de vídeo definido para {0} chats."
 vid_4: "Chamadas de vídeo desativadas"
 
 #maintenance
-maint_1: "**Uso:**\n/manutenção [habilitar|desabilitar]"
+maint_1: "**Uso:**\n/maintenance [enable|disable]"
 maint_2: "Ativado para manutenção"
 maint_3: "Modo de manutenção desabilitado"
 
 #log
-log_1: "**Uso:**\n/logger [habilitar|desabilitar]"
+log_1: "**Uso:**\n/logger [enable|disable]"
 log_2: "Registro Habilitado"
 log_3: "Registro desabilitado"
 
 #videomode
-vidmode_1: "**Uso:**\n/videomode [baixar|m3u8]"
+vidmode_1: "**Uso:**\n/videomode [download|m3u8]"
 vidmode_2: "Modo de reprodução de vídeo definido como downloder. O bot estará baixando as faixas agora."
 vidmode_3: "Modo de reprodução de vídeo definido como m3u8. O bot reproduzirá faixas ao vivo agora."
 
@@ -393,7 +392,7 @@ broad_1: "**Mensagem transmitida em {0} chats com {1} Pins do Bot.**"
 broad_2: "Iniciou a transmissão do assistente..."
 broad_3: "**Transmissão do Assistente:**\n\n"
 broad_4: "Assistente {0} transmitido em {1} chats\n"
-broad_5: "**Uso**:\n/transmissão [MESSAGE] ou [Reply to a Message]"
+broad_5: "**Uso**:\n/broadcast [mensagem] ou [responda da mensagem] ou [arquivo de mídia]"
 broad_6: "Por favor, forneça algum texto para transmissão."
 broad_7: "**Mensagem transmitida para {0} usuários.**"
 
@@ -415,8 +414,8 @@ heroku_14: "Erro no comando Git"
 heroku_15: "Repositório Git inválido"
 
 #Private bot mode
-pbot_1: "**Uso:**\n/autorizar [CHAT_ID]"
-pbot_2: "**Uso:**\n/desautorizar [CHAT_ID]"
+pbot_1: "**Uso:**\n/authorize [CHAT_ID]"
+pbot_2: "**Uso:**\n/unauthorize [CHAT_ID]"
 pbot_3: "Adicionado chat determinado à lista autorizada"
 pbot_4: "Removido chat da lista autorizada"
 pbot_5: "O chat já está na lista autorizada"

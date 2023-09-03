@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by mrootx@Github, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2023 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -85,13 +85,13 @@ AUTO_SUGGESTION_TIME = int(
 )  # Remember to give value in Seconds
 
 # Set it True if you want to delete downloads after the music playout ends from your downloads folder
-AUTO_DOWNLOADS_CLEAR = getenv("AUTO_DOWNLOADS_CLEAR", True)
+AUTO_DOWNLOADS_CLEAR = getenv("AUTO_DOWNLOADS_CLEAR", False)
 
 # Set it True if you want to bot to suggest about bot commands to random chats of your bots.
-AUTO_SUGGESTION_MODE = getenv("AUTO_SUGGESTION_MODE", True)
+AUTO_SUGGESTION_MODE = getenv("AUTO_SUGGESTION_MODE", False)
 
 # Set it true if you want your bot to be private only [You'll need to allow CHAT_ID via /authorise command then only your bot will play music in that chat.]
-PRIVATE_BOT_MODE = getenv("PRIVATE_BOT_MODE", True)
+PRIVATE_BOT_MODE = getenv("PRIVATE_BOT_MODE", False)
 
 # Time sleep duration For Youtube Downloader
 YOUTUBE_DOWNLOAD_EDIT_SLEEP = int(getenv("YOUTUBE_EDIT_SLEEP", "3"))
@@ -100,7 +100,7 @@ YOUTUBE_DOWNLOAD_EDIT_SLEEP = int(getenv("YOUTUBE_EDIT_SLEEP", "3"))
 TELEGRAM_DOWNLOAD_EDIT_SLEEP = int(getenv("TELEGRAM_EDIT_SLEEP", "5"))
 
 # Your Github Repo.. Will be shown on /start Command
-GITHUB_REPO = getenv("GITHUB_REPO", None)
+GITHUB_REPO = getenv("GITHUB_REPO", "https://github.com/gabrielmaialva33/winx-music-bot")
 
 # Spotify Client.. Get it from https://developer.spotify.com/dashboard
 SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", None)
@@ -117,7 +117,7 @@ PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", "100"))
 
 # Cleanmode time after which bot will delete its old messages from chats
 CLEANMODE_DELETE_MINS = int(
-    getenv("CLEANMODE_MINS", "5")
+    getenv("CLEANMODE_MINS", "1")
 )  # Remember to give value in Seconds
 
 # Telegram audio  and video file size limit
@@ -133,7 +133,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(
 # Chceckout https://www.gbmb.org/mb-to-bytes  for converting mb to bytes
 
 # If you want your bot to setup the commands automatically in the bot's menu set it to true.
-SET_CMDS = getenv("SET_CMDS", False)
+SET_CMDS = getenv("SET_CMDS", True)
 
 # You'll need a Pyrogram String Session for these vars. Generate String from our session generator bot @WinxStringBot
 STRING1 = getenv("STRING_SESSION2", None)

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 by Maia, < https://github.com/gabrielmaialva33 >.
+# Copyright (C) 2021-2023 by Maia, < https://github.com/gabrielmaialva33 >.
 #
 # This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -19,17 +19,17 @@ async def play_logs(message, streamtype):
         else:
             chatusername = "Private Group"
         logger_text = f"""
-**{MUSIC_BOT_NAME} Play Log**
+🎵**{MUSIC_BOT_NAME} Play Log**🎵
 
-**Chat:** {message.chat.title} [`{message.chat.id}`]
-**User:** {message.from_user.mention}
-**Username:** @{message.from_user.username}
-**User ID:** `{message.from_user.id}`
-**Chat Link:** {chatusername}
+🗨️**Chat:** {message.chat.title} [`{message.chat.id}`]
+👤**User:** {message.from_user.mention}
+🔹**Username:** @{message.from_user.username}
+🆔**User ID:** `{message.from_user.id}`
+🔗**Chat Link:** {chatusername}
 
-**Query:** {message.text}
+🔍**Query:** {message.text}
 
-**StreamType:** {streamtype}"""
+🌐**StreamType:** {streamtype}"""
         if message.chat.id != LOG_GROUP_ID:
             try:
                 await app.send_message(
