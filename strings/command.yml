@@ -110,3 +110,7 @@ ACTIVEVIDEO_COMMAND: [ "activevideo" ]
 GBAN_COMMAND: [ "gban" ]
 UNGBAN_COMMAND: [ "ungban" ]
 GBANNED_COMMAND: [ "gbannedusers" ]
+
+#Wifu Commands
+WIFU_COMMAND: [ "wifu" ]
+NEKO_COMMAND: [ "neko" ]
