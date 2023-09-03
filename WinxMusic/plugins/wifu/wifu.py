@@ -9,6 +9,7 @@ WIFU_COMMAND = get_command("WIFU_COMMAND")
 # Define the API endpoint to fetch waifu images
 API_ENDPOINT_1 = "https://api.waifu.pics/sfw/waifu"
 
+
 def waifu():
     try:
         response = requests.get(API_ENDPOINT_1)
