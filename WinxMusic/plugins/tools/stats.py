@@ -45,13 +45,9 @@ GSTATS_COMMAND = get_command("GSTATS_COMMAND")
 STATS_COMMAND = get_command("STATS_COMMAND")
 
 
-@app.on_message(
-    filters.command(STATS_COMMAND)
-    & filters.group
-    & ~BANNED_USERS
-)
+@app.on_message(filters.command(STATS_COMMAND) & filters.group & ~BANNED_USERS)
 @language
-async def stats_global(client, message: Message, _):
+async def stats_global(_client, message: Message, _):
     upl = stats_buttons(
         _, True if message.from_user.id in SUDOERS else False
     )
@@ -62,13 +58,9 @@ async def stats_global(client, message: Message, _):
     )
 
 
-@app.on_message(
-    filters.command(GSTATS_COMMAND)
-    & filters.group
-    & ~BANNED_USERS
-)
+@app.on_message(filters.command(GSTATS_COMMAND) & filters.group & ~BANNED_USERS)
 @language
-async def gstats_global(client, message: Message, _):
+async def gstats_global(_client, message: Message, _):
     mystic = await message.reply_text(_["gstats_1"])
     stats = await get_global_tops()
     if not stats:
@@ -128,7 +120,7 @@ async def gstats_global(client, message: Message, _):
 
 @app.on_callback_query(filters.regex("GetStatsNow") & ~BANNED_USERS)
 @languageCB
-async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
+async def top_users_ten(_client, CallbackQuery: CallbackQuery, _):
     chat_id = CallbackQuery.message.chat.id
     callback_data = CallbackQuery.data.strip()
     what = callback_data.split(None, 1)[1]
@@ -238,16 +230,12 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
             else _["gstats_6"].format(limit, MUSIC_BOT_NAME)
         )
         msg = temp + msg
-    # med = InputMediaPhoto(media=config.GLOBAL_IMG_URL, caption=msg)
     med = InputMediaAnimation(media=config.GLOBAL_IMG_URL, caption=msg)
     try:
         await CallbackQuery.edit_message_media(
             media=med, reply_markup=upl
         )
     except MessageIdInvalid:
-        # await CallbackQuery.message.reply_photo(
-        #     photo=config.GLOBAL_IMG_URL, caption=msg, reply_markup=upl
-        # )
         await CallbackQuery.message.reply_animation(
             animation=config.GLOBAL_IMG_URL, caption=msg, reply_markup=upl
         )
@@ -255,7 +243,7 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
 
 @app.on_callback_query(filters.regex("TopOverall") & ~BANNED_USERS)
 @languageCB
-async def overall_stats(client, CallbackQuery, _):
+async def overall_stats(_client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     what = callback_data.split(None, 1)[1]
     if what != "s":
