@@ -7,12 +7,12 @@ from strings import get_command
 WIFU_COMMAND = get_command("WIFU_COMMAND")
 
 # Define the API endpoint to fetch waifu images
-API_ENDPOINT_1 = "https://api.waifu.pics/sfw/waifu"
+API_ENDPOINT = "https://api.waifu.pics/sfw/waifu"
 
 
 def waifu():
     try:
-        response = requests.get(API_ENDPOINT_1)
+        response = requests.get(API_ENDPOINT)
         data = response.json()
         image_url = data["url"]
         return image_url
