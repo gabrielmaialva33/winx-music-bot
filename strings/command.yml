@@ -116,3 +116,11 @@ WIFU_COMMAND: [ "wifu" ]
 
 #Translator Commands
 TRANSLATOR_COMMAND: [ "tr", "translate", "trans", "traduzir", "traduza" ]
+
+#Wikipedia Commands
+WIKIPEDIA_COMMAND: [ "wiki", "wikipedia", "search" ]
+
+#Screenshot Commands
+WEBSS_COMMAND: [ "webss", "screenshot", "ss", "webshot" ]
+
+WRITE_COMMAND: [ "write", "escreva" ]

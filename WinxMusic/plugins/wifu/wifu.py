@@ -21,10 +21,6 @@ def waifu():
 
 
 @app.on_message(filters.command(WIFU_COMMAND))
-async def wifu(client, message):
-    # Send a message
-    # await message.reply_text("Here is your waifu!")
-    # Get the image URL
+async def wifu(_, message):
     image_url = waifu()
-    # Send the image URL
     await message.reply_photo(image_url)
