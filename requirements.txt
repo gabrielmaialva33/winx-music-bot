@@ -3,7 +3,10 @@ aiohttp
 asyncio
 dnspython
 ffmpeg-python
+git+https://github.com/gabrielmaialva33/pytgcalls
+git+https://github.com/yt-dlp/yt-dlp.git
 gitpython
+gpytranslate
 hachoir
 heroku3
 httpx
@@ -11,7 +14,6 @@ lyricsgenius
 motor
 pillow==9.5.0
 psutil
-git+https://github.com/gabrielmaialva33/pytgcalls
 pykeyboard
 pyrogram
 python-dotenv
@@ -22,4 +24,3 @@ spotipy
 tgcrypto
 youtube-search
 youtube-search-python
-git+https://github.com/yt-dlp/yt-dlp.git

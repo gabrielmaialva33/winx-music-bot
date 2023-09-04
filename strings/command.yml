@@ -113,4 +113,6 @@ GBANNED_COMMAND: [ "gbannedusers" ]
 
 #Wifu Commands
 WIFU_COMMAND: [ "wifu" ]
-NEKO_COMMAND: [ "neko" ]
+
+#Translator Commands
+TRANSLATOR_COMMAND: [ "tr", "translate", "trans", "traduzir", "traduza" ]
