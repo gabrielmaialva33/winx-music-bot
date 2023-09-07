@@ -55,7 +55,7 @@ def cuddle(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/cuddle").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **faz carinho**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -72,7 +72,7 @@ def shrug(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/shrug").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **ce foda**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -88,7 +88,7 @@ def poke(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/poke").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **cutuca**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -105,7 +105,7 @@ def facepalm(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/facepalm").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **burres**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -121,7 +121,7 @@ def stare(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/stare").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **olhandu **")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -138,7 +138,7 @@ def pout(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/pout").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name}  **faz bico.. hm..** ")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -154,7 +154,7 @@ def handhold(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/handhold").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **segura a mão**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -170,7 +170,7 @@ def wave(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/wave").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **acena**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -186,7 +186,7 @@ def blush(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/blush").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **cora**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -217,7 +217,7 @@ def dance(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/dance").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"**dança mana**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -233,7 +233,7 @@ def baka(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/baka").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **baka**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -249,7 +249,7 @@ def bore(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/bored").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **cum tédio**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -265,7 +265,7 @@ def laugh(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/laugh").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **ri hihi**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -282,7 +282,7 @@ def smug(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/smug").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **se acha**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -299,7 +299,7 @@ def thumbsup(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/thumbsup").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **concoeda**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -316,7 +316,7 @@ def shoot(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/shoot").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"** tiro di ** {m.from_user.first_name}")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -333,7 +333,7 @@ def tickle(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/tickle").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"** cócegas de ** {m.from_user.first_name}  🌈")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -350,7 +350,7 @@ def feed(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/feed").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **cum fomi**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -366,7 +366,7 @@ def think(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/think").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **pensa**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -383,7 +383,7 @@ def wink(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/wink").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **pisca**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -399,7 +399,7 @@ def sleep(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/sleep").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{reply.from_user.first_name} **dormi**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -415,7 +415,7 @@ def punch(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/punch").json()
         url = api["results"][0]['url']
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} ಠ‿ಠ **soca**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -431,7 +431,7 @@ def cry(_, m: Message):
         api = requests.get("https://api.waifu.pics/sfw/cry").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **chora**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -447,7 +447,7 @@ def kill(_, m: Message):
         api = requests.get("https://api.waifu.pics/sfw/kill").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **mata**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -463,7 +463,7 @@ def smile(_, m: Message):
         api = requests.get("https://api.waifu.pics/sfw/smile").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **sorri**")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -479,7 +479,7 @@ def highfive(_, m: Message):
         api = requests.get("https://api.waifu.pics/sfw/highfive").json()
         url = api["url"]
         m.reply_animation(animation=url)
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -497,7 +497,7 @@ def slap(_, m: Message):
         api = requests.get("https://api.waifu.pics/sfw/slap").json()
         url = api["url"]
         m.reply_animation(url, caption=f"**tapas de** {m.from_user.first_name} ಠ‿ಠ")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -516,7 +516,7 @@ def hug(_, m: Message):
         api = requests.get("https://api.waifu.pics/sfw/hug").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} ( ◜‿◝ )♡")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
@@ -534,7 +534,7 @@ def pat(_, m: Message):
         api = requests.get("https://api.waifu.pics/sfw/pat").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"** amoes de ** {m.from_user.first_name}")
-    m.delete()
+    
 
 
 # --------------------------------------------------------------------------------- #
