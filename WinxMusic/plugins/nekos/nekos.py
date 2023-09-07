@@ -311,7 +311,7 @@ def shoot(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/shoot").json()
         url = api["results"][0]['url']
         reply.reply_animation(url,
-                              caption=f"{m.from_user.first_name} **da um tiro em** {reply.from_user.first_name}  🌈")
+                              caption=f"{m.from_user.first_name} **da um tiro em** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/shoot").json()
         url = api["results"][0]['url']
@@ -328,11 +328,11 @@ def tickle(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/tickle").json()
         url = api["results"][0]['url']
         reply.reply_animation(url,
-                              caption=f"** cócegas de ** {m.from_user.first_name} **para** {reply.from_user.first_name}  🌈")
+                              caption=f"{m.from_user.first_name} **faz cócegas em** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/tickle").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"** cócegas de ** {reply.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"** cócegas de ** {m.from_user.first_name}  🌈")
     m.delete()
 
 
@@ -344,11 +344,12 @@ def feed(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/feed").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url)
+        reply.reply_animation(url,
+                              caption=f"{m.from_user.first_name} **come** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/feed").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **cum fomi**")
     m.delete()
 
 
@@ -360,11 +361,11 @@ def think(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/think").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url, caption=f"{m.from_user.first_name} **pensa sobre** {reply.from_user.first_name} ")
+        reply.reply_animation(url, caption=f"{m.from_user.first_name} **pensa sobre u** {reply.from_user.first_name} ")
     else:
         api = requests.get("https://nekos.best/api/v2/think").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"{reply.from_user.first_name} **pensa**")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **pensa**")
     m.delete()
 
 
@@ -377,11 +378,11 @@ def wink(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/wink").json()
         url = api["results"][0]['url']
         reply.reply_animation(url,
-                              caption=f"** piscadinha de ** {m.from_user.first_name} **para** {reply.from_user.first_name}  🌈")
+                              caption=f"{m.from_user.first_name} **pisca pra** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/wink").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"** piscadinha de ** {reply.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **pisca**")
     m.delete()
 
 
@@ -397,7 +398,7 @@ def sleep(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/sleep").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"**vamu durmi mana** {reply.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"{reply.from_user.first_name} **dormi**")
     m.delete()
 
 
@@ -409,11 +410,11 @@ def punch(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/punch").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url, caption=f"{m.from_user.first_name} **soca** {reply.from_user.first_name}")
+        reply.reply_animation(url, caption=f"{m.from_user.first_name} **soca u** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/punch").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"**soco de** {m.from_user.first_name} ಠ‿ಠ")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} ಠ‿ಠ **soca**")
     m.delete()
 
 
@@ -457,11 +458,11 @@ def smile(_, m: Message):
     if reply:
         api = requests.get("https://api.waifu.pics/sfw/smile").json()
         url = api["url"]
-        reply.reply_animation(url)
+        reply.reply_animation(url, caption=f"{m.from_user.first_name} **sorri di** {reply.from_user.first_name}")
     else:
         api = requests.get("https://api.waifu.pics/sfw/smile").json()
         url = api["url"]
-        m.reply_animation(animation=url, caption=f"** sorriso de ** {reply.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **sorri**")
     m.delete()
 
 
@@ -514,7 +515,7 @@ def hug(_, m: Message):
     else:
         api = requests.get("https://api.waifu.pics/sfw/hug").json()
         url = api["url"]
-        m.reply_animation(animation=url, caption=f"**abraços de** {m.from_user.first_name} ( ◜‿◝ )♡")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} ( ◜‿◝ )♡")
     m.delete()
 
 
@@ -532,7 +533,6 @@ def pat(_, m: Message):
     else:
         api = requests.get("https://api.waifu.pics/sfw/pat").json()
         url = api["url"]
-        # m.reply_animation(animation=url, caption=f"**ᴘᴀᴛs ʏᴏᴜ ᴀʟʟ ʟᴏᴠᴇs** {m.from_user.first_name}")
         m.reply_animation(animation=url, caption=f"** amoes de ** {m.from_user.first_name}")
     m.delete()
 
@@ -545,11 +545,11 @@ def waifu(_, m: Message):
     if reply:
         api = requests.get("https://api.waifu.pics/sfw/waifu").json()
         url = api["url"]
-        reply.reply_photo(url)
+        reply.reply_photo(url, caption=f"** waifu de ** {reply.from_user.first_name}")
     else:
         api = requests.get("https://api.waifu.pics/sfw/waifu").json()
         url = api["url"]
-        m.reply_photo(photo=url)
+        m.reply_photo(photo=url, caption=f"** waifu de ** {m.from_user.first_name}")
 
 
 # --------------------------------------------------------------------------------- #
@@ -592,9 +592,9 @@ async def palm_chatbot(_client, message):
             await result_msg.delete()
 
     except aiohttp.ClientError as e:
-        api_response = f"Error: An error occurred while calling the hiroko api. {e}"
+        api_response = f"Error: Uma exceção ocorreu ao chamar a API.\n\n{e}"
     except asyncio.TimeoutError:
-        api_response = "Error: The hiroko api request timed out."
+        api_response = "Error: API WinxMusic timeout."
 
     reply = message.reply_to_message
     if reply:

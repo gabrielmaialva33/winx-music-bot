@@ -128,7 +128,7 @@ WRITE_COMMAND: [ "write", "escreva" ]
 
 # Neko Commands
 NEKO_CUDDLE_COMMAND: [ "cuddle", "miminho", "mimar", "mimando", "mimo" ]
-NEKO_SHRUG_COMMAND: [ "shrug", "dar_de_ombros", "ombros" ]
+NEKO_SHRUG_COMMAND: [ "shrug", "dar_de_ombros", "ombros", "ombro", "fodace", "fodac" ]
 NEKO_POKE_COMMAND: [ "poke", "cutucar", "cutucando" ]
 NEKO_FACEPALM_COMMAND: [ "facepalm", "mão_na_cara", "tanka", "mds", "mao_na_cara" ]
 NEKO_STARE_COMMAND: [ "stare", "olhar", "olhando", "pasmo", "perplexo", "pasma", "perplexa" ]
