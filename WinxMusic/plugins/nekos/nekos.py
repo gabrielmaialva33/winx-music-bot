@@ -50,11 +50,11 @@ def cuddle(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/cuddle").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url)
+        reply.reply_animation(url, caption=f"{m.from_user.first_name} **faz carinho em** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/cuddle").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **faz carinho**")
     m.delete()
 
 
@@ -67,11 +67,11 @@ def shrug(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/shrug").json()
         url = api["results"][0]['url']
         reply.reply_animation(url,
-                              caption=f"** ce foda de ** {m.from_user.first_name} **para** {reply.from_user.first_name}  🌈")
+                              caption=f"** ce foda de ** {m.from_user.first_name} **pra u** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/shrug").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **ce foda**")
     m.delete()
 
 
@@ -83,11 +83,11 @@ def poke(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/poke").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url)
+        reply.reply_animation(url, caption=f"{m.from_user.first_name} **cutuca u** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/poke").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **cutuca**")
     m.delete()
 
 
@@ -100,11 +100,11 @@ def facepalm(_, m: Message):
         api = requests.get("https://nekos.best/api/v2/facepalm").json()
         url = api["results"][0]['url']
         reply.reply_animation(url,
-                              caption=f"{m.from_user.first_name} ** n suporta o burre du** {reply.from_user.first_name}  🌈")
+                              caption=f"{m.from_user.first_name} ** n suporta o burre du** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/facepalm").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **burre**")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **burres**")
     m.delete()
 
 
@@ -137,7 +137,7 @@ def pout(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/pout").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"{m.from_user.first_name}  fez bico  🌈")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name}  **faz bico.. hm..** ")
     m.delete()
 
 
@@ -169,7 +169,7 @@ def wave(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/wave").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **acena**")
     m.delete()
 
 
@@ -228,11 +228,11 @@ def baka(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/baka").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url)
+        reply.reply_animation(url, caption=f"{m.from_user.first_name} **baka pra** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/baka").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **baka**")
     m.delete()
 
 
@@ -244,11 +244,11 @@ def bore(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/bored").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url)
+        reply.reply_animation(url, caption=f"{m.from_user.first_name} **cum tédio de** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/bored").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"** tédio de ** {m.from_user.first_name}")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **cum tédio**")
     m.delete()
 
 
