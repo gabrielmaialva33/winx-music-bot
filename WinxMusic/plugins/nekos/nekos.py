@@ -204,7 +204,7 @@ def dance(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/dance").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"** vamu dançã mana** {m.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"** vamu dançã mana** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -260,11 +260,11 @@ def smug(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/smug").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url, caption=f"** gaba de ** {reply.from_user.first_name} **para** {m.from_user.first_name}  🌈")
+        reply.reply_animation(url, caption=f"** gaba de ** {m.from_user.first_name} **para** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/smug").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"** gaba de ** {m.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"** gaba de ** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -275,11 +275,11 @@ def thumbsup(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/thumbsup").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url, caption=f"** joinha de ** {reply.from_user.first_name} **para** {m.from_user.first_name}  🌈")
+        reply.reply_animation(url, caption=f"** joinha de ** {m.from_user.first_name} **para** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/thumbsup").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"** joinha de ** {m.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"** joinha de ** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -290,7 +290,7 @@ def shoot(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/shoot").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url, caption=f"** tiro de ** {reply.from_user.first_name} **para** {m.from_user.first_name}")
+        reply.reply_animation(url, caption=f"** tiro de ** {m.from_user.first_name} **para** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/shoot").json()
         url = api["results"][0]['url']
@@ -305,11 +305,11 @@ def tickle(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/tickle").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url, caption=f"** cócegas de ** {reply.from_user.first_name} **para** {m.from_user.first_name}  🌈")
+        reply.reply_animation(url, caption=f"** cócegas de ** {m.from_user.first_name} **para** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/tickle").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"** cócegas de ** {m.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"** cócegas de ** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -335,11 +335,11 @@ def think(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/think").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url, caption=f"** pensamentos de ** {reply.from_user.first_name}  🌈")
+        reply.reply_animation(url, caption=f"** pensando sobre de ** {m.from_user.first_name} **para** {reply.from_user.first_name} ")
     else:
         api = requests.get("https://nekos.best/api/v2/think").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"** pensamentos de ** {m.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"** pensamentos de ** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -350,11 +350,11 @@ def wink(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/wink").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url, caption=f"** piscadinha de ** {reply.from_user.first_name} **para** {m.from_user.first_name}  🌈")
+        reply.reply_animation(url, caption=f"** piscadinha de ** {m.from_user.first_name} **para** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/wink").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"** piscadinha de ** {m.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"** piscadinha de ** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -369,7 +369,7 @@ def sleep(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/sleep").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"**vamu durmi mana** {m.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"**vamu durmi mana** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -429,7 +429,7 @@ def smile(_, m: Message):
     else:
         api = requests.get("https://api.waifu.pics/sfw/smile").json()
         url = api["url"]
-        m.reply_animation(animation=url, caption=f"** sorriso de ** {m.from_user.first_name}  🌈")
+        m.reply_animation(animation=url, caption=f"** sorriso de ** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
