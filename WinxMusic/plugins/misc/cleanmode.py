@@ -1,12 +1,3 @@
-#
-# Copyright (C) 2021-2023 by Maia, < https://github.com/gabrielmaialva33 >.
-#
-# This file is part of < https://github.com/gabrielmaialva33/winx-music-bot > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/gabrielmaialva33/winx-music-bot/blob/master/LICENSE >
-#
-# All rights reserved.
-
 import asyncio
 from datetime import datetime, timedelta
 
@@ -18,14 +9,19 @@ from pyrogram.raw import types
 import config
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
-from WinxMusic.utils.database import (get_active_chats,
-                                      get_authuser_names, get_client,
-                                      get_particular_top,
-                                      get_served_chats,
-                                      get_served_users, get_user_top,
-                                      is_cleanmode_on, set_queries,
-                                      update_particular_top,
-                                      update_user_top)
+from WinxMusic.utils.database import (
+    get_active_chats,
+    get_authuser_names,
+    get_client,
+    get_particular_top,
+    get_served_chats,
+    get_served_users,
+    get_user_top,
+    is_cleanmode_on,
+    set_queries,
+    update_particular_top,
+    update_user_top,
+)
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.formatters import alpha_to_int
 from config import adminlist, chatstats, clean, userstats
@@ -39,7 +35,7 @@ cleanmode_group = 15
 
 
 @app.on_raw_update(group=cleanmode_group)
-async def clean_mode(client, update, users, chats):
+async def clean_mode(_client, update, users, chats):
     global IS_BROADCASTING
     if IS_BROADCASTING:
         return
@@ -69,7 +65,7 @@ async def clean_mode(client, update, users, chats):
 
 @app.on_message(filters.command(BROADCAST_COMMAND) & SUDOERS)
 @language
-async def braodcast_message(client, message, _):
+async def broadcast_message(_client, message, _):
     global IS_BROADCASTING
     if message.reply_to_message:
         x = message.reply_to_message.id

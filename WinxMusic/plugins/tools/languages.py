@@ -66,7 +66,7 @@ async def langs_command(client, message: Message, _):
 
 @app.on_callback_query(filters.regex("LG") & ~BANNED_USERS)
 @languageCB
-async def lanuagecb(client, CallbackQuery, _):
+async def lanuagecb(_client, CallbackQuery, _):
     try:
         await CallbackQuery.answer()
     except:
@@ -81,7 +81,7 @@ async def lanuagecb(client, CallbackQuery, _):
     filters.regex(r"languages:(.*?)") & ~BANNED_USERS
 )
 @ActualAdminCB
-async def language_markup(client, CallbackQuery, _):
+async def language_markup(_client, CallbackQuery, _):
     langauge = (CallbackQuery.data).split(":")[1]
     old = await get_lang(CallbackQuery.message.chat.id)
     if str(old) == str(langauge):

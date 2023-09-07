@@ -1,15 +1,18 @@
+from io import BytesIO
+
 import requests
 from PIL import Image, ImageDraw
-from io import BytesIO
-from WinxMusic import app
 from pyrogram import Client, filters
-from strings import get_command
+
+from WinxMusic import app
 from config import BANNED_USERS
+from strings import get_command
 
 # ------------------------------------------------------------------------------- #
 
 # Command
 WIKIPEDIA_COMMAND = get_command("WIKIPEDIA_COMMAND")
+
 
 # ------------------------------------------------------------------------------- #
 
@@ -36,5 +39,3 @@ def handle_search(client: Client, message):
 
     client.send_photo(message.chat.id, photo=image_file,
                       caption=f"**Wikipedia: {query}** \n\n**Resultado:**\n{result}")
-
-

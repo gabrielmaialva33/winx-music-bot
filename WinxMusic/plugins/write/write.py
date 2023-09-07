@@ -1,15 +1,9 @@
-from traceback import format_exc
-
-from aiohttp import ClientSession
-import requests
-from PIL import Image, ImageDraw
-from io import BytesIO
-from Python_ARQ import ARQ
-from WinxMusic import app
+from pyrogram import filters
 from pyrogram.types import Message
-from pyrogram import Client, filters
-from strings import get_command
+
+from WinxMusic import app
 from config import BANNED_USERS
+from strings import get_command
 
 # ------------------------------------------------------------------------------- #
 

@@ -24,7 +24,7 @@ ACTIVEVIDEO_COMMAND = get_command("ACTIVEVIDEO_COMMAND")
 @app.on_message(filters.command(ACTIVEVC_COMMAND) & SUDOERS)
 async def activevc(_, message: Message):
     mystic = await message.reply_text(
-        "Getting active voice chats.. Please hold"
+        "Obtendo chats de voz ativos.. Por favor, aguarde ⏳"
     )
     served_chats = await get_active_chats()
     text = ""
@@ -33,7 +33,7 @@ async def activevc(_, message: Message):
         try:
             title = (await app.get_chat(x)).title
         except Exception:
-            title = "Private Group"
+            title = "Grupo Privado"
         if (await app.get_chat(x)).username:
             user = (await app.get_chat(x)).username
             text += f"<b>{j + 1}.</b>  [{title}](https://t.me/{user})[`{x}`]\n"
@@ -41,10 +41,10 @@ async def activevc(_, message: Message):
             text += f"<b>{j + 1}. {title}</b> [`{x}`]\n"
         j += 1
     if not text:
-        await mystic.edit_text("No Active Voice Chats")
+        await mystic.edit_text("Sem chats de voz ativos 🔇")
     else:
         await mystic.edit_text(
-            f"**Active Voice Chats:-**\n\n{text}",
+            f"🎙️ **Chats de voz ativos:-**\n\n{text}",
             disable_web_page_preview=True,
         )
 

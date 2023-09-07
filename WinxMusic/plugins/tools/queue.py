@@ -17,10 +17,8 @@ from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 import config
 from WinxMusic import app
 from WinxMusic.misc import db
-from WinxMusic.utils import (Winxbin, get_channeplayCB,
-                             seconds_to_min)
-from WinxMusic.utils.database import (get_cmode, is_active_chat,
-                                      is_music_playing)
+from WinxMusic.utils import Winxbin, get_channeplayCB, seconds_to_min
+from WinxMusic.utils.database import get_cmode, is_active_chat, is_music_playing
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.inline import queue_back_markup, queue_markup
 from config import BANNED_USERS
@@ -165,7 +163,7 @@ async def quite_timer(client, CallbackQuery: CallbackQuery):
 
 @app.on_callback_query(filters.regex("GetQueued") & ~BANNED_USERS)
 @languageCB
-async def queued_tracks(client, CallbackQuery: CallbackQuery, _):
+async def queued_tracks(_client, CallbackQuery: CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     what, videoid = callback_request.split("|")

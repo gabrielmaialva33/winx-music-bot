@@ -27,13 +27,9 @@ RELOAD_COMMAND = get_command("RELOAD_COMMAND")
 RESTART_COMMAND = get_command("RESTART_COMMAND")
 
 
-@app.on_message(
-    filters.command(RELOAD_COMMAND)
-    & filters.group
-    & ~BANNED_USERS
-)
+@app.on_message(filters.command(RELOAD_COMMAND) & filters.group & ~BANNED_USERS)
 @language
-async def reload_admin_cache(client, message: Message, _):
+async def reload_admin_cache(_client, message: Message, _):
     try:
         chat_id = message.chat.id
         admins = app.get_chat_members(
@@ -54,15 +50,11 @@ async def reload_admin_cache(client, message: Message, _):
         )
 
 
-@app.on_message(
-    filters.command(RESTART_COMMAND)
-    & filters.group
-    & ~BANNED_USERS
-)
+@app.on_message(filters.command(RESTART_COMMAND) & filters.group & ~BANNED_USERS)
 @AdminActual
-async def restartbot(client, message: Message, _):
+async def restartbot(_client, message: Message, _):
     mystic = await message.reply_text(
-        f"Please Wait.. Restarting {MUSIC_BOT_NAME} for your chat.."
+        f"Aguarde.. Reiniciando {MUSIC_BOT_NAME} para o seu chat.."
     )
     await asyncio.sleep(1)
     try:
@@ -82,7 +74,7 @@ async def restartbot(client, message: Message, _):
         except:
             pass
     return await mystic.edit_text(
-        "Successfully restarted. Try playing now.."
+        "Reiniciado com sucesso! Agora, envie /play para iniciar o bot."
     )
 
 
@@ -108,7 +100,7 @@ async def close_menu(_, CallbackQuery):
     filters.regex("stop_downloading") & ~BANNED_USERS
 )
 @ActualAdminCB
-async def stop_download(client, CallbackQuery: CallbackQuery, _):
+async def stop_download(_client, CallbackQuery: CallbackQuery, _):
     message_id = CallbackQuery.message.id
     task = lyrical.get(message_id)
     if not task:
