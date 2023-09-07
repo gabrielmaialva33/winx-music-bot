@@ -130,7 +130,7 @@ def pout(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/pout").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"{reply.from_user.first_name}  fez bico  🌈")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name}  fez bico  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
