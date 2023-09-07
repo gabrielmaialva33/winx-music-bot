@@ -66,7 +66,7 @@ def shrug(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/shrug").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url)
+        reply.reply_animation(url, caption=f"** ce foda de ** {m.from_user.first_name} **para** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/shrug").json()
         url = api["results"][0]['url']
@@ -100,7 +100,7 @@ def facepalm(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/facepalm").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"** pqp de ** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -111,11 +111,11 @@ def stare(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/stare").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url)
+        reply.reply_animation(url, caption=f"** olhandu para ** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/stare").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **olhandu **")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -126,11 +126,11 @@ def pout(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/pout").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url)
+        reply.reply_animation(url, caption=f"{m.from_user.first_name} **fez bico para** {reply.from_user.first_name}  🌈")
     else:
         api = requests.get("https://nekos.best/api/v2/pout").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"{reply.from_user.first_name}  fez bico  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
@@ -245,11 +245,11 @@ def laugh(_, m: Message):
     if reply:
         api = requests.get("https://nekos.best/api/v2/laugh").json()
         url = api["results"][0]['url']
-        reply.reply_animation(url)
+        reply.reply_animation(url, caption=f"** rido de ** {reply.from_user.first_name}")
     else:
         api = requests.get("https://nekos.best/api/v2/laugh").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url)
+        m.reply_animation(animation=url, caption=f"** risada de ** {reply.from_user.first_name}  🌈")
     m.delete()
 
 # --------------------------------------------------------------------------------- #
