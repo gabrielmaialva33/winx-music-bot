@@ -378,7 +378,7 @@ def sleep(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/sleep").json()
         url = api["results"][0]['url']
-        m.reply_animation(animation=url, caption=f"{reply.from_user.first_name} **dormi**")
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **dormi**")
 
 
 # --------------------------------------------------------------------------------- #
