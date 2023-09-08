@@ -38,13 +38,12 @@ COUPLE_COMMAND = get_command("COUPLE_COMMAND")
 
 @app.on_message(filters.command(COUPLE_COMMAND) & filters.group)
 async def couple(_, message):
-    try:
         chat_id = message.chat.id
         is_selected = await get_couple(chat_id, date=today)
 
         if not is_selected:
             list_of_users = []
-            async for i in app.iter_chat_members(message.chat.id, limit=250):
+            async for i in app.get_chat_members(message.chat.id, limit=100):
                 if not i.user.is_bot:
                     list_of_users.append(i.user.id)
             if len(list_of_users) < 2:
@@ -76,5 +75,3 @@ Novos casais serão escolhidos amanhã às 12h {tomorrow}"""
 Novo casais serão escolhidos amanhã às 12h {tomorrow}"""
             await app.send_photo(message.chat.id, photo="https://telegra.ph/file/908be770f3a34834379f1.png",
                                  caption=couple_selection_message)
-    except Exception as e:
-        await message.reply_text("Erro ao escolher um casal")
