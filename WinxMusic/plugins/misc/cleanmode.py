@@ -238,7 +238,7 @@ async def auto_clean():
             continue
         try:
             for chat_id in clean:
-                if chat_id == config.LOG_GROUP_ID:
+                if chat_id == config.LOG_GROUP_ID:  # Don't delete log group messages
                     continue
                 for x in clean[chat_id]:
                     if datetime.now() > x["timer_after"]:

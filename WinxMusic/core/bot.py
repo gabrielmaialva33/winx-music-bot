@@ -90,7 +90,8 @@ class WinxBot(Client):
                         BotCommand("slap", "Envia um comando de tapa"),
                         BotCommand("hug", "Envia um comando de abraço"),
                         BotCommand("pat", "Envia um comando de afagar"),
-                        BotCommand("waifu", "Envia um comando waifu")
+                        BotCommand("waifu", "Envia um comando waifu"),
+                        BotCommand("couple", "Envia um comando de casal do dia")
                     ]
                 )
             except:

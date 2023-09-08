@@ -158,3 +158,6 @@ NEKO_SLAP_COMMAND: [ "slap", "tapa", "tapa_na_cara", "tapa_na_boca" ]
 NEKO_HUG_COMMAND: [ "hug", "abraçar", "abraço", "abraçando" ]
 NEKO_PAT_COMMAND: [ "pat", "afagar", "afago", "afagando" ]
 NEKO_WAIFU_COMMAND: [ "waifu" ]
+
+# Couple Commands
+COUPLE_COMMAND: [ "couple", "casal", "casais" ]
