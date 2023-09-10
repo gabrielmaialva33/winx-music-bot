@@ -573,4 +573,58 @@ async def palm_chatbot(_client, message):
     else:
         await message.reply(api_response[0])
 
+
 # --------------------------------------------------------------------------------- #
+# NSFW NEKOS
+
+# only for pv chat
+@app.on_message(filters.command("trap") & filters.private)
+def trap(_, m: Message):
+    reply = m.reply_to_message
+    if reply:
+        api = requests.get("https://api.waifu.pics/nsfw/trap").json()
+        url = api["url"]
+        reply.reply_photo(url, caption=f"** trap para** {reply.from_user.first_name}")
+    else:
+        api = requests.get("https://api.waifu.pics/nsfw/trap").json()
+        url = api["url"]
+        m.reply_photo(photo=url, caption=f"** trap de ** {m.from_user.first_name}")
+
+
+@app.on_message(filters.command("mamada") & filters.private)
+def mamada(_, m: Message):
+    reply = m.reply_to_message
+    if reply:
+        api = requests.get("https://api.waifu.pics/nsfw/blowjob").json()
+        url = api["url"]
+        reply.reply_animation(animation=url, caption=f"** manada no ** {reply.from_user.first_name}")
+    else:
+        api = requests.get("https://api.waifu.pics/nsfw/blowjob").json()
+        url = api["url"]
+        m.reply_animation(animation=url, caption=f"** mamando o ** {m.from_user.first_name}")
+
+
+@app.on_message(filters.command("neko_xxx") & filters.private)
+def neko_xxx(_, m: Message):
+    reply = m.reply_to_message
+    if reply:
+        api = requests.get("https://api.waifu.pics/nsfw/neko").json()
+        url = api["url"]
+        reply.reply_photo(url, caption=f"** neko para** {reply.from_user.first_name}")
+    else:
+        api = requests.get("https://api.waifu.pics/nsfw/neko").json()
+        url = api["url"]
+        m.reply_photo(photo=url, caption=f"** neko de ** {m.from_user.first_name}")
+
+
+@app.on_message(filters.command("wifu_xxx") & filters.private)
+def wifu_xxx(_, m: Message):
+    reply = m.reply_to_message
+    if reply:
+        api = requests.get("https://api.waifu.pics/nsfw/waifu").json()
+        url = api["url"]
+        reply.reply_photo(url, caption=f"** wifu para** {reply.from_user.first_name}")
+    else:
+        api = requests.get("https://api.waifu.pics/nsfw/waifu").json()
+        url = api["url"]
+        m.reply_photo(photo=url, caption=f"** wifu de ** {m.from_user.first_name}")
