@@ -23,6 +23,7 @@ from WinxMusic.utils.formatters import time_to_seconds
 
 global title, duration_min, duration_sec, thumbnail, vidid
 
+
 async def shell_cmd(cmd):
     proc = await asyncio.create_subprocess_shell(
         cmd,
