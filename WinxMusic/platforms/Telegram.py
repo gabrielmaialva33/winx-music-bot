@@ -134,7 +134,7 @@ class TeleAPI:
             except:
                 await mystic.edit_text(_["tg_2"])
 
-        if len(downloader) > 100:
+        if len(downloader) > 10:
             timers = []
             for x in downloader:
                 timers.append(downloader[x])
