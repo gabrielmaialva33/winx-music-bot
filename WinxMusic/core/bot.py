@@ -48,7 +48,6 @@ class WinxBot(Client):
                         BotCommand("playmode", "Alterna entre os modos de reprodução"),
                         BotCommand("settings", "Abre o menu de configurações"),
                         BotCommand("wifu", "Envia uma imagem aleatória de anime"),
-                        BotCommand("wiki", "Pesquisa na Wikipedia"),
                         BotCommand("write", "Escreve um texto em uma imagem"),
                         BotCommand("webss", "Tira uma captura de tela de um site"),
                         BotCommand("cuddle", "Envia um comando de carinho"),
