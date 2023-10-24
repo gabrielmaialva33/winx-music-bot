@@ -404,11 +404,11 @@ def punch(_, m: Message):
 def cry(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/sfw/cry").json()
+        api = requests.get("https://waifu.pics/api/sfw/cry").json()
         url = api["url"]
         reply.reply_animation(url, caption=f"{m.from_user.first_name} **chora poe** {reply.from_user.first_name}")
     else:
-        api = requests.get("https://api.waifu.pics/sfw/cry").json()
+        api = requests.get("https://waifu.pics/api/sfw/cry").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **chora**")
 
@@ -419,11 +419,11 @@ def cry(_, m: Message):
 def kill(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/sfw/kill").json()
+        api = requests.get("https://waifu.pics/api/sfw/kill").json()
         url = api["url"]
         reply.reply_animation(url, caption=f"{m.from_user.first_name} **mata** {reply.from_user.first_name}")
     else:
-        api = requests.get("https://api.waifu.pics/sfw/kill").json()
+        api = requests.get("https://waifu.pics/api/sfw/kill").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **mata**")
 
@@ -434,11 +434,11 @@ def kill(_, m: Message):
 def smile(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/sfw/smile").json()
+        api = requests.get("https://waifu.pics/api/sfw/smile").json()
         url = api["url"]
         reply.reply_animation(url, caption=f"{m.from_user.first_name} **sorri di** {reply.from_user.first_name}")
     else:
-        api = requests.get("https://api.waifu.pics/sfw/smile").json()
+        api = requests.get("https://waifu.pics/api/sfw/smile").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} **sorri**")
 
@@ -449,11 +449,11 @@ def smile(_, m: Message):
 def highfive(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/sfw/highfive").json()
+        api = requests.get("https://waifu.pics/api/sfw/highfive").json()
         url = api["url"]
         reply.reply_animation(url)
     else:
-        api = requests.get("https://api.waifu.pics/sfw/highfive").json()
+        api = requests.get("https://waifu.pics/api/sfw/highfive").json()
         url = api["url"]
         m.reply_animation(animation=url)
 
@@ -464,13 +464,13 @@ def highfive(_, m: Message):
 def slap(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/sfw/slap").json()
+        api = requests.get("https://waifu.pics/api/sfw/slap").json()
         url = api["url"]
         name1 = reply.from_user.first_name
         name2 = m.from_user.first_name
         reply.reply_animation(url, caption="{} (((;ꏿ_ꏿ;))) tapas {} ಠಗಠ".format(name2, name1))
     else:
-        api = requests.get("https://api.waifu.pics/sfw/slap").json()
+        api = requests.get("https://waifu.pics/api/sfw/slap").json()
         url = api["url"]
         m.reply_animation(url, caption=f"**tapas de** {m.from_user.first_name} ಠ‿ಠ")
 
@@ -482,13 +482,13 @@ def slap(_, m: Message):
 def hug(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/sfw/hug").json()
+        api = requests.get("https://waifu.pics/api/sfw/hug").json()
         url = api["url"]
         name1 = reply.from_user.first_name
         name2 = m.from_user.first_name
         reply.reply_animation(url, caption="{} ( ◜‿◝ )♡ abraces {} ( ╹▽╹ )".format(name2, name1))
     else:
-        api = requests.get("https://api.waifu.pics/sfw/hug").json()
+        api = requests.get("https://waifu.pics/api/sfw/hug").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"{m.from_user.first_name} ( ◜‿◝ )♡")
 
@@ -499,13 +499,13 @@ def hug(_, m: Message):
 def pat(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/sfw/pat").json()
+        api = requests.get("https://waifu.pics/api/sfw/pat").json()
         url = api["url"]
         name1 = reply.from_user.first_name
         name2 = m.from_user.first_name
         reply.reply_animation(url, caption="{} ( ◜‿◝ )♡ amoes {} ( ╹▽╹ )".format(name2, name1))
     else:
-        api = requests.get("https://api.waifu.pics/sfw/pat").json()
+        api = requests.get("https://waifu.pics/api/sfw/pat").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"** amoes de ** {m.from_user.first_name}")
 
@@ -516,11 +516,11 @@ def pat(_, m: Message):
 def waifu(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/sfw/waifu").json()
+        api = requests.get("https://waifu.pics/api/sfw/waifu").json()
         url = api["url"]
         reply.reply_photo(url, caption=f"** waifu de ** {reply.from_user.first_name}")
     else:
-        api = requests.get("https://api.waifu.pics/sfw/waifu").json()
+        api = requests.get("https://waifu.pics/api/sfw/waifu").json()
         url = api["url"]
         m.reply_photo(photo=url, caption=f"** waifu de ** {m.from_user.first_name}")
 
@@ -584,11 +584,11 @@ async def palm_chatbot(_client, message):
 def trap(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/nsfw/trap").json()
+        api = requests.get("https://waifu.pics/api/nsfw/trap").json()
         url = api["url"]
         reply.reply_photo(url, caption=f"** trap para** {reply.from_user.first_name}")
     else:
-        api = requests.get("https://api.waifu.pics/nsfw/trap").json()
+        api = requests.get("https://waifu.pics/api/nsfw/trap").json()
         url = api["url"]
         m.reply_photo(photo=url, caption=f"** trap de ** {m.from_user.first_name}")
 
@@ -597,11 +597,11 @@ def trap(_, m: Message):
 def mamada(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/nsfw/blowjob").json()
+        api = requests.get("https://waifu.pics/api/nsfw/blowjob").json()
         url = api["url"]
         reply.reply_animation(animation=url, caption=f"** manada no ** {reply.from_user.first_name}")
     else:
-        api = requests.get("https://api.waifu.pics/nsfw/blowjob").json()
+        api = requests.get("https://waifu.pics/api/nsfw/blowjob").json()
         url = api["url"]
         m.reply_animation(animation=url, caption=f"** mamando o ** {m.from_user.first_name}")
 
@@ -610,11 +610,11 @@ def mamada(_, m: Message):
 def neko_xxx(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/nsfw/neko").json()
+        api = requests.get("https://waifu.pics/api/nsfw/neko").json()
         url = api["url"]
         reply.reply_photo(url, caption=f"** neko para** {reply.from_user.first_name}")
     else:
-        api = requests.get("https://api.waifu.pics/nsfw/neko").json()
+        api = requests.get("https://waifu.pics/api/nsfw/neko").json()
         url = api["url"]
         m.reply_photo(photo=url, caption=f"** neko de ** {m.from_user.first_name}")
 
@@ -623,10 +623,10 @@ def neko_xxx(_, m: Message):
 def wifu_xxx(_, m: Message):
     reply = m.reply_to_message
     if reply:
-        api = requests.get("https://api.waifu.pics/nsfw/waifu").json()
+        api = requests.get("https://waifu.pics/api/nsfw/waifu").json()
         url = api["url"]
         reply.reply_photo(url, caption=f"** wifu para** {reply.from_user.first_name}")
     else:
-        api = requests.get("https://api.waifu.pics/nsfw/waifu").json()
+        api = requests.get("https://waifu.pics/api/nsfw/waifu").json()
         url = api["url"]
         m.reply_photo(photo=url, caption=f"** wifu de ** {m.from_user.first_name}")

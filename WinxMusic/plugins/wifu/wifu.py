@@ -9,7 +9,7 @@ from strings import get_command
 WIFU_COMMAND = get_command("WIFU_COMMAND")
 
 # Define the API endpoint to fetch waifu images
-API_ENDPOINT = "https://api.waifu.pics/sfw/waifu"
+API_ENDPOINT = "https://waifu.pics/api/sfw/waifu"
 
 
 def waifu():
