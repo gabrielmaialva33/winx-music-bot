@@ -4,8 +4,11 @@ python-arq
 asyncio
 dnspython
 ffmpeg-python
-git+https://github.com/gabrielmaialva33/pytgcalls
-git+https://github.com/yt-dlp/yt-dlp.git
+#git+https://github.com/gabrielmaialva33/pytgcalls
+ntgcalls
+py-tgcalls==1.0.0.rc2
+#git+https://github.com/yt-dlp/yt-dlp.git
+yt-dlp
 gitpython
 gpytranslate
 hachoir
