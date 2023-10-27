@@ -6,8 +6,7 @@ dnspython
 ffmpeg-python
 # git+https://github.com/gabrielmaialva33/pytgcalls
 git+https://github.com/yt-dlp/yt-dlp.git
-ntgcalls
-py-tgcalls==1.0.0.rc2
+py-tgcalls
 gitpython
 gpytranslate
 hachoir
