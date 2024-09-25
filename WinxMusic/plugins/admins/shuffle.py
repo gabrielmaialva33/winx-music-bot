@@ -3,11 +3,11 @@ import random
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+from config import BANNED_USERS
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import db
 from WinxMusic.utils.decorators import AdminRightsCheck
-from config import BANNED_USERS
-from strings import get_command
 
 SHUFFLE_COMMAND = get_command("SHUFFLE_COMMAND")
 

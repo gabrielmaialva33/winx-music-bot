@@ -1,5 +1,5 @@
-from WinxMusic import app
 from config import LOG_GROUP_ID
+from WinxMusic import app
 
 protected_messages = {}
 

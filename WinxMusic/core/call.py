@@ -16,6 +16,7 @@ from pytgcalls.types import (
 )
 
 import config
+from strings import get_string
 from WinxMusic import LOGGER, YouTube, app
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (
@@ -35,7 +36,6 @@ from WinxMusic.utils.exceptions import AssistantErr
 from WinxMusic.utils.inline.play import stream_markup, telegram_markup
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import gen_thumb
-from strings import get_string
 
 
 async def _clear_(chat_id):
@@ -145,11 +145,11 @@ class Call(PyTgCalls):
             pass
 
     async def skip_stream(
-            self,
-            chat_id: int,
-            link: str,
-            video: Union[bool, str] = None,
-            image: Union[bool, str] = None,
+        self,
+        chat_id: int,
+        link: str,
+        video: Union[bool, str] = None,
+        image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -206,12 +206,12 @@ class Call(PyTgCalls):
         await assistant.leave_call(config.LOG_GROUP_ID)
 
     async def join_call(
-            self,
-            chat_id: int,
-            original_chat_id: int,
-            link,
-            video: Union[bool, str] = None,
-            image: Union[bool, str] = None,
+        self,
+        chat_id: int,
+        original_chat_id: int,
+        link,
+        video: Union[bool, str] = None,
+        image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
