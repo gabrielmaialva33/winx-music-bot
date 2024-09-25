@@ -2,9 +2,9 @@ import asyncio
 import random
 import string
 
-from pyrogram import filters, Client
+from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
-from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message, CallbackQuery
+from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InputMediaPhoto, Message
 
 import config
 from config import BANNED_USERS, lyrical

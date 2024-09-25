@@ -5,7 +5,7 @@ from random import randint
 
 import requests
 from pykeyboard import InlineKeyboard
-from pyrogram import filters, Client
+from pyrogram import Client, filters
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import (
     ChatAdminRequired,
@@ -13,7 +13,12 @@ from pyrogram.errors import (
     UserAlreadyParticipant,
     UserNotParticipant,
 )
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+)
 from youtube_search import YoutubeSearch
 
 from config import BANNED_USERS, SERVER_PLAYLIST_LIMIT
@@ -519,7 +524,9 @@ async def add_playlist(_client: Client, message: Message, _):
 
     # Verifica se o input fornecido é um link de playlist do YouTube
     if "youtube.com/playlist" in query:
-        adding = await message.reply_text("**Adicionando músicas à playlist, por favor aguarde..**")
+        adding = await message.reply_text(
+            "**Adicionando músicas à playlist, por favor aguarde..**"
+        )
         try:
             from pytube import Playlist, YouTube
 
@@ -543,7 +550,9 @@ async def add_playlist(_client: Client, message: Message, _):
                 title = yt.title
                 duration = yt.length
             except Exception as e:
-                return await message.reply_text(f"Erro ao obter informações do vídeo: {e}")
+                return await message.reply_text(
+                    f"Erro ao obter informações do vídeo: {e}"
+                )
 
             plist = {
                 "videoid": video_id,
@@ -569,7 +578,9 @@ async def add_playlist(_client: Client, message: Message, _):
             reply_markup=keyboardes,
         )
     if "youtube.com/@" in query:
-        addin = await message.reply_text("**Adicionando músicas à playlist, por favor aguarde..**")
+        addin = await message.reply_text(
+            "**Adicionando músicas à playlist, por favor aguarde..**"
+        )
         try:
             from pytube import YouTube
 
@@ -593,7 +604,9 @@ async def add_playlist(_client: Client, message: Message, _):
                 title = yt.title
                 duration = yt.length
             except Exception as e:
-                return await message.reply_text(f"Erro ao obter informações do vídeo: {e}")
+                return await message.reply_text(
+                    f"Erro ao obter informações do vídeo: {e}"
+                )
 
             plist = {
                 "videoid": video_id,
@@ -620,7 +633,9 @@ async def add_playlist(_client: Client, message: Message, _):
     # Verifica se o input fornecido é um link de vídeo do YouTube
     if "https://youtu.be" in query:
         try:
-            add = await message.reply_text("**Adicionando músicas à playlist, por favor aguarde..**")
+            add = await message.reply_text(
+                "**Adicionando músicas à playlist, por favor aguarde..**"
+            )
             from pytube import Playlist, YouTube
 
             # Extrai o ID do vídeo do link do YouTube
