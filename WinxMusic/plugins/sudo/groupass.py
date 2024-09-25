@@ -1,4 +1,4 @@
-from pyrogram import filters, Client
+from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from config import BANNED_USERS, LOG_GROUP_ID

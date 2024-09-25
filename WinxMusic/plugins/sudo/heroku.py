@@ -12,7 +12,7 @@ import requests
 import urllib3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
-from pyrogram import filters, Client
+from pyrogram import Client, filters
 
 import config
 from strings import get_command

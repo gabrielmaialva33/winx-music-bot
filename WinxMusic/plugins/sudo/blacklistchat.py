@@ -1,4 +1,4 @@
-from pyrogram import filters, Client
+from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from config import BANNED_USERS
@@ -7,7 +7,6 @@ from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import blacklist_chat, blacklisted_chats, whitelist_chat
 from WinxMusic.utils.decorators.language import language
-
 
 BLACKLISTCHAT_COMMAND = get_command("BLACKLISTCHAT_COMMAND")
 WHITELISTCHAT_COMMAND = get_command("WHITELISTCHAT_COMMAND")
