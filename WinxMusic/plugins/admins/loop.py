@@ -1,24 +1,18 @@
-from pyrogram import filters
+from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from WinxMusic import app
-from WinxMusic.utils.database.memorydatabase import (get_loop,
-                                                     set_loop)
-from WinxMusic.utils.decorators import AdminRightsCheck
 from config import BANNED_USERS
 from strings import get_command
+from WinxMusic import app
+from WinxMusic.utils.database.memorydatabase import get_loop, set_loop
+from WinxMusic.utils.decorators import AdminRightsCheck
 
-# Commands
 LOOP_COMMAND = get_command("LOOP_COMMAND")
 
 
-@app.on_message(
-    filters.command(LOOP_COMMAND)
-    & filters.group
-    & ~BANNED_USERS
-)
+@app.on_message(filters.command(LOOP_COMMAND) & filters.group & ~BANNED_USERS)
 @AdminRightsCheck
-async def admins(cli, message: Message, _, chat_id):
+async def admins(_client: Client, message: Message, _, chat_id):
     usage = _["admin_24"]
     if len(message.command) != 2:
         return await message.reply_text(usage)
@@ -33,16 +27,14 @@ async def admins(cli, message: Message, _, chat_id):
                 state = 10
             await set_loop(chat_id, state)
             return await message.reply_text(
-                _["admin_25"].format(
-                    message.from_user.first_name, state
-                )
+                _["admin_25"].format(message.from_user.first_name, state)
             )
         else:
             return await message.reply_text(_["admin_26"])
     elif state.lower() == "enable":
         await set_loop(chat_id, 10)
         return await message.reply_text(
-            _["admin_25"].format(message.from_user.first_name, state)
+            _["admin_25"].format(message.from_user.first_name, 10)
         )
     elif state.lower() == "disable":
         await set_loop(chat_id, 0)

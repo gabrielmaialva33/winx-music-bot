@@ -1,14 +1,12 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from WinxMusic import app
-from WinxMusic.misc import SUDOERS
-from WinxMusic.utils.database import (blacklist_chat,
-                                      blacklisted_chats,
-                                      whitelist_chat)
-from WinxMusic.utils.decorators.language import language
 from config import BANNED_USERS
 from strings import get_command
+from WinxMusic import app
+from WinxMusic.misc import SUDOERS
+from WinxMusic.utils.database import blacklist_chat, blacklisted_chats, whitelist_chat
+from WinxMusic.utils.decorators.language import language
 
 # Commands
 
@@ -29,7 +27,7 @@ async def blacklist_chat_func(client, message: Message, _):
     if blacklisted:
         await message.reply_text(_["black_3"])
     else:
-        await message.reply_text("Something wrong happened.")
+        await message.reply_text("sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ.")
     try:
         await app.leave_chat(chat_id)
     except:
@@ -47,12 +45,10 @@ async def white_funciton(client, message: Message, _):
     whitelisted = await whitelist_chat(chat_id)
     if whitelisted:
         return await message.reply_text(_["black_6"])
-    await message.reply_text("Something wrong happened.")
+    await message.reply_text("sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ.")
 
 
-@app.on_message(
-    filters.command(BLACKLISTEDCHAT_COMMAND) & ~BANNED_USERS
-)
+@app.on_message(filters.command(BLACKLISTEDCHAT_COMMAND) & ~BANNED_USERS)
 @language
 async def all_chats(client, message: Message, _):
     text = _["black_7"]
@@ -61,7 +57,7 @@ async def all_chats(client, message: Message, _):
         try:
             title = (await app.get_chat(chat_id)).title
         except Exception:
-            title = "Private"
+            title = "ᴘʀɪᴠᴀᴛᴇ"
         j = 1
         text += f"**{count}. {title}** [`{chat_id}`]\n"
     if j == 0:

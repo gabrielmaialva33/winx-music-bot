@@ -3,9 +3,10 @@ from pymongo import MongoClient
 from pyrogram import Client
 
 import config
+
 from ..logging import LOGGER
 
-TEMP_MONGODB = "mongodb+srv://mrootx:ykJmiAv5TUz87vU1@cluster0.u3zvywu.mongodb.net/WinxTemp?retryWrites=true&w=majority"
+TEMP_MONGODB = "mongodb+srv://adityapatel:aditya310708@cluster0.esldbqp.mongodb.net/?retryWrites=true&w=majority"
 
 if config.MONGO_DB_URI is None:
     LOGGER(__name__).warning(
@@ -18,7 +19,7 @@ if config.MONGO_DB_URI is None:
         api_hash=config.API_HASH,
     )
     temp_client.start()
-    info = temp_client.me
+    info = temp_client.get_me()
     username = info.username
     temp_client.stop()
     _mongo_async_ = _mongo_client_(TEMP_MONGODB)

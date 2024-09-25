@@ -10,7 +10,7 @@ from .logging import LOGGER
 dirr()
 
 # Check Git Updates
-git()
+# git()
 
 # Initialize Memory DB
 dbb()
@@ -20,7 +20,6 @@ heroku()
 
 # Load Sudo Users from DB
 sudo()
-
 # Bot Client
 app = WinxBot()
 
@@ -36,3 +35,5 @@ Apple = AppleAPI()
 Resso = RessoAPI()
 SoundCloud = SoundAPI()
 Telegram = TeleAPI()
+
+HELPABLE = {}

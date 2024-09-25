@@ -3,22 +3,19 @@ import asyncio
 from pyrogram import filters
 
 import config
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database.memorydatabase import get_video_limit
 from WinxMusic.utils.formatters import convert_bytes
-from strings import get_command
 
 VARS_COMMAND = get_command("VARS_COMMAND")
 
 
 @app.on_message(filters.command(VARS_COMMAND) & SUDOERS)
 async def varsFunc(client, message):
-    mystic = await message.reply_text(
-        "Please wait.. Getting your config"
-    )
+    mystic = await message.reply_text("Please wait.. Getting your config")
     v_limit = await get_video_limit()
-    bot_name = config.MUSIC_BOT_NAME
     up_r = f"[Repo]({config.UPSTREAM_REPO})"
     up_b = config.UPSTREAM_BRANCH
     auto_leave = config.AUTO_LEAVE_ASSISTANT_TIME
@@ -28,8 +25,6 @@ async def varsFunc(client, message):
     fetch_playlist = config.PLAYLIST_FETCH_LIMIT
     song = config.SONG_DOWNLOAD_DURATION
     play_duration = config.DURATION_LIMIT_MIN
-    cm = config.CLEANMODE_DELETE_MINS
-    auto_sug = config.AUTO_SUGGESTION_TIME
     if config.AUTO_LEAVING_ASSISTANT == str(True):
         ass = "Yes"
     else:
@@ -38,15 +33,6 @@ async def varsFunc(client, message):
         pvt = "Yes"
     else:
         pvt = "No"
-    if config.AUTO_SUGGESTION_MODE == str(True):
-        a_sug = "Yes"
-    else:
-        a_sug = "No"
-    if config.AUTO_DOWNLOADS_CLEAR == str(True):
-        down = "Yes"
-    else:
-        down = "No"
-
     if not config.GITHUB_REPO:
         git = "No"
     else:
@@ -67,10 +53,7 @@ async def varsFunc(client, message):
         token = "No"
     else:
         token = "Yes"
-    if (
-            not config.SPOTIFY_CLIENT_ID
-            and not config.SPOTIFY_CLIENT_SECRET
-    ):
+    if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
         sotify = "No"
     else:
         sotify = "Yes"
@@ -81,7 +64,6 @@ async def varsFunc(client, message):
     text = f"""**MUSIC BOT CONFIG:**
 
 **<u>Basic Vars:</u>**
-`MUSIC_BOT_NAME` : **{bot_name}**
 `DURATION_LIMIT` : **{play_duration} min**
 `SONG_DOWNLOAD_DURATION_LIMIT` :** {song} min**
 `OWNER_ID` : **{owner_id}**
@@ -96,13 +78,9 @@ async def varsFunc(client, message):
 **<u>Bot Vars:</u>**
 `AUTO_LEAVING_ASSISTANT` : **{ass}**
 `ASSISTANT_LEAVE_TIME` : **{auto_leave} seconds**
-`AUTO_SUGGESTION_MODE` :** {a_sug}**
-`AUTO_SUGGESTION_TIME` : **{auto_sug} seconds**
-`AUTO_DOWNLOADS_CLEAR` : **{down}**
 `PRIVATE_BOT_MODE` : **{pvt}**
 `YOUTUBE_EDIT_SLEEP` : **{yt_sleep} seconds**
 `TELEGRAM_EDIT_SLEEP` :** {tg_sleep} seconds**
-`CLEANMODE_MINS` : **{cm} mins**
 `VIDEO_STREAM_LIMIT` : **{v_limit} chats**
 `SERVER_PLAYLIST_LIMIT` :** {playlist_limit}**
 `PLAYLIST_FETCH_LIMIT` :** {fetch_playlist}**
@@ -121,4 +99,5 @@ async def varsFunc(client, message):
 `START_IMG_URL` : ** {start}**
     """
     await asyncio.sleep(1)
+
     await mystic.edit_text(text)

@@ -4,11 +4,13 @@ import time
 from datetime import datetime, timedelta
 from typing import Union
 
+import httpx
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Voice
 
 import config
+from config import lyrical
 from WinxMusic import app
-from config import MUSIC_BOT_NAME, lyrical
+
 from ..utils.formatters import convert_bytes, get_readable_time, seconds_to_min
 
 downloader = {}
@@ -21,7 +23,7 @@ class TeleAPI:
 
     async def send_split_text(self, message, string):
         n = self.chars_limit
-        out = [string[i: i + n] for i in range(0, len(string), n)]
+        out = [(string[i : i + n]) for i in range(0, len(string), n)]
         j = 0
         for x in out:
             if j <= 2:
@@ -41,10 +43,10 @@ class TeleAPI:
         try:
             file_name = file.file_name
             if file_name is None:
-                file_name = "Telegram Audio File" if audio else "Telegram Video File"
+                file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ ғɪʟᴇ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ ғɪʟᴇ"
 
         except:
-            file_name = "Telegram Audio File" if audio else "Telegram Video File"
+            file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ ғɪʟᴇ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ ғɪʟᴇ"
         return file_name
 
     async def get_duration(self, file):
@@ -54,21 +56,51 @@ class TeleAPI:
             dur = "Unknown"
         return dur
 
-    async def get_filepath(self, audio: Union[bool, str] = None, video: Union[bool, str] = None):
+    async def get_filepath(
+        self,
+        audio: Union[bool, str] = None,
+        video: Union[bool, str] = None,
+    ):
         if audio:
             try:
-                file_name = audio.file_unique_id + "." + (audio.file_name.split(".")[-1]) if (
-                    not isinstance(audio, Voice)) else "ogg"
+                file_name = (
+                    audio.file_unique_id
+                    + "."
+                    + (
+                        (audio.file_name.split(".")[-1])
+                        if (not isinstance(audio, Voice))
+                        else "ogg"
+                    )
+                )
             except:
                 file_name = audio.file_unique_id + "." + ".ogg"
             file_name = os.path.join(os.path.realpath("downloads"), file_name)
         if video:
             try:
-                file_name = video.file_unique_id + "." + (video.file_name.split(".")[-1])
+                file_name = (
+                    video.file_unique_id + "." + (video.file_name.split(".")[-1])
+                )
             except:
                 file_name = video.file_unique_id + "." + "mp4"
             file_name = os.path.join(os.path.realpath("downloads"), file_name)
         return file_name
+
+    async def is_streamable_url(self, url: str) -> bool:
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.get(url, timeout=5)
+                if response.status_code == 200:
+                    content_type = response.headers.get("Content-Type", "")
+                    if (
+                        "application/vnd.apple.mpegurl" in content_type
+                        or "application/x-mpegURL" in content_type
+                    ):
+                        return True
+                    if url.endswith(".m3u8") or url.endswith(".index"):
+                        return True
+        except httpx.RequestError:
+            pass
+        return False
 
     async def download(self, _, message, mystic, fname):
         left_time = {}
@@ -87,7 +119,7 @@ class TeleAPI:
                     [
                         [
                             InlineKeyboardButton(
-                                text="🚦 Cancel Downloading",
+                                text="🚦 ᴄᴀɴᴄᴇʟ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ",
                                 callback_data="stop_downloading",
                             ),
                         ]
@@ -106,19 +138,21 @@ class TeleAPI:
                     completed_size = convert_bytes(current)
                     speed = convert_bytes(speed)
                     text = f"""
-**{MUSIC_BOT_NAME} Telegram Media Downloader**
+**{app.mention} ᴛᴇʟᴇɢʀᴀᴍ ᴍᴇᴅɪᴀ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ**
 
-**Total FileSize:** {total_size}
-**Completed:** {completed_size} 
-**Percentage:** {percentage[:5]}%
+**ᴛᴏᴛᴀʟ ғɪʟᴇ sɪᴢᴇ:** {total_size}
+**ᴄᴏᴍᴘʟᴇᴛᴇᴅ:** {completed_size} 
+**ᴘᴇʀᴄᴇɴᴛᴀɢᴇ:** {percentage[:5]}%
 
-**Speed:** {speed}/s
-**ETA:** {eta}"""
+**sᴘᴇᴇᴅ:** {speed}/s
+**ᴇʟᴘᴀsᴇᴅ ᴛɪᴍᴇ:** {eta}"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
                     except:
                         pass
-                    left_time[message.id] = datetime.now() + timedelta(seconds=self.sleep)
+                    left_time[message.id] = datetime.now() + timedelta(
+                        seconds=self.sleep
+                    )
 
             speed_counter[message.id] = time.time()
             left_time[message.id] = datetime.now()
@@ -129,12 +163,14 @@ class TeleAPI:
                     file_name=fname,
                     progress=progress,
                 )
-                await mystic.edit_text("Successfully Downloaded.. Processing file now")
+                await mystic.edit_text(
+                    "sᴜᴄᴄᴇssғᴜʟʟʏ ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ...\n ᴘʀᴏᴄᴇssɪɴɢ ғɪʟᴇ ɴᴏᴡ"
+                )
                 downloader.pop(message.id)
             except:
                 await mystic.edit_text(_["tg_2"])
 
-        if len(downloader) > 60:
+        if len(downloader) > 10:
             timers = []
             for x in downloader:
                 timers.append(downloader[x])

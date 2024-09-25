@@ -32,7 +32,7 @@ class AppleAPI:
                 search = tag.get("content", None)
         if search is None:
             return False
-        results = VideosSearch(search, limit=1, language="en", region="US")
+        results = VideosSearch(search, limit=1)
         for result in (await results.next())["result"]:
             title = result["title"]
             ytlink = result["link"]
@@ -58,20 +58,14 @@ class AppleAPI:
                     return False
                 html = await response.text()
         soup = BeautifulSoup(html, "html.parser")
-        applelinks = soup.find_all(
-            "meta", attrs={"property": "music:song"}
-        )
+        applelinks = soup.find_all("meta", attrs={"property": "music:song"})
         results = []
         for item in applelinks:
             try:
-                xx = (
-                    ((item["content"]).split("album/")[1]).split("/")[
-                        0
-                    ]
-                ).replace("-", " ")
+                xx = (((item["content"]).split("album/")[1]).split("/")[0]).replace(
+                    "-", " "
+                )
             except:
-                xx = ((item["content"]).split("album/")[1]).split(
-                    "/"
-                )[0]
+                xx = ((item["content"]).split("album/")[1]).split("/")[0]
             results.append(xx)
         return results, playlist_id

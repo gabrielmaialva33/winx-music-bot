@@ -1,13 +1,13 @@
 {
-  "name": "winx-music-bot",
+  "name": "WinxMusic",
   "description": "Telegram Group Calls streaming bot with some useful features, written in Python with Pyrogram and Py-Tgcalls. Supporting platforms like Youtube, Spotify, Resso, AppleMusic, Soundcloud and M3u8 Links.",
-  "logo": "https://telegra.ph/file/4bbfc8edc21183f0fafcd.jpg",
+  "logo": "https://graph.org/file/c0e014ff34f34d1056627.png",
   "keywords": [
     "python3",
     "telegram",
     "bot",
-    "winx",
-    "winx-music-bot",
+    "Winx",
+    "WinxMusicBot",
     "telegram-bot",
     "pyrogram"
   ],
@@ -23,23 +23,18 @@
       "value": "",
       "required": true
     },
-    "AUTO_LEAVING_ASSISTANT": {
-      "description": "If you want your assistant to leave all chats automatically after some time.",
+    "BOT_TOKEN": {
+      "description": "A Bot's token Get it from Botfather",
+      "value": "",
+      "required": true
+    },
+    "EXTRA_PLUGINS": {
+      "description": "if You want to load extra plugins with music plugins so fill True  if you don't want to load extra plugins so Fill False",
       "value": "True",
       "required": false
     },
-    "BOT_TOKEN": {
-      "description": "A Bot's token from Botfather",
-      "value": "",
-      "required": true
-    },
     "MONGO_DB_URI": {
       "description": "Get a mongodb url from https://cloud.mongodb.com . You can leave it blank if you want , bot will use Winx's database for you.",
-      "value": "",
-      "required": true
-    },
-    "MUSIC_BOT_NAME": {
-      "description": "A name for your Music Bot. Please don't use ascii characters",
       "value": "",
       "required": true
     },
@@ -70,7 +65,7 @@
     },
     "UPSTREAM_REPO": {
       "description": "If you dont know this, Leave as it is",
-      "value": "https://github.com/gabrielmaialva33/winx-music-bot",
+      "value": "https://github.com/gabrielmaialva33/winx-bot",
       "required": true
     },
     "UPSTREAM_BRANCH": {
@@ -84,16 +79,13 @@
       "url": "heroku/python"
     },
     {
-      "url": "heroku/nodejs"
-    },
-    {
       "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
     }
   ],
   "formation": {
     "worker": {
       "quantity": 1,
-      "size": "free"
+      "size": "basic"
     }
   }
 }

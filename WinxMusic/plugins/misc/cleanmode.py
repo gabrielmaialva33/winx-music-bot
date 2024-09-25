@@ -7,8 +7,11 @@ from pyrogram.errors import FloodWait
 from pyrogram.raw import types
 
 import config
+from config import adminlist, chatstats, clean, userstats
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
+from WinxMusic.utils.cleanmode import protected_messages
 from WinxMusic.utils.database import (
     get_active_chats,
     get_authuser_names,
@@ -24,8 +27,6 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.formatters import alpha_to_int
-from config import adminlist, chatstats, clean, userstats
-from strings import get_command
 
 BROADCAST_COMMAND = get_command("BROADCAST_COMMAND")
 AUTO_DELETE = config.CLEANMODE_DELETE_MINS
@@ -35,7 +36,7 @@ cleanmode_group = 15
 
 
 @app.on_raw_update(group=cleanmode_group)
-async def clean_mode(_client, update, users, chats):
+async def clean_mode(client, update, users, chats):
     global IS_BROADCASTING
     if IS_BROADCASTING:
         return
@@ -65,7 +66,7 @@ async def clean_mode(_client, update, users, chats):
 
 @app.on_message(filters.command(BROADCAST_COMMAND) & SUDOERS)
 @language
-async def broadcast_message(_client, message, _):
+async def braodcast_message(client, message, _):
     global IS_BROADCASTING
     if message.reply_to_message:
         x = message.reply_to_message.id
@@ -98,7 +99,7 @@ async def broadcast_message(_client, message, _):
         for chat in schats:
             chats.append(int(chat["chat_id"]))
         for i in chats:
-            if i == -1001285436101:
+            if i == config.LOG_GROUP_ID:
                 continue
             try:
                 m = (
@@ -168,13 +169,13 @@ async def broadcast_message(_client, message, _):
             sent = 0
             client = await get_client(num)
             async for dialog in client.get_dialogs():
-                if dialog.chat.id == -1001285436101:
+                if dialog.chat.id == config.LOG_GROUP_ID:
                     continue
                 try:
-                    await client.forward_messages(
-                        dialog.chat.id, y, x
-                    ) if message.reply_to_message else await client.send_message(
-                        dialog.chat.id, text=query
+                    (
+                        await client.forward_messages(dialog.chat.id, y, x)
+                        if message.reply_to_message
+                        else await client.send_message(dialog.chat.id, text=query)
                     )
                     sent += 1
                 except FloodWait as e:
@@ -206,15 +207,11 @@ async def auto_clean():
                         spot = spot["spot"]
                         next_spot = spot + 1
                         new_spot = {"spot": next_spot, "title": title}
-                        await update_particular_top(
-                            chat_id, vidid, new_spot
-                        )
+                        await update_particular_top(chat_id, vidid, new_spot)
                     else:
                         next_spot = 1
                         new_spot = {"spot": next_spot, "title": title}
-                        await update_particular_top(
-                            chat_id, vidid, new_spot
-                        )
+                        await update_particular_top(chat_id, vidid, new_spot)
             for user_id in userstats:
                 for dic in userstats[user_id]:
                     vidid = dic["vidid"]
@@ -225,27 +222,27 @@ async def auto_clean():
                         spot = spot["spot"]
                         next_spot = spot + 1
                         new_spot = {"spot": next_spot, "title": title}
-                        await update_user_top(
-                            user_id, vidid, new_spot
-                        )
+                        await update_user_top(user_id, vidid, new_spot)
                     else:
                         next_spot = 1
                         new_spot = {"spot": next_spot, "title": title}
-                        await update_user_top(
-                            user_id, vidid, new_spot
-                        )
+                        await update_user_top(user_id, vidid, new_spot)
         except:
             continue
         try:
             for chat_id in clean:
-                if chat_id == config.LOG_GROUP_ID:  # Don't delete log group messages
+                if chat_id == config.LOG_GROUP_ID:
                     continue
                 for x in clean[chat_id]:
                     if datetime.now() > x["timer_after"]:
+                        # Skip deletion if the message is protected
+                        if (
+                            chat_id in protected_messages
+                            and x["msg_id"] in protected_messages[chat_id]
+                        ):
+                            continue
                         try:
-                            await app.delete_messages(
-                                chat_id, x["msg_id"]
-                            )
+                            await app.delete_messages(chat_id, x["msg_id"])
                         except FloodWait as e:
                             await asyncio.sleep(e.value)
                         except:
@@ -274,3 +271,21 @@ async def auto_clean():
 
 
 asyncio.create_task(auto_clean())
+
+__MODULE__ = "G-cast"
+__HELP__ = """
+<b>/broadcast [mensagem ou responder a uma mensagem]</b> » transmite uma mensagem para os chats servidos pelo bot.
+<u>Modos de transmissão:</u>
+
+<b><code>-pin</code></b> » fixa suas mensagens transmitidas nos chats servidos.
+
+<b><code>-pinloud</code></b> » fixa suas mensagens transmitidas nos chats servidos e envia notificações aos membros.
+
+<b><code>-user</code></b> » transmite a mensagem para os usuários que iniciaram seu bot.
+
+<b><code>-assistant</code></b> » transmite sua mensagem a partir da conta assistente do bot.
+
+<b><code>-nobot</code></b> » força o bot a não transmitir a mensagem.
+
+> <b>Exemplo:</b> <code>/broadcast -user -assistant -pin testando transmissão</code>
+"""

@@ -1,101 +1,109 @@
+import uvloop
+
+uvloop.install()
+
 import sys
 
 from pyrogram import Client
 from pyrogram.enums import ChatMemberStatus
-from pyrogram.types import BotCommand
+from pyrogram.types import (
+    BotCommand,
+    BotCommandScopeAllChatAdministrators,
+    BotCommandScopeAllGroupChats,
+    BotCommandScopeAllPrivateChats,
+)
 
 import config
+
 from ..logging import LOGGER
 
 
 class WinxBot(Client):
-    def __init__(self):
+    def __init__(self: "WinxBot"):
+
+        self.username = None
+        self.id = None
+        self.name = None
+        self.mention = None
+
         LOGGER(__name__).info(f"Starting Bot")
         super().__init__(
-            "WinxMusicBot",
+            "WinxMusic",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             bot_token=config.BOT_TOKEN,
+            in_memory=True,
         )
 
-    async def start(self):
+    async def start(self: "WinxBot"):
         await super().start()
-        get_me = self.me
-
+        get_me = await self.get_me()
         self.username = get_me.username
         self.id = get_me.id
+        self.name = self.me.first_name + " " + (self.me.last_name or "")
+        self.mention = self.me.mention
 
         try:
             await self.send_message(
-                config.LOG_GROUP_ID, "Bot Started"
+                config.LOG_GROUP_ID,
+                text=f"Bot started:\n\nID: {self.id}\nName: {self.name}\nUsername: @{self.username}",
             )
         except:
             LOGGER(__name__).error(
-                "Bot has failed to access the log Group. Make sure that you have added your bot to your log channel and promoted as admin!"
+                "Bot failed to access the log group. Make sure you have added your bot to the log channel and promoted it as admin!"
             )
-            sys.exit()
+            # sys.exit()
         if config.SET_CMDS == str(True):
             try:
+
                 await self.set_bot_commands(
-                    [
-                        BotCommand("ping", "Veja se o bot está online"),
-                        BotCommand("play", "Reproduz a música solicitada"),
-                        BotCommand("skip", "Pula a música atual"),
-                        BotCommand("pause", "Pausa a música atual"),
-                        BotCommand("resume", "Retoma a música atual"),
-                        BotCommand("end", "Para a música atual e limpa a fila"),
-                        BotCommand("shuffle", "Embaralha a fila de músicas"),
-                        BotCommand("playmode", "Alterna entre os modos de reprodução"),
-                        BotCommand("settings", "Abre o menu de configurações"),
-                        BotCommand("wifu", "Envia uma imagem aleatória de anime"),
-                        BotCommand("write", "Escreve um texto em uma imagem"),
-                        BotCommand("webss", "Tira uma captura de tela de um site"),
-                        BotCommand("cuddle", "Envia um comando de carinho"),
-                        BotCommand("shrug", "Envia um comando de dar de ombros"),
-                        BotCommand("poke", "Envia um comando de cutucar"),
-                        BotCommand("facepalm", "Envia um comando de facepalm"),
-                        BotCommand("stare", "Envia um comando de olhar fixamente"),
-                        BotCommand("pout", "Envia um comando de fazer bico"),
-                        BotCommand("handhold", "Envia um comando de segurar a mão"),
-                        BotCommand("wave", "Envia um comando de acenar"),
-                        BotCommand("blush", "Envia um comando de corar"),
-                        BotCommand("neko", "Envia um comando neko"),
-                        BotCommand("dance", "Envia um comando de dançar"),
-                        BotCommand("baka", "Envia um comando de insulto leve"),
-                        BotCommand("bore", "Envia um comando de tédio"),
-                        BotCommand("laugh", "Envia um comando de risada"),
-                        BotCommand("smug", "Envia um comando de arrogância"),
-                        BotCommand("thumbsup", "Envia um comando de joinha"),
-                        BotCommand("shoot", "Envia um comando de atirar"),
-                        BotCommand("tickle", "Envia um comando de cócegas"),
-                        BotCommand("feed", "Envia um comando de alimentar"),
-                        BotCommand("think", "Envia um comando de pensar"),
-                        BotCommand("wink", "Envia um comando de piscar"),
-                        BotCommand("sleep", "Envia um comando de dormir"),
-                        BotCommand("punch", "Envia um comando de soco"),
-                        BotCommand("cry", "Envia um comando de chorar"),
-                        BotCommand("kill", "Envia um comando de matar"),
-                        BotCommand("smile", "Envia um comando de sorrir"),
-                        BotCommand("highfive", "Envia um comando de toca aqui"),
-                        BotCommand("slap", "Envia um comando de tapa"),
-                        BotCommand("hug", "Envia um comando de abraço"),
-                        BotCommand("pat", "Envia um comando de afagar"),
-                        BotCommand("waifu", "Envia um comando waifu"),
-                        BotCommand("couple", "Envia um comando de casal do dia")
-                    ]
+                    commands=[
+                        BotCommand("start", "Start the bot"),
+                        BotCommand("help", "Get the help menu"),
+                        BotCommand("ping", "Check if the bot is alive"),
+                    ],
+                    scope=BotCommandScopeAllPrivateChats(),
+                )
+                await self.set_bot_commands(
+                    commands=[
+                        BotCommand("play", "Start playing the requested song"),
+                    ],
+                    scope=BotCommandScopeAllGroupChats(),
+                )
+                await self.set_bot_commands(
+                    commands=[
+                        BotCommand("play", "Start playing the requested song"),
+                        BotCommand("skip", "Move to the next track in queue"),
+                        BotCommand("pause", "Pause the current playing song"),
+                        BotCommand("resume", "Resume the paused song"),
+                        BotCommand("end", "Clear the queue and leave the voice chat"),
+                        BotCommand("shuffle", "Randomly shuffle the queued playlist"),
+                        BotCommand(
+                            "playmode",
+                            "Change the default play mode for your chat",
+                        ),
+                        BotCommand(
+                            "settings",
+                            "Open the settings of the music bot for your chat",
+                        ),
+                    ],
+                    scope=BotCommandScopeAllChatAdministrators(),
                 )
             except:
                 pass
         else:
             pass
-        a = await self.get_chat_member(config.LOG_GROUP_ID, self.id)
-        if a.status != ChatMemberStatus.ADMINISTRATOR:
-            LOGGER(__name__).error(
-                "Please promote Bot as Admin in Logger Group"
-            )
-            sys.exit()
+        try:
+            a = await self.get_chat_member(config.LOG_GROUP_ID, self.id)
+            if a.status != ChatMemberStatus.ADMINISTRATOR:
+                LOGGER(__name__).error(
+                    "Please promote the bot as admin in the logger group"
+                )
+                sys.exit()
+        except Exception:
+            pass
         if get_me.last_name:
             self.name = get_me.first_name + " " + get_me.last_name
         else:
             self.name = get_me.first_name
-        LOGGER(__name__).info(f"WinxBot Started as: {self.name}")
+        LOGGER(__name__).info(f"MusicBot started as {self.name}")

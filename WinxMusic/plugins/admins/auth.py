@@ -1,28 +1,26 @@
-from pyrogram import filters
+from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from WinxMusic import app
-from WinxMusic.utils.database import (delete_authuser, get_authuser,
-                                      get_authuser_names,
-                                      save_authuser)
-from WinxMusic.utils.decorators import AdminActual, language
-from WinxMusic.utils.formatters import int_to_alpha
 from config import BANNED_USERS, adminlist
 from strings import get_command
+from WinxMusic import app
+from WinxMusic.utils.database import (
+    delete_authuser,
+    get_authuser,
+    get_authuser_names,
+    save_authuser,
+)
+from WinxMusic.utils.decorators import AdminActual, language
+from WinxMusic.utils.formatters import int_to_alpha
 
-# Command
 AUTH_COMMAND = get_command("AUTH_COMMAND")
 UNAUTH_COMMAND = get_command("UNAUTH_COMMAND")
 AUTHUSERS_COMMAND = get_command("AUTHUSERS_COMMAND")
 
 
-@app.on_message(
-    filters.command(AUTH_COMMAND)
-    & filters.group
-    & ~BANNED_USERS
-)
+@app.on_message(filters.command(AUTH_COMMAND) & filters.group & ~BANNED_USERS)
 @AdminActual
-async def auth(client, message: Message, _):
+async def auth(_client: Client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])
@@ -82,13 +80,9 @@ async def auth(client, message: Message, _):
         await message.reply_text(_["auth_3"])
 
 
-@app.on_message(
-    filters.command(UNAUTH_COMMAND)
-    & filters.group
-    & ~BANNED_USERS
-)
+@app.on_message(filters.command(UNAUTH_COMMAND) & filters.group & ~BANNED_USERS)
 @AdminActual
-async def unauthusers(client, message: Message, _):
+async def un_authusers(_client: Client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])
@@ -119,13 +113,9 @@ async def unauthusers(client, message: Message, _):
         return await message.reply_text(_["auth_5"])
 
 
-@app.on_message(
-    filters.command(AUTHUSERS_COMMAND)
-    & filters.group
-    & ~BANNED_USERS
-)
+@app.on_message(filters.command(AUTHUSERS_COMMAND) & filters.group & ~BANNED_USERS)
 @language
-async def authusers(client, message: Message, _):
+async def authusers(_client: Client, message: Message, _):
     _playlist = await get_authuser_names(message.chat.id)
     if not _playlist:
         return await message.reply_text(_["setting_5"])
@@ -148,3 +138,16 @@ async def authusers(client, message: Message, _):
             text += f"   {_['auth_8']} {admin_name}[`{admin_id}`]\n\n"
         await mystic.delete()
         await message.reply_text(text)
+
+
+__MODULE__ = "Autorização"
+__HELP__ = """
+
+<b>Usuários autorizados podem usar comandos de administrador sem direitos de administrador em seu chat.</b>
+
+<b>✧ /auth</b> [Nome de usuário] - Adicione um usuário à LISTA DE AUTORIZADOS do grupo.
+
+<b>✧ /unauth</b> [Nome de usuário] - Remova um usuário da LISTA DE AUTORIZADOS do grupo.
+
+<b>✧ /authusers</b> - Verifique a LISTA DE AUTORIZADOS do grupo.
+"""

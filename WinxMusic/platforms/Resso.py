@@ -37,7 +37,7 @@ class RessoAPI:
                     pass
         if des == "":
             return
-        results = VideosSearch(title, limit=1, language="en", region="US")
+        results = VideosSearch(title, limit=1)
         for result in (await results.next())["result"]:
             title = result["title"]
             ytlink = result["link"]

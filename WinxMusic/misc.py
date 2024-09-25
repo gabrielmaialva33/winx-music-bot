@@ -6,6 +6,7 @@ from pyrogram import filters
 
 import config
 from WinxMusic.core.mongo import pymongodb
+
 from .logging import LOGGER
 
 SUDOERS = filters.user()
@@ -37,7 +38,9 @@ XCB = [
 
 def dbb():
     global db
+    global clonedb
     db = {}
+    clonedb = {}
     LOGGER(__name__).info(f"Database Initialized.")
 
 

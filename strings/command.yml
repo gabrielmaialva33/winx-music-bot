@@ -19,10 +19,11 @@ STREAM_COMMAND: [ "stream", "cstream", "streamforce" ]
 #Playlists Command
 PLAYLIST_COMMAND: [ "playlist" ]
 DELETEPLAYLIST_COMMAND: [ "deleteplaylist" ]
+ADDPLAYLIST_COMMAND: [ "addplaylist" ]
 
 
 # Tools
-QUEUE_COMMAND: [ "queue","cqueue", "player", "cplayer", "playing", "cplaying" ]
+QUEUE_COMMAND: [ "queue","cqueue" ]
 SONG_COMMAND: [ "song", "video" ]
 LYRICS_COMMAND: [ "lyrics" ]
 
@@ -40,7 +41,7 @@ SKIP_COMMAND: [ "skip", "cskip" ]
 SHUFFLE_COMMAND: [ "shuffle", "cshuffle" ]
 LOOP_COMMAND: [ "loop", "cloop" ]
 SEEK_COMMAND: [ "seek", "cseek", "seekback", "cseekback" ]
-RESTART_COMMAND: [ "restart" ]
+REBOOT_COMMAND: [ "reboot" ]
 
 # Sudo Users Commaands
 
@@ -75,8 +76,8 @@ VARS_COMMAND: [ "vars", "config" ]
 
 
 #Basic Bot Commands
-UPDATE_COMMAND: [ "update" ]
-REBOOT_COMMAND: [ "reboot" ]
+UPDATE_COMMAND: [ "update","gitpull" ]
+RESTART_COMMAND: [ "restart" ]
 AUTOEND_COMMAND: [ "autoend" ]
 
 #Private Bot Mode
@@ -89,62 +90,14 @@ BLOCK_COMMAND: [ "block" ]
 UNBLOCK_COMMAND: [ "unblock" ]
 BLOCKED_COMMAND: [ "blockedusers" ]
 
-#SPEEDTEST
+#sPEEDTEST
 SPEEDTEST_COMMAND: [ "speedtest" ]
 
 #Voice chat commands
-ACTIVEVC_COMMAND: [ "activevoice" ]
-ACTIVEVIDEO_COMMAND: [ "activevideo" ]
+ACTIVEVC_COMMAND: [ "activevoice","activevc" ]
+ACTIVEVIDEO_COMMAND: [ "activevideo","activevd" ]
 
 #Gban Commands
 GBAN_COMMAND: [ "gban" ]
 UNGBAN_COMMAND: [ "ungban" ]
 GBANNED_COMMAND: [ "gbannedusers" ]
-
-#Wifu Commands
-WIFU_COMMAND: [ "wifu" ]
-
-#Translator Commands
-TRANSLATOR_COMMAND: [ "tr", "translate", "trans", "traduzir", "traduza" ]
-
-#Screenshot Commands
-WEBSS_COMMAND: [ "webss", "screenshot", "ss", "webshot" ]
-
-# Write Commands
-WRITE_COMMAND: [ "write", "escreva" ]
-
-# Neko Commands
-NEKO_CUDDLE_COMMAND: [ "cuddle", "miminho", "mimar", "mimando", "mimo" ]
-NEKO_SHRUG_COMMAND: [ "shrug", "dar_de_ombros", "ombros", "ombro", "fodace", "fodac" ]
-NEKO_POKE_COMMAND: [ "poke", "cutucar", "cutucando" ]
-NEKO_FACEPALM_COMMAND: [ "facepalm", "mão_na_cara", "tanka", "mds", "mao_na_cara" ]
-NEKO_STARE_COMMAND: [ "stare", "olhar", "olhando", "pasmo", "perplexo", "pasma", "perplexa" ]
-NEKO_POUT_COMMAND: [ "pout", "bico", "biquinho", "nervo", "nervoso", "nervosa", "nervosinho", "nervosinha", "raiva", "odio", "nervose" ]
-NEKO_HANDHOLD_COMMAND: [ "handhold", "mão_dada" ]
-NEKO_WAVE_COMMAND: [ "wave", "aceno", "acenando", "tchau", "tchauzinho", "oi", "ola", "oi", "ola" ]
-NEKO_BLUSH_COMMAND: [ "blush", "corar", "corando", "vermelho", "vermelha" ]
-NEKO_NEKO_COMMAND: [ "neko", "fenboy", "fen" ]
-NEKO_DANCE_COMMAND: [ "dance", "dançar", "dançando", "dança", "rock" ]
-NEKO_BAKA_COMMAND: [ "baka", "idiota", "bobo", "boba", "bocó", "bocó" ]
-NEKO_BORE_COMMAND: [ "bore", "tédio", "entediado", "tédio" ]
-NEKO_LAUGH_COMMAND: [ "laugh", "rir", "rindo", "risada", "risadas", "solta_uma_risada" ]
-NEKO_SMUG_COMMAND: [ "smug", "arrogante", "gaba", "gabando", "gabando_se" ]
-NEKO_THUMBSUP_COMMAND: [ "thumbsup", "joinha", "joinha_pra_você", "joinha_pra_tu", "blz", "beleza" ]
-NEKO_SHOOT_COMMAND: [ "shoot", "atirar", "atirando", "tiro", "tiro_na_cabeça" ]
-NEKO_TICKLE_COMMAND: [ "tickle", "cócegas", "cócegas_na_barriga", "cócegas_na_barriguinha", "cosquinha" ]
-NEKO_FEED_COMMAND: [ "feed", "alimentar", "alimentando", "comida", "comer", "comendo", "fome" ]
-NEKO_THINK_COMMAND: [ "think", "pensar", "pensando", "hmm" ]
-NEKO_WINK_COMMAND: [ "wink", "piscar", "piscando" ]
-NEKO_SLEEP_COMMAND: [ "sleep", "dormir", "dormindo", "durmi", "sono" ]
-NEKO_PUNCH_COMMAND: [ "punch", "soco", "socar", "socando", "soco_na_cara", "soco_na_boca" ]
-NEKO_CRY_COMMAND: [ "cry", "chorar", "chorando", "choro" ]
-NEKO_KILL_COMMAND: [ "kill", "matar", "matando", "morte", "morrer", "moete" ]
-NEKO_SMILE_COMMAND: [ "smile", "sorrir", "sorrindo", "sorriso" ]
-NEKO_HIGHFIVE_COMMAND: [ "highfive", "dar_um_toca_aqui", "toca_aqui", "toca_aqui_brother", "toca_aqui_maninho", "toca_aqui_maninha", "toca_aqui_mano", "toca_aqui_mana", "toca_aqui_manozinho", "toca_aqui_manozinha", "toca_aqui_manozinho", "toca_aqui_manozinha", "toca_aqui_manozinho", "toca_aqui_manozinha", "toca_aqui_manozinho", "toca_aqui_manozinha", "toca_aqui_manozinho", "toca_aqui_manozinha", "toca_aqui_manozinho", "toca_aqui_manozinha", "toca_aqui_manozinho", "toca_aqui_manozinha" ]
-NEKO_SLAP_COMMAND: [ "slap", "tapa", "tapa_na_cara", "tapa_na_boca" ]
-NEKO_HUG_COMMAND: [ "hug", "abraçar", "abraço", "abraçando" ]
-NEKO_PAT_COMMAND: [ "pat", "afagar", "afago", "afagando" ]
-NEKO_WAIFU_COMMAND: [ "waifu" ]
-
-# Couple Commands
-COUPLE_COMMAND: [ "couple", "casal", "casais" ]

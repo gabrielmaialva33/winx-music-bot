@@ -4,12 +4,12 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 def queue_markup(
-        _,
-        DURATION,
-        CPLAY,
-        videoid,
-        played: Union[bool, int] = None,
-        dur: Union[bool, int] = None,
+    _,
+    DURATION,
+    CPLAY,
+    videoid,
+    played: Union[bool, int] = None,
+    dur: Union[bool, int] = None,
 ):
     not_dur = [
         [
@@ -41,9 +41,7 @@ def queue_markup(
             ),
         ],
     ]
-    upl = InlineKeyboardMarkup(
-        not_dur if DURATION == "Unknown" else dur
-    )
+    upl = InlineKeyboardMarkup(not_dur if DURATION == "Unknown" else dur)
     return upl
 
 

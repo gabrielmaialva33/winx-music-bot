@@ -1,61 +1,61 @@
-from pyrogram.types import (InlineKeyboardButton,
-                            InlineKeyboardMarkup,
-                            InlineQueryResultPhoto)
+from pyrogram import Client
+from pyrogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    InlineQuery,
+    InlineQueryResultPhoto,
+)
 from youtubesearchpython.__future__ import VideosSearch
 
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.inlinequery import answer
-from config import BANNED_USERS, MUSIC_BOT_NAME
 
 
 @app.on_inline_query(~BANNED_USERS)
-async def inline_query_handler(client, query):
+async def inline_query_handler(client: Client, query: InlineQuery):
     text = query.query.strip().lower()
     answers = []
     if text.strip() == "":
         try:
-            await client.answer_inline_query(
-                query.id, results=answer, cache_time=10
-            )
+            await client.answer_inline_query(query.id, results=answer, cache_time=10)
         except:
             return
     else:
-        a = VideosSearch(text, limit=20, language="en", region="US")
+        a = VideosSearch(text, limit=20)
         result = (await a.next()).get("result")
         for x in range(15):
             title = (result[x]["title"]).title()
             duration = result[x]["duration"]
             views = result[x]["viewCount"]["short"]
-            thumbnail = result[x]["thumbnails"][0]["url"].split("?")[
-                0
-            ]
+            thumbnail = result[x]["thumbnails"][0]["url"].split("?")[0]
             channellink = result[x]["channel"]["link"]
             channel = result[x]["channel"]["name"]
             link = result[x]["link"]
             published = result[x]["publishedTime"]
-            description = f"{views} | {duration} Mins | {channel}  | {published}"
+            description = f"{views} | {duration} Min | {channel} | {published}"
             buttons = InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="🎥 Watch on Youtube",
+                            text="🎥 Assistir no YouTube",
                             url=link,
                         )
                     ],
                 ]
             )
             searched_text = f"""
-❇️**Title:** [{title}]({link})
+❇️ **Título:** [{title}]({link})
 
-⏳**Duration:** {duration} Mins
-👀**Views:** `{views}`
-⏰**Published Time:** {published}
-🎥**Channel Name:** {channel}
-📎**Channel Link:** [Visit From Here]({channellink})
+⏳ **Duração:** {duration} Min
+👀 **Visualizações:** `{views}`
+⏰ **Data de Publicação:** {published}
+🎥 **Nome do Canal:** {channel}
+📎 **Link do Canal:** [Visite aqui]({channellink})
 
-__Reply with /play on this searched message to stream it on voice chat.__
+__Responda com /play nesta mensagem pesquisada para reproduzi-la no chat de voz.__
 
-⚡️ ** Inline Search By {MUSIC_BOT_NAME} **"""
+⚡️ **Pesquisa inline por {app.mention}**"""
             answers.append(
                 InlineQueryResultPhoto(
                     photo_url=thumbnail,
@@ -67,8 +67,6 @@ __Reply with /play on this searched message to stream it on voice chat.__
                 )
             )
         try:
-            return await client.answer_inline_query(
-                query.id, results=answers
-            )
+            return await client.answer_inline_query(query.id, results=answers)
         except:
             return

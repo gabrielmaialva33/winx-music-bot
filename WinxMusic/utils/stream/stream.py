@@ -8,30 +8,31 @@ import config
 from WinxMusic import Carbon, YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
-from WinxMusic.utils.database import (add_active_video_chat,
-                                      is_active_chat,
-                                      is_video_allowed)
+from WinxMusic.utils.database import (
+    add_active_video_chat,
+    is_active_chat,
+    is_video_allowed,
+)
 from WinxMusic.utils.exceptions import AssistantErr
-from WinxMusic.utils.inline.play import (stream_markup,
-                                         telegram_markup)
+from WinxMusic.utils.inline.play import queue_markup, stream_markup, telegram_markup
 from WinxMusic.utils.inline.playlist import close_markup
-from WinxMusic.utils.pastebin import Winxbin
+from WinxMusic.utils.pastebin import WinxBin
 from WinxMusic.utils.stream.queue import put_queue, put_queue_index
-from WinxMusic.utils.thumbnails import gen_thumb
+from WinxMusic.utils.thumbnails import gen_qthumb, gen_thumb
 
 
 async def stream(
-        _,
-        mystic,
-        user_id,
-        result,
-        chat_id,
-        user_name,
-        original_chat_id,
-        video: Union[bool, str] = None,
-        streamtype: Union[bool, str] = None,
-        spotify: Union[bool, str] = None,
-        forceplay: Union[bool, str] = None,
+    _,
+    mystic,
+    user_id,
+    result,
+    chat_id,
+    user_name,
+    original_chat_id,
+    video: Union[bool, str] = None,
+    streamtype: Union[bool, str] = None,
+    spotify: Union[bool, str] = None,
+    forceplay: Union[bool, str] = None,
 ):
     if not result:
         return
@@ -53,9 +54,7 @@ async def stream(
                     duration_sec,
                     thumbnail,
                     vidid,
-                ) = await YouTube.details(
-                    search, False if spotify else True
-                )
+                ) = await YouTube.details(search, False if spotify else True)
             except:
                 continue
             if str(duration_min) == "None":
@@ -89,7 +88,7 @@ async def stream(
                 except:
                     raise AssistantErr(_["play_16"])
                 await Winx.join_call(
-                    chat_id, original_chat_id, file_path, video=status
+                    chat_id, original_chat_id, file_path, video=status, image=thumbnail
                 )
                 await put_queue(
                     chat_id,
@@ -109,8 +108,10 @@ async def stream(
                     original_chat_id,
                     photo=img,
                     caption=_["stream_1"].format(
-                        user_name,
+                        title[:27],
                         f"https://t.me/{app.username}?start=info_{vidid}",
+                        duration_min,
+                        user_name,
                     ),
                     reply_markup=InlineKeyboardMarkup(button),
                 )
@@ -119,15 +120,13 @@ async def stream(
         if count == 0:
             return
         else:
-            link = await Winxbin(msg)
+            link = await WinxBin(msg)
             lines = msg.count("\n")
             if lines >= 17:
                 car = os.linesep.join(msg.split(os.linesep)[:17])
             else:
                 car = msg
-            carbon = await Carbon.generate(
-                car, randint(100, 10000000)
-            )
+            carbon = await Carbon.generate(car, randint(100, 10000000))
             upl = close_markup(_)
             return await app.send_photo(
                 original_chat_id,
@@ -140,6 +139,7 @@ async def stream(
         vidid = result["vidid"]
         title = (result["title"]).title()
         duration_min = result["duration_min"]
+        thumbnail = result["thumb"]
         status = True if video else None
         try:
             file_path, direct = await YouTube.download(
@@ -160,17 +160,21 @@ async def stream(
                 "video" if video else "audio",
             )
             position = len(db.get(chat_id)) - 1
-            await app.send_message(
+            qimg = await gen_qthumb(vidid)
+            button = queue_markup(_, vidid, chat_id)
+            run = await app.send_photo(
                 original_chat_id,
-                _["queue_4"].format(
-                    position, title[:30], duration_min, user_name
+                photo=qimg,
+                caption=_["queue_4"].format(
+                    position, title[:27], duration_min, user_name
                 ),
+                reply_markup=InlineKeyboardMarkup(button),
             )
         else:
             if not forceplay:
                 db[chat_id] = []
             await Winx.join_call(
-                chat_id, original_chat_id, file_path, video=status
+                chat_id, original_chat_id, file_path, video=status, image=thumbnail
             )
             await put_queue(
                 chat_id,
@@ -186,17 +190,22 @@ async def stream(
             )
             img = await gen_thumb(vidid)
             button = stream_markup(_, vidid, chat_id)
-            run = await app.send_photo(
-                original_chat_id,
-                photo=img,
-                caption=_["stream_1"].format(
-                    user_name,
-                    f"https://t.me/{app.username}?start=info_{vidid}",
-                ),
-                reply_markup=InlineKeyboardMarkup(button),
-            )
-            db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "stream"
+            try:
+                run = await app.send_photo(
+                    original_chat_id,
+                    photo=img,
+                    caption=_["stream_1"].format(
+                        title[:27],
+                        f"https://t.me/{app.username}?start=info_{vidid}",
+                        duration_min,
+                        user_name,
+                    ),
+                    reply_markup=InlineKeyboardMarkup(button),
+                )
+                db[chat_id][0]["mystic"] = run
+                db[chat_id][0]["markup"] = "stream"
+            except Exception as ex:
+                print(ex)
     elif streamtype == "soundcloud":
         file_path = result["filepath"]
         title = result["title"]
@@ -216,16 +225,12 @@ async def stream(
             position = len(db.get(chat_id)) - 1
             await app.send_message(
                 original_chat_id,
-                _["queue_4"].format(
-                    position, title[:30], duration_min, user_name
-                ),
+                _["queue_4"].format(position, title[:30], duration_min, user_name),
             )
         else:
             if not forceplay:
                 db[chat_id] = []
-            await Winx.join_call(
-                chat_id, original_chat_id, file_path, video=None
-            )
+            await Winx.join_call(chat_id, original_chat_id, file_path, video=None)
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -242,8 +247,8 @@ async def stream(
             run = await app.send_photo(
                 original_chat_id,
                 photo=config.SOUNCLOUD_IMG_URL,
-                caption=_["stream_3"].format(
-                    title, duration_min, user_name
+                caption=_["stream_1"].format(
+                    title, config.SUPPORT_GROUP, duration_min, user_name
                 ),
                 reply_markup=InlineKeyboardMarkup(button),
             )
@@ -270,16 +275,12 @@ async def stream(
             position = len(db.get(chat_id)) - 1
             await app.send_message(
                 original_chat_id,
-                _["queue_4"].format(
-                    position, title[:30], duration_min, user_name
-                ),
+                _["queue_4"].format(position, title[:30], duration_min, user_name),
             )
         else:
             if not forceplay:
                 db[chat_id] = []
-            await Winx.join_call(
-                chat_id, original_chat_id, file_path, video=status
-            )
+            await Winx.join_call(chat_id, original_chat_id, file_path, video=status)
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -295,24 +296,10 @@ async def stream(
             if video:
                 await add_active_video_chat(chat_id)
             button = telegram_markup(_, chat_id)
-            # run = await app.send_photo(
-            #     original_chat_id,
-            #     photo=config.TELEGRAM_VIDEO_URL
-            #     if video
-            #     else config.TELEGRAM_AUDIO_URL,
-            #     caption=_["stream_4"].format(
-            #         title, link, duration_min, user_name
-            #     ),
-            #     reply_markup=InlineKeyboardMarkup(button),
-            # )
-            run = await app.send_animation(
+            run = await app.send_photo(
                 original_chat_id,
-                animation=config.TELEGRAM_VIDEO_URL
-                if video
-                else config.TELEGRAM_AUDIO_URL,
-                caption=_["stream_4"].format(
-                    title, link, duration_min, user_name
-                ),
+                photo=config.TELEGRAM_VIDEO_URL if video else config.TELEGRAM_AUDIO_URL,
+                caption=_["stream_1"].format(title, link, duration_min, user_name),
                 reply_markup=InlineKeyboardMarkup(button),
             )
             db[chat_id][0]["mystic"] = run
@@ -321,7 +308,8 @@ async def stream(
         link = result["link"]
         vidid = result["vidid"]
         title = (result["title"]).title()
-        duration_min = "Live Track"
+        thumbnail = result["thumb"]
+        duration_min = "00:00"
         status = True if video else None
         if await is_active_chat(chat_id):
             await put_queue(
@@ -338,9 +326,7 @@ async def stream(
             position = len(db.get(chat_id)) - 1
             await app.send_message(
                 original_chat_id,
-                _["queue_4"].format(
-                    position, title[:30], duration_min, user_name
-                ),
+                _["queue_4"].format(position, title[:30], duration_min, user_name),
             )
         else:
             if not forceplay:
@@ -349,7 +335,11 @@ async def stream(
             if n == 0:
                 raise AssistantErr(_["str_3"])
             await Winx.join_call(
-                chat_id, original_chat_id, file_path, video=status
+                chat_id,
+                original_chat_id,
+                file_path,
+                video=status,
+                image=thumbnail if thumbnail else None,
             )
             await put_queue(
                 chat_id,
@@ -369,8 +359,10 @@ async def stream(
                 original_chat_id,
                 photo=img,
                 caption=_["stream_1"].format(
-                    user_name,
+                    title[:27],
                     f"https://t.me/{app.username}?start=info_{vidid}",
+                    duration_min,
+                    user_name,
                 ),
                 reply_markup=InlineKeyboardMarkup(button),
             )
@@ -393,9 +385,7 @@ async def stream(
             )
             position = len(db.get(chat_id)) - 1
             await mystic.edit_text(
-                _["queue_4"].format(
-                    position, title[:30], duration_min, user_name
-                )
+                _["queue_4"].format(position, title[:30], duration_min, user_name)
             )
         else:
             if not forceplay:
