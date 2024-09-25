@@ -18,6 +18,7 @@ files = [
     ".session-journal",
 ]
 
+
 def dirr():
     assets_folder = "assets"
     downloads_folder = "downloads"
