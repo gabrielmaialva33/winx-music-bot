@@ -1,7 +1,7 @@
 import os
 from inspect import getfullargspec
 
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
 from WinxMusic import app
@@ -10,7 +10,7 @@ from WinxMusic.utils.database import get_client
 
 
 @app.on_message(filters.command("setpfp", prefixes=".") & SUDOERS)
-async def set_pfp(client, message):
+async def set_pfp(_client: Client, message: Message):
     from WinxMusic.core.userbot import assistants
 
     if not message.reply_to_message or not message.reply_to_message.photo:
@@ -28,7 +28,7 @@ async def set_pfp(client, message):
 
 
 @app.on_message(filters.command("setbio", prefixes=".") & SUDOERS)
-async def set_bio(client, message):
+async def set_bio(client: Client, message: Message):
     from WinxMusic.core.userbot import assistants
 
     if len(message.command) == 1:
@@ -47,7 +47,7 @@ async def set_bio(client, message):
 
 
 @app.on_message(filters.command("setname", prefixes=".") & SUDOERS)
-async def set_name(client, message):
+async def set_name(client: Client, message: Message):
     from WinxMusic.core.userbot import assistants
 
     if len(message.command) == 1:
@@ -66,7 +66,7 @@ async def set_name(client, message):
 
 
 @app.on_message(filters.command("delpfp", prefixes=".") & SUDOERS)
-async def del_pfp(client, message):
+async def del_pfp(_client: Client, message: Message):
     from WinxMusic.core.userbot import assistants
 
     for num in assistants:
@@ -83,7 +83,7 @@ async def del_pfp(client, message):
 
 
 @app.on_message(filters.command("delallpfp", prefixes=".") & SUDOERS)
-async def delall_pfp(client, message):
+async def delall_pfp(_client: Client, message: Message):
     from WinxMusic.core.userbot import assistants
 
     for num in assistants:
@@ -99,11 +99,11 @@ async def delall_pfp(client, message):
             await eor(message, text=e)
 
 
-async def eor(msg: Message, **kwargs):
+async def eor(message: Message, **kwargs):
     func = (
-        (msg.edit_text if msg.from_user.is_self else msg.reply)
-        if msg.from_user
-        else msg.reply
+        (message.edit_text if message.from_user.is_self else message.reply)
+        if message.from_user
+        else message.reply
     )
     spec = getfullargspec(func.__wrapped__).args
     return await func(**{k: v for k, v in kwargs.items() if k in spec})

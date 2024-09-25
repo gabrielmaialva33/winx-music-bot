@@ -1,4 +1,5 @@
-from pyrogram import filters
+from pyrogram import filters, Client
+from pyrogram.types import CallbackQuery
 
 from config import BANNED_USERS
 from WinxMusic import YouTube, app
@@ -9,27 +10,27 @@ from WinxMusic.utils.stream.stream import stream
 
 @app.on_callback_query(filters.regex("LiveStream") & ~BANNED_USERS)
 @languageCB
-async def play_live_stream(client, CallbackQuery, _):
-    callback_data = CallbackQuery.data.strip()
+async def play_live_stream(_client: Client, callback_query: CallbackQuery, _):
+    callback_data = callback_query.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     vidid, user_id, mode, cplay, fplay = callback_request.split("|")
-    if CallbackQuery.from_user.id != int(user_id):
+    if callback_query.from_user.id != int(user_id):
         try:
-            return await CallbackQuery.answer(_["playcb_1"], show_alert=True)
+            return await callback_query.answer(_["playcb_1"], show_alert=True)
         except:
             return
     try:
-        chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
+        chat_id, channel = await get_channeplayCB(_, cplay, callback_query)
     except:
         return
     video = True if mode == "v" else None
-    user_name = CallbackQuery.from_user.first_name
-    await CallbackQuery.message.delete()
+    user_name = callback_query.from_user.first_name
+    await callback_query.message.delete()
     try:
-        await CallbackQuery.answer()
+        await callback_query.answer()
     except:
         pass
-    mystic = await CallbackQuery.message.reply_text(
+    mystic = await callback_query.message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
     try:
@@ -46,7 +47,7 @@ async def play_live_stream(client, CallbackQuery, _):
                 details,
                 chat_id,
                 user_name,
-                CallbackQuery.message.chat.id,
+                callback_query.message.chat.id,
                 video,
                 streamtype="live",
                 forceplay=ffplay,

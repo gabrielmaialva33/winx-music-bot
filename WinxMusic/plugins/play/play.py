@@ -2,9 +2,9 @@ import asyncio
 import random
 import string
 
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.errors import FloodWait
-from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
+from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message, CallbackQuery
 
 import config
 from config import BANNED_USERS, lyrical
@@ -45,8 +45,8 @@ from WinxMusic.utils.stream.stream import stream
     & ~BANNED_USERS
 )
 @PlayWrapper
-async def play_commnd(
-    client,
+async def play_command(
+    _client: Client,
     message: Message,
     _,
     chat_id,
@@ -450,26 +450,26 @@ async def play_commnd(
 
 @app.on_callback_query(filters.regex("MusicStream") & ~BANNED_USERS)
 @languageCB
-async def play_music(client, CallbackQuery, _):
-    callback_data = CallbackQuery.data.strip()
+async def play_music(_client: Client, callback_query: CallbackQuery, _):
+    callback_data = callback_query.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     vidid, user_id, mode, cplay, fplay = callback_request.split("|")
-    if CallbackQuery.from_user.id != int(user_id):
+    if callback_query.from_user.id != int(user_id):
         try:
-            return await CallbackQuery.answer(_["playcb_1"], show_alert=True)
+            return await callback_query.answer(_["playcb_1"], show_alert=True)
         except:
             return
     try:
-        chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
+        chat_id, channel = await get_channeplayCB(_, cplay, callback_query)
     except:
         return
-    user_name = CallbackQuery.from_user.first_name
+    user_name = callback_query.from_user.first_name
     try:
-        await CallbackQuery.message.delete()
-        await CallbackQuery.answer()
+        await callback_query.message.delete()
+        await callback_query.answer()
     except:
         pass
-    mystic = await CallbackQuery.message.reply_text(
+    mystic = await callback_query.message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
     try:
@@ -486,7 +486,7 @@ async def play_music(client, CallbackQuery, _):
         buttons = livestream_markup(
             _,
             track_id,
-            CallbackQuery.from_user.id,
+            callback_query.from_user.id,
             mode,
             "c" if cplay == "c" else "g",
             "f" if fplay else "d",
@@ -501,11 +501,11 @@ async def play_music(client, CallbackQuery, _):
         await stream(
             _,
             mystic,
-            CallbackQuery.from_user.id,
+            callback_query.from_user.id,
             details,
             chat_id,
             user_name,
-            CallbackQuery.message.chat.id,
+            callback_query.message.chat.id,
             video,
             streamtype="youtube",
             forceplay=ffplay,
@@ -518,9 +518,9 @@ async def play_music(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("AnonymousAdmin") & ~BANNED_USERS)
-async def anonymous_check(client, CallbackQuery):
+async def anonymous_check(_client: Client, callback_query: CallbackQuery):
     try:
-        await CallbackQuery.answer(
+        await callback_query.answer(
             "Você é um administrador anônimo\n\nVolte para a conta de usuário para me usar.",
             show_alert=True,
         )
@@ -530,8 +530,8 @@ async def anonymous_check(client, CallbackQuery):
 
 @app.on_callback_query(filters.regex("WinxPlaylists") & ~BANNED_USERS)
 @languageCB
-async def play_playlists_command(client, CallbackQuery, _):
-    callback_data = CallbackQuery.data.strip()
+async def play_playlists_command(_client: Client, callback_query: CallbackQuery, _):
+    callback_data = callback_query.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     (
         videoid,
@@ -541,22 +541,22 @@ async def play_playlists_command(client, CallbackQuery, _):
         cplay,
         fplay,
     ) = callback_request.split("|")
-    if CallbackQuery.from_user.id != int(user_id):
+    if callback_query.from_user.id != int(user_id):
         try:
-            return await CallbackQuery.answer(_["playcb_1"], show_alert=True)
+            return await callback_query.answer(_["playcb_1"], show_alert=True)
         except:
             return
     try:
-        chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
+        chat_id, channel = await get_channeplayCB(_, cplay, callback_query)
     except:
         return
-    user_name = CallbackQuery.from_user.first_name
-    await CallbackQuery.message.delete()
+    user_name = callback_query.from_user.first_name
+    await callback_query.message.delete()
     try:
-        await CallbackQuery.answer()
+        await callback_query.answer()
     except:
         pass
-    mystic = await CallbackQuery.message.reply_text(
+    mystic = await callback_query.message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
     videoid = lyrical.get(videoid)
@@ -569,7 +569,7 @@ async def play_playlists_command(client, CallbackQuery, _):
             result = await YouTube.playlist(
                 videoid,
                 config.PLAYLIST_FETCH_LIMIT,
-                CallbackQuery.from_user.id,
+                callback_query.from_user.id,
                 True,
             )
         except Exception:
@@ -602,7 +602,7 @@ async def play_playlists_command(client, CallbackQuery, _):
             result,
             chat_id,
             user_name,
-            CallbackQuery.message.chat.id,
+            callback_query.message.chat.id,
             video,
             streamtype="playlist",
             spotify=spotify,
@@ -617,8 +617,8 @@ async def play_playlists_command(client, CallbackQuery, _):
 
 @app.on_callback_query(filters.regex("slider") & ~BANNED_USERS)
 @languageCB
-async def slider_queries(client, CallbackQuery, _):
-    callback_data = CallbackQuery.data.strip()
+async def slider_queries(_client: Client, callback_query: CallbackQuery, _):
+    callback_data = callback_query.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     (
         what,
@@ -628,9 +628,9 @@ async def slider_queries(client, CallbackQuery, _):
         cplay,
         fplay,
     ) = callback_request.split("|")
-    if CallbackQuery.from_user.id != int(user_id):
+    if callback_query.from_user.id != int(user_id):
         try:
-            return await CallbackQuery.answer(_["playcb_1"], show_alert=True)
+            return await callback_query.answer(_["playcb_1"], show_alert=True)
         except:
             return
     what = str(what)
@@ -641,7 +641,7 @@ async def slider_queries(client, CallbackQuery, _):
         else:
             query_type = int(rtype + 1)
         try:
-            await CallbackQuery.answer(_["playcb_2"])
+            await callback_query.answer(_["playcb_2"])
         except:
             pass
         title, duration_min, thumbnail, vidid = await YouTube.slider(query, query_type)
@@ -653,7 +653,7 @@ async def slider_queries(client, CallbackQuery, _):
                 duration_min,
             ),
         )
-        return await CallbackQuery.edit_message_media(
+        return await callback_query.edit_message_media(
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
         )
     if what == "B":
@@ -662,7 +662,7 @@ async def slider_queries(client, CallbackQuery, _):
         else:
             query_type = int(rtype - 1)
         try:
-            await CallbackQuery.answer(_["playcb_2"])
+            await callback_query.answer(_["playcb_2"])
         except:
             pass
         title, duration_min, thumbnail, vidid = await YouTube.slider(query, query_type)
@@ -674,7 +674,7 @@ async def slider_queries(client, CallbackQuery, _):
                 duration_min,
             ),
         )
-        return await CallbackQuery.edit_message_media(
+        return await callback_query.edit_message_media(
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
         )
 

@@ -1,4 +1,4 @@
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import InlineKeyboardMarkup, Message
 
 from config import BANNED_USERS
@@ -8,13 +8,12 @@ from WinxMusic.utils.database import get_playmode, get_playtype, is_nonadmin_cha
 from WinxMusic.utils.decorators import language
 from WinxMusic.utils.inline.settings import playmode_users_markup
 
-### Commands
 PLAYMODE_COMMAND = get_command("PLAYMODE_COMMAND")
 
 
 @app.on_message(filters.command(PLAYMODE_COMMAND) & filters.group & ~BANNED_USERS)
 @language
-async def playmode_(client, message: Message, _):
+async def playmode_(_client: Client, message: Message, _):
     playmode = await get_playmode(message.chat.id)
     if playmode == "Direct":
         Direct = True
