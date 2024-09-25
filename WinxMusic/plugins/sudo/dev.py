@@ -7,7 +7,7 @@ from inspect import getfullargspec
 from io import StringIO
 from time import time
 
-from pyrogram import filters, Client
+from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from WinxMusic import app
@@ -38,7 +38,9 @@ async def edit_or_reply(msg: Message, **kwargs: dict):
 )
 async def executor(client: Client, message: Message):
     if len(message.command) < 2:
-        return await edit_or_reply(message, text="<b>O que você quer executar, querido?</b>")
+        return await edit_or_reply(
+            message, text="<b>O que você quer executar, querido?</b>"
+        )
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
@@ -123,7 +125,8 @@ async def forceclose_command(_, CallbackQuery):
     if CallbackQuery.from_user.id != int(user_id):
         try:
             return await CallbackQuery.answer(
-                "» Será melhor se você ficar nos seus limites, querido.", show_alert=True
+                "» Será melhor se você ficar nos seus limites, querido.",
+                show_alert=True,
             )
         except:
             return

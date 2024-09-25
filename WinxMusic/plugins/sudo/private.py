@@ -2,6 +2,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 import config
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (
@@ -11,7 +12,6 @@ from WinxMusic.utils.database import (
     remove_private_chat,
 )
 from WinxMusic.utils.decorators.language import language
-from strings import get_command
 
 AUTHORIZE_COMMAND = get_command("AUTHORIZE_COMMAND")
 UNAUTHORIZE_COMMAND = get_command("UNAUTHORIZE_COMMAND")

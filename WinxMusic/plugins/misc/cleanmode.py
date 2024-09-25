@@ -7,6 +7,8 @@ from pyrogram.errors import FloodWait
 from pyrogram.raw import types
 
 import config
+from config import adminlist, chatstats, clean, userstats
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.cleanmode import protected_messages
@@ -25,8 +27,6 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.formatters import alpha_to_int
-from config import adminlist, chatstats, clean, userstats
-from strings import get_command
 
 BROADCAST_COMMAND = get_command("BROADCAST_COMMAND")
 AUTO_DELETE = config.CLEANMODE_DELETE_MINS
@@ -237,8 +237,8 @@ async def auto_clean():
                     if datetime.now() > x["timer_after"]:
                         # Skip deletion if the message is protected
                         if (
-                                chat_id in protected_messages
-                                and x["msg_id"] in protected_messages[chat_id]
+                            chat_id in protected_messages
+                            and x["msg_id"] in protected_messages[chat_id]
                         ):
                             continue
                         try:
