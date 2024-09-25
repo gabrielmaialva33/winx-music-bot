@@ -1,4 +1,5 @@
-from pyrogram import filters
+from pyrogram import filters, Client
+from pyrogram.types import Message
 
 import config
 from strings import get_command
@@ -7,13 +8,12 @@ from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import add_off, add_on
 from WinxMusic.utils.decorators.language import language
 
-# Commands
 LOGGER_COMMAND = get_command("LOGGER_COMMAND")
 
 
 @app.on_message(filters.command(LOGGER_COMMAND) & SUDOERS)
 @language
-async def logger(client, message, _):
+async def logger(_client: Client, message: Message, _):
     usage = _["log_1"]
     if len(message.command) != 2:
         return await message.reply_text(usage)

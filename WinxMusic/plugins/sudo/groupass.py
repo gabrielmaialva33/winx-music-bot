@@ -1,4 +1,4 @@
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
 from config import BANNED_USERS, LOG_GROUP_ID
@@ -12,7 +12,7 @@ from WinxMusic.utils.decorators import AdminActual
 
 @app.on_message(filters.command("changeassistant") & ~BANNED_USERS)
 @AdminActual
-async def assis_change(client, message: Message, _):
+async def assis_change(_client: Client, message: Message, _):
     if await assistant() == True:
         return await message.reply_text(
             "sᴏʀʀʏ sɪʀ! ɪɴ ʙᴏᴛ sᴇʀᴠᴇʀ ᴏɴʟʏ ᴏɴʀ ᴀssɪsᴛᴀɴᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ᴛʜᴇʀᴇғᴏʀᴇ ʏᴏᴜ ᴄᴀɴᴛ ᴄʜᴀɴɢᴇ ᴀssɪsᴛᴀɴᴛ"

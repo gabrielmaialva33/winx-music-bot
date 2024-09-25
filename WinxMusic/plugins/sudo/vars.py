@@ -1,6 +1,7 @@
 import asyncio
 
-from pyrogram import filters
+from pyrogram import filters, Client
+from pyrogram.types import Message
 
 import config
 from strings import get_command
@@ -13,7 +14,7 @@ VARS_COMMAND = get_command("VARS_COMMAND")
 
 
 @app.on_message(filters.command(VARS_COMMAND) & SUDOERS)
-async def varsFunc(client, message):
+async def varsFunc(_client: Client, message: Message):
     mystic = await message.reply_text("Please wait.. Getting your config")
     v_limit = await get_video_limit()
     up_r = f"[Repo]({config.UPSTREAM_REPO})"

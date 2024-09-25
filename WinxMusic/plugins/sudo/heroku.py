@@ -4,6 +4,7 @@ import os
 import shutil
 import socket
 from datetime import datetime
+from mailbox import Message
 
 import dotenv
 import heroku3
@@ -11,7 +12,7 @@ import requests
 import urllib3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
-from pyrogram import filters
+from pyrogram import filters, Client
 
 import config
 from strings import get_command
@@ -25,7 +26,6 @@ from WinxMusic.utils.database import (
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.pastebin import WinxBin
 
-# Commands
 GETLOG_COMMAND = get_command("GETLOG_COMMAND")
 GETVAR_COMMAND = get_command("GETVAR_COMMAND")
 DELVAR_COMMAND = get_command("DELVAR_COMMAND")
@@ -50,7 +50,7 @@ async def paste_neko(code: str):
     & SUDOERS
 )
 @language
-async def log_(client, message, _):
+async def log_(_client: Client, message: Message, _):
     try:
         if await is_heroku():
             if HAPP is None:
@@ -80,7 +80,7 @@ async def log_(client, message, _):
 
 @app.on_message(filters.command(GETVAR_COMMAND) & SUDOERS)
 @language
-async def varget_(client, message, _):
+async def varget_(_client: Client, message: Message, _):
     usage = _["heroku_3"]
     if len(message.command) != 2:
         return await message.reply_text(usage)
@@ -108,7 +108,7 @@ async def varget_(client, message, _):
 
 @app.on_message(filters.command(DELVAR_COMMAND) & SUDOERS)
 @language
-async def vardel_(client, message, _):
+async def vardel_(_client: Client, message: Message, _):
     usage = _["heroku_6"]
     if len(message.command) != 2:
         return await message.reply_text(usage)
@@ -136,7 +136,7 @@ async def vardel_(client, message, _):
 
 @app.on_message(filters.command(SETVAR_COMMAND) & SUDOERS)
 @language
-async def set_var(client, message, _):
+async def set_var(_client: Client, message: Message, _):
     usage = _["heroku_8"]
     if len(message.command) < 3:
         return await message.reply_text(usage)
@@ -165,7 +165,7 @@ async def set_var(client, message, _):
 
 @app.on_message(filters.command(USAGE_COMMAND) & SUDOERS)
 @language
-async def usage_dynos(client, message, _):
+async def usage_dynos(_client: Client, message: Message, _):
     ### Credits CatUserbot
     if await is_heroku():
         if HAPP is None:
@@ -222,7 +222,7 @@ Tᴏᴛᴀʟ ʟᴇғᴛ: `{hours}`**ʜ**  `{minutes}`**ᴍ**  [`{percentage}`**%
 
 @app.on_message(filters.command(["update", "gitpull", "up"]) & SUDOERS)
 @language
-async def update_(client, message, _):
+async def update_(_client: Client, message: Message, _):
     if await is_heroku():
         if HAPP is None:
             return await message.reply_text(_["heroku_1"])
@@ -308,7 +308,7 @@ async def update_(client, message, _):
 
 
 @app.on_message(filters.command(["restart"]) & SUDOERS)
-async def restart_(_, message):
+async def restart_(_, message: Message):
     response = await message.reply_text("ʀᴇsᴛᴀʀᴛɪɴɢ...")
     ac_chats = await get_active_chats()
     for x in ac_chats:

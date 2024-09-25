@@ -1,4 +1,4 @@
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
 import config
@@ -8,13 +8,12 @@ from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import add_off, add_on
 from WinxMusic.utils.decorators.language import language
 
-# Commands
 VIDEOMODE_COMMAND = get_command("VIDEOMODE_COMMAND")
 
 
 @app.on_message(filters.command(VIDEOMODE_COMMAND) & SUDOERS)
 @language
-async def videoloaymode(client, message: Message, _):
+async def videoloaymode(_client: Client, message: Message, _):
     usage = _["vidmode_1"]
     if len(message.command) != 2:
         return await message.reply_text(usage)

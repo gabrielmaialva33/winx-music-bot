@@ -1,4 +1,4 @@
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
 from config import BANNED_USERS
@@ -8,7 +8,6 @@ from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import blacklist_chat, blacklisted_chats, whitelist_chat
 from WinxMusic.utils.decorators.language import language
 
-# Commands
 
 BLACKLISTCHAT_COMMAND = get_command("BLACKLISTCHAT_COMMAND")
 WHITELISTCHAT_COMMAND = get_command("WHITELISTCHAT_COMMAND")
@@ -17,7 +16,7 @@ BLACKLISTEDCHAT_COMMAND = get_command("BLACKLISTEDCHAT_COMMAND")
 
 @app.on_message(filters.command(BLACKLISTCHAT_COMMAND) & SUDOERS)
 @language
-async def blacklist_chat_func(client, message: Message, _):
+async def blacklist_chat_func(_client: Client, message: Message, _):
     if len(message.command) != 2:
         return await message.reply_text(_["black_1"])
     chat_id = int(message.text.strip().split()[1])
@@ -36,7 +35,7 @@ async def blacklist_chat_func(client, message: Message, _):
 
 @app.on_message(filters.command(WHITELISTCHAT_COMMAND) & SUDOERS)
 @language
-async def white_funciton(client, message: Message, _):
+async def white_function(_client: Client, message: Message, _):
     if len(message.command) != 2:
         return await message.reply_text(_["black_4"])
     chat_id = int(message.text.strip().split()[1])
@@ -50,7 +49,7 @@ async def white_funciton(client, message: Message, _):
 
 @app.on_message(filters.command(BLACKLISTEDCHAT_COMMAND) & ~BANNED_USERS)
 @language
-async def all_chats(client, message: Message, _):
+async def all_chats(_client: Client, message: Message, _):
     text = _["black_7"]
     j = 0
     for count, chat_id in enumerate(await blacklisted_chats(), 1):

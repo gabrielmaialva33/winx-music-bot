@@ -1,4 +1,4 @@
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
 from strings import get_command
@@ -12,7 +12,7 @@ VIDEOLIMIT_COMMAND = get_command("VIDEOLIMIT_COMMAND")
 
 @app.on_message(filters.command(VIDEOLIMIT_COMMAND) & SUDOERS)
 @language
-async def set_video_limit_kid(client, message: Message, _):
+async def set_video_limit_kid(_client: Client, message: Message, _):
     if len(message.command) != 2:
         usage = _["vid_1"]
         return await message.reply_text(usage)

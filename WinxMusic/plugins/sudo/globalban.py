@@ -1,6 +1,6 @@
 import asyncio
 
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 
@@ -19,7 +19,6 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators.language import language
 
-# Command
 GBAN_COMMAND = get_command("GBAN_COMMAND")
 UNGBAN_COMMAND = get_command("UNGBAN_COMMAND")
 GBANNED_COMMAND = get_command("GBANNED_COMMAND")
@@ -27,7 +26,7 @@ GBANNED_COMMAND = get_command("GBANNED_COMMAND")
 
 @app.on_message(filters.command(GBAN_COMMAND) & SUDOERS)
 @language
-async def gbanuser(client, message: Message, _):
+async def gbanuser(_client: Client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])

@@ -18,7 +18,7 @@ ACTIVEVIDEO_COMMAND = get_command("ACTIVEVIDEO_COMMAND")
 
 
 # Function for removing the Active voice and video chat also clear the db dictionary for the chat
-async def _clear_(chat_id):
+async def _clear_(chat_id: int):
     db[chat_id] = []
     await remove_active_video_chat(chat_id)
     await remove_active_chat(chat_id)

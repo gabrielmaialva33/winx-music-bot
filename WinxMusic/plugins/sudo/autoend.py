@@ -1,4 +1,5 @@
-from pyrogram import filters
+from pyrogram import filters, Client
+from pyrogram.types import Message
 
 from strings import get_command
 from WinxMusic import app
@@ -10,7 +11,7 @@ AUTOEND_COMMAND = get_command("AUTOEND_COMMAND")
 
 
 @app.on_message(filters.command(AUTOEND_COMMAND) & SUDOERS)
-async def auto_end_stream(client, message):
+async def auto_end_stream(_client: Client, message: Message):
     usage = "**ᴜsᴀɢᴇ:**\n\n/autoend [enable|disable]"
     if len(message.command) != 2:
         return await message.reply_text(usage)

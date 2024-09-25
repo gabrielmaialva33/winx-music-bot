@@ -1,4 +1,4 @@
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
 from config import BANNED_USERS
@@ -16,7 +16,7 @@ BLOCKED_COMMAND = get_command("BLOCKED_COMMAND")
 
 @app.on_message(filters.command(BLOCK_COMMAND) & SUDOERS)
 @language
-async def useradd(client, message: Message, _):
+async def useradd(_client: Client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])
@@ -43,7 +43,7 @@ async def useradd(client, message: Message, _):
 
 @app.on_message(filters.command(UNBLOCK_COMMAND) & SUDOERS)
 @language
-async def userdel(client, message: Message, _):
+async def userdel(_client: Client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])
@@ -67,7 +67,7 @@ async def userdel(client, message: Message, _):
 
 @app.on_message(filters.command(BLOCKED_COMMAND) & SUDOERS)
 @language
-async def sudoers_list(client, message: Message, _):
+async def sudoers_list(client: Client, message: Message, _):
     if not BANNED_USERS:
         return await message.reply_text(_["block_5"])
     mystic = await message.reply_text(_["block_6"])
