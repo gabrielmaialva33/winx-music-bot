@@ -4,8 +4,6 @@ from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils import get_readable_time
@@ -18,6 +16,8 @@ from WinxMusic.utils.database import (
     remove_banned_user,
 )
 from WinxMusic.utils.decorators.language import language
+from config import BANNED_USERS
+from strings import get_command
 
 GBAN_COMMAND = get_command("GBAN_COMMAND")
 UNGBAN_COMMAND = get_command("UNGBAN_COMMAND")

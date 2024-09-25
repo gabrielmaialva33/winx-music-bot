@@ -1,8 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from config import BANNED_USERS, adminlist
-from strings import get_string
 from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import SUDOERS
@@ -17,6 +15,8 @@ from WinxMusic.utils.database import (
     is_nonadmin_chat,
     set_loop,
 )
+from config import BANNED_USERS, adminlist
+from strings import get_string
 
 
 @app.on_message(

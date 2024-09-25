@@ -1,13 +1,13 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS, LOG_GROUP_ID
 from WinxMusic import app
 from WinxMusic.core.userbot import assistants
 from WinxMusic.utils.assistant import get_assistant_details
 from WinxMusic.utils.assistant import is_avl_assistant as assistant
 from WinxMusic.utils.database import get_assistant, save_assistant, set_assistant
 from WinxMusic.utils.decorators import AdminActual
+from config import BANNED_USERS, LOG_GROUP_ID
 
 
 @app.on_message(filters.command("changeassistant") & ~BANNED_USERS)

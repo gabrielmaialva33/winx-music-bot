@@ -1,18 +1,17 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import autoend_off, autoend_on
+from strings import get_command
 
-# Commands
 AUTOEND_COMMAND = get_command("AUTOEND_COMMAND")
 
 
 @app.on_message(filters.command(AUTOEND_COMMAND) & SUDOERS)
 async def auto_end_stream(_client: Client, message: Message):
-    usage = "**ᴜsᴀɢᴇ:**\n\n/autoend [enable|disable]"
+    usage = "**Uso:**\n\n/autoend [enable|disable]"
     if len(message.command) != 2:
         return await message.reply_text(usage)
     state = message.text.split(None, 1)[1].strip()
@@ -20,10 +19,10 @@ async def auto_end_stream(_client: Client, message: Message):
     if state == "enable":
         await autoend_on()
         await message.reply_text(
-            "Aᴜᴛᴏ Eɴᴅ Sᴛʀᴇᴀᴍ Eɴᴀʙʟᴇᴅ.\n\nBᴏᴛ ᴡɪʟʟ ʟᴇᴀᴠᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ᴀғᴛᴇʀ 30 sᴇᴄᴏɴᴅs ɪғ ɴᴏ ᴏɴᴇ ɪs ʟɪsᴛᴇɴɪɴɢ ᴡɪᴛʜ ᴀ ᴡᴀʀɴɪɴɢ ᴍᴇssᴀɢᴇ.."
+            "Auto End Stream Ativado.\n\nO bot sairá automaticamente do chat de voz após 30 segundos se ninguém estiver ouvindo, com uma mensagem de aviso."
         )
     elif state == "disable":
         await autoend_off()
-        await message.reply_text("ᴀᴜᴛᴏᴇɴᴅ ᴅɪsᴀʙʟᴇᴅ")
+        await message.reply_text("Auto End Stream Desativado")
     else:
         await message.reply_text(usage)

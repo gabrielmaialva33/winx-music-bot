@@ -19,12 +19,12 @@ def dirr():
 
     for file in os.listdir():
         if (
-            file.endswith(".jpg")
-            or file.endswith(".jpeg")
-            or file.endswith(".mp3")
-            or file.endswith(".png")
-            or file.endswith(".session")
-            or file.endswith(".session-journal")
+                file.endswith(".jpg")
+                or file.endswith(".jpeg")
+                or file.endswith(".mp3")
+                or file.endswith(".png")
+                or file.endswith(".session")
+                or file.endswith(".session-journal")
         ):
             os.remove(file)
 

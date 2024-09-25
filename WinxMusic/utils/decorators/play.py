@@ -9,10 +9,6 @@ from pyrogram.errors import (
 )
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import PLAYLIST_IMG_URL, PRIVATE_BOT_MODE
-from config import SUPPORT_GROUP as SUPPORT_CHAT
-from config import adminlist
-from strings import get_string
 from WinxMusic import YouTube, app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (
@@ -27,6 +23,10 @@ from WinxMusic.utils.database import (
     is_served_private_chat,
 )
 from WinxMusic.utils.inline import botplaylist_markup
+from config import PLAYLIST_IMG_URL, PRIVATE_BOT_MODE
+from config import SUPPORT_GROUP as SUPPORT_CHAT
+from config import adminlist
+from strings import get_string
 
 links = {}
 
@@ -131,8 +131,8 @@ def PlayWrapper(command):
                 except ChatAdminRequired:
                     return await message.reply_text(_["call_1"])
                 if (
-                    get.status == ChatMemberStatus.BANNED
-                    or get.status == ChatMemberStatus.RESTRICTED
+                        get.status == ChatMemberStatus.BANNED
+                        or get.status == ChatMemberStatus.RESTRICTED
                 ):
                     try:
                         await app.unban_chat_member(chat_id, userbot.id)

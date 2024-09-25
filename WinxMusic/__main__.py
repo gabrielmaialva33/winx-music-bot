@@ -6,20 +6,20 @@ from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
-from config import BANNED_USERS
 from WinxMusic import HELPABLE, LOGGER, app, userbot
 from WinxMusic.core.call import Winx
 from WinxMusic.plugins import ALL_MODULES
 from WinxMusic.utils.database import get_banned_users, get_gbanned
+from config import BANNED_USERS
 
 
 async def init():
     if (
-        not config.STRING1
-        and not config.STRING2
-        and not config.STRING3
-        and not config.STRING4
-        and not config.STRING5
+            not config.STRING1
+            and not config.STRING2
+            and not config.STRING3
+            and not config.STRING4
+            and not config.STRING5
     ):
         LOGGER("WinxMusic").error(
             "No Assistant Clients Vars Defined!.. Exiting Process."

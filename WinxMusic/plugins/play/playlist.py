@@ -21,7 +21,6 @@ from pyrogram.types import (
 )
 from youtube_search import YoutubeSearch
 
-from config import BANNED_USERS, SERVER_PLAYLIST_LIMIT
 from WinxMusic import Carbon, app
 from WinxMusic.utils.database import (
     delete_playlist,
@@ -39,6 +38,7 @@ from WinxMusic.utils.inline.playlist import (
 )
 from WinxMusic.utils.pastebin import WinxBin
 from WinxMusic.utils.stream.stream import stream
+from config import BANNED_USERS, SERVER_PLAYLIST_LIMIT
 
 
 @app.on_message(filters.command(["playlist"]) & ~BANNED_USERS)
