@@ -1,11 +1,11 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.utils.database import is_muted, mute_off, mute_on
 from WinxMusic.utils.decorators import AdminRightsCheck
+from config import BANNED_USERS
 
 
 @app.on_message(filters.command(["vcmute"]) & filters.group & ~BANNED_USERS)

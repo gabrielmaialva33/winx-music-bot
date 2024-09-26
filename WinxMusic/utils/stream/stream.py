@@ -22,17 +22,17 @@ from WinxMusic.utils.thumbnails import gen_qthumb, gen_thumb
 
 
 async def stream(
-    _,
-    mystic,
-    user_id,
-    result,
-    chat_id,
-    user_name,
-    original_chat_id,
-    video: Union[bool, str] = None,
-    streamtype: Union[bool, str] = None,
-    spotify: Union[bool, str] = None,
-    forceplay: Union[bool, str] = None,
+        _,
+        mystic,
+        user_id,
+        result,
+        chat_id,
+        user_name,
+        original_chat_id,
+        video: Union[bool, str] = None,
+        streamtype: Union[bool, str] = None,
+        spotify: Union[bool, str] = None,
+        forceplay: Union[bool, str] = None,
 ):
     if not result:
         return

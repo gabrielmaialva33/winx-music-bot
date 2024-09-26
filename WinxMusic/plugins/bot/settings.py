@@ -8,8 +8,6 @@ from pyrogram.types import (
     Message,
 )
 
-from config import BANNED_USERS, CLEANMODE_DELETE_MINS, OWNER_ID
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.utils.database import (
     add_nonadmin_chat,
@@ -43,6 +41,8 @@ from WinxMusic.utils.inline.settings import (
     video_quality_markup,
 )
 from WinxMusic.utils.inline.start import private_panel
+from config import BANNED_USERS, CLEANMODE_DELETE_MINS, OWNER_ID
+from strings import get_command
 
 SETTINGS_COMMAND = get_command("SETTINGS_COMMAND")
 
@@ -106,7 +106,7 @@ async def settings_back_markup(_client: Client, callback_query: CallbackQuery, _
             pass
 
 
-## Audio and Video Quality
+## Qualidade de Áudio e Vídeo
 async def gen_buttons_aud(_, aud: str):
     if aud == "STUDIO":
         buttons = audio_quality_markup(_, STUDIO=True)
@@ -135,7 +135,7 @@ async def gen_buttons_vid(_, aud):
     return buttons
 
 
-# without admin rights
+# Sem direitos de administrador
 
 
 @app.on_callback_query(
@@ -246,7 +246,7 @@ async def without_admin_rights(_client: Client, callback_query: CallbackQuery, _
         return
 
 
-# Audio Video Quality
+# Qualidade de Áudio e Vídeo
 
 
 @app.on_callback_query(
@@ -343,7 +343,7 @@ async def cleanmode_mark(_client: Client, callback_query: CallbackQuery, _):
         return
 
 
-# Play Mode Settings
+# Configurações do Modo de Reprodução
 @app.on_callback_query(
     filters.regex(pattern=r"^(|MODECHANGE|CHANNELMODECHANGE|PLAYTYPECHANGE)$")
     & ~BANNED_USERS
@@ -424,7 +424,7 @@ async def playmode_ans(_client: Client, callback_query: CallbackQuery, _):
         return
 
 
-# Auth Users Settings
+# Configurações de Usuários Autorizados
 @app.on_callback_query(filters.regex(pattern=r"^(AUTH|AUTHLIST)$") & ~BANNED_USERS)
 @ActualAdminCB
 async def authusers_mar(client: Client, callback_query: CallbackQuery, _):
@@ -494,20 +494,20 @@ async def authusers_mar(client: Client, callback_query: CallbackQuery, _):
         return
 
 
-"""✅<u>Gʀᴏᴜᴘ Sᴇᴛᴛɪɴɢs:</u>
-/settings - Gᴇᴛ ᴀ ᴄᴏᴍᴘʟᴇᴛᴇ ɢʀᴏᴜᴘ's sᴇᴛᴛɪɴɢs ᴡɪᴛʜ ɪɴʟɪɴᴇ ʙᴜᴛᴛᴏɴs
+"""✅<u>Configurações de Grupo:</u>
+/settings - Obtenha as configurações completas do grupo com botões inline
 
-🔗 <u>Oᴘᴛɪᴏɴs ɪɴ Sᴇᴛᴛɪɴɢs:</u>
+🔗 <u>Opções em Configurações:</u>
 
-1 Yᴏᴜ ᴄᴀɴ sᴇᴛ Aᴜᴅɪᴏ Qᴜᴀʟɪᴛʏ
-2 Yᴏᴜ ᴄᴀɴ sᴇᴛ Vɪᴅᴇᴏ Qᴜᴀʟɪᴛʏ
-3 **Aᴜᴛʜ Usᴇʀs**:- Yᴏᴜ ᴄᴀɴ ᴄʜᴀɴɢᴇ ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅs ᴍᴏᴅᴇ ғʀᴏᴍ ʜᴇʀᴇ ᴛᴏ ᴇᴠᴇʀʏᴏɴᴇ ᴏʀ ᴀᴅᴍɪɴs ᴏɴʟʏ.
-4 **Cʟᴇᴀɴ Mᴏᴅᴇ:**ʙᴏᴛ's ᴅᴇʟᴇᴛᴇs ᴛʜᴇ ʙᴏᴛ's ᴍᴇssᴀɢᴇs ᴀғᴛᴇʀ 𝟻 ᴍɪɴs ғʀᴏᴍ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴛᴏ ᴍᴀᴋᴇ sᴜʀᴇ ʏᴏᴜʀ ᴄʜᴀᴛ ʀᴇᴍᴀɪɴs ᴄʟᴇᴀɴ ᴀɴᴅ ɢᴏᴏᴅ.
-5 **Cᴏᴍᴍᴀɴᴅ Cʟᴇᴀɴ** : Wʜᴇɴ ᴀᴄᴛɪᴠᴀᴛᴇᴅ, Bᴏᴛ ᴡɪʟʟ ᴅᴇʟᴇᴛᴇ ɪᴛs ᴇxᴇᴄᴜᴛᴇᴅ ᴄᴏᴍᴍᴀɴᴅs lɪᴍᴍᴇᴅɪᴀᴛᴇʟʏ.
-       <b><u>Pʟᴀʏ Sᴇᴛᴛɪɴɢs:</></b>
-/playmode - Gᴇᴛ ᴀ ᴄᴏᴍᴘʟᴇᴛᴇ ᴘʟᴀʏ sᴇᴛᴛɪɴɢs ᴘᴀɴᴇʟ ᴡɪᴛʜ ʙᴜᴛᴛᴏɴs ᴡʜᴇʀᴇ ʏᴏᴜ ᴄᴀɴ sᴇᴛ ʏᴏᴜʀ ɢʀᴏᴜᴘ's ᴘʟᴀʏ sᴇᴛᴛɪɴɢs. 
-      <b><u>Oᴘᴛɪᴏɴs ɪɴ Pʟᴀʏᴍᴏᴅᴇ:</u></b>
-1 **Sᴇᴀʀᴄʜ Mᴏᴅᴇ** [Dɪʀᴇᴄᴛ ᴏʀ Iɴʟɪɴᴇ] - Cʜᴀɴɢᴇs ʏᴏᴜʀ sᴇᴀʀᴄʜ ᴍᴏᴅᴇ ᴡʜɪʟᴇ ʏᴏᴜ ɢɪᴠᴇ /playmode
-2 **Aᴅᴍɪɴ Cᴏᴍᴍᴀɴᴅs** [Eᴠᴇʀʏᴏɴᴇ ᴏʀ Aᴅᴍɪɴs] - Iғ ᴇᴠᴇʀʏᴏɴᴇ, ᴀɴʏᴏɴᴇ  ɪɴ ʏᴏᴜ ɢʀᴏᴜᴘ ᴡɪʟʟ ʙᴇ ᴀʙʟᴇ ᴛᴏ ᴜsᴇ ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅ (ʟɪᴋᴇ /skip, /stop etc)
-3 **Pʟᴀʏ Tʏᴘᴇ** [Eᴠᴇʀʏᴏɴᴇ ᴏʀ Aᴅᴍɪɴs] - Iғ ᴀᴅᴍɪɴs, ᴏɴʟʏ ɢʀᴏᴜᴘ ᴀᴅᴍɪɴs ᴄᴀɴ ᴘʟᴀʏ ᴍᴜsɪᴄ ᴏɴ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ.
+1 Você pode definir a Qualidade de Áudio
+2 Você pode definir a Qualidade de Vídeo
+3 **Usuários Autorizados**: Você pode alterar o modo de comandos de administrador aqui para todos ou apenas administradores.
+4 **Modo Limpo:** o bot exclui as mensagens do bot após 5 minutos do seu grupo para garantir que seu chat permaneça limpo e organizado.
+5 **Limpar Comandos**: Quando ativado, o bot excluirá seus comandos executados imediatamente.
+    <b><u>Configurações de Reprodução:</u></b>
+/playmode - Obtenha um painel completo de configurações de reprodução com botões onde você pode definir as configurações de reprodução do seu grupo.
+   <b><u>Opções no Modo de Reprodução:</u></b>
+1 **Modo de Pesquisa** [Direto ou Inline] - Altera seu modo de pesquisa quando você usa /playmode
+2 **Comandos de Administrador** [Todos ou Administradores] - Se 'todos', qualquer pessoa no seu grupo poderá usar comandos de administrador (como /skip, /stop etc)
+3 **Tipo de Reprodução** [Todos ou Administradores] - Se 'administradores', apenas administradores do grupo podem reproduzir música no chat de voz.
 """

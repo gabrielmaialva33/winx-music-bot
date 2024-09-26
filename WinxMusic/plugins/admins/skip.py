@@ -2,8 +2,6 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
 import config
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
@@ -12,6 +10,8 @@ from WinxMusic.utils.decorators import AdminRightsCheck
 from WinxMusic.utils.inline.play import stream_markup, telegram_markup
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import gen_thumb
+from config import BANNED_USERS
+from strings import get_command
 
 SKIP_COMMAND = get_command("SKIP_COMMAND")
 

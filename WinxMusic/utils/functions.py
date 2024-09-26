@@ -1,91 +1,91 @@
 from datetime import datetime, timedelta
 from re import findall
 from re import sub as re_sub
+from typing import Any
 
 from pyrogram import errors
 from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
 
 MARKDOWN = """
-ʀᴇᴀᴅ ᴛʜᴇ ʙᴇʟᴏᴡ ᴛᴇxᴛ ᴄᴀʀᴇғᴜʟʟʏ ᴛᴏ ғɪɴᴅ ᴏᴜᴛ ʜᴏᴡ ғᴏʀᴍᴀᴛᴛɪɴɢ ᴡᴏʀᴋs!
+Leia o texto abaixo cuidadosamente para descobrir como funciona a formatação!
 
-<u>sᴜᴘᴘᴏʀᴛᴇᴅ ғɪʟʟɪɴɢs:</u>
+<u>Variáveis suportadas:</u>
 
-{GROUPNAME} - ɢʀᴏᴜᴘ's ɴᴀᴍᴇ
-{NAME} - ᴜsᴇʀ ɴᴀᴍᴇ
-{ID} - ᴜsᴇʀ ɪᴅ
-{FIRSTNAME} - ᴜsᴇʀ ғɪʀsᴛ ɴᴀᴍᴇ 
-{SURNAME} - ɪғ ᴜsᴇʀ ʜᴀs sᴜʀɴᴀᴍᴇ sᴏ ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ sᴜʀɴᴀᴍᴇ ᴇʟsᴇ ɴᴏᴛʜɪɴɢ
-{USERNAME} - ᴜsᴇʀ ᴜsᴇʀɴᴀᴍᴇ
+{GROUPNAME} - nome do grupo
+{NAME} - nome do usuário
+{ID} - ID do usuário
+{FIRSTNAME} - primeiro nome do usuário
+{SURNAME} - se o usuário tiver sobrenome, isso mostrará o sobrenome, caso contrário, nada
+{USERNAME} - nome de usuário do usuário
 
-{TIME} - ᴛᴏᴅᴀʏ  ᴛɪᴍᴇ
-{DATE} - ᴛᴏᴅᴀʏ ᴅᴀᴛᴇ 
-{WEEKDAY} - ᴛᴏᴅᴀʏ ᴡᴇᴇᴋᴅᴀʏ 
+{TIME} - horário atual
+{DATE} - data de hoje
+{WEEKDAY} - dia da semana
 
-<b><u>NOTE:</u></b> ғɪʟʟɪɴɢs ᴏɴʟʏ ᴡᴏʀᴋs ɪɴ ᴡᴇʟᴄᴏᴍᴇ ᴍᴏᴅᴜʟᴇ.
+<b><u>NOTA:</u></b> variáveis funcionam apenas no módulo de boas-vindas.
 
-<u>sᴜᴘᴘᴏʀᴛᴇᴅ ғᴏʀᴍᴀᴛᴛɪɴɢ:</u>
+<u>Formatação suportada:</u>
 
-<code>**Bold**</code> : ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <b>Bold</b> ᴛᴇxᴛ.
-<code>~~strike~~</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <strike>strike</strike> ᴛᴇxᴛ.
-<code>__italic__</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <i>italic</i> ᴛᴇxᴛ
-<code>--underline--</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <u>underline</u> ᴛᴇxᴛ.
-<code>`code words`</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <code>code</code> ᴛᴇxᴛ.
-<code>||spoiler||</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <spoiler>Spoiler</spoiler> ᴛᴇxᴛ.
-<code>[hyperlink](google.com)</code>: ᴛʜɪs ᴡɪʟʟ ᴄʀᴇᴀᴛᴇ ᴀ <a href='https://www.google.com'>hyperlink</a> text
-<code>> hello</code>  ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <blockquote>hello</blockquote>
-<b>Note:</b> ʏᴏᴜ ᴄᴀɴ ᴜsᴇ ʙᴏᴛʜ ᴍᴀʀᴋᴅᴏᴡɴ & ʜᴛᴍʟ ᴛᴀɢs.
-
-
-<u>ʙᴜᴛᴛᴏɴ ғᴏʀᴍᴀᴛᴛɪɴɢ:</u>
-
-- > <blockquote>text ~ [button text, button link]</blockquote>
+<code>**Negrito**</code> : isto será exibido como texto em <b>Negrito</b>.
+<code>~~tachado~~</code>: isto será exibido como texto <strike>tachado</strike>.
+<code>__itálico__</code>: isto será exibido como texto em <i>itálico</i>
+<code>--sublinhado--</code>: isto será exibido como texto <u>sublinhado</u>.
+<code>`palavras de código`</code>: isto será exibido como texto de <code>código</code>.
+<code>||spoiler||</code>: isto será exibido como <spoiler>Spoiler</spoiler>.
+<code>[hyperlink](google.com)</code>: isto criará um texto com <a href='https://www.google.com'>hiperlink</a>
+<code>> hello</code>  isto será exibido como <blockquote>hello</blockquote>
+<b>Nota:</b> você pode usar tanto tags Markdown quanto HTML.
 
 
-<u>ᴇxᴀᴍᴘʟᴇ:</u>
+<u>Formatação de botões:</u>
 
-<b>example</b>  
-<blockquote><i>button with markdown</i> <code>formatting</code> ~ [button text, https://google.com]</blockquote>
+- > <blockquote>texto ~ [texto do botão, link do botão]</blockquote>
+
+
+<u>Exemplo:</u>
+
+<b>exemplo</b>  
+<blockquote><i>botão com markdown</i> <code>formatação</code> ~ [texto do botão, https://google.com]</blockquote>
 """
-WELCOMEHELP = """
-/setwelcome - ʀᴇᴘʟʏ ᴛʜɪs ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ ᴄᴏɴᴛᴀɪɴɪɴɢ ᴄᴏʀʀᴇᴄᴛ
-ғᴏʀᴍᴀᴛ ғᴏʀ ᴀ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ, ᴄʜᴇᴄᴋ ᴇɴᴅ ᴏғ ᴛʜɪs ᴍᴇssᴀɢᴇ.
 
-/delwelcome - ᴅᴇʟᴇᴛᴇ ᴛʜᴇ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ.
-/getwelcome - ɢᴇᴛ ᴛʜᴇ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ.
+WELCOMEHELP = """
+/setwelcome - responda isto a uma mensagem contendo o formato correto para uma mensagem de boas-vindas, verifique o final desta mensagem.
+
+/delwelcome - exclui a mensagem de boas-vindas.
+/getwelcome - obtém a mensagem de boas-vindas.
 
 <b>SET_WELCOME -></b>
 
-<b>ᴛᴏ sᴇᴛ ᴀ ᴘʜᴏᴛᴏ ᴏʀ ɢɪғ ᴀs ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ. ᴀᴅᴅ ʏᴏᴜʀ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ ᴀs ᴄᴀᴘᴛɪᴏɴ ᴛᴏ ᴛʜᴇ ᴘʜᴏᴛᴏ ᴏʀ ɢɪғ. ᴛʜᴇ ᴄᴀᴘᴛɪᴏɴ ᴍᴜsᴇ ʙᴇ ɪɴ ᴛʜᴇ ғᴏʀᴍᴀᴛ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ.</b>
+<b>Para definir uma foto ou GIF como mensagem de boas-vindas, adicione sua mensagem de boas-vindas como legenda à foto ou GIF. A legenda deve estar no formato fornecido abaixo.</b>
 
-ғᴏʀ ᴛᴇxᴛ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ ᴊᴜsᴛ sᴇɴᴅ ᴛʜᴇ ᴛᴇxᴛ. ᴛʜᴇɴ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅ 
+Para mensagem de boas-vindas em texto, basta enviar o texto. Em seguida, responda com o comando
 
-ᴛʜᴇ ғᴏʀᴍᴀᴛ sʜᴏᴜʟᴅ ʙᴇ sᴏᴍᴇᴛʜɪɴɢ ʟɪᴋᴇ ʙᴇʟᴏᴡ.
+O formato deve ser algo como abaixo.
 
-{GROUPNAME} - ɢʀᴏᴜᴘ's ɴᴀᴍᴇ
-{NAME} - ᴜsᴇʀ ғɪʀsᴛ ɴᴀᴍᴇ + sᴜʀɴᴀᴍᴇ
-{ID} - ᴜsᴇʀ ɪᴅ
-{FIRSTNAME} - ᴜsᴇʀ ғɪʀsᴛ ɴᴀᴍᴇ 
-{SURNAME} - ɪғ ᴜsᴇʀ ʜᴀs sᴜʀɴᴀᴍᴇ sᴏ ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ sᴜʀɴᴀᴍᴇ ᴇʟsᴇ ɴᴏᴛʜɪɴɢ
-{USERNAME} - ᴜsᴇʀ ᴜsᴇʀɴᴀᴍᴇ
+{GROUPNAME} - nome do grupo
+{NAME} - primeiro nome + sobrenome do usuário
+{ID} - ID do usuário
+{FIRSTNAME} - primeiro nome do usuário
+{SURNAME} - se o usuário tiver sobrenome, isso mostrará o sobrenome, caso contrário, nada
+{USERNAME} - nome de usuário do usuário
 
-{TIME} - ᴛᴏᴅᴀʏ  ᴛɪᴍᴇ
-{DATE} - ᴛᴏᴅᴀʏ ᴅᴀᴛᴇ 
-{WEEKDAY} - ᴛᴏᴅᴀʏ ᴡᴇᴇᴋᴅᴀʏ 
+{TIME} - horário atual
+{DATE} - data de hoje
+{WEEKDAY} - dia da semana
 
-
-~ #This separater (~) should be there between text and buttons, remove this comment also
+~ #Este separador (~) deve estar entre o texto e os botões, remova este comentário também
 
 button=[Duck, https://duckduckgo.com]
 button2=[Github, https://github.com]
 
-<b>NOTES -></b>
+<b>NOTAS -></b>
 
-ᴄʜᴇᴄᴋᴏᴜᴛ /markdownhelp ᴛᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ ᴀʙᴏᴜᴛ ғᴏʀᴍᴀᴛᴛɪɴɢs ᴀɴᴅ ᴏᴛʜᴇʀ sʏɴᴛᴀx.
+Confira /markdownhelp para saber mais sobre formatações e outras sintaxes.
 """
 
 
-def get_urls_from_text(text: str) -> bool:
+def get_urls_from_text(text: str) -> list[Any]:
     regex = r"""(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]
                 [.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(
                 \([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\
@@ -150,7 +150,7 @@ async def get_data_and_name(replied_message, message):
         if replied_message and (replied_message.sticker or replied_message.video_note):
             data = None
         elif (
-            replied_message and not replied_message.text and not replied_message.caption
+                replied_message and not replied_message.text and not replied_message.caption
         ):
             data = None
         else:
@@ -172,7 +172,7 @@ async def get_data_and_name(replied_message, message):
 
 async def extract_userid(message, text: str):
     """
-    NOT TO BE USED OUTSIDE THIS FILE
+    NÃO DEVE SER USADO FORA DESTE ARQUIVO
     """
 
     def is_int(text: str):
@@ -208,12 +208,12 @@ async def extract_user_and_reason(message, sender_chat=False):
     try:
         if message.reply_to_message:
             reply = message.reply_to_message
-            # if reply to a message and no reason is given
+            # se responder a uma mensagem e nenhuma razão for dada
             if not reply.from_user:
                 if (
-                    reply.sender_chat
-                    and reply.sender_chat != message.chat.id
-                    and sender_chat
+                        reply.sender_chat
+                        and reply.sender_chat != message.chat.id
+                        and sender_chat
                 ):
                     id_ = reply.sender_chat.id
                 else:
@@ -227,12 +227,12 @@ async def extract_user_and_reason(message, sender_chat=False):
                 reason = text.split(None, 1)[1]
             return id_, reason
 
-        # if not reply to a message and no reason is given
+        # se não responder a uma mensagem e nenhuma razão for dada
         if len(args) == 2:
             user = text.split(None, 1)[1]
             return await extract_userid(message, user), None
 
-        # if reason is given
+        # se a razão for dada
         if len(args) > 2:
             user, reason = text.split(None, 2)[1:]
             return await extract_userid(message, user), reason
@@ -248,9 +248,9 @@ async def extract_user(message):
 
 
 def get_file_id_from_message(
-    message,
-    max_file_size=3145728,
-    mime_types=["image/png", "image/jpeg"],
+        message,
+        max_file_size=3145728,
+        mime_types=["image/png", "image/jpeg"],
 ):
     file_id = None
     if message.document:
@@ -286,13 +286,13 @@ def get_file_id_from_message(
     return file_id
 
 
-async def time_converter(message: Message, time_value: str) -> datetime:
+async def time_converter(message: Message, time_value: str) -> Message | datetime:
     unit = ["m", "h", "d"]
     check_unit = "".join(list(filter(time_value[-1].lower().endswith, unit)))
     currunt_time = datetime.now()
     time_digit = time_value[:-1]
     if not time_digit.isdigit():
-        return await message.reply_text("Incorrect time specified")
+        return await message.reply_text("Tempo especificado incorretamente")
     if check_unit == "m":
         temp_time = currunt_time + timedelta(minutes=int(time_digit))
     elif check_unit == "h":
@@ -300,5 +300,5 @@ async def time_converter(message: Message, time_value: str) -> datetime:
     elif check_unit == "d":
         temp_time = currunt_time + timedelta(days=int(time_digit))
     else:
-        return await message.reply_text("Incorrect time specified.")
+        return await message.reply_text("Tempo especificado incorretamente.")
     return temp_time

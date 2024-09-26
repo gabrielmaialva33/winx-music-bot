@@ -3,7 +3,6 @@ from pymongo import MongoClient
 from pyrogram import Client
 
 import config
-
 from ..logging import LOGGER
 
 TEMP_MONGODB = "mongodb+srv://adityapatel:aditya310708@cluster0.esldbqp.mongodb.net/?retryWrites=true&w=majority"

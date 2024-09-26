@@ -3,8 +3,6 @@ import time
 
 from pyrogram.types import InlineKeyboardMarkup
 
-from config import MUTE_WARNING_TIME
-from strings import get_string
 from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
@@ -17,7 +15,8 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.formatters import seconds_to_min
 from WinxMusic.utils.inline import stream_markup_timer, telegram_markup_timer
-
+from config import MUTE_WARNING_TIME
+from strings import get_string
 from ..admins.callback import wrong
 
 autoend = {}

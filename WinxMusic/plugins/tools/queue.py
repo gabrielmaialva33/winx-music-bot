@@ -5,16 +5,16 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 
 import config
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import db
 from WinxMusic.utils import WinxBin, get_channeplayCB, seconds_to_min
 from WinxMusic.utils.database import get_cmode, is_active_chat, is_music_playing
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.inline import queue_back_markup, queue_markup
+from config import BANNED_USERS
+from strings import get_command
 
-###Commands
+### Comandos
 QUEUE_COMMAND = get_command("QUEUE_COMMAND")
 
 basic = {}
@@ -83,16 +83,16 @@ async def ping_com(client, message: Message, _):
         else:
             IMAGE = get_image(videoid)
     send = (
-        "**⌛️ᴅᴜʀᴀᴛɪᴏɴ:** ᴜɴᴋɴᴏᴡɴ ᴅᴜʀᴀᴛɪᴏɴ sᴛʀᴇᴀᴍ \n\nᴄʟɪᴄᴋ ᴏɴ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴡʜᴏʟᴇ ǫᴜᴇᴜᴇᴅ ʟɪsᴛ."
+        "**⌛️Duração:** Stream de duração desconhecida \n\nClique no botão abaixo para obter a lista completa na fila."
         if DUR == "Unknown"
-        else "\nᴄʟɪᴄᴋ ᴏɴ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴡʜᴏʟʀ ǫᴜᴇᴜᴇᴅ ʟɪsᴛ."
+        else "\nClique no botão abaixo para obter a lista completa na fila."
     )
-    cap = f"""**{app.mention} ᴘʟᴀʏᴇʀ**
+    cap = f"""**{app.mention} Player**
 
-🎥**ᴘʟᴀʏɪɴɢ:** {title}
+🎥**Reproduzindo:** {title}
 
-🔗**sᴛʀᴇᴀᴍ ᴛʏᴘᴇ:** {typo}
-🙍‍♂️**ᴘʟᴀʏᴇᴅ ʙʏ:** {user}
+🔗**Tipo de Stream:** {typo}
+🙍‍♂️**Tocado por:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, "c" if cplay else "g", videoid)
@@ -175,56 +175,22 @@ async def queued_tracks(client, CallbackQuery: CallbackQuery, _):
     for x in got:
         j += 1
         if j == 1:
-            msg += f'ᴄᴜʀʀᴇɴᴛ ᴘʟᴀʏɪɴɢ:\n\n🏷ᴛɪᴛʟᴇ: {x["title"]}\nᴅᴜʀᴀᴛɪᴏɴ: {x["dur"]}\nʙʏ: {x["by"]}\n\n'
+            msg += f'Em reprodução:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
         elif j == 2:
-            msg += f'ǫᴜᴇᴜᴇᴅ:\n\n🏷ᴛɪᴛʟᴇ: {x["title"]}\nᴅᴜʀᴀᴛɪᴏɴ: {x["dur"]}\nʙʏ: {x["by"]}\n\n'
+            msg += f'Na fila:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
         else:
-            msg += f'🏷ᴛɪᴛʟᴇ: {x["title"]}\nᴅᴜʀᴀᴛɪᴏɴ: {x["dur"]}\nʙʏ: {x["by"]}\n\n'
-    if "Queued" in msg:
-        if len(msg) < 700:
-            await asyncio.sleep(1)
-            return await CallbackQuery.edit_message_text(msg, reply_markup=buttons)
-
-        if "🏷" in msg:
-            msg = msg.replace("🏷", "")
-        if "ᴄᴜʀʀᴇɴᴛ ᴘʟᴀʏɪɴɢ" in msg:
-            msg = msg.replace("ᴄᴜʀʀᴇɴᴛ ᴘʟᴀʏɪɴɢ", "Current Playling")
-        if "ᴛɪᴛʟᴇ" in msg:
-            msg = msg.replace("ᴛɪᴛʟᴇ", "Title")
-        if "ᴅᴜʀᴀᴛɪᴏɴ" in msg:
-            msg = msg.replace("ᴅᴜʀᴀᴛɪᴏɴ", "Duration")
-        if "ʙʏ" in msg:
-            msg = msg.replace("ʙʏ", "By")
-        if "ǫᴜᴇᴜᴇᴅ" in msg:
-            msg = msg.replace("ǫᴜᴇᴜᴇᴅ", "Queued")
-
-        link = await WinxBin(msg)
-        await CallbackQuery.edit_message_text(
-            _["queue_3"].format(link), reply_markup=buttons
-        )
-    else:
-        if len(msg) > 700:
-            if "🏷" in msg:
-                msg = msg.replace("🏷", "")
-            if "ᴄᴜʀʀᴇɴᴛ ᴘʟᴀʏɪɴɢ" in msg:
-                msg = msg.replace("ᴄᴜʀʀᴇɴᴛ ᴘʟᴀʏɪɴɢ", "Current Playling")
-            if "ᴛɪᴛʟᴇ" in msg:
-                msg = msg.replace("ᴛɪᴛʟᴇ", "Title")
-            if "ᴅᴜʀᴀᴛɪᴏɴ" in msg:
-                msg = msg.replace("ᴅᴜʀᴀᴛɪᴏɴ", "Duration")
-            if "ʙʏ" in msg:
-                msg = msg.replace("ʙʏ", "By")
-            if "ǫᴜᴇᴜᴇᴅ" in msg:
-                msg = msg.replace("ǫᴜᴇᴜᴇᴅ", "Queued")
-
-            link = await WinxBin(msg)
-            await asyncio.sleep(1)
-            return await CallbackQuery.edit_message_text(
-                _["queue_3"].format(link), reply_markup=buttons
-            )
-
+            msg += f'🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
+    # Se a mensagem for menor que 700 caracteres, envia diretamente
+    if len(msg) < 700:
         await asyncio.sleep(1)
         return await CallbackQuery.edit_message_text(msg, reply_markup=buttons)
+    else:
+        # Se a mensagem for muito longa, envia através do WinxBin
+        link = await WinxBin(msg)
+        await asyncio.sleep(1)
+        return await CallbackQuery.edit_message_text(
+            _["queue_3"].format(link), reply_markup=buttons
+        )
 
 
 @app.on_callback_query(filters.regex("queue_back_timer") & ~BANNED_USERS)
@@ -266,16 +232,16 @@ async def queue_back(client, CallbackQuery: CallbackQuery, _):
         else:
             IMAGE = get_image(videoid)
     send = (
-        "**⌛️ᴅᴜʀᴀᴛɪᴏɴ:** ᴜɴᴋɴᴏᴡɴ ᴅᴜʀᴀᴛɪᴏɴ sᴛʀᴇᴀᴍ \n\nᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴛᴏ ɢᴇᴛ ᴡʜᴏʟᴇ ǫᴜᴇᴜᴇᴅ ʟɪsᴛ."
+        "**⌛️Duração:** Stream de duração desconhecida \n\nClique no botão abaixo para obter a lista completa na fila."
         if DUR == "Unknown"
-        else "\nᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴛᴏ ɢᴇᴛ ᴡʜᴏʟᴇ ǫᴜᴇᴜᴇᴅ ʟɪsᴛ."
+        else "\nClique no botão abaixo para obter a lista completa na fila."
     )
-    cap = f"""**{app.mention} ᴘʟᴀʏᴇʀ**
+    cap = f"""**{app.mention} Player**
 
-🎥**ᴘʟᴀʏɪɴɢ:** {title}
+🎥**Reproduzindo:** {title}
 
-🔗**sᴛʀᴇᴀᴍ ᴛʏᴘᴇ:** {typo}
-🙍‍♂️**ᴘʟᴀʏᴇᴅ ʙʏ :** {user}
+🔗**Tipo de Stream:** {typo}
+🙍‍♂️**Tocado por:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, cplay, videoid)

@@ -12,7 +12,6 @@ from pyrogram.errors import (
 )
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup
 
-from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import (
     get_assistant,
@@ -27,6 +26,7 @@ from WinxMusic.utils.inline.playlist import (
     top_play_markup,
 )
 from WinxMusic.utils.stream.stream import stream
+from config import BANNED_USERS
 
 loop = asyncio.get_running_loop()
 
@@ -66,12 +66,12 @@ async def server_to_play(client: Client, callback_query: CallbackQuery, _):
             get = await app.get_chat_member(callback_query.message.chat.id, userbot.id)
         except ChatAdminRequired:
             return await callback_query.answer(
-                f"» ɪ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴs ᴛᴏ ɪɴᴠɪᴛᴇ ᴜsᴇʀs ᴠɪᴀ ʟɪɴᴋ ᴛᴏ {callback_query.message.chat.title}.",
+                f"» Eu não tenho permissão para convidar usuários via link para {callback_query.message.chat.title}.",
                 show_alert=True,
             )
         if get.status == ChatMemberStatus.BANNED:
             return await callback_query.answer(
-                text=f"»ᴀssɪsᴛᴀɴᴛ ɪs ʙᴀɴɴᴇᴅ ɪɴ {callback_query.message.chat.title}",
+                text=f"» O assistente está banido em {callback_query.message.chat.title}",
                 show_alert=True,
             )
     except UserNotParticipant:
@@ -88,7 +88,7 @@ async def server_to_play(client: Client, callback_query: CallbackQuery, _):
                 )
             except ChatAdminRequired:
                 return await callback_query.answer(
-                    f"» ɪ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴs ᴛᴏ ɪɴᴠɪᴛᴇ ᴜsᴇʀs ᴠɪᴀ ʟɪɴᴋ ғᴏʀ ɪɴᴠɪᴛɪɴɢ ᴀssɪsᴛᴀɴᴛ ᴛᴏ {callback_query.message.chat.title}.",
+                    f"» Eu não tenho permissão para convidar usuários via link para convidar o assistente para {callback_query.message.chat.title}.",
                     show_alert=True,
                 )
             except InviteRequestSent:
@@ -98,17 +98,17 @@ async def server_to_play(client: Client, callback_query: CallbackQuery, _):
                     )
                 except Exception as e:
                     return await callback_query.message.reply_text(
-                        f"ғᴀɪʟᴇᴅ ᴛᴏ ɪɴᴠɪᴛᴇ ᴀssɪsᴛᴀɴᴛ ᴛᴏ {callback_query.message.chat.title}\nʀᴇᴀsᴏɴ :{e}"
+                        f"Falha ao convidar o assistente para {callback_query.message.chat.title}\nRazão: {e}"
                     )
             except Exception as ex:
                 if "channels.JoinChannel" in str(ex) or "Username not found" in str(ex):
                     return await callback_query.answer(
-                        f"» ɪ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴs ᴛᴏ ɪɴᴠɪᴛᴇ ᴜsᴇʀs ᴠɪᴀ ʟɪɴᴋ ғᴏʀ ɪɴᴠɪᴛɪɴɢ ᴀssɪsᴛᴀɴᴛ ᴛᴏ {callback_query.message.chat.title}.",
+                        f"» Eu não tenho permissão para convidar usuários via link para convidar o assistente para {callback_query.message.chat.title}.",
                         show_alert=True,
                     )
                 else:
                     return await callback_query.message.reply_text(
-                        f"ғᴀɪʟᴇᴅ ᴛᴏ ɪɴᴠɪᴛᴇ ᴀssɪsᴛᴀɴᴛ ᴛᴏ {callback_query.message.chat.title}.\n\n**ʀᴇᴀsᴏɴ :** `{ex}`"
+                        f"Falha ao convidar o assistente para {callback_query.message.chat.title}.\n\n**Razão:** `{ex}`"
                     )
         if invitelink.startswith("https://t.me/+"):
             invitelink = invitelink.replace("https://t.me/+", "https://t.me/joinchat/")
@@ -125,22 +125,22 @@ async def server_to_play(client: Client, callback_query: CallbackQuery, _):
             except Exception as e:
                 if "messages.HideChatJoinRequest" in str(e):
                     return await callback_query.answer(
-                        f"» ɪ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴs ᴛᴏ ɪɴᴠɪᴛᴇ ᴜsᴇʀs ᴠɪᴀ ʟɪɴᴋ ғᴏʀ ɪɴᴠɪᴛɪɴɢ ᴀssɪsᴛᴀɴᴛ ᴛᴏ {callback_query.message.chat.title}.",
+                        f"» Eu não tenho permissão para convidar usuários via link para convidar o assistente para {callback_query.message.chat.title}.",
                         show_alert=True,
                     )
                 else:
                     return await callback_query.message.reply_text(
-                        f"ғᴀɪʟᴇᴅ ᴛᴏ ɪɴᴠɪᴛᴇ ᴀssɪsᴛᴀɴᴛ ᴛᴏ {callback_query.message.chat.title}.\n\nʀᴇᴀsᴏɴ :{e}"
+                        f"Falha ao convidar o assistente para {callback_query.message.chat.title}.\n\nRazão: {e}"
                     )
         except Exception as ex:
             if "channels.JoinChannel" in str(ex) or "Username not found" in str(ex):
                 return await callback_query.answer(
-                    f"» ɪ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴs ᴛᴏ ɪɴᴠɪᴛᴇ ᴜsᴇʀs ᴠɪᴀ ʟɪɴᴋ ғᴏʀ ɪɴᴠɪᴛɪɴɢ ᴀssɪsᴛᴀɴᴛ ᴛᴏ {callback_query.message.chat.title}.",
+                    f"» Eu não tenho permissão para convidar usuários via link para convidar o assistente para {callback_query.message.chat.title}.",
                     show_alert=True,
                 )
             else:
                 return await callback_query.message.reply_text(
-                    f"ғᴀɪʟᴇᴅ ᴛᴏ ɪɴᴠɪᴛᴇ ᴀssɪsᴛᴀɴᴛ ᴛᴏ {callback_query.message.chat.title}.\n\nʀᴇᴀsᴏɴ : {ex}"
+                    f"Falha ao convidar o assistente para {callback_query.message.chat.title}.\n\nRazão: {ex}"
                 )
 
         try:

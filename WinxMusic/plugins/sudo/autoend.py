@@ -1,10 +1,10 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import autoend_off, autoend_on
+from strings import get_command
 
 AUTOEND_COMMAND = get_command("AUTOEND_COMMAND")
 

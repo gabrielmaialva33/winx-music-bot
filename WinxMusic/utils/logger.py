@@ -1,6 +1,6 @@
-from config import LOG, LOG_GROUP_ID
 from WinxMusic import app
 from WinxMusic.utils.database import is_on_off
+from config import LOG, LOG_GROUP_ID
 
 
 async def play_logs(message, streamtype):
@@ -8,21 +8,21 @@ async def play_logs(message, streamtype):
         if message.chat.username:
             chatusername = f"@{message.chat.username}"
         else:
-            chatusername = "ᴘʀɪᴠᴀᴛᴇ ɢʀᴏᴜᴘ"
+            chatusername = "grupo privado"
 
         logger_text = f"""
-**{app.mention} ᴘʟᴀʏ ʟᴏɢ**
+**{app.mention} registro de reprodução**
 
-**ᴄʜᴀᴛ ɪᴅ :** `{message.chat.id}`
-**ᴄʜᴀᴛ ɴᴀᴍᴇ :** {message.chat.title}
-**ᴄʜᴀᴛ ᴜsᴇʀɴᴀᴍᴇ :** {chatusername}
+**ID do chat:** `{message.chat.id}`
+**Nome do chat:** {message.chat.title}
+**Nome de usuário do chat:** {chatusername}
 
-**ᴜsᴇʀ ɪᴅ :** `{message.from_user.id}`
-**ɴᴀᴍᴇ :** {message.from_user.mention}
-**ᴜsᴇʀɴᴀᴍᴇ :** @{message.from_user.username}
+**ID do usuário:** `{message.from_user.id}`
+**Nome:** {message.from_user.mention}
+**Nome de usuário:** @{message.from_user.username}
 
-**ǫᴜᴇʀʏ :** {message.text.split(None, 1)[1]}
-**sᴛʀᴇᴀᴍᴛʏᴘᴇ :** {streamtype}"""
+**Consulta:** {message.text.split(None, 1)[1]}
+**Tipo de stream:** {streamtype}"""
         if message.chat.id != LOG_GROUP_ID:
             try:
                 await app.send_message(

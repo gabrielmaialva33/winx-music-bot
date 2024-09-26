@@ -75,9 +75,9 @@ async def del_pfp(_client: Client, message: Message):
         try:
             if photos:
                 await client.delete_profile_photos(photos[0].file_id)
-                await eor(message, text="Successfully deleted photo")
+                await eor(message, text="Foto deletada com sucesso")
             else:
-                await eor(message, text="No profile photos found.")
+                await eor(message, text="Nenhuma foto de perfil encontrada.")
         except Exception as e:
             await eor(message, text=e)
 
@@ -92,9 +92,9 @@ async def delall_pfp(_client: Client, message: Message):
         try:
             if photos:
                 await client.delete_profile_photos([p.file_id for p in photos[1:]])
-                await eor(message, text="Successfully deleted photos")
+                await eor(message, text="Fotos deletadas com sucesso")
             else:
-                await eor(message, text="No profile photos found.")
+                await eor(message, text="Nenhuma foto de perfil encontrada.")
         except Exception as e:
             await eor(message, text=e)
 
@@ -111,25 +111,24 @@ async def eor(message: Message, **kwargs):
 
 """
 
-<u> ᴀssɪsᴛᴀɴᴛ's ᴄᴏᴍᴍᴀɴᴅ:</u>
-.setpfp - ʀᴇᴘʟʏ ɪɴ ᴘʜᴏᴛᴏ ᴛᴏ sᴇᴛ ᴀʟʟ ʙᴏᴛ ᴀssɪsᴛᴀɴᴛ ᴘʀᴏғɪʟᴇ ᴘɪᴄᴛᴜʀᴇ [ᴏɴʟʏ ᴘʜᴏᴛᴏ] [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+<u>Comandos do Assistente:</u>
+.setpfp - Responda em uma foto para definir a foto de perfil de todos os assistentes do bot [apenas foto] [somente para usuário sudo]
 
-.setname [ᴛᴇxᴛ] - ᴛᴏ sᴇᴛ ᴀʟʟ ᴀssɪsᴛᴀɴᴛ ɴᴀᴍᴇ [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+.setname [texto] - Para definir o nome de todos os assistentes [somente para usuário sudo]
 
-.setbio [ᴛᴇxᴛ] - ᴛᴏ sᴇᴛ ᴀʟʟ ᴀssɪsᴛᴀɴᴛ ʙɪᴏ [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+.setbio [texto] - Para definir a bio de todos os assistentes [somente para usuário sudo]
 
 
-.delpfp - ᴅᴇʟᴇᴛᴇ ᴀssɪsᴛᴀɴᴛs ᴘʀɪғɪʟᴇ ᴘɪᴄ [ᴏɴʟʏ ᴏɴᴇ ᴘʀᴏғɪʟᴇ ᴘɪᴄ ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ] [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+.delpfp - Deletar a foto de perfil do assistente [apenas uma foto de perfil será deletada] [somente para usuário sudo]
 
-.delallpfp - ᴅᴇʟᴇᴛᴇ ᴀssɪsᴛᴀɴᴛs ᴀʟʟ ᴘʀɪғɪʟᴇ ᴘɪᴄ [ᴏɴʟʏ ᴏɴᴇ ᴘʀᴏғɪʟᴇ ᴘɪᴄ ᴡɪʟʟ ʙᴇ ʀᴇᴍᴀɪɴ] [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+.delallpfp - Deletar todas as fotos de perfil do assistente [apenas uma foto de perfil permanecerá] [somente para usuário sudo]
 
-<u> ɢʀᴏᴜᴘ ᴀssɪsᴛᴀɴᴛ's ᴄᴏᴍᴍᴀɴᴅ:</u>
+<u>Comandos do Assistente do Grupo:</u>
 
-/checkassistant - ᴄʜᴇᴄᴋ ᴅᴇᴛᴀɪʟs ᴏғ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀssɪsᴛᴀɴᴛ
+ /checkassistant - Verificar detalhes do seu assistente de grupo
 
-/setassistant - ᴄʜᴀɴɢᴇ ᴀssɪsᴛᴀɴᴛ ᴛᴏ sᴘᴇᴄɪғɪᴄ ᴀssɪsᴛᴀɴᴛ ғᴏʀ ʏᴏᴜʀ ɢʀᴏᴜᴘ
+ /setassistant - Alterar para um assistente específico para o seu grupo
 
-/changeassistant - ᴄʜᴀɴɢᴇ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀssɪsᴛᴀɴᴛ ᴛᴏ ʀᴀɴᴅᴏᴍ ᴀᴠᴀɪʟᴀʙʟᴇ ᴀssɪsᴛᴀɴᴛ ɪɴ ʙᴏᴛ sᴇʀᴠᴇʀ's
-
+ /changeassistant - Alterar o assistente do seu grupo para um assistente aleatório disponível nos servidores do bot
 
 """
