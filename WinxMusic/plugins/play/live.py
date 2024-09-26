@@ -1,11 +1,11 @@
 from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery
 
+from config import BANNED_USERS
 from WinxMusic import YouTube, app
 from WinxMusic.utils.channelplay import get_channeplayCB
 from WinxMusic.utils.decorators.language import languageCB
 from WinxMusic.utils.stream.stream import stream
-from config import BANNED_USERS
 
 
 @app.on_callback_query(filters.regex("LiveStream") & ~BANNED_USERS)

@@ -12,6 +12,7 @@ from pyrogram.errors import (
 )
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup
 
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import (
     get_assistant,
@@ -26,7 +27,6 @@ from WinxMusic.utils.inline.playlist import (
     top_play_markup,
 )
 from WinxMusic.utils.stream.stream import stream
-from config import BANNED_USERS
 
 loop = asyncio.get_running_loop()
 

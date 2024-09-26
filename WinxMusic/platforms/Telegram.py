@@ -8,8 +8,9 @@ import httpx
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Voice
 
 import config
-from WinxMusic import app
 from config import lyrical
+from WinxMusic import app
+
 from ..utils.formatters import convert_bytes, get_readable_time, seconds_to_min
 
 downloader = {}
@@ -22,7 +23,7 @@ class TeleAPI:
 
     async def send_split_text(self, message, string):
         n = self.chars_limit
-        out = [(string[i: i + n]) for i in range(0, len(string), n)]
+        out = [(string[i : i + n]) for i in range(0, len(string), n)]
         j = 0
         for x in out:
             if j <= 2:
@@ -42,10 +43,18 @@ class TeleAPI:
         try:
             file_name = file.file_name
             if file_name is None:
-                file_name = "Arquivo de áudio do Telegram" if audio else "Arquivo de vídeo do Telegram"
+                file_name = (
+                    "Arquivo de áudio do Telegram"
+                    if audio
+                    else "Arquivo de vídeo do Telegram"
+                )
 
         except:
-            file_name = "Arquivo de áudio do Telegram" if audio else "Arquivo de vídeo do Telegram"
+            file_name = (
+                "Arquivo de áudio do Telegram"
+                if audio
+                else "Arquivo de vídeo do Telegram"
+            )
         return file_name
 
     async def get_duration(self, file):
@@ -56,20 +65,20 @@ class TeleAPI:
         return dur
 
     async def get_filepath(
-            self,
-            audio: Union[bool, str] = None,
-            video: Union[bool, str] = None,
+        self,
+        audio: Union[bool, str] = None,
+        video: Union[bool, str] = None,
     ):
         if audio:
             try:
                 file_name = (
-                        audio.file_unique_id
-                        + "."
-                        + (
-                            (audio.file_name.split(".")[-1])
-                            if (not isinstance(audio, Voice))
-                            else "ogg"
-                        )
+                    audio.file_unique_id
+                    + "."
+                    + (
+                        (audio.file_name.split(".")[-1])
+                        if (not isinstance(audio, Voice))
+                        else "ogg"
+                    )
                 )
             except:
                 file_name = audio.file_unique_id + "." + ".ogg"
@@ -77,7 +86,7 @@ class TeleAPI:
         if video:
             try:
                 file_name = (
-                        video.file_unique_id + "." + (video.file_name.split(".")[-1])
+                    video.file_unique_id + "." + (video.file_name.split(".")[-1])
                 )
             except:
                 file_name = video.file_unique_id + "." + "mp4"
@@ -91,8 +100,8 @@ class TeleAPI:
                 if response.status_code == 200:
                     content_type = response.headers.get("Content-Type", "")
                     if (
-                            "application/vnd.apple.mpegurl" in content_type
-                            or "application/x-mpegURL" in content_type
+                        "application/vnd.apple.mpegurl" in content_type
+                        or "application/x-mpegURL" in content_type
                     ):
                         return True
                     if url.endswith(".m3u8") or url.endswith(".index"):

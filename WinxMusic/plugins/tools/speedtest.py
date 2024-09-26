@@ -1,11 +1,11 @@
 import asyncio
 
+import speedtest
 from pyrogram import filters
 
-import speedtest
+from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
-from strings import get_command
 
 # Commands
 SPEEDTEST_COMMAND = get_command("SPEEDTEST_COMMAND")

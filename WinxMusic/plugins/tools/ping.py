@@ -3,12 +3,12 @@ from datetime import datetime
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+from config import BANNED_USERS, PING_IMG_URL
 from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.utils import bot_sys_stats
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.inline import support_group_markup
-from config import BANNED_USERS, PING_IMG_URL
 
 
 @app.on_message(filters.command(["ping", "alive"]) & ~BANNED_USERS)
