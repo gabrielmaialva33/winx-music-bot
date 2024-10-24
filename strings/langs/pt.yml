@@ -74,7 +74,8 @@ admin_34: "❌➻ Falha ao buscar no stream atual."
 # Bot
 
 # Start
-start_1: "Olá, eu sou {0} 🥀.\n\n➻ Sou um bot de streaming para Telegram com alguns recursos úteis.\n\nPlataformas suportadas: YouTube, Spotify, SoundCloud, etc.\n\nSinta-se à vontade para me adicionar aos seus grupos."
+#start_1: "Olá, eu sou {0} 🥀.\n\n➻ Sou um bot de streaming para Telegram com alguns recursos úteis.\n\nPlataformas suportadas: YouTube, Spotify, SoundCloud, etc.\n\nSinta-se à vontade para me adicionar aos seus grupos."
+start_1: "👋 𝗢𝗶𝗲 𝗺𝗶𝗴𝗴𝗲𝗿, 𝗲𝘂 𝘀𝗼𝘂 {0}.\n\n<i>🤖 𝗦𝗼𝘂 𝘂𝗺 𝗯𝗼𝘁 𝗱𝗲 𝘀𝘁𝗿𝗲𝗮𝗺𝗶𝗻𝗴 𝗱𝗼 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗰𝗼𝗺 𝗮𝗹𝗴𝘂𝗻𝘀 𝗿𝗲𝗰𝘂𝗿𝘀𝗼𝘀 𝘂́𝘁𝗶𝗹𝗲𝘀.</i>\n\n<b>📺 𝗣𝗹𝗮𝘁𝗮𝗳𝗼𝗿𝗺𝗮𝘀 𝘀𝘂𝗽𝗼𝗿𝘁𝗮𝗱𝗮𝘀:</b> 𝗬𝗼𝘂𝗧𝘂𝗯𝗲, 𝗦𝗽𝗼𝘁𝗶𝗳𝘆, 𝗦𝗼𝘂𝗻𝗱𝗖𝗹𝗼𝘂𝗱, 𝗲𝘁𝗰.\n\n<i>𝗦𝗶𝗻𝘁𝗮-𝘀𝗲 à 𝘃𝗼𝗻𝘁𝗮𝗱𝗲 𝗽𝗮𝗿𝗮 𝗺𝗲 𝗮𝗱𝗶𝗰𝗶𝗼𝗻𝗮𝗿 𝗮𝗼𝘀 𝘀𝗲𝘂𝘀 𝗴𝗿𝘂𝗽𝗼𝘀. 😊</i>"
 start_2: "Olá,\n este é o {0}\n\nUm bot de player de música rápido e poderoso com alguns recursos incríveis.\n\nNome de usuário da assistente: @{1}\nID da assistente: {2}"
 start_3: "O proprietário de {0}, {1}, acabou de entrar no seu chat."
 start_4: "O usuário sudo de {0}, {1}, acabou de entrar no seu chat."
