@@ -12,7 +12,7 @@ assistant_ids = []
 
 class Userbot(Client):
     def __init__(self):
-        self.clients = []
+        self.clients: list[Client] = []
         session_strings = config.STRING_SESSIONS
 
         for i, session in enumerate(session_strings, start=1):
@@ -38,6 +38,9 @@ class Userbot(Client):
             client.mention = get_me.mention
             assistant_ids.append(get_me.id)
             client.name = f"{get_me.first_name} {get_me.last_name or ''}".strip()
+
+            await client.join_chat("@cinewinx")
+            await client.join_chat("@cinewinxcoments")
 
         except Exception as e:
             LOGGER(__name__).error(
