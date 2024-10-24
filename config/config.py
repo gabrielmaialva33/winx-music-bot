@@ -8,9 +8,7 @@ from pyrogram import filters
 load_dotenv()
 
 # Get it from my.telegram.org
-
 API_ID = int(getenv("API_ID", ""))
-
 API_HASH = getenv("API_HASH")
 
 ## Get it from @Botfather in Telegram.
@@ -59,13 +57,13 @@ LOG_GROUP_ID = int(getenv("LOG_GROUP_ID", ""))
 
 # Your User ID.
 OWNER_ID = list(
-    map(int, getenv("OWNER_ID", "6815918609").split())
+    map(int, getenv("OWNER_ID", "1307574219").split())
 )  # Input type must be interger
 
 # make your bots privacy from telegra.ph and put your url here
 
 PRIVACY_LINK = getenv(
-    "PRIVACY_LINK", "https://telegra.ph/Privacy-Policy-for-WinxMusic-08-30"
+    "PRIVACY_LINK", "https://telegra.ph/Pol%C3%ADtica-de-Privacidade-para-WinxMusic-10-24"
 )
 
 # Get it from http://dashboard.heroku.com/account
