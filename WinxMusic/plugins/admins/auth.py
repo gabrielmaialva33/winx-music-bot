@@ -1,8 +1,6 @@
-from pyrogram import Client, filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
-from config import BANNED_USERS, adminlist
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.utils.database import (
     delete_authuser,
@@ -12,6 +10,8 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators import AdminActual, language
 from WinxMusic.utils.formatters import int_to_alpha
+from config import BANNED_USERS, adminlist
+from strings import command, get_command
 
 AUTH_COMMAND = get_command("AUTH_COMMAND")
 UNAUTH_COMMAND = get_command("UNAUTH_COMMAND")
@@ -82,7 +82,7 @@ async def auth(_client: Client, message: Message, _):
 
 @app.on_message(filters.command(UNAUTH_COMMAND) & filters.group & ~BANNED_USERS)
 @AdminActual
-async def un_authusers(_client: Client, message: Message, _):
+async def unauthusers(_client: Client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])
@@ -141,13 +141,12 @@ async def authusers(_client: Client, message: Message, _):
 
 
 __MODULE__ = "Autorização"
-__HELP__ = """
+__HELP__ = f"""
+<b>Usuários autorizados podem usar comandos de administrador sem direitos de administrador no seu chat.</b>
 
-<b>Usuários autorizados podem usar comandos de administrador sem direitos de administrador em seu chat.</b>
+<b>✧ {command("AUTH_COMMAND")}</b> [Nome de usuário] - Adicionar um usuário à LISTA DE AUTORIZADOS do grupo.
 
-<b>✧ /auth</b> [Nome de usuário] - Adicione um usuário à LISTA DE AUTORIZADOS do grupo.
+<b>✧ {command("UNAUTH_COMMAND")}</b> [Nome de usuário] - Remover um usuário da LISTA DE AUTORIZADOS do grupo.
 
-<b>✧ /unauth</b> [Nome de usuário] - Remova um usuário da LISTA DE AUTORIZADOS do grupo.
-
-<b>✧ /authusers</b> - Verifique a LISTA DE AUTORIZADOS do grupo.
+<b>✧ {command("AUTHUSERS_COMMAND")}</b> - Verificar a LISTA DE AUTORIZADOS do grupo.
 """

@@ -79,20 +79,12 @@ class CarbonAPI:
 
     async def generate(self, text: str, user_id):
         async with aiohttp.ClientSession(
-            headers={"Content-Type": "application/json"},
+                headers={"Content-Type": "application/json"},
         ) as ses:
-            params = {
-                "code": text,
-            }
-            params["backgroundColor"] = random.choice(colour)
-            params["theme"] = random.choice(themes)
-            params["dropShadow"] = self.drop_shadow
-            params["dropShadowOffsetY"] = self.drop_shadow_offset
-            params["dropShadowBlurRadius"] = self.drop_shadow_blur
-            params["fontFamily"] = self.font_family
-            params["language"] = self.language
-            params["watermark"] = self.watermark
-            params["widthAdjustment"] = self.width_adjustment
+            params = {"code": text, "backgroundColor": random.choice(colour), "theme": random.choice(themes),
+                      "dropShadow": self.drop_shadow, "dropShadowOffsetY": self.drop_shadow_offset,
+                      "dropShadowBlurRadius": self.drop_shadow_blur, "fontFamily": self.font_family,
+                      "language": self.language, "watermark": self.watermark, "widthAdjustment": self.width_adjustment}
             try:
                 request = await ses.post(
                     "https://carbonara.solopov.dev/api/cook",

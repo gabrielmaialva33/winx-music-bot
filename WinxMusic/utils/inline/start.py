@@ -2,8 +2,8 @@ from typing import Union
 
 from pyrogram.types import InlineKeyboardButton
 
-from config import GITHUB_REPO, SUPPORT_CHANNEL, SUPPORT_GROUP
 from WinxMusic import app
+from config import GITHUB_REPO, SUPPORT_CHANNEL, SUPPORT_GROUP
 
 
 def start_pannel(_):
@@ -86,16 +86,4 @@ def private_panel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
                 ]
             )
     buttons.append([InlineKeyboardButton(text=_["ST_B_6"], callback_data="LG")])
-    return buttons
-
-
-def alive_panel(_):
-    buttons = [
-        [
-            InlineKeyboardButton(
-                text="✿︎ ᴀᴅᴅ ᴍᴇ ✿︎", url=f"https://t.me/{app.username}?startgroup=true"
-            ),
-            InlineKeyboardButton(text=_["S_B_3"], url=f"{SUPPORT_GROUP}"),
-        ],
-    ]
     return buttons

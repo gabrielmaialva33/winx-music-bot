@@ -2,14 +2,13 @@ from pyrogram import Client
 from pyrogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
-    InlineQuery,
-    InlineQueryResultPhoto,
+    InlineQueryResultPhoto, InlineQuery,
 )
 from youtubesearchpython.__future__ import VideosSearch
 
-from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.inlinequery import answer
+from config import BANNED_USERS
 
 
 @app.on_inline_query(~BANNED_USERS)
@@ -33,7 +32,7 @@ async def inline_query_handler(client: Client, query: InlineQuery):
             channel = result[x]["channel"]["name"]
             link = result[x]["link"]
             published = result[x]["publishedTime"]
-            description = f"{views} | {duration} Min | {channel} | {published}"
+            description = f"{views} | {duration} Minutos | {channel}  | {published}"
             buttons = InlineKeyboardMarkup(
                 [
                     [
@@ -45,17 +44,17 @@ async def inline_query_handler(client: Client, query: InlineQuery):
                 ]
             )
             searched_text = f"""
-❇️ **Título:** [{title}]({link})
+❇️**Título:** [{title}]({link})
 
-⏳ **Duração:** {duration} Min
-👀 **Visualizações:** `{views}`
-⏰ **Data de Publicação:** {published}
-🎥 **Nome do Canal:** {channel}
-📎 **Link do Canal:** [Visite aqui]({channellink})
+⏳**Duração:** {duration} Minutos
+👀**Visualizações:** `{views}`
+⏰**Publicado em:** {published}
+🎥**Nome do Canal:** {channel}
+📎**Link do Canal:** [Visite aqui]({channellink})
 
-__Responda com /play nesta mensagem pesquisada para reproduzi-la no chat de voz.__
+__Responda com /play nesta mensagem pesquisada para reproduzir no chat de voz.__
 
-⚡️ **Pesquisa inline por {app.mention}**"""
+⚡️ **Busca inline por {app.mention}**"""
             answers.append(
                 InlineQueryResultPhoto(
                     photo_url=thumbnail,

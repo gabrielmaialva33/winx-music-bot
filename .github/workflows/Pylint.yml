@@ -1,30 +1,30 @@
 name: PyLint
-
-on: [ push, pull_request ]
-
+on:
+  push:
+    paths:
+      - "**.py"
+  workflow_dispatch:
 jobs:
   PEP8:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
+      - uses: actions/checkout@v3
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.12.6
-      - name: Install Python lint libraries
+          python-version: "3.12.x"
+      - name: Install libraries
+        run: pip install autopep8 autoflake isort black
+      - name: Check for showstoppers
         run: |
-          pip install autoflake isort black
-      - name: Remove unused imports and variables
+          autopep8 --verbose --in-place --recursive --aggressive *.py
+      - name: Remove unused imports
         run: |
           autoflake --in-place --recursive --remove-all-unused-imports --ignore-init-module-imports .
-      - name: lint with isort
-        run: |
-          isort .
+
       - name: lint with black
         run: |
           black .
-      # commit changes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'chore: auto fixes'
@@ -32,4 +32,4 @@ jobs:
           repository: .
           commit_user_name: gabrielmaialva33
           commit_user_email: gabrielmaialva33@gmail.com
-          commit_author: Maia <gabrielmaialva33@gmail.com>
+          commit_author: Maia <gabrielmaialva33@gmail.com>%

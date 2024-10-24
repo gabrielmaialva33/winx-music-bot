@@ -1,16 +1,16 @@
-from pyrogram import Client, filters
+from pyrogram import filters, Client
 from pyrogram.types import CallbackQuery
 
-from config import BANNED_USERS
 from WinxMusic import YouTube, app
 from WinxMusic.utils.channelplay import get_channeplayCB
 from WinxMusic.utils.decorators.language import languageCB
 from WinxMusic.utils.stream.stream import stream
+from config import BANNED_USERS
 
 
 @app.on_callback_query(filters.regex("LiveStream") & ~BANNED_USERS)
 @languageCB
-async def play_live_stream(_client: Client, callback_query: CallbackQuery, _):
+async def play_live_stream(client: Client, callback_query: CallbackQuery, _):
     callback_data = callback_query.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     vidid, user_id, mode, cplay, fplay = callback_request.split("|")
@@ -57,5 +57,5 @@ async def play_live_stream(_client: Client, callback_query: CallbackQuery, _):
             err = e if ex_type == "AssistantErr" else _["general_3"].format(ex_type)
             return await mystic.edit_text(err)
     else:
-        return await mystic.edit_text("Not a live stream")
+        return await mystic.edit_text("🚫 Não é uma transmissão ao vivo")
     await mystic.delete()

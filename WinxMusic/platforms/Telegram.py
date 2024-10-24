@@ -4,13 +4,12 @@ import time
 from datetime import datetime, timedelta
 from typing import Union
 
-import httpx
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Voice
+import aiohttp
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Voice, Message, Video
 
 import config
-from config import lyrical
 from WinxMusic import app
-
+from config import lyrical
 from ..utils.formatters import convert_bytes, get_readable_time, seconds_to_min
 
 downloader = {}
@@ -23,15 +22,15 @@ class TeleAPI:
 
     async def send_split_text(self, message, string):
         n = self.chars_limit
-        out = [(string[i : i + n]) for i in range(0, len(string), n)]
+        out = [(string[i: i + n]) for i in range(0, len(string), n)]
         j = 0
         for x in out:
             if j <= 2:
                 j += 1
                 await message.reply_text(x)
-            return True
+        return True
 
-    async def get_link(self, message):
+    async def get_link(self, message: Message):
         if message.chat.username:
             link = f"https://t.me/{message.chat.username}/{message.reply_to_message.id}"
         else:
@@ -43,42 +42,33 @@ class TeleAPI:
         try:
             file_name = file.file_name
             if file_name is None:
-                file_name = (
-                    "Arquivo de áudio do Telegram"
-                    if audio
-                    else "Arquivo de vídeo do Telegram"
-                )
-
+                file_name = "🎵 Áudio do Telegram" if audio else "🎥 Vídeo do Telegram"
         except:
-            file_name = (
-                "Arquivo de áudio do Telegram"
-                if audio
-                else "Arquivo de vídeo do Telegram"
-            )
+            file_name = "🎵 Áudio do Telegram" if audio else "🎥 Vídeo do Telegram"
         return file_name
 
-    async def get_duration(self, file):
+    async def get_duration(self, file: Union[Video, Voice, Message]):
         try:
             dur = seconds_to_min(file.duration)
         except:
-            dur = "Desconhecido"
+            dur = "Unknown"
         return dur
 
     async def get_filepath(
-        self,
-        audio: Union[bool, str] = None,
-        video: Union[bool, str] = None,
+            self,
+            audio: Union[Voice, Message, bool, str] = None,
+            video: Union[Video, Message, bool, str] = None,
     ):
         if audio:
             try:
                 file_name = (
-                    audio.file_unique_id
-                    + "."
-                    + (
-                        (audio.file_name.split(".")[-1])
-                        if (not isinstance(audio, Voice))
-                        else "ogg"
-                    )
+                        audio.file_unique_id
+                        + "."
+                        + (
+                            (audio.file_name.split(".")[-1])
+                            if (not isinstance(audio, Voice))
+                            else "ogg"
+                        )
                 )
             except:
                 file_name = audio.file_unique_id + "." + ".ogg"
@@ -86,7 +76,7 @@ class TeleAPI:
         if video:
             try:
                 file_name = (
-                    video.file_unique_id + "." + (video.file_name.split(".")[-1])
+                        video.file_unique_id + "." + (video.file_name.split(".")[-1])
                 )
             except:
                 file_name = video.file_unique_id + "." + "mp4"
@@ -95,18 +85,30 @@ class TeleAPI:
 
     async def is_streamable_url(self, url: str) -> bool:
         try:
-            async with httpx.AsyncClient() as client:
-                response = await client.get(url, timeout=5)
-                if response.status_code == 200:
-                    content_type = response.headers.get("Content-Type", "")
-                    if (
-                        "application/vnd.apple.mpegurl" in content_type
-                        or "application/x-mpegURL" in content_type
-                    ):
-                        return True
-                    if url.endswith(".m3u8") or url.endswith(".index"):
-                        return True
-        except httpx.RequestError:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url, timeout=5) as response:
+                    if response.status == 200:
+                        content_type = response.headers.get("Content-Type", "")
+                        if (
+                                "application/vnd.apple.mpegurl" in content_type
+                                or "application/x-mpegURL" in content_type
+                        ):
+                            return True
+                        if any(
+                                keyword in content_type
+                                for keyword in [
+                                    "audio",
+                                    "video",
+                                    "mp4",
+                                    "mpegurl",
+                                    "m3u8",
+                                    "mpeg",
+                                ]
+                        ):
+                            return True
+                        if url.endswith((".m3u8", ".index", ".mp4", ".mpeg", ".mpd")):
+                            return True
+        except aiohttp.ClientError:
             pass
         return False
 
@@ -146,14 +148,14 @@ class TeleAPI:
                     completed_size = convert_bytes(current)
                     speed = convert_bytes(speed)
                     text = f"""
-**{app.mention} Downloader de Mídia do Telegram**
+**{app.mention} 📥 Downloader de Mídia do Telegram**
 
-**Tamanho total do arquivo:** {total_size}
-**Concluído:** {completed_size} 
-**Porcentagem:** {percentage[:5]}%
+💾 **Tamanho total do arquivo:** {total_size}
+✅ **Concluído:** {completed_size} 
+📊 **Progresso:** {percentage[:5]}%
 
-**Velocidade:** {speed}/s
-**Tempo restante:** {eta}"""
+⚡ **Velocidade:** {speed}/s
+⏳ **Tempo restante:** {eta}"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
                     except:
@@ -172,7 +174,7 @@ class TeleAPI:
                     progress=progress,
                 )
                 await mystic.edit_text(
-                    "Download concluído com sucesso...\nProcessando arquivo agora"
+                    "✅ Download concluído com sucesso...\n📂 Processando arquivo agora"
                 )
                 downloader.pop(message.id)
             except:
@@ -186,11 +188,11 @@ class TeleAPI:
                 low = min(timers)
                 eta = get_readable_time(low)
             except:
-                eta = "Desconhecido"
+                eta = "Unknown"
             await mystic.edit_text(_["tg_1"].format(eta))
             return False
 
-        task = asyncio.create_task(down_load())
+        task = asyncio.create_task(down_load(), name=f"download_{message.chat.id}")
         lyrical[mystic.id] = task
         await task
         downloaded = downloader.get(message.id)

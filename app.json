@@ -36,15 +36,15 @@
     "MONGO_DB_URI": {
       "description": "Get a mongodb url from https://cloud.mongodb.com . You can leave it blank if you want , bot will use Winx's database for you.",
       "value": "",
-      "required": true
+      "required": false
     },
     "OWNER_ID": {
       "description": "The user id(s) of user(s) whom you would like to add as a OWNER. Multiple values shall be seperated with a space.",
       "value": "",
       "required": true
     },
-    "STRING_SESSION": {
-      "description": "A Pyrogram String Session. One Assistant is Compulsory.",
+    "STRING_SESSIONS": {
+      "description": "A Pyrogram String Session. One Assistant is Compulsory. You Can Fill Multiple String Session Seperating With (,) comma",
       "value": "",
       "required": true
     },
@@ -65,7 +65,7 @@
     },
     "UPSTREAM_REPO": {
       "description": "If you dont know this, Leave as it is",
-      "value": "https://github.com/gabrielmaialva33/winx-bot",
+      "value": "https://github.com/gabrielmaialva33/winx-music-bot",
       "required": true
     },
     "UPSTREAM_BRANCH": {

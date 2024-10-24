@@ -1,17 +1,14 @@
 import asyncio
 from datetime import datetime, timedelta
 
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.enums import ChatMembersFilter
 from pyrogram.errors import FloodWait
 from pyrogram.raw import types
+from pyrogram.types import Message
 
 import config
-from config import adminlist, chatstats, clean, userstats
-from strings import get_command
 from WinxMusic import app
-from WinxMusic.misc import SUDOERS
-from WinxMusic.utils.cleanmode import protected_messages
 from WinxMusic.utils.database import (
     get_active_chats,
     get_authuser_names,
@@ -27,6 +24,8 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.formatters import alpha_to_int
+from config import adminlist, chatstats, clean, userstats
+from strings import command, get_command
 
 BROADCAST_COMMAND = get_command("BROADCAST_COMMAND")
 AUTO_DELETE = config.CLEANMODE_DELETE_MINS
@@ -64,9 +63,9 @@ async def clean_mode(client, update, users, chats):
     await set_queries(1)
 
 
-@app.on_message(filters.command(BROADCAST_COMMAND) & SUDOERS)
+@app.on_message(filters.command(BROADCAST_COMMAND) & filters.user(config.OWNER_ID))
 @language
-async def braodcast_message(client, message, _):
+async def braodcast_message(_client: Client, message: Message, _):
     global IS_BROADCASTING
     if message.reply_to_message:
         x = message.reply_to_message.id
@@ -75,12 +74,13 @@ async def braodcast_message(client, message, _):
         if len(message.command) < 2:
             return await message.reply_text(_["broad_5"])
         query = message.text.split(None, 1)[1]
-        if "-pin" in query:
-            query = query.replace("-pin", "")
+
         if "-nobot" in query:
             query = query.replace("-nobot", "")
         if "-pinloud" in query:
             query = query.replace("-pinloud", "")
+        if "-pin" in query:
+            query = query.replace("-pin", "")
         if "-assistant" in query:
             query = query.replace("-assistant", "")
         if "-user" in query:
@@ -105,7 +105,7 @@ async def braodcast_message(client, message, _):
                 m = (
                     await app.forward_messages(i, y, x)
                     if message.reply_to_message
-                    else await app.send_message(i, text=query)
+                    else await app.send_message(i, text=query, send_direct=True)
                 )
                 if "-pin" in message.text:
                     try:
@@ -129,12 +129,13 @@ async def braodcast_message(client, message, _):
                 continue
         try:
             await message.reply_text(_["broad_1"].format(sent, pin))
-        except:
+        except Exception:
             pass
 
     # Bot broadcasting to users
     if "-user" in message.text:
         susr = 0
+        pin = 0
         served_users = []
         susers = await get_served_users()
         for user in susers:
@@ -144,8 +145,20 @@ async def braodcast_message(client, message, _):
                 m = (
                     await app.forward_messages(i, y, x)
                     if message.reply_to_message
-                    else await app.send_message(i, text=query)
+                    else await app.send_message(i, text=query, send_direct=True)
                 )
+                if "-pin" in message.text:
+                    try:
+                        await m.pin(both_sides=True, disable_notification=True)
+                        pin += 1
+                    except Exception:
+                        continue
+                elif "-pinloud" in message.text:
+                    try:
+                        await m.pin(both_sides=True, disable_notification=False)
+                        pin += 1
+                    except Exception:
+                        continue
                 susr += 1
             except FloodWait as e:
                 flood_time = int(e.value)
@@ -155,7 +168,7 @@ async def braodcast_message(client, message, _):
             except Exception:
                 pass
         try:
-            await message.reply_text(_["broad_7"].format(susr))
+            await message.reply_text(_["broad_7"].format(susr, pin))
         except:
             pass
 
@@ -168,8 +181,11 @@ async def braodcast_message(client, message, _):
         for num in assistants:
             sent = 0
             client = await get_client(num)
+            contacts = [user.id for user in await client.get_contacts()]
             async for dialog in client.get_dialogs():
                 if dialog.chat.id == config.LOG_GROUP_ID:
+                    continue
+                if dialog.chat.id in contacts:
                     continue
                 try:
                     (
@@ -235,12 +251,6 @@ async def auto_clean():
                     continue
                 for x in clean[chat_id]:
                     if datetime.now() > x["timer_after"]:
-                        # Skip deletion if the message is protected
-                        if (
-                            chat_id in protected_messages
-                            and x["msg_id"] in protected_messages[chat_id]
-                        ):
-                            continue
                         try:
                             await app.delete_messages(chat_id, x["msg_id"])
                         except FloodWait as e:
@@ -272,20 +282,20 @@ async def auto_clean():
 
 asyncio.create_task(auto_clean())
 
-__MODULE__ = "G-cast"
-__HELP__ = """
-<b>/broadcast [mensagem ou responder a uma mensagem]</b> » transmite uma mensagem para os chats servidos pelo bot.
-<u>Modos de transmissão:</u>
+__MODULE__ = "G cast"
+__HELP__ = f"""
+<b>{command("BROADCAST_COMMAND")} [Mensagem ou Responder a qualquer mensagem]</b> » Transmite uma mensagem para os chats atendidos pelo bot.
+<u>Modos de Transmissão:</u>
 
-<b><code>-pin</code></b> » fixa suas mensagens transmitidas nos chats servidos.
+<b><code>-pin</code></b> » Fixa sua mensagem transmitida nos chats atendidos.
 
-<b><code>-pinloud</code></b> » fixa suas mensagens transmitidas nos chats servidos e envia notificações aos membros.
+<b><code>-pinloud</code></b> » Fixa sua mensagem transmitida nos chats atendidos e envia uma notificação para os membros.
 
-<b><code>-user</code></b> » transmite a mensagem para os usuários que iniciaram seu bot.
+<b><code>-user</code></b> » Transmite a mensagem para quem iniciou o seu bot [Você também pode fixar a mensagem usando `-pin` ou `-pinloud`].
 
-<b><code>-assistant</code></b> » transmite sua mensagem a partir da conta assistente do bot.
+<b><code>-assistant</code></b> » Transmite sua mensagem através de todos os Assistentes do bot.
 
-<b><code>-nobot</code></b> » força o bot a não transmitir a mensagem.
+<b><code>-nobot</code></b> » Força o **bot** a não transmitir a mensagem [Útil quando você não deseja transmitir a mensagem para grupos].
 
-> <b>Exemplo:</b> <code>/broadcast -user -assistant -pin testando transmissão</code>
+> <b>Exemplo:</b> <code>/broadcast -user -assistant -pin Testando transmissão</code>
 """

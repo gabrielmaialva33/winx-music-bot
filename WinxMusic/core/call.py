@@ -2,13 +2,12 @@ import asyncio
 from typing import Union
 
 from ntgcalls import TelegramServerError
-from pyrogram import Client
-from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls, filters
 from pytgcalls.exceptions import AlreadyJoinedError, NoActiveGroupCall
 from pytgcalls.types import (
     ChatUpdate,
+    GroupCallConfig,
     MediaStream,
     StreamAudioEnded,
     StreamVideoEnded,
@@ -16,8 +15,7 @@ from pytgcalls.types import (
 )
 
 import config
-from strings import get_string
-from WinxMusic import LOGGER, YouTube, app
+from WinxMusic import LOGGER, YouTube, app, userbot
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (
     add_active_chat,
@@ -36,75 +34,29 @@ from WinxMusic.utils.exceptions import AssistantErr
 from WinxMusic.utils.inline.play import stream_markup, telegram_markup
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import gen_thumb
+from strings import get_string
 
 
 async def _clear_(chat_id):
+    popped = db.pop(chat_id, None)
+    if popped:
+        await auto_clean(popped)
     db[chat_id] = []
     await remove_active_video_chat(chat_id)
     await remove_active_chat(chat_id)
+    await set_loop(chat_id, 0)
 
 
-class Call(PyTgCalls):
-    def __init__(self: "Call"):
-        # Userbot 1
-        self.userbot1 = Client(
-            name="WinxString1",
-            api_id=config.API_ID,
-            api_hash=config.API_HASH,
-            session_string=str(config.STRING1),
-        )
-        self.one = PyTgCalls(
-            self.userbot1,
-            cache_duration=100,
-        )
+class Call:
+    def __init__(self):
+        self.calls = []
 
-        # Userbot 2
-        self.userbot2 = Client(
-            name="WinxString2",
-            api_id=config.API_ID,
-            api_hash=config.API_HASH,
-            session_string=str(config.STRING2),
-        )
-        self.two = PyTgCalls(
-            self.userbot2,
-            cache_duration=100,
-        )
-
-        # Userbot 3
-        self.userbot3 = Client(
-            name="WinxString3",
-            api_id=config.API_ID,
-            api_hash=config.API_HASH,
-            session_string=str(config.STRING3),
-        )
-        self.three = PyTgCalls(
-            self.userbot3,
-            cache_duration=100,
-        )
-
-        # Userbot 4
-        self.userbot4 = Client(
-            name="WinxString4",
-            api_id=config.API_ID,
-            api_hash=config.API_HASH,
-            session_string=str(config.STRING4),
-        )
-        self.four = PyTgCalls(
-            self.userbot4,
-            cache_duration=100,
-        )
-
-        # Userbot 5
-        self.userbot5 = Client(
-            name="WinxString5",
-            api_id=config.API_ID,
-            api_hash=config.API_HASH,
-            session_string=str(config.STRING5),
-        )
-        self.five = PyTgCalls(
-            self.userbot5,
-            cache_duration=100,
-        )
+        for client in userbot.clients:
+            pycall = PyTgCalls(
+                client,
+                cache_duration=100,
+            )
+            self.calls.append(pycall)
 
     async def pause_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
@@ -145,40 +97,39 @@ class Call(PyTgCalls):
             pass
 
     async def skip_stream(
-        self,
-        chat_id: int,
-        link: str,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            link: str,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
         video_stream_quality = await get_video_bitrate(chat_id)
+        call_config = GroupCallConfig(auto_start=False)
         if video:
             stream = MediaStream(
                 link,
                 audio_parameters=audio_stream_quality,
                 video_parameters=video_stream_quality,
             )
+        elif image and config.PRIVATE_BOT_MODE == str(True):
+            stream = MediaStream(
+                image,
+                audio_path=link,
+                audio_parameters=audio_stream_quality,
+                video_parameters=video_stream_quality,
+            )
         else:
-            if image and config.PRIVATE_BOT_MODE == str(True):
-                stream = MediaStream(
-                    link,
-                    image,
-                    audio_parameters=audio_stream_quality,
-                    video_parameters=video_stream_quality,
-                )
-            else:
-                stream = MediaStream(link, audio_parameters=audio_stream_quality)
-        await assistant.play(
-            chat_id,
-            stream,
-        )
+            stream = MediaStream(link, audio_parameters=audio_stream_quality)
+
+        await assistant.play(chat_id, stream, config=call_config)
 
     async def seek_stream(self, chat_id, file_path, to_seek, duration, mode):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
         video_stream_quality = await get_video_bitrate(chat_id)
+        call_config = GroupCallConfig(auto_start=False)
         stream = (
             MediaStream(
                 file_path,
@@ -194,86 +145,65 @@ class Call(PyTgCalls):
                 video_flags=MediaStream.Flags.IGNORE,
             )
         )
-        await assistant.play(chat_id, stream)
+        await assistant.play(chat_id, stream, config=call_config)
 
     async def stream_call(self, link):
         assistant = await group_assistant(self, config.LOG_GROUP_ID)
+        call_config = GroupCallConfig(auto_start=False)
         await assistant.play(
             config.LOG_GROUP_ID,
             MediaStream(link),
+            config=call_config,
         )
         await asyncio.sleep(0.5)
         await assistant.leave_call(config.LOG_GROUP_ID)
 
     async def join_call(
-        self,
-        chat_id: int,
-        original_chat_id: int,
-        link,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            original_chat_id: int,
+            link,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
         video_stream_quality = await get_video_bitrate(chat_id)
+        call_config = GroupCallConfig(auto_start=False)
         if video:
             stream = MediaStream(
                 link,
                 audio_parameters=audio_stream_quality,
                 video_parameters=video_stream_quality,
             )
+        elif image and config.PRIVATE_BOT_MODE == str(True):
+            stream = MediaStream(
+                image,
+                audio_path=link,
+                audio_parameters=audio_stream_quality,
+                video_parameters=video_stream_quality,
+            )
         else:
-            if image and config.PRIVATE_BOT_MODE == str(True):
-                stream = MediaStream(
-                    link,
-                    image,
-                    audio_parameters=audio_stream_quality,
-                    video_parameters=video_stream_quality,
-                )
-            else:
-                stream = (
-                    MediaStream(
-                        link,
-                        audio_parameters=audio_stream_quality,
-                        video_parameters=video_stream_quality,
-                    )
-                    if video
-                    else MediaStream(link, audio_parameters=audio_stream_quality)
-                )
+            stream = MediaStream(link, audio_parameters=audio_stream_quality)
+
         try:
             await assistant.play(
-                chat_id,
-                stream,
+                chat_id=chat_id,
+                stream=stream,
+                config=call_config,
             )
         except NoActiveGroupCall:
-            try:
-                await assistant.play(
-                    chat_id,
-                    stream,
-                )
-            except Exception:
-                raise AssistantErr(
-                    "**Nenhuma chamada de vídeo ativa encontrada**\n\nPor favor, certifique-se de que você iniciou a videochamada."
-                )
-        except Exception as e:
-            if "phone.CreateGroupCall" in str(e):
-                try:
-                    await assistant.play(
-                        chat_id,
-                        stream,
-                    )
-                except Exception:
-                    raise AssistantErr(
-                        f"**» Nenhuma videochamada ativa encontrada.**\n\nPor favor, certifique-se de que você iniciou a videochamada."
-                    )
+            raise AssistantErr(
+                "**No active video chat found **\n\nPlease make sure you started the voicechat."
+            )
 
         except AlreadyJoinedError:
             raise AssistantErr(
-                "**Assistente já em videochamada**\n\nOs sistemas do bot de música detectaram que o assistente já está na videochamada, se este problema continuar reinicie a videochamada e tente novamente."
+                "**ASSISTANT IS ALREADY IN VOICECHAT **\n\nMusic bot system detected that assistant is already in the voicechat, if the problem continues restart the videochat and try again."
             )
         except TelegramServerError:
             raise AssistantErr(
-                "**Erro no servidor do Telegram**\n\nPor favor, desligue e reinicie a videochamada novamente."
+                "**TELEGRAM SERVER ERROR**\n\nPlease restart Your voicechat."
             )
         await add_active_chat(chat_id)
         await music_on(chat_id)
@@ -292,6 +222,11 @@ class Call(PyTgCalls):
                 await set_loop(chat_id, loop)
             if popped:
                 await auto_clean(popped)
+                if popped.get("mystic"):
+                    try:
+                        await popped.get("mystic").delete()
+                    except Exception:
+                        pass
             if not check:
                 await _clear_(chat_id)
                 return await client.leave_call(chat_id)
@@ -315,6 +250,7 @@ class Call(PyTgCalls):
             userid = check[0].get("user_id")
             check[0]["played"] = 0
             video = True if str(streamtype) == "video" else False
+            call_config = GroupCallConfig(auto_start=False)
             if "live_" in queued:
                 n, link = await YouTube.video(videoid, True)
                 if n == 0:
@@ -335,8 +271,8 @@ class Call(PyTgCalls):
                         image = None
                     if image and config.PRIVATE_BOT_MODE == str(True):
                         stream = MediaStream(
-                            link,
                             image,
+                            audio_path=link,
                             audio_parameters=audio_stream_quality,
                             video_parameters=video_stream_quality,
                         )
@@ -346,7 +282,7 @@ class Call(PyTgCalls):
                             audio_parameters=audio_stream_quality,
                         )
                 try:
-                    await client.play(chat_id, stream)
+                    await client.play(chat_id, stream, config=call_config)
                 except Exception:
                     return await app.send_message(
                         original_chat_id,
@@ -393,8 +329,8 @@ class Call(PyTgCalls):
                         image = None
                     if image and config.PRIVATE_BOT_MODE == str(True):
                         stream = MediaStream(
-                            file_path,
                             image,
+                            audio_path=file_path,
                             audio_parameters=audio_stream_quality,
                             video_parameters=video_stream_quality,
                         )
@@ -404,8 +340,8 @@ class Call(PyTgCalls):
                             audio_parameters=audio_stream_quality,
                         )
                 try:
-                    await client.play(chat_id, stream)
-                except Exception:
+                    await client.play(chat_id, stream, config=call_config)
+                except:
                     return await app.send_message(
                         original_chat_id,
                         text=_["call_7"],
@@ -437,7 +373,7 @@ class Call(PyTgCalls):
                     else MediaStream(videoid, audio_parameters=audio_stream_quality)
                 )
                 try:
-                    await client.play(chat_id, stream)
+                    await client.play(chat_id, stream, config=call_config)
                 except Exception:
                     return await app.send_message(
                         original_chat_id,
@@ -471,8 +407,8 @@ class Call(PyTgCalls):
                 else:
                     if image and config.PRIVATE_BOT_MODE == str(True):
                         stream = MediaStream(
-                            queued,
                             image,
+                            audio_path=queued,
                             audio_parameters=audio_stream_quality,
                             video_parameters=video_stream_quality,
                         )
@@ -482,7 +418,7 @@ class Call(PyTgCalls):
                             audio_parameters=audio_stream_quality,
                         )
                 try:
-                    await client.play(chat_id, stream)
+                    await client.play(chat_id, stream, config=call_config)
                 except Exception:
                     return await app.send_message(
                         original_chat_id,
@@ -516,70 +452,61 @@ class Call(PyTgCalls):
                     )
                     db[chat_id][0]["mystic"] = run
                     db[chat_id][0]["markup"] = "tg"
+                elif "saavn" in videoid:
+                    button = telegram_markup(_, chat_id)
+                    run = await app.send_photo(
+                        original_chat_id,
+                        photo=check[0]["thumb"],
+                        caption=_["stream_1"].format(
+                            title, config.SUPPORT_GROUP, check[0]["dur"], user
+                        ),
+                        reply_markup=InlineKeyboardMarkup(button),
+                    )
+                    db[chat_id][0]["mystic"] = run
+                    db[chat_id][0]["markup"] = "tg"
                 else:
                     img = await gen_thumb(videoid)
                     button = stream_markup(_, videoid, chat_id)
-                    try:
-                        run = await app.send_photo(
-                            original_chat_id,
-                            photo=img,
-                            caption=_["stream_1"].format(
-                                title[:27],
-                                f"https://t.me/{app.username}?start=info_{videoid}",
-                                check[0]["dur"],
-                                user,
-                            ),
-                            reply_markup=InlineKeyboardMarkup(button),
-                        )
-                    except FloodWait as e:
-                        await asyncio.sleep(e.value)
+                    run = await app.send_photo(
+                        original_chat_id,
+                        photo=img,
+                        caption=_["stream_1"].format(
+                            title[:27],
+                            f"https://t.me/{app.username}?start=info_{videoid}",
+                            check[0]["dur"],
+                            user,
+                        ),
+                        reply_markup=InlineKeyboardMarkup(button),
+                    )
                     db[chat_id][0]["mystic"] = run
                     db[chat_id][0]["markup"] = "stream"
 
     async def ping(self):
         pings = []
-        if config.STRING1:
-            pings.append(self.one.ping)
-        if config.STRING2:
-            pings.append(self.two.ping)
-        if config.STRING3:
-            pings.append(self.three.ping)
-        if config.STRING4:
-            pings.append(self.four.ping)
-        if config.STRING5:
-            pings.append(self.five.ping)
-        return str(round(sum(pings) / len(pings), 3))
+        for call in self.calls:
+            pings.append(call.ping)
+        if pings:
+            return str(round(sum(pings) / len(pings), 3))
+        else:
+            LOGGER(__name__).error("No active clients for ping calculation.")
+            return "No active clients"
 
     async def start(self):
-        LOGGER(__name__).info("Starting PyTgCalls Client\n")
-        if config.STRING1:
-            await self.one.start()
-        if config.STRING2:
-            await self.two.start()
-        if config.STRING3:
-            await self.three.start()
-        if config.STRING4:
-            await self.four.start()
-        if config.STRING5:
-            await self.five.start()
+        """Starts all PyTgCalls instances for the existing userbot clients."""
+        LOGGER(__name__).info(f"Starting PyTgCall Clients")
+        await asyncio.gather(*[c.start() for c in self.calls])
 
     async def decorators(self):
-        @self.one.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
-        @self.two.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
-        @self.three.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
-        @self.four.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
-        @self.five.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
-        async def stream_services_handler(_, chat_id: int):
-            await self.stop_stream(chat_id)
+        for call in self.calls:
 
-        @self.one.on_update(filters.stream_end)
-        @self.two.on_update(filters.stream_end)
-        @self.three.on_update(filters.stream_end)
-        @self.four.on_update(filters.stream_end)
-        @self.five.on_update(filters.stream_end)
-        async def stream_end_handler(client, update: Update):
-            if isinstance(update, (StreamVideoEnded, StreamAudioEnded)):
-                await self.change_stream(client, update.chat_id)
+            @call.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+            async def stream_services_handler(client, update):
+                await self.stop_stream(update.chat_id)
+
+            @call.on_update(filters.stream_end)
+            async def stream_end_handler(client, update: Update):
+                if isinstance(update, (StreamVideoEnded, StreamAudioEnded)):
+                    await self.change_stream(client, update.chat_id)
 
 
 Winx = Call()

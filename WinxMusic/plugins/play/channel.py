@@ -1,12 +1,12 @@
-from pyrogram import Client, filters
+from pyrogram import filters, Client
 from pyrogram.enums import ChatMembersFilter, ChatMemberStatus, ChatType
 from pyrogram.types import Message
 
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.utils.database import set_cmode
 from WinxMusic.utils.decorators.admins import AdminActual
+from config import BANNED_USERS
+from strings import get_command
 
 CHANNELPLAY_COMMAND = get_command("CHANNELPLAY_COMMAND")
 
@@ -21,7 +21,7 @@ async def playmode_(_client: Client, message: Message, _):
     query = message.text.split(None, 2)[1].lower().strip()
     if (str(query)).lower() == "disable":
         await set_cmode(message.chat.id, None)
-        return await message.reply_text("Reprodução no canal desativada")
+        return await message.reply_text("Channel Play Disabled")
     elif str(query) == "linked":
         chat = await app.get_chat(message.chat.id)
         if chat.linked_chat:

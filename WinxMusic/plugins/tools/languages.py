@@ -2,11 +2,12 @@ from pykeyboard import InlineKeyboard
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, Message
 
-from config import BANNED_USERS
-from strings import get_command, get_string, languages_present
 from WinxMusic import app
 from WinxMusic.utils.database import get_lang, set_lang
 from WinxMusic.utils.decorators import ActualAdminCB, language, languageCB
+from config import BANNED_USERS
+from strings import get_command, get_string, languages_present
+
 
 # Languages Available
 
@@ -65,16 +66,16 @@ async def language_markup(client, CallbackQuery, _):
     old = await get_lang(CallbackQuery.message.chat.id)
     if str(old) == str(langauge):
         return await CallbackQuery.answer(
-            "ʏᴏᴜ ᴀʀᴇ ᴀʟʀᴇᴀᴅʏ ᴜsɪɴɢ sᴀᴍᴇ ʟᴀɴɢᴜᴀɢᴇ", show_alert=True
+            "You are already using same language", show_alert=True
         )
     try:
         _ = get_string(langauge)
         await CallbackQuery.answer(
-            "ʏᴏᴜʀ ʟᴀɴɢᴜᴀɢᴇ ᴄʜᴀɴɢᴇᴅ sᴜᴄᴇssғᴜʟʟʏ..", show_alert=True
+            "Your language changed successfully..", show_alert=True
         )
     except:
         return await CallbackQuery.answer(
-            "ғᴀɪʟᴇᴅ ᴛᴏ ᴄʜᴀɴɢᴇ ʟᴀɴɢᴜᴀɢᴇ ᴏʀ ʟᴀɴɢᴜᴀɢᴇ ɪs ɪɴ ᴜɴᴅᴇʀ ᴜᴘᴅᴀᴛᴇ",
+            "Failed to change language or language in under Upadte",
             show_alert=True,
         )
     await set_lang(CallbackQuery.message.chat.id, langauge)

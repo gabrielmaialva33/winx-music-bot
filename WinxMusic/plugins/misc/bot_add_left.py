@@ -1,13 +1,13 @@
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from config import LOG, LOG_GROUP_ID
 from WinxMusic import app
 from WinxMusic.utils.database import delete_served_chat, get_assistant, is_on_off
+from config import LOG, LOG_GROUP_ID
 
 
 @app.on_message(filters.new_chat_members)
-async def join_watcher(_, message):
+async def on_bot_added(_, message: Message):
     try:
         if not await is_on_off(LOG):
             return
@@ -17,15 +17,15 @@ async def join_watcher(_, message):
             if members.id == app.id:
                 count = await app.get_chat_members_count(chat.id)
                 username = (
-                    message.chat.username if message.chat.username else "chat privado"
+                    message.chat.username if message.chat.username else "ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ"
                 )
                 msg = (
-                    f"**Bot de música adicionado em um novo grupo #Novo_Grupo**\n\n"
-                    f"**Nome do chat:** {message.chat.title}\n"
-                    f"**ID do chat:** {message.chat.id}\n"
-                    f"**Nome de usuário do chat:** @{username}\n"
-                    f"**Número de membros do chat:** {count}\n"
-                    f"**Adicionado por:** {message.from_user.mention}"
+                    f"🎉 **Bot de música adicionado em um novo grupo #Novo_Grupo**\n\n"
+                    f"📋 **Nome do Chat:** {message.chat.title}\n"
+                    f"🆔 **ID do Chat:** {message.chat.id}\n"
+                    f"🔗 **Nome de usuário do Chat:** @{username}\n"
+                    f"👥 **Número de Membros do Chat:** {count}\n"
+                    f"👤 **Adicionado por:** {message.from_user.mention}"
                 )
                 await app.send_message(
                     LOG_GROUP_ID,
@@ -34,20 +34,21 @@ async def join_watcher(_, message):
                         [
                             [
                                 InlineKeyboardButton(
-                                    "Adicionado por",
-                                    url=f"tg://openmessage?user_id={message.from_user.id}",
+                                    text=f"Added by: {message.from_user.first_name}",
+                                    user_id=message.from_user.id,
                                 )
                             ]
                         ]
                     ),
                 )
-                await userbot.join_chat(f"{username}")
-    except Exception as e:
-        print(f"Error: {e}")
+                if message.chat.username:
+                    await userbot.join_chat(message.chat.username)
+    except Exception:
+        pass
 
 
 @app.on_message(filters.left_chat_member)
-async def on_left_chat_member(_, message: Message):
+async def on_bot_kicked(_, message: Message):
     try:
         if not await is_on_off(LOG):
             return
@@ -56,23 +57,36 @@ async def on_left_chat_member(_, message: Message):
         left_chat_member = message.left_chat_member
         if left_chat_member and left_chat_member.id == app.id:
             remove_by = (
-                message.from_user.mention
-                if message.from_user
-                else "Usuário Desconhecido"
+                message.from_user.mention if message.from_user else "Usuário Desconhecido"
             )
             title = message.chat.title
             username = (
-                f"@{message.chat.username}" if message.chat.username else "chat privado"
+                f"@{message.chat.username}" if message.chat.username else "Chat Privado"
             )
             chat_id = message.chat.id
             left = (
-                f"✫ <b><u>#Grupo_Saída</u></b> ✫\n"
-                f"Nome do chat: {title}\n"
-                f"ID do chat: {chat_id}\n\n"
-                f"Removido por: {remove_by}"
+                f"🤖 O bot foi removido do grupo {title} #Grupo_Removido\n"
+                f"📋 **Nome do Chat**: {title}\n"
+                f"🆔 **ID do Chat**: {chat_id}\n"
+                f"🔗 **Nome de Usuário do Chat**: {username}\n"
+                f"👤 **Removido Por**: {remove_by}"
             )
-            await app.send_message(LOG_GROUP_ID, text=left)
+
+            await app.send_message(
+                LOG_GROUP_ID,
+                text=left,
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text=f"Removido por: {message.from_user.first_name}",
+                                user_id=message.from_user.id,
+                            )
+                        ]
+                    ]
+                ),
+            )
             await delete_served_chat(chat_id)
             await userbot.leave_chat(chat_id)
     except Exception as e:
-        print(f"Error: {e}")
+        pass

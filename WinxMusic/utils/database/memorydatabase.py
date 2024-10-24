@@ -625,7 +625,7 @@ async def get_vid_bit_name(chat_id: int) -> str:
     return video.get(str(chat_id), "HD_720p")
 
 
-async def get_audio_bitrate(chat_id: int) -> AudioQuality:
+async def get_audio_bitrate(chat_id: int) -> str:
     mode = audio.get(str(chat_id), "MEDIUM")
     return {
         "STUDIO": AudioQuality.STUDIO,
@@ -635,7 +635,7 @@ async def get_audio_bitrate(chat_id: int) -> AudioQuality:
     }.get(mode, AudioQuality.MEDIUM)
 
 
-async def get_video_bitrate(chat_id: int) -> VideoQuality:
+async def get_video_bitrate(chat_id: int) -> str:
     mode = video.get(
         str(chat_id), "SD_480p"
     )  # Ensure chat_id is a string for JSON compatibility

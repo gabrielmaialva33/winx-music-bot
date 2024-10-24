@@ -5,16 +5,16 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 
 import config
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import db
-from WinxMusic.utils import WinxBin, get_channeplayCB, seconds_to_min
+from WinxMusic.utils import Winxbin, get_channeplayCB, seconds_to_min
 from WinxMusic.utils.database import get_cmode, is_active_chat, is_music_playing
 from WinxMusic.utils.decorators.language import language, languageCB
-from WinxMusic.utils.inline import queue_back_markup, queue_markup
+from WinxMusic.utils.inline.queue import queue_back_markup, queue_markup
+from config import BANNED_USERS
+from strings import get_command
 
-### Comandos
+###Commands
 QUEUE_COMMAND = get_command("QUEUE_COMMAND")
 
 basic = {}
@@ -63,7 +63,7 @@ async def ping_com(client, message: Message, _):
     videoid = got[0]["vidid"]
     user = got[0]["by"]
     title = (got[0]["title"]).title()
-    typo = (got[0]["streamtype"]).title()
+    type = (got[0]["streamtype"]).title()
     DUR = get_duration(got)
     if "live_" in file:
         IMAGE = get_image(videoid)
@@ -75,24 +75,26 @@ async def ping_com(client, message: Message, _):
         if videoid == "telegram":
             IMAGE = (
                 config.TELEGRAM_AUDIO_URL
-                if typo == "Audio"
+                if type == "Audio"
                 else config.TELEGRAM_VIDEO_URL
             )
         elif videoid == "soundcloud":
             IMAGE = config.SOUNCLOUD_IMG_URL
+        elif "saavn" in videoid:
+            IMAGE = got[0].get("thumb") or config.TELEGRAM_AUDIO_URL
         else:
             IMAGE = get_image(videoid)
     send = (
-        "**⌛️Duração:** Stream de duração desconhecida \n\nClique no botão abaixo para obter a lista completa na fila."
+        "**⌛️ Duration:** Unknown duration limit\n\nClick on below button to get whole queued list"
         if DUR == "Unknown"
-        else "\nClique no botão abaixo para obter a lista completa na fila."
+        else "\nClick on below button to get whole queued list."
     )
     cap = f"""**{app.mention} Player**
 
-🎥**Reproduzindo:** {title}
+🎥**Playing:** {title}
 
-🔗**Tipo de Stream:** {typo}
-🙍‍♂️**Tocado por:** {user}
+🔗**Stream Type:** {type}
+🙍‍♂️**Played By:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, "c" if cplay else "g", videoid)
@@ -175,22 +177,34 @@ async def queued_tracks(client, CallbackQuery: CallbackQuery, _):
     for x in got:
         j += 1
         if j == 1:
-            msg += f'Em reprodução:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
+            msg += f'Current playing:\n\n🏷Title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
         elif j == 2:
-            msg += f'Na fila:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
+            msg += f'Queued:\n\n🏷Title: {x["title"]}\nDuratiom: {x["dur"]}\nby: {x["by"]}\n\n'
         else:
-            msg += f'🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
-    # Se a mensagem for menor que 700 caracteres, envia diretamente
-    if len(msg) < 700:
-        await asyncio.sleep(1)
-        return await CallbackQuery.edit_message_text(msg, reply_markup=buttons)
-    else:
-        # Se a mensagem for muito longa, envia através do WinxBin
-        link = await WinxBin(msg)
-        await asyncio.sleep(1)
-        return await CallbackQuery.edit_message_text(
+            msg += f'🏷Title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
+    if "Queued" in msg:
+        if len(msg) < 700:
+            await asyncio.sleep(1)
+            return await CallbackQuery.edit_message_text(msg, reply_markup=buttons)
+
+        if "🏷" in msg:
+            msg = msg.replace("🏷", "")
+        link = await Winxbin(msg)
+        await CallbackQuery.edit_message_text(
             _["queue_3"].format(link), reply_markup=buttons
         )
+    else:
+        if len(msg) > 700:
+            if "🏷" in msg:
+                msg = msg.replace("🏷", "")
+            link = await Winxbin(msg)
+            await asyncio.sleep(1)
+            return await CallbackQuery.edit_message_text(
+                _["queue_3"].format(link), reply_markup=buttons
+            )
+
+        await asyncio.sleep(1)
+        return await CallbackQuery.edit_message_text(msg, reply_markup=buttons)
 
 
 @app.on_callback_query(filters.regex("queue_back_timer") & ~BANNED_USERS)
@@ -212,7 +226,7 @@ async def queue_back(client, CallbackQuery: CallbackQuery, _):
     videoid = got[0]["vidid"]
     user = got[0]["by"]
     title = (got[0]["title"]).title()
-    typo = (got[0]["streamtype"]).title()
+    type = (got[0]["streamtype"]).title()
     DUR = get_duration(got)
     if "live_" in file:
         IMAGE = get_image(videoid)
@@ -224,24 +238,26 @@ async def queue_back(client, CallbackQuery: CallbackQuery, _):
         if videoid == "telegram":
             IMAGE = (
                 config.TELEGRAM_AUDIO_URL
-                if typo == "Audio"
+                if type == "Audio"
                 else config.TELEGRAM_VIDEO_URL
             )
         elif videoid == "soundcloud":
             IMAGE = config.SOUNCLOUD_IMG_URL
+        elif "saavn" in videoid:
+            IMAGE = got[0].get("thumb") or config.TELEGRAM_AUDIO_URL
         else:
             IMAGE = get_image(videoid)
     send = (
-        "**⌛️Duração:** Stream de duração desconhecida \n\nClique no botão abaixo para obter a lista completa na fila."
+        "**⌛️ Duration:** Unknown duration limit\n\nClick on below button to get whole queued list"
         if DUR == "Unknown"
-        else "\nClique no botão abaixo para obter a lista completa na fila."
+        else "\nClick on below button to get whole queued list."
     )
     cap = f"""**{app.mention} Player**
 
-🎥**Reproduzindo:** {title}
+🎥**Playing:** {title}
 
-🔗**Tipo de Stream:** {typo}
-🙍‍♂️**Tocado por:** {user}
+🔗**Stream Type:** {type}
+🙍‍♂️**Played By:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, cplay, videoid)

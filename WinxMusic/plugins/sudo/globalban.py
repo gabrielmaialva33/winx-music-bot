@@ -1,11 +1,10 @@
 import asyncio
 
-from pyrogram import Client, filters
+from httpx import Client
+from pyrogram import filters
 from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils import get_readable_time
@@ -18,6 +17,8 @@ from WinxMusic.utils.database import (
     remove_banned_user,
 )
 from WinxMusic.utils.decorators.language import language
+from config import BANNED_USERS
+from strings import get_command
 
 GBAN_COMMAND = get_command("GBAN_COMMAND")
 UNGBAN_COMMAND = get_command("UNGBAN_COMMAND")
@@ -71,7 +72,7 @@ async def gbanuser(_client: Client, message: Message, _):
 
 @app.on_message(filters.command(UNGBAN_COMMAND) & SUDOERS)
 @language
-async def gungabn(client, message: Message, _):
+async def gungabn(_client: Client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])
@@ -110,7 +111,7 @@ async def gungabn(client, message: Message, _):
 
 @app.on_message(filters.command(GBANNED_COMMAND) & SUDOERS)
 @language
-async def gbanned_list(client, message: Message, _):
+async def gbanned_list(_client: Client, message: Message, _):
     counts = await get_banned_count()
     if counts == 0:
         return await message.reply_text(_["gban_10"])

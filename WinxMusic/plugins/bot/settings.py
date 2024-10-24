@@ -1,4 +1,4 @@
-from pyrogram import Client, filters
+from pyrogram import filters, Client
 from pyrogram.enums import ChatType
 from pyrogram.errors import MessageNotModified
 from pyrogram.types import (
@@ -8,8 +8,6 @@ from pyrogram.types import (
     Message,
 )
 
-from config import BANNED_USERS, CLEANMODE_DELETE_MINS, OWNER_ID
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.utils.database import (
     add_nonadmin_chat,
@@ -43,6 +41,8 @@ from WinxMusic.utils.inline.settings import (
     video_quality_markup,
 )
 from WinxMusic.utils.inline.start import private_panel
+from config import BANNED_USERS, CLEANMODE_DELETE_MINS, OWNER_ID
+from strings import get_command
 
 SETTINGS_COMMAND = get_command("SETTINGS_COMMAND")
 
@@ -85,10 +85,10 @@ async def settings_back_markup(_client: Client, callback_query: CallbackQuery, _
     if callback_query.message.chat.type == ChatType.PRIVATE:
         try:
             await app.resolve_peer(OWNER_ID[0])
-            OWNER = OWNER_ID[0]
+            owner = OWNER_ID[0]
         except:
-            OWNER = None
-        buttons = private_panel(_, app.username, OWNER)
+            owner = None
+        buttons = private_panel(_, app.username, owner)
         try:
             await callback_query.edit_message_text(
                 _["start_1"].format(app.mention),
@@ -106,7 +106,7 @@ async def settings_back_markup(_client: Client, callback_query: CallbackQuery, _
             pass
 
 
-## Qualidade de Áudio e Vídeo
+## Audio and Video Quality
 async def gen_buttons_aud(_, aud: str):
     if aud == "STUDIO":
         buttons = audio_quality_markup(_, STUDIO=True)
@@ -119,7 +119,7 @@ async def gen_buttons_aud(_, aud: str):
     return buttons
 
 
-async def gen_buttons_vid(_, aud):
+async def gen_buttons_vid(_, aud: str):
     if aud == "UHD_4K":
         buttons = video_quality_markup(_, UHD_4K=True)
     elif aud == "QHD_2K":
@@ -135,7 +135,7 @@ async def gen_buttons_vid(_, aud):
     return buttons
 
 
-# Sem direitos de administrador
+# without admin rights
 
 
 @app.on_callback_query(
@@ -145,7 +145,7 @@ async def gen_buttons_vid(_, aud):
     & ~BANNED_USERS
 )
 @languageCB
-async def without_admin_rights(_client: Client, callback_query: CallbackQuery, _):
+async def without_Admin_rights(_client: Client, callback_query: CallbackQuery, _):
     command = callback_query.matches[0].group(1)
     if command == "SEARCHANSWER":
         try:
@@ -246,7 +246,7 @@ async def without_admin_rights(_client: Client, callback_query: CallbackQuery, _
         return
 
 
-# Qualidade de Áudio e Vídeo
+# Audio Video Quality
 
 
 @app.on_callback_query(
@@ -343,7 +343,7 @@ async def cleanmode_mark(_client: Client, callback_query: CallbackQuery, _):
         return
 
 
-# Configurações do Modo de Reprodução
+# Play Mode Settings
 @app.on_callback_query(
     filters.regex(pattern=r"^(|MODECHANGE|CHANNELMODECHANGE|PLAYTYPECHANGE)$")
     & ~BANNED_USERS
@@ -424,7 +424,7 @@ async def playmode_ans(_client: Client, callback_query: CallbackQuery, _):
         return
 
 
-# Configurações de Usuários Autorizados
+# Auth Users Settings
 @app.on_callback_query(filters.regex(pattern=r"^(AUTH|AUTHLIST)$") & ~BANNED_USERS)
 @ActualAdminCB
 async def authusers_mar(client: Client, callback_query: CallbackQuery, _):
@@ -494,20 +494,22 @@ async def authusers_mar(client: Client, callback_query: CallbackQuery, _):
         return
 
 
-"""✅<u>Configurações de Grupo:</u>
-/settings - Obtenha as configurações completas do grupo com botões inline
+"""✅<u>Configurações do Grupo:</u>
+/settings - Obtenha as configurações completas do grupo com botões inline.
 
-🔗 <u>Opções em Configurações:</u>
+🔗 <u>Opções nas Configurações:</u>
 
-1 Você pode definir a Qualidade de Áudio
-2 Você pode definir a Qualidade de Vídeo
-3 **Usuários Autorizados**: Você pode alterar o modo de comandos de administrador aqui para todos ou apenas administradores.
-4 **Modo Limpo:** o bot exclui as mensagens do bot após 5 minutos do seu grupo para garantir que seu chat permaneça limpo e organizado.
-5 **Limpar Comandos**: Quando ativado, o bot excluirá seus comandos executados imediatamente.
-    <b><u>Configurações de Reprodução:</u></b>
-/playmode - Obtenha um painel completo de configurações de reprodução com botões onde você pode definir as configurações de reprodução do seu grupo.
-   <b><u>Opções no Modo de Reprodução:</u></b>
-1 **Modo de Pesquisa** [Direto ou Inline] - Altera seu modo de pesquisa quando você usa /playmode
-2 **Comandos de Administrador** [Todos ou Administradores] - Se 'todos', qualquer pessoa no seu grupo poderá usar comandos de administrador (como /skip, /stop etc)
-3 **Tipo de Reprodução** [Todos ou Administradores] - Se 'administradores', apenas administradores do grupo podem reproduzir música no chat de voz.
+1. Você pode definir a Qualidade de Áudio.
+2. Você pode definir a Qualidade de Vídeo.
+3. **Usuários Autorizados**: Você pode alterar o modo dos comandos de admin para "todos" ou "somente admins".
+4. **Modo Limpo**: O bot apaga as mensagens após 5 minutos no grupo para manter o chat limpo e organizado.
+5. **Comando Limpo**: Quando ativado, o bot excluirá os comandos executados imediatamente.
+
+<b><u>Configurações de Reprodução:</u></b>
+/playmode - Obtenha o painel completo de configurações de reprodução com botões, onde você pode ajustar as configurações de reprodução do grupo.
+
+<b><u>Opções no Playmode:</u></b>
+1. **Modo de Busca** [Direto ou Inline] - Altera o modo de busca ao usar o comando /playmode.
+2. **Comandos de Admin** [Todos ou Admins] - Se "todos", qualquer pessoa do grupo poderá usar comandos de admin (como /skip, /stop, etc).
+3. **Tipo de Reprodução** [Todos ou Admins] - Se "admins", apenas os administradores do grupo poderão tocar músicas no chat de voz.
 """

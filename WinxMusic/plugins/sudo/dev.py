@@ -7,27 +7,30 @@ from inspect import getfullargspec
 from io import StringIO
 from time import time
 
-from pyrogram import Client, filters
+from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
-from WinxMusic.utils.cleanmode import protect_message
+from strings import get_command
 
 
-async def aexec(code: str, client: Client, message: Message):
+async def aexec(code, client, message):
+    local_vars = {}
     exec(
         "async def __aexec(client, message): "
-        + "".join(f"\n {a}" for a in code.split("\n"))
+        + "".join(f"\n {a}" for a in code.split("\n")),
+        globals(),
+        local_vars
     )
-    return await locals()["__aexec"](client, message)
+    __aexec_func = local_vars["__aexec"]
+    return await __aexec_func(client, message)
 
 
-async def edit_or_reply(msg: Message, **kwargs: dict):
+async def edit_or_reply(msg: Message, **kwargs):
     func = msg.edit_text if msg.from_user.is_self else msg.reply
     spec = getfullargspec(func.__wrapped__).args
     await func(**{k: v for k, v in kwargs.items() if k in spec})
-    await protect_message(msg.chat.id, msg.id)
 
 
 @app.on_edited_message(
@@ -36,11 +39,9 @@ async def edit_or_reply(msg: Message, **kwargs: dict):
 @app.on_message(
     filters.command(["ev", "eval"]) & SUDOERS & ~filters.forwarded & ~filters.via_bot
 )
-async def executor(client: Client, message: Message):
+async def executor(client: app, message: Message):
     if len(message.command) < 2:
-        return await edit_or_reply(
-            message, text="<b>O que você quer executar, querido?</b>"
-        )
+        return await edit_or_reply(message, text="<b>Give me something to exceute</b>")
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
@@ -68,7 +69,7 @@ async def executor(client: Client, message: Message):
         evaluation += stdout
     else:
         evaluation += "Success"
-    final_output = f"<b>⥤ Resultado:</b>\n<pre language='python'>{evaluation}</pre>"
+    final_output = f"<b>RESULTS:</b>\n<pre language='python'>{evaluation}</pre>"
     if len(final_output) > 4096:
         filename = "output.txt"
         with open(filename, "w+", encoding="utf8") as out_file:
@@ -86,7 +87,7 @@ async def executor(client: Client, message: Message):
         )
         await message.reply_document(
             document=filename,
-            caption=f"<b>⥤ Avaliação:</b>\n<code>{cmd[0:980]}</code>\n\n<b>⥤ Resultado:</b>\nDocumento anexado",
+            caption=f"<b>EVAL :</b>\n<code>{cmd[0:980]}</code>\n\n<b>Results:</b>\nAttached Document",
             quote=False,
             reply_markup=keyboard,
         )
@@ -125,8 +126,7 @@ async def forceclose_command(_, CallbackQuery):
     if CallbackQuery.from_user.id != int(user_id):
         try:
             return await CallbackQuery.answer(
-                "» Será melhor se você ficar nos seus limites, querido.",
-                show_alert=True,
+                "This is not for you stay away from here", show_alert=True
             )
         except:
             return
@@ -143,7 +143,9 @@ async def forceclose_command(_, CallbackQuery):
 @app.on_message(filters.command("sh") & SUDOERS & ~filters.forwarded & ~filters.via_bot)
 async def shellrunner(_, message: Message):
     if len(message.command) < 2:
-        return await edit_or_reply(message, text="<b>Exemplo :</b>\n/sh git pull")
+        return await edit_or_reply(
+            message, text="<b>Give some commamds like:</b>\n/sh git pull"
+        )
     text = message.text.split(None, 1)[1]
     if "\n" in text:
         code = text.split("\n")
@@ -157,7 +159,7 @@ async def shellrunner(_, message: Message):
                     stderr=subprocess.PIPE,
                 )
             except Exception as err:
-                await edit_or_reply(message, text=f"<b>ERRO :</b>\n<pre>{err}</pre>")
+                await edit_or_reply(message, text=f"<b>ERROR :</b>\n<pre>{err}</pre>")
             output += f"<b>{code}</b>\n"
             output += process.stdout.read()[:-1].decode("utf-8")
             output += "\n"
@@ -180,7 +182,7 @@ async def shellrunner(_, message: Message):
                 tb=exc_tb,
             )
             return await edit_or_reply(
-                message, text=f"<b>ERRO :</b>\n<pre>{''.join(errors)}</pre>"
+                message, text=f"<b>ERROR :</b>\n<pre>{''.join(errors)}</pre>"
             )
         output = process.stdout.read()[:-1].decode("utf-8")
     if str(output) == "\n":
@@ -193,37 +195,44 @@ async def shellrunner(_, message: Message):
                 message.chat.id,
                 "output.txt",
                 reply_to_message_id=message.id,
-                caption="<code>Saída</code>",
+                caption="<code>Output</code>",
             )
             return os.remove("output.txt")
-        await edit_or_reply(message, text=f"<b>SAÍDA :</b>\n<pre>{output}</pre>")
+        await edit_or_reply(message, text=f"<b>OUTPUT :</b>\n<pre>{output}</pre>")
     else:
-        await edit_or_reply(message, text="<b>SAÍDA :</b>\n<code>Nenhum</code>")
+        await edit_or_reply(message, text="<b>OUTPUT :</b>\n<code>None</code>")
 
     await message.stop_propagation()
 
 
+def command(cmd: str):
+    cmds = " ".join([f"/{c}" for c in get_command(cmd)])
+    return cmds
+
+
 __MODULE__ = "Dev"
-__HELP__ = """
-🔰<b><u>Adicionar e Remover Usuários Sudo:</u></b>
+__HELP__ = f"""
+<b><u>Adicionar e remover sudoers:</u></b>
 
-★ <b>/addsudo [Nome de usuário ou Responder a um usuário]</b>
-★ <b>/delsudo [Nome de usuário ou Responder a um usuário]</b>
+<b>{command("ADDSUDO_COMMAND")} [Nome de usuário ou responder a um usuário] - Adicionar sudo ao seu bot</b>
+<b>{command("DELSUDO_COMMAND")} [Nome de usuário, ID do usuário ou responder a um usuário] - Remover dos sudoers do bot</b>
+<b>{command("SUDOUSERS_COMMAND")} - Obter uma lista de todos os sudoers</b>
 
-🛃<b><u>Heroku:</u></b>
+<b><u>Heroku:</u></b>
 
-★ <b>/usage</b> - Uso de Dyno.
-★ <b>/get_var</b> - Obter uma variável de configuração do Heroku ou .env
-★ <b>/del_var</b> - Deletar qualquer variável no Heroku ou .env.
-★ <b>/set_var [Nome da Variável] [Valor]</b> - Definir ou atualizar uma variável no Heroku ou .env. Separe o nome da variável e seu valor com um espaço.
+<b>{command("USAGE_COMMAND")}</b> - Uso de Dyno
+<b>{command("GETVAR_COMMAND")} [Nome da Variável]</b> - Obter uma variável de configuração
+<b>{command("DELVAR_COMMAND")} [Nome da Variável]</b> - Excluir uma variável de configuração
+<b>{command("SETVAR_COMMAND")} [Nome da Variável] [Valor]</b> - Adicionar ou atualizar uma variável. Separe a variável e seu valor com um espaço
 
-🤖<b><u>Comandos do Bot:</u></b>
+<b><u>Comandos do Bot:</u></b>
 
-★ <b>/restart</b> - Reiniciar seu Bot.
-★ <b>/update , /gitpull</b> - Atualizar o Bot.
-★ <b>/speedtest</b> - Verificar a velocidade do servidor
-★ <b>/maintenance [habilitar / desabilitar]</b>
-★ <b>/logger [habilitar / desabilitar]</b> - O Bot registra as consultas pesquisadas no grupo de registro.
-★ <b>/get_log [Número de Linhas]</b> - Obter o log do seu bot do Heroku ou VPS. Funciona para ambos.
-★ <b>/autoend [habilitar|desabilitar]</b> - Habilitar encerramento automático da reprodução após 3 minutos se ninguém estiver ouvindo.
+<b>{command("RESTART_COMMAND")}</b> - Reiniciar o bot (apenas SUDOERS)
+<b>{command("UPDATE_COMMAND")}</b> - Atualizar o bot
+<b>{command("SPEEDTEST_COMMAND")}</b> - Verificar a velocidade do servidor
+<b>{command("MAINTENANCE_COMMAND")} [ativar / desativar]</b> - Ativar ou desativar o modo de manutenção do bot
+<b>{command("LOGGER_COMMAND")} [ativar / desativar]</b> - Ativar ou desativar o registro de consultas pesquisadas no grupo de logs
+<b>{command("GETLOG_COMMAND")} [Número de linhas]</b> - Obter logs do servidor
+<b>{command("AUTOEND_COMMAND")} [ativar / desativar]</b> - Encerrar automaticamente a transmissão após 30 segundos se ninguém estiver ouvindo músicas
 """
+

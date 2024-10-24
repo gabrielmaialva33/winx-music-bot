@@ -1,18 +1,10 @@
 import asyncio
-import logging
 
-from httpx import Client
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.enums import ChatMemberStatus
-from pyrogram.errors import (
-    ChatAdminRequired,
-    InviteRequestSent,
-    UserAlreadyParticipant,
-    UserNotParticipant,
-)
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup
+from pyrogram.errors import ChatAdminRequired, UserNotParticipant
+from pyrogram.types import InlineKeyboardMarkup, CallbackQuery
 
-from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import (
     get_assistant,
@@ -20,13 +12,15 @@ from WinxMusic.utils.database import (
     get_particulars,
     get_userss,
 )
-from WinxMusic.utils.decorators.language import languageCB
+from WinxMusic.utils.decorators import languageCB
+from WinxMusic.utils.decorators.play import join_chat
 from WinxMusic.utils.inline.playlist import (
     botplaylist_markup,
     failed_top_markup,
     top_play_markup,
 )
 from WinxMusic.utils.stream.stream import stream
+from config import BANNED_USERS
 
 loop = asyncio.get_running_loop()
 
@@ -59,94 +53,27 @@ async def get_topz_playlists(_client: Client, callback_query: CallbackQuery, _):
 
 @app.on_callback_query(filters.regex("SERVERTOP") & ~BANNED_USERS)
 @languageCB
-async def server_to_play(client: Client, callback_query: CallbackQuery, _):
+async def server_to_play(_client: Client, callback_query: CallbackQuery, _):
+    message = callback_query.message
     userbot = await get_assistant(callback_query.message.chat.id)
     try:
         try:
             get = await app.get_chat_member(callback_query.message.chat.id, userbot.id)
         except ChatAdminRequired:
-            return await callback_query.answer(
-                f"» Eu não tenho permissão para convidar usuários via link para {callback_query.message.chat.title}.",
+            return await myu.edit(
+                _["call_1"],
                 show_alert=True,
             )
         if get.status == ChatMemberStatus.BANNED:
-            return await callback_query.answer(
-                text=f"» O assistente está banido em {callback_query.message.chat.title}",
-                show_alert=True,
-            )
+            try:
+                await app.unban_chat_member(chat_id, userbot.id)
+            except:
+                return await myu.edit(
+                    text=_["call_2"].format(userbot.username, userbot.id),
+                )
     except UserNotParticipant:
-        if callback_query.message.chat.username:
-            invitelink = callback_query.message.chat.username
-            try:
-                await userbot.resolve_peer(invitelink)
-            except Exception as ex:
-                logging.exception(ex)
-        else:
-            try:
-                invitelink = await client.export_chat_invite_link(
-                    callback_query.message.chat.id
-                )
-            except ChatAdminRequired:
-                return await callback_query.answer(
-                    f"» Eu não tenho permissão para convidar usuários via link para convidar o assistente para {callback_query.message.chat.title}.",
-                    show_alert=True,
-                )
-            except InviteRequestSent:
-                try:
-                    await app.approve_chat_join_request(
-                        callback_query.message.chat.id, userbot.id
-                    )
-                except Exception as e:
-                    return await callback_query.message.reply_text(
-                        f"Falha ao convidar o assistente para {callback_query.message.chat.title}\nRazão: {e}"
-                    )
-            except Exception as ex:
-                if "channels.JoinChannel" in str(ex) or "Username not found" in str(ex):
-                    return await callback_query.answer(
-                        f"» Eu não tenho permissão para convidar usuários via link para convidar o assistente para {callback_query.message.chat.title}.",
-                        show_alert=True,
-                    )
-                else:
-                    return await callback_query.message.reply_text(
-                        f"Falha ao convidar o assistente para {callback_query.message.chat.title}.\n\n**Razão:** `{ex}`"
-                    )
-        if invitelink.startswith("https://t.me/+"):
-            invitelink = invitelink.replace("https://t.me/+", "https://t.me/joinchat/")
-        try:
-            await userbot.join_chat(invitelink)
-            await asyncio.sleep(2)
-        except UserAlreadyParticipant:
-            pass
-        except InviteRequestSent:
-            try:
-                await app.approve_chat_join_request(
-                    callback_query.message.chat.id, userbot.id
-                )
-            except Exception as e:
-                if "messages.HideChatJoinRequest" in str(e):
-                    return await callback_query.answer(
-                        f"» Eu não tenho permissão para convidar usuários via link para convidar o assistente para {callback_query.message.chat.title}.",
-                        show_alert=True,
-                    )
-                else:
-                    return await callback_query.message.reply_text(
-                        f"Falha ao convidar o assistente para {callback_query.message.chat.title}.\n\nRazão: {e}"
-                    )
-        except Exception as ex:
-            if "channels.JoinChannel" in str(ex) or "Username not found" in str(ex):
-                return await callback_query.answer(
-                    f"» Eu não tenho permissão para convidar usuários via link para convidar o assistente para {callback_query.message.chat.title}.",
-                    show_alert=True,
-                )
-            else:
-                return await callback_query.message.reply_text(
-                    f"Falha ao convidar o assistente para {callback_query.message.chat.title}.\n\nRazão: {ex}"
-                )
-
-        try:
-            await userbot.resolve_peer(invitelink)
-        except:
-            pass
+        myu = await message.reply_text("❣️")
+        await join_chat(message, message.chat.id, _, myu)
 
     chat_id = callback_query.message.chat.id
     user_name = callback_query.from_user.first_name

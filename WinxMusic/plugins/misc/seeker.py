@@ -1,11 +1,9 @@
 import asyncio
 import time
+from datetime import datetime, timedelta
 
 from pyrogram.types import InlineKeyboardMarkup
 
-from config import MUTE_WARNING_TIME
-from strings import get_string
-from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (
@@ -17,17 +15,12 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.formatters import seconds_to_min
 from WinxMusic.utils.inline import stream_markup_timer, telegram_markup_timer
-
+from strings import get_string
+from .autoleave import autoend
 from ..admins.callback import wrong
 
-autoend = {}
 checker = {}
-mute_warnings = {}
-
-if MUTE_WARNING_TIME < 60:
-    t = f"{MUTE_WARNING_TIME} seconds"
-else:
-    t = time.strftime("%M:%S minutes", time.gmtime(MUTE_WARNING_TIME))
+muted = {}
 
 
 async def timer():
@@ -48,24 +41,27 @@ async def timer():
             db[chat_id][0]["played"] += 1
 
 
-asyncio.create_task(timer())
-
-
-async def process_mute_warnings():
+async def leave_if_muted():
     while True:
         await asyncio.sleep(2)
-        for chat_id, details in list(mute_warnings.items()):
-            if time.time() - details["timestamp"] >= MUTE_WARNING_TIME:
+        for chat_id, details in list(muted.items()):
+            if time.time() - details["timestamp"] >= 60:
                 _ = details["_"]
                 try:
                     userbot = await get_assistant(chat_id)
                     members = []
-                    async for member in userbot.get_call_members(chat_id):
-                        if member is None:
-                            continue
-                        members.append(member)
+                    try:
+                        async for member in userbot.get_call_members(chat_id):
+                            if member is None:
+                                continue
+                            members.append(member)
+                    except ValueError:
+                        try:
+                            await Winx.stop_stream(chat_id)
+                        except Exception:
+                            pass
+                        continue
 
-                    autoend[chat_id] = len(members)
                     m = next((m for m in members if m.chat.id == userbot.id), None)
                     if m is None:
                         continue
@@ -74,100 +70,114 @@ async def process_mute_warnings():
                     if is_muted:
                         await Winx.stop_stream(chat_id)
                         await set_loop(chat_id, 0)
-                        await app.send_message(chat_id, _["admin_35"].format(t))
 
-                    mute_warnings.pop(chat_id, None)
+                    del muted[chat_id]
                 except:
-                    mute_warnings.pop(chat_id, None)
+                    del muted[chat_id]
 
 
 async def markup_timer():
-    while not await asyncio.sleep(2):
+    while True:
+        await asyncio.sleep(2)
         active_chats = await get_active_chats()
         for chat_id in active_chats:
-            if chat_id in mute_warnings:
+            if not await is_music_playing(chat_id):
                 continue
 
-            try:
-                if not await is_music_playing(chat_id):
-                    continue
-                playing = db.get(chat_id)
-                if not playing:
-                    continue
-                duration_seconds = int(playing[0]["seconds"])
-                if duration_seconds == 0:
-                    continue
-                try:
-                    mystic = playing[0]["mystic"]
-                    markup = playing[0]["markup"]
-                except:
-                    continue
-                try:
-                    check = wrong[chat_id][mystic.message_id]
-                    if check is False:
-                        continue
-                except:
-                    pass
-                try:
-                    language = await get_lang(chat_id)
-                    _ = get_string(language)
-                except:
-                    _ = get_string("pt")
+            playing = db.get(chat_id)
+            if not playing:
+                continue
 
+            duration_seconds = int(playing[0]["seconds"])
+
+            try:
+                language = await get_lang(chat_id)
+                _ = get_string(language)
+            except:
+                _ = get_string("pt")
+
+            is_muted = False
+            try:
+                userbot = await get_assistant(chat_id)
+                members = []
                 try:
-                    userbot = await get_assistant(chat_id)
-                    members = []
                     async for member in userbot.get_call_members(chat_id):
                         if member is None:
                             continue
                         members.append(member)
-
-                    if not members:
+                except ValueError:
+                    try:
                         await Winx.stop_stream(chat_id)
-                        await set_loop(chat_id, 0)
-                        continue
+                    except Exception:
+                        pass
+                    continue
 
-                    autoend[chat_id] = len(members)
-                    m = next((m for m in members if m.chat.id == userbot.id), None)
-                    if m is None:
-                        continue
-                    is_muted = bool(m.is_muted and not m.can_self_unmute)
+                if not members:
+                    await Winx.stop_stream(chat_id)
+                    await set_loop(chat_id, 0)
+                    continue
 
-                    if is_muted:
-                        mute_warnings[chat_id] = {
+                if len(members) <= 1 and chat_id not in autoend:
+                    autoend[chat_id] = datetime.now() + timedelta(seconds=30)
+
+                m = next((m for m in members if m.chat.id == userbot.id), None)
+                if m is None:
+                    continue
+
+                is_muted = bool(m.is_muted and not m.can_self_unmute)
+                if is_muted:
+
+                    if chat_id not in muted:
+                        muted[chat_id] = {
                             "timestamp": time.time(),
                             "_": _,
                         }
 
-                except:
-                    continue
+            except Exception:
+                pass
 
-                try:
-                    buttons = (
-                        stream_markup_timer(
-                            _,
-                            playing[0]["vidid"],
-                            chat_id,
-                            seconds_to_min(playing[0]["played"]),
-                            playing[0]["dur"],
-                        )
-                        if markup == "stream"
-                        else telegram_markup_timer(
-                            _,
-                            chat_id,
-                            seconds_to_min(playing[0]["played"]),
-                            playing[0]["dur"],
-                        )
-                    )
-                    await mystic.edit_reply_markup(
-                        reply_markup=InlineKeyboardMarkup(buttons)
-                    )
-                except:
-                    continue
+            if duration_seconds == 0:
+                continue
 
+            try:
+                mystic = playing[0]["mystic"]
+                markup = playing[0]["markup"]
             except:
                 continue
 
+            try:
+                check = wrong[chat_id][mystic.id]
+                if check is False:
+                    continue
+            except:
+                pass
 
-asyncio.create_task(markup_timer())
-asyncio.create_task(process_mute_warnings())
+            try:
+                buttons = (
+                    stream_markup_timer(
+                        _,
+                        playing[0]["vidid"],
+                        chat_id,
+                        seconds_to_min(playing[0]["played"]),
+                        playing[0]["dur"],
+                    )
+                    if markup == "stream"
+                    else telegram_markup_timer(
+                        _,
+                        chat_id,
+                        seconds_to_min(playing[0]["played"]),
+                        playing[0]["dur"],
+                    )
+                )
+
+                await mystic.edit_reply_markup(
+                    reply_markup=InlineKeyboardMarkup(buttons)
+                )
+
+            except Exception:
+                continue
+
+
+asyncio.create_task(timer(), name="timer")
+asyncio.create_task(markup_timer(), name="markup_timer")
+asyncio.create_task(leave_if_muted(), name="leave_if_muted")

@@ -118,7 +118,7 @@ API_HASH = $api_hash
 BOT_TOKEN = $bot_token
 MONGO_DB_URI = $mongo_db
 LOG_GROUP_ID = $logger
-STRING_SESSION = $string_session
+STRING_SESSIONS = $string_session
 OWNER_ID = $ownid""" > .env
 clear
 

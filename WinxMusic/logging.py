@@ -3,12 +3,6 @@ from logging.handlers import RotatingFileHandler
 
 from config import LOG_FILE_NAME
 
-
-class SuppressBSONFilter(logging.Filter):
-    def filter(self, record):
-        return "bson.errors.InvalidDocument" not in record.getMessage()
-
-
 logging.basicConfig(
     level=logging.INFO,
     format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
@@ -18,9 +12,6 @@ logging.basicConfig(
         logging.StreamHandler(),
     ],
 )
-
-logger = logging.getLogger()
-logger.addFilter(SuppressBSONFilter())
 
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("pytgcalls").setLevel(logging.ERROR)

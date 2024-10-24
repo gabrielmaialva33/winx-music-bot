@@ -1,7 +1,6 @@
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
-from strings import get_command, get_string
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (
@@ -10,13 +9,13 @@ from WinxMusic.utils.database import (
     maintenance_off,
     maintenance_on,
 )
+from strings import get_command, get_string
 
-# Commands
 MAINTENANCE_COMMAND = get_command("MAINTENANCE_COMMAND")
 
 
 @app.on_message(filters.command(MAINTENANCE_COMMAND) & SUDOERS)
-async def maintenance(client, message: Message):
+async def maintenance(_client: Client, message: Message):
     try:
         language = await get_lang(message.chat.id)
         _ = get_string(language)
@@ -30,7 +29,7 @@ async def maintenance(client, message: Message):
     state = state.lower()
     if state == "enable":
         if await is_maintenance() is False:
-            await message.reply_text("ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ ᴍᴏᴅᴇ ɪs ᴀʟʀᴇᴀᴅʏ ᴇɴᴀʙʟᴇᴅ")
+            await message.reply_text(_["maint_6"])
         else:
             await maintenance_on()
             await message.reply_text(_["maint_2"])
@@ -39,6 +38,6 @@ async def maintenance(client, message: Message):
             await maintenance_off()
             await message.reply_text(_["maint_3"])
         else:
-            await message.reply_text("ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ ᴍᴏᴅᴇ ɪs ᴀʟʀᴇᴀᴅʏ ᴅɪsᴀʙʟᴇᴅ")
+            await message.reply_text(_["maint_5"])
     else:
         await message.reply_text(usage)

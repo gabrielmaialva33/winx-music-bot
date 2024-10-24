@@ -1,4 +1,4 @@
-FROM nikolaik/python-nodejs:python3.12-nodejs19
+FROM nikolaik/python-nodejs:python3.13-nodejs18
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ffmpeg \
@@ -7,7 +7,7 @@ RUN apt-get update \
 
 COPY . /app/
 WORKDIR /app/
-RUN python3 -m pip install --upgrade pip setuptools
-RUN pip3 install --no-cache-dir --upgrade --requirement requirements.txt
+RUN pip3 install --no-cache-dir --upgrade pip setuptools \
+ && pip3 install --no-cache-dir -U -r requirements.txt
 
 CMD python3 -m WinxMusic

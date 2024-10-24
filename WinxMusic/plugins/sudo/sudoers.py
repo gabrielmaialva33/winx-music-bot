@@ -1,14 +1,13 @@
-from pyrogram import Client, filters
+from pyrogram import filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS, MONGO_DB_URI, OWNER_ID
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import add_sudo, remove_sudo
 from WinxMusic.utils.decorators.language import language
+from config import BANNED_USERS, MONGO_DB_URI, OWNER_ID
+from strings import get_command
 
-# Command
 ADDSUDO_COMMAND = get_command("ADDSUDO_COMMAND")
 DELSUDO_COMMAND = get_command("DELSUDO_COMMAND")
 SUDOUSERS_COMMAND = get_command("SUDOUSERS_COMMAND")
@@ -16,10 +15,10 @@ SUDOUSERS_COMMAND = get_command("SUDOUSERS_COMMAND")
 
 @app.on_message(filters.command(ADDSUDO_COMMAND) & filters.user(OWNER_ID))
 @language
-async def useradd(_client: Client, message: Message, _):
+async def useradd(client, message: Message, _):
     if MONGO_DB_URI is None:
         return await message.reply_text(
-            "**Dᴜᴇ ᴛᴏ ʙᴏᴛ's ᴘʀɪᴠᴀᴄʏ ɪssᴜᴇs, Yᴏᴜ ᴄᴀɴ'ᴛ ᴍᴀɴᴀɢᴇ sᴜᴅᴏ ᴜsᴇʀs ᴡʜᴇɴ ʏᴏᴜ'ʀᴇ ᴜsɪɴɢ Yᴜᴋᴋɪ's Dᴀᴛᴀʙᴀsᴇ.\n\n Pʟᴇᴀsᴇ ғɪʟʟ ʏᴏᴜʀ MONGO_DB_URI ɪɴ ʏᴏᴜʀ ᴠᴀʀs ᴛᴏ ᴜsᴇ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ**"
+            "**Devido a questões de privacidade, você não pode gerenciar sudoers quando está no banco de dados Winx.\n\n Por favor, preencha o seu MONGO_DB_URI nas variáveis para usar este recurso.**"
         )
     if not message.reply_to_message:
         if len(message.command) != 2:
@@ -35,7 +34,7 @@ async def useradd(_client: Client, message: Message, _):
             SUDOERS.add(user.id)
             await message.reply_text(_["sudo_2"].format(user.mention))
         else:
-            await message.reply_text("ғᴀɪʟᴇᴅ")
+            await message.reply_text("⚠️ Algo deu errado")
         return
     if message.reply_to_message.from_user.id in SUDOERS:
         return await message.reply_text(
@@ -48,16 +47,16 @@ async def useradd(_client: Client, message: Message, _):
             _["sudo_2"].format(message.reply_to_message.from_user.mention)
         )
     else:
-        await message.reply_text("ғᴀɪʟᴇᴅ")
+        await message.reply_text("⚠️ Algo deu errado")
     return
 
 
 @app.on_message(filters.command(DELSUDO_COMMAND) & filters.user(OWNER_ID))
 @language
-async def userdel(_client: Client, message: Message, _):
+async def userdel(client, message: Message, _):
     if MONGO_DB_URI is None:
         return await message.reply_text(
-            "**Dᴜᴇ ᴛᴏ ʙᴏᴛ's ᴘʀɪᴠᴀᴄʏ ɪssᴜᴇs, Yᴏᴜ ᴄᴀɴ'ᴛ ᴍᴀɴᴀɢᴇ sᴜᴅᴏ ᴜsᴇʀs ᴡʜᴇɴ ʏᴏᴜ'ʀᴇ ᴜsɪɴɢ Yᴜᴋᴋɪ's Dᴀᴛᴀʙᴀsᴇ.\n\n Pʟᴇᴀsᴇ ғɪʟʟ ʏᴏᴜʀ MONGO_DB_URI ɪɴ ʏᴏᴜʀ ᴠᴀʀs ᴛᴏ ᴜsᴇ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ**"
+            "**Devido a questões de privacidade, você não pode gerenciar sudoers quando está no banco de dados Winx.\n\n Por favor, preencha o seu MONGO_DB_URI nas variáveis para usar este recurso.**"
         )
     if not message.reply_to_message:
         if len(message.command) != 2:
@@ -73,7 +72,7 @@ async def userdel(_client: Client, message: Message, _):
             SUDOERS.remove(user.id)
             await message.reply_text(_["sudo_4"])
             return
-        await message.reply_text(f"sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ")
+        await message.reply_text("⚠️ Algo deu errado")
         return
     user_id = message.reply_to_message.from_user.id
     if user_id not in SUDOERS:
@@ -83,12 +82,12 @@ async def userdel(_client: Client, message: Message, _):
         SUDOERS.remove(user_id)
         await message.reply_text(_["sudo_4"])
         return
-    await message.reply_text(f"sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ.")
+    await message.reply_text("⚠️ Algo deu errado")
 
 
 @app.on_message(filters.command(SUDOUSERS_COMMAND) & ~BANNED_USERS)
 @language
-async def sudoers_list(_client: Client, message: Message, _):
+async def sudoers_list(client, message: Message, _):
     text = _["sudo_5"]
     count = 0
     for x in OWNER_ID:

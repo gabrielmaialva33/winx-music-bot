@@ -1,8 +1,7 @@
-from pyrogram import Client, filters
+from pyrogram import filters
 from pyrogram.types import Message
 
 import config
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (
@@ -12,6 +11,7 @@ from WinxMusic.utils.database import (
     remove_private_chat,
 )
 from WinxMusic.utils.decorators.language import language
+from strings import get_command
 
 AUTHORIZE_COMMAND = get_command("AUTHORIZE_COMMAND")
 UNAUTHORIZE_COMMAND = get_command("UNAUTHORIZE_COMMAND")
@@ -20,7 +20,7 @@ AUTHORIZED_COMMAND = get_command("AUTHORIZED_COMMAND")
 
 @app.on_message(filters.command(AUTHORIZE_COMMAND) & SUDOERS)
 @language
-async def authorize(_client: Client, message: Message, _):
+async def authorize(client, message: Message, _):
     if config.PRIVATE_BOT_MODE != str(True):
         return await message.reply_text(_["pbot_12"])
     if len(message.command) != 2:
@@ -38,7 +38,7 @@ async def authorize(_client: Client, message: Message, _):
 
 @app.on_message(filters.command(UNAUTHORIZE_COMMAND) & SUDOERS)
 @language
-async def unauthorize(_client: Client, message: Message, _):
+async def unauthorize(client, message: Message, _):
     if config.PRIVATE_BOT_MODE != str(True):
         return await message.reply_text(_["pbot_12"])
     if len(message.command) != 2:
@@ -56,7 +56,7 @@ async def unauthorize(_client: Client, message: Message, _):
 
 @app.on_message(filters.command(AUTHORIZED_COMMAND) & SUDOERS)
 @language
-async def authorized(_client: Client, message: Message, _):
+async def authorized(client, message: Message, _):
     if config.PRIVATE_BOT_MODE != str(True):
         return await message.reply_text(_["pbot_12"])
     m = await message.reply_text(_["pbot_8"])

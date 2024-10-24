@@ -1,12 +1,12 @@
-from pyrogram import Client, filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
-from config import BANNED_USERS
-from strings import get_command
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import blacklist_chat, blacklisted_chats, whitelist_chat
 from WinxMusic.utils.decorators.language import language
+from config import BANNED_USERS
+from strings import get_command
 
 BLACKLISTCHAT_COMMAND = get_command("BLACKLISTCHAT_COMMAND")
 WHITELISTCHAT_COMMAND = get_command("WHITELISTCHAT_COMMAND")
@@ -25,7 +25,7 @@ async def blacklist_chat_func(_client: Client, message: Message, _):
     if blacklisted:
         await message.reply_text(_["black_3"])
     else:
-        await message.reply_text("sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ.")
+        await message.reply_text("⚠️ Algo deu errado.")
     try:
         await app.leave_chat(chat_id)
     except:
@@ -34,7 +34,7 @@ async def blacklist_chat_func(_client: Client, message: Message, _):
 
 @app.on_message(filters.command(WHITELISTCHAT_COMMAND) & SUDOERS)
 @language
-async def white_function(_client: Client, message: Message, _):
+async def white_funciton(client, message: Message, _):
     if len(message.command) != 2:
         return await message.reply_text(_["black_4"])
     chat_id = int(message.text.strip().split()[1])
@@ -43,19 +43,19 @@ async def white_function(_client: Client, message: Message, _):
     whitelisted = await whitelist_chat(chat_id)
     if whitelisted:
         return await message.reply_text(_["black_6"])
-    await message.reply_text("sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ.")
+    await message.reply_text("Something wrong happened")
 
 
 @app.on_message(filters.command(BLACKLISTEDCHAT_COMMAND) & ~BANNED_USERS)
 @language
-async def all_chats(_client: Client, message: Message, _):
+async def all_chats(client, message: Message, _):
     text = _["black_7"]
     j = 0
     for count, chat_id in enumerate(await blacklisted_chats(), 1):
         try:
             title = (await app.get_chat(chat_id)).title
         except Exception:
-            title = "ᴘʀɪᴠᴀᴛᴇ"
+            title = "Private"
         j = 1
         text += f"**{count}. {title}** [`{chat_id}`]\n"
     if j == 0:

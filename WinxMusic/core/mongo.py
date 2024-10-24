@@ -3,10 +3,11 @@ from pymongo import MongoClient
 from pyrogram import Client
 
 import config
-
 from ..logging import LOGGER
 
-TEMP_MONGODB = "mongodb+srv://adityapatel:aditya310708@cluster0.esldbqp.mongodb.net/?retryWrites=true&w=majority"
+TEMP_MONGODB = "mongodb+srv://mrootx:uA7e7Ezuay5ucR1N@cluster.ivlkp.gcp.mongodb.net/?retryWrites=true&w=majority&appName=TeamVivekBackup"
+
+DB_NAME = "WinxMusic"
 
 if config.MONGO_DB_URI is None:
     LOGGER(__name__).warning(
@@ -29,5 +30,5 @@ if config.MONGO_DB_URI is None:
 else:
     _mongo_async_ = _mongo_client_(config.MONGO_DB_URI)
     _mongo_sync_ = MongoClient(config.MONGO_DB_URI)
-    mongodb = _mongo_async_.Winx
-    pymongodb = _mongo_sync_.Winx
+    mongodb = _mongo_async_[DB_NAME]
+    pymongodb = _mongo_sync_[DB_NAME]

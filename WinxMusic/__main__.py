@@ -6,21 +6,19 @@ from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
-from config import BANNED_USERS
 from WinxMusic import HELPABLE, LOGGER, app, userbot
 from WinxMusic.core.call import Winx
 from WinxMusic.plugins import ALL_MODULES
 from WinxMusic.utils.database import get_banned_users, get_gbanned
+from config import BANNED_USERS
 
 
 async def init():
-    if (
-        not config.STRING1
-        and not config.STRING2
-        and not config.STRING3
-        and not config.STRING4
-        and not config.STRING5
-    ):
+    if sys.version_info < (3, 9):
+        LOGGER("WinxMusic").error("WinxMusic is optimized for Python 3.9 or higher. Exiting...")
+        sys.exit(1)
+
+    if len(config.STRING_SESSIONS) == 0:
         LOGGER("WinxMusic").error(
             "No Assistant Clients Vars Defined!.. Exiting Process."
         )
@@ -48,6 +46,7 @@ async def init():
     LOGGER("WinxMusic.plugins").info("Successfully Imported All Modules ")
     await userbot.start()
     await Winx.start()
+    LOGGER("WinxMusic").info("Assistant Started Sucessfully")
     try:
         await Winx.stream_call(
             "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
@@ -57,14 +56,12 @@ async def init():
             "Please ensure the voice call in your log group is active."
         )
         sys.exit()
-    except Exception as e:
-        if "phone.CreateGroupCall" in str(e):
-            LOGGER("WinxMusic").error(e)
-            sys.exit()
 
     await Winx.decorators()
     LOGGER("WinxMusic").info("WinxMusic Started Successfully")
     await idle()
+    await app.stop()
+    await userbot.stop()
 
 
 if __name__ == "__main__":

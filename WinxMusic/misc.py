@@ -6,7 +6,6 @@ from pyrogram import filters
 
 import config
 from WinxMusic.core.mongo import pymongodb
-
 from .logging import LOGGER
 
 SUDOERS = filters.user()
@@ -38,9 +37,7 @@ XCB = [
 
 def dbb():
     global db
-    global clonedb
     db = {}
-    clonedb = {}
     LOGGER(__name__).info(f"Database Initialized.")
 
 
@@ -77,7 +74,7 @@ def heroku():
                 Heroku = heroku3.from_key(config.HEROKU_API_KEY)
                 HAPP = Heroku.app(config.HEROKU_APP_NAME)
                 LOGGER(__name__).info(f"Heroku App Configured")
-            except BaseException:
+            except Exception:
                 LOGGER(__name__).warning(
                     f"Please make sure your Heroku API Key and Your App name are configured correctly in the heroku."
                 )

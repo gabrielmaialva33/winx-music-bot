@@ -12,14 +12,13 @@ from pyrogram.types import (
     Message,
 )
 
-from config import BANNED_USERS, SONG_DOWNLOAD_DURATION, SONG_DOWNLOAD_DURATION_LIMIT
-from strings import get_command
 from WinxMusic import YouTube, app
+from WinxMusic.platforms.Youtube import get_ytdl_options
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.formatters import convert_bytes
 from WinxMusic.utils.inline.song import song_markup
-
-# Command
+from config import BANNED_USERS, SONG_DOWNLOAD_DURATION, SONG_DOWNLOAD_DURATION_LIMIT
+from strings import get_command
 
 SONG_COMMAND = get_command("SONG_COMMAND")
 
@@ -289,13 +288,13 @@ async def song_download_cb(client, CallbackQuery, _):
 
     yturl = f"https://www.youtube.com/watch?v={vidid}"
 
-    with yt_dlp.YoutubeDL({"quiet": True}) as ytdl:
+    with yt_dlp.YoutubeDL(get_ytdl_options({"quiet": True})) as ytdl:
 
         x = ytdl.extract_info(yturl, download=False)
 
     title = (x["title"]).title()
 
-    title = re.sub("\W+", " ", title)
+    title = re.sub("\\W+", " ", title)
 
     thumb_image_path = await CallbackQuery.message.download()
 
