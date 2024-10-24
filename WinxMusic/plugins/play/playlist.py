@@ -519,7 +519,7 @@ async def del_back_playlist(client, CallbackQuery, _):
     )
 
 
-__MODULE__ = "Lista de Reprodução"
+__MODULE__ = "Playlist"
 __HELP__ = """
 <b>/playlist</b> - Verifique sua lista de reprodução inteira no servidor do bot
 
