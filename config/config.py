@@ -192,52 +192,52 @@ PLAYLIST_IMG_URL = getenv(
 
 GLOBAL_IMG_URL = getenv(
     "GLOBAL_IMG_URL",
-    "https://telegra.ph/file/de1db74efac1770b1e8e9.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/global_stats_img.png",
 )
 
 STATS_IMG_URL = getenv(
     "STATS_IMG_URL",
-    "https://telegra.ph/file/4dd9e2c231eaf7c290404.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/stats_img.png",
 )
 
 TELEGRAM_AUDIO_URL = getenv(
     "TELEGRAM_AUDIO_URL",
-    "https://envs.sh/npk.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_audio_img.png",
 )
 
 TELEGRAM_VIDEO_URL = getenv(
     "TELEGRAM_VIDEO_URL",
-    "https://telegra.ph/file/8d02ff3bde400e465219a.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_video_img.png",
 )
 
 STREAM_IMG_URL = getenv(
     "STREAM_IMG_URL",
-    "https://envs.sh/nAw.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/stream_img.png",
 )
 
 SOUNCLOUD_IMG_URL = getenv(
     "SOUNCLOUD_IMG_URL",
-    "https://envs.sh/nAD.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/soundcloud_img.png",
 )
 
 YOUTUBE_IMG_URL = getenv(
     "YOUTUBE_IMG_URL",
-    "https://envs.sh/npl.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/youtube_img.png",
 )
 
 SPOTIFY_ARTIST_IMG_URL = getenv(
     "SPOTIFY_ARTIST_IMG_URL",
-    "https://envs.sh/nA9.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/spotify_artist_img.png",
 )
 
 SPOTIFY_ALBUM_IMG_URL = getenv(
     "SPOTIFY_ALBUM_IMG_URL",
-    "https://envs.sh/nps.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/spotify_album_img.png",
 )
 
 SPOTIFY_PLAYLIST_IMG_URL = getenv(
     "SPOTIFY_PLAYLIST_IMG_URL",
-    "https://telegra.ph/file/f4edfbd83ec3150284aae.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/spotify_playlist_img.png",
 )
 
 
@@ -284,7 +284,7 @@ if GITHUB_REPO:
         sys.exit()
 
 if PING_IMG_URL:
-    if PING_IMG_URL != "https://telegra.ph/file/91533956c91d0fd7c9f20.jpg":
+    if PING_IMG_URL != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/ping_img.png":
         if not re.match("(?:http|https)://", PING_IMG_URL):
             print(
                 "[ERROR] - Your PING_IMG_URL url is wrong. Please ensure that it starts with https://"
@@ -292,7 +292,7 @@ if PING_IMG_URL:
             sys.exit()
 
 if PLAYLIST_IMG_URL:
-    if PLAYLIST_IMG_URL != "https://telegra.ph/file/f4edfbd83ec3150284aae.jpg":
+    if PLAYLIST_IMG_URL != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/playlist_img.png":
         if not re.match("(?:http|https)://", PLAYLIST_IMG_URL):
             print(
                 "[ERROR] - Your PLAYLIST_IMG_URL url is wrong. Please ensure that it starts with https://"
@@ -300,7 +300,7 @@ if PLAYLIST_IMG_URL:
             sys.exit()
 
 if GLOBAL_IMG_URL:
-    if GLOBAL_IMG_URL != "https://telegra.ph/file/de1db74efac1770b1e8e9.jpg":
+    if GLOBAL_IMG_URL != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/global_stats_img.png":
         if not re.match("(?:http|https)://", GLOBAL_IMG_URL):
             print(
                 "[ERROR] - Your GLOBAL_IMG_URL url is wrong. Please ensure that it starts with https://"
@@ -308,7 +308,7 @@ if GLOBAL_IMG_URL:
             sys.exit()
 
 if STATS_IMG_URL:
-    if STATS_IMG_URL != "https://telegra.ph/file/4dd9e2c231eaf7c290404.jpg":
+    if STATS_IMG_URL != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/stats_img.png":
         if not re.match("(?:http|https)://", STATS_IMG_URL):
             print(
                 "[ERROR] - Your STATS_IMG_URL url is wrong. Please ensure that it starts with https://"
@@ -316,7 +316,7 @@ if STATS_IMG_URL:
             sys.exit()
 
 if TELEGRAM_AUDIO_URL:
-    if TELEGRAM_AUDIO_URL != "https://telegra.ph/file/8234d704952738ebcda7f.jpg":
+    if TELEGRAM_AUDIO_URL != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_audio_img.png":
         if not re.match("(?:http|https)://", TELEGRAM_AUDIO_URL):
             print(
                 "[ERROR] - Your TELEGRAM_AUDIO_URL url is wrong. Please ensure that it starts with https://"
@@ -324,7 +324,7 @@ if TELEGRAM_AUDIO_URL:
             sys.exit()
 
 if STREAM_IMG_URL:
-    if STREAM_IMG_URL != "https://telegra.ph/file/e24f4a5f695ec5576a8f3.jpg":
+    if STREAM_IMG_URL != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/stream_img.png":
         if not re.match("(?:http|https)://", STREAM_IMG_URL):
             print(
                 "[ERROR] - Your STREAM_IMG_URL url is wrong. Please ensure that it starts with https://"
@@ -332,7 +332,7 @@ if STREAM_IMG_URL:
             sys.exit()
 
 if SOUNCLOUD_IMG_URL:
-    if SOUNCLOUD_IMG_URL != "https://telegra.ph/file/7645d1e04021323c21db9.jpg":
+    if SOUNCLOUD_IMG_URL != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/soundcloud_img.png":
         if not re.match("(?:http|https)://", SOUNCLOUD_IMG_URL):
             print(
                 "[ERROR] - Your SOUNCLOUD_IMG_URL url is wrong. Please ensure that it starts with https://"
@@ -340,7 +340,7 @@ if SOUNCLOUD_IMG_URL:
             sys.exit()
 
 if YOUTUBE_IMG_URL:
-    if YOUTUBE_IMG_URL != "https://telegra.ph/file/76d29aa31c40a7f026d7e.jpg":
+    if YOUTUBE_IMG_URL != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/youtube_img.png":
         if not re.match("(?:http|https)://", YOUTUBE_IMG_URL):
             print(
                 "[ERROR] - Your YOUTUBE_IMG_URL url is wrong. Please ensure that it starts with https://"
@@ -348,7 +348,7 @@ if YOUTUBE_IMG_URL:
             sys.exit()
 
 if TELEGRAM_VIDEO_URL:
-    if TELEGRAM_VIDEO_URL != "https://telegra.ph/file/8d02ff3bde400e465219a.jpg":
+    if TELEGRAM_VIDEO_URL != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_video_img.png":
         if not re.match("(?:http|https)://", TELEGRAM_VIDEO_URL):
             print(
                 "[ERROR] - Your TELEGRAM_VIDEO_URL url is wrong. Please ensure that it starts with https://"
