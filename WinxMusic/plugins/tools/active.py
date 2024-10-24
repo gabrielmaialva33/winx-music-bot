@@ -26,7 +26,9 @@ async def _clear_(chat_id):
 
 @app.on_message(filters.command(ACTIVEVC_COMMAND) & SUDOERS)
 async def activevc(_, message: Message):
-    mystic = await message.reply_text("🎙️ Buscando chats de voz ativos....\nPor favor, aguarde")
+    mystic = await message.reply_text(
+        "🎙️ Buscando chats de voz ativos....\nPor favor, aguarde"
+    )
     served_chats = await get_active_chats()
     text = ""
     j = 0
@@ -53,7 +55,9 @@ async def activevc(_, message: Message):
 
 @app.on_message(filters.command(ACTIVEVIDEO_COMMAND) & SUDOERS)
 async def activevi_(_, message: Message):
-    mystic = await message.reply_text("🎙️ Buscando chats de voz ativos....\nPor favor, aguarde")
+    mystic = await message.reply_text(
+        "🎙️ Buscando chats de voz ativos....\nPor favor, aguarde"
+    )
     served_chats = await get_active_video_chats()
     text = ""
     j = 0
@@ -94,4 +98,3 @@ __HELP__ = f"""
 
 <b>✧ {command("STATS_COMMAND")}</b> - Verificar as estatísticas do bot.
 """
-

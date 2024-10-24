@@ -21,7 +21,7 @@ async def aexec(code, client, message):
         "async def __aexec(client, message): "
         + "".join(f"\n {a}" for a in code.split("\n")),
         globals(),
-        local_vars
+        local_vars,
     )
     __aexec_func = local_vars["__aexec"]
     return await __aexec_func(client, message)
@@ -235,4 +235,3 @@ __HELP__ = f"""
 <b>{command("GETLOG_COMMAND")} [Número de linhas]</b> - Obter logs do servidor
 <b>{command("AUTOEND_COMMAND")} [ativar / desativar]</b> - Encerrar automaticamente a transmissão após 30 segundos se ninguém estiver ouvindo músicas
 """
-

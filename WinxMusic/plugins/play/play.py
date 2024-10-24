@@ -45,15 +45,15 @@ PLAY_COMMAND = get_command("PLAY_COMMAND")
 )
 @PlayWrapper
 async def play_commnd(
-        _client: Client,
-        message: Message,
-        _,
-        chat_id: int,
-        video: bool,
-        channel: bool,
-        playmode: str,
-        url: str,
-        fplay: bool,
+    _client: Client,
+    message: Message,
+    _,
+    chat_id: int,
+    video: bool,
+    channel: bool,
+    playmode: str,
+    url: str,
+    fplay: bool,
 ):
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]

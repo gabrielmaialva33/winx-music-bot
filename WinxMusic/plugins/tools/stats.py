@@ -295,7 +295,7 @@ async def overall_stats(client, CallbackQuery, _):
     sc = platform.system()
     p_core = psutil.cpu_count(logical=False)
     t_core = psutil.cpu_count(logical=True)
-    ram = str(round(psutil.virtual_memory().total / (1024.0 ** 3))) + " GB"
+    ram = str(round(psutil.virtual_memory().total / (1024.0**3))) + " GB"
     try:
         cpu_freq = psutil.cpu_freq().current
         if cpu_freq >= 1000:
@@ -305,11 +305,11 @@ async def overall_stats(client, CallbackQuery, _):
     except:
         cpu_freq = "Unable to Fetch"
     hdd = psutil.disk_usage("/")
-    total = hdd.total / (1024.0 ** 3)
+    total = hdd.total / (1024.0**3)
     total = str(total)
-    used = hdd.used / (1024.0 ** 3)
+    used = hdd.used / (1024.0**3)
     used = str(used)
-    free = hdd.free / (1024.0 ** 3)
+    free = hdd.free / (1024.0**3)
     free = str(free)
     mod = len(ALL_MODULES)
     db = pymongodb

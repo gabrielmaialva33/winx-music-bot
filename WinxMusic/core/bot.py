@@ -79,7 +79,10 @@ class WinxBot(Client):
         except ChatSendPhotosForbidden:
             chat_id = kwargs.get("chat_id") or args[0]
             if chat_id:
-                await self.send_message(chat_id, "I don't have the right to send photos in this chat, leaving now..")
+                await self.send_message(
+                    chat_id,
+                    "I don't have the right to send photos in this chat, leaving now..",
+                )
                 await self.leave_chat(chat_id)
 
     async def start(self):
@@ -123,7 +126,9 @@ class WinxBot(Client):
                         BotCommand("pause", "Pausar a música atual"),
                         BotCommand("resume", "Retomar a música pausada"),
                         BotCommand("end", "Limpar a fila e sair do chat de voz"),
-                        BotCommand("shuffle", "Embaralhar aleatoriamente a playlist na fila."),
+                        BotCommand(
+                            "shuffle", "Embaralhar aleatoriamente a playlist na fila."
+                        ),
                         BotCommand(
                             "playmode",
                             "Permite alterar o modo de reprodução padrão para o seu chat",
