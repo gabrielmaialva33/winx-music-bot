@@ -5,9 +5,9 @@ from pyrogram import Client
 import config
 from ..logging import LOGGER
 
-TEMP_MONGODB = "mongodb+srv://mrootx:uA7e7Ezuay5ucR1N@cluster.ivlkp.gcp.mongodb.net/?retryWrites=true&w=majority&appName=TeamVivekBackup"
+TEMP_MONGODB = "mongodb+srv://mrootx:uA7e7Ezuay5ucR1N@cluster.ivlkp.gcp.mongodb.net/?retryWrites=true&w=majority&appName=WinxBK"
 
-DB_NAME = "WinxMusic"
+DB_NAME = "Winx"
 
 if config.MONGO_DB_URI is None:
     LOGGER(__name__).warning(
