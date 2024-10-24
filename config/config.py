@@ -63,7 +63,8 @@ OWNER_ID = list(
 # make your bots privacy from telegra.ph and put your url here
 
 PRIVACY_LINK = getenv(
-    "PRIVACY_LINK", "https://telegra.ph/Pol%C3%ADtica-de-Privacidade-para-WinxMusic-10-24"
+    "PRIVACY_LINK",
+    "https://telegra.ph/Pol%C3%ADtica-de-Privacidade-para-WinxMusic-10-24",
 )
 
 # Get it from http://dashboard.heroku.com/account
