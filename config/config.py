@@ -182,7 +182,7 @@ START_IMG_URL = getenv(
 
 PING_IMG_URL = getenv(
     "PING_IMG_URL",
-    "https://telegra.ph/file/91533956c91d0fd7c9f20.jpg",
+    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/ping_img.png",
 )
 
 PLAYLIST_IMG_URL = getenv(
