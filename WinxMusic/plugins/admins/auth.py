@@ -8,7 +8,7 @@ from WinxMusic.utils.database import (
     get_authuser_names,
     save_authuser,
 )
-from WinxMusic.utils.decorators import AdminActual, language
+from WinxMusic.utils.decorators import admin_actual, language
 from WinxMusic.utils.formatters import int_to_alpha
 from config import BANNED_USERS, adminlist
 from strings import command, get_command
@@ -19,7 +19,7 @@ AUTHUSERS_COMMAND = get_command("AUTHUSERS_COMMAND")
 
 
 @app.on_message(filters.command(AUTH_COMMAND) & filters.group & ~BANNED_USERS)
-@AdminActual
+@admin_actual
 async def auth(_client: Client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:
@@ -81,7 +81,7 @@ async def auth(_client: Client, message: Message, _):
 
 
 @app.on_message(filters.command(UNAUTH_COMMAND) & filters.group & ~BANNED_USERS)
-@AdminActual
+@admin_actual
 async def unauthusers(_client: Client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:

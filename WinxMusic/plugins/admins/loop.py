@@ -3,7 +3,7 @@ from pyrogram.types import Message
 
 from WinxMusic import app
 from WinxMusic.utils.database.memorydatabase import get_loop, set_loop
-from WinxMusic.utils.decorators import AdminRightsCheck
+from WinxMusic.utils.decorators import admin_rights_check
 from config import BANNED_USERS
 from strings import get_command
 
@@ -11,7 +11,7 @@ LOOP_COMMAND = get_command("LOOP_COMMAND")
 
 
 @app.on_message(filters.command(LOOP_COMMAND) & filters.group & ~BANNED_USERS)
-@AdminRightsCheck
+@admin_rights_check
 async def admins(cli, message: Message, _, chat_id):
     usage = _["admin_24"]
     if len(message.command) != 2:

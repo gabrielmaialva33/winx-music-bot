@@ -3,7 +3,7 @@ import aiohttp
 BASE = "https://batbin.me/"
 
 
-async def post(url: str, *args, **kwargs):
+async def post(url: str, *args: list, **kwargs: dict):
     async with aiohttp.ClientSession() as session:
         async with session.post(url, *args, **kwargs) as resp:
             try:
@@ -13,7 +13,7 @@ async def post(url: str, *args, **kwargs):
         return data
 
 
-async def Winxbin(text):
+async def winxbin(text: str | dict):
     resp = await post(f"{BASE}api/v2/paste", data=text)
     if not resp["success"]:
         return

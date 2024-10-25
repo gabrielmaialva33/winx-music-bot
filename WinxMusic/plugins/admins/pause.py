@@ -4,7 +4,7 @@ from pyrogram.types import Message
 from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.utils.database import is_music_playing, music_off
-from WinxMusic.utils.decorators import AdminRightsCheck
+from WinxMusic.utils.decorators import admin_rights_check
 from config import BANNED_USERS
 from strings import get_command
 
@@ -12,7 +12,7 @@ PAUSE_COMMAND = get_command("PAUSE_COMMAND")
 
 
 @app.on_message(filters.command(PAUSE_COMMAND) & filters.group & ~BANNED_USERS)
-@AdminRightsCheck
+@admin_rights_check
 async def pause_admin(cli, message: Message, _, chat_id):
     if not len(message.command) == 1:
         return await message.reply_text(_["general_2"])

@@ -8,7 +8,7 @@ from WinxMusic import Apple, Spotify, YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import SUDOERS, db
 from WinxMusic.utils import time_to_seconds
-from WinxMusic.utils.channelplay import get_channeplayCB
+from WinxMusic.utils.channelplay import get_channeplay_cb
 from WinxMusic.utils.database import (
     is_active_chat,
     is_music_playing,
@@ -20,8 +20,8 @@ from WinxMusic.utils.database import (
     mute_on,
     set_loop,
 )
-from WinxMusic.utils.decorators import ActualAdminCB
-from WinxMusic.utils.decorators.language import languageCB
+from WinxMusic.utils.decorators import actual_admin_cb
+from WinxMusic.utils.decorators.language import language_cb
 from WinxMusic.utils.formatters import seconds_to_min
 from WinxMusic.utils.inline.play import (
     livestream_markup,
@@ -53,7 +53,7 @@ downvoters = {}
 
 
 @app.on_callback_query(filters.regex("PanelMarkup") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def markup_panel(client, CallbackQuery: CallbackQuery, _):
     await CallbackQuery.answer()
     callback_data = CallbackQuery.data.strip()
@@ -73,7 +73,7 @@ async def markup_panel(client, CallbackQuery: CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("MainMarkup") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def del_back_playlist(client, CallbackQuery, _):
     await CallbackQuery.answer()
     callback_data = CallbackQuery.data.strip()
@@ -96,7 +96,7 @@ async def del_back_playlist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("Pages") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def del_back_playlist(client, CallbackQuery, _):
     await CallbackQuery.answer()
     callback_data = CallbackQuery.data.strip()
@@ -127,7 +127,7 @@ async def del_back_playlist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("ADMIN") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def del_back_playlist(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
@@ -447,7 +447,7 @@ async def del_back_playlist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("MusicStream") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def play_music(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
@@ -458,7 +458,7 @@ async def play_music(client, CallbackQuery, _):
         except:
             return
     try:
-        chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
+        chat_id, channel = await get_channeplay_cb(_, cplay, CallbackQuery)
     except:
         return
     user_name = CallbackQuery.from_user.first_name
@@ -527,7 +527,7 @@ async def anonymous_check(client, CallbackQuery):
 
 
 @app.on_callback_query(filters.regex("WinxPlaylists") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def play_playlists_command(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
@@ -545,7 +545,7 @@ async def play_playlists_command(client, CallbackQuery, _):
         except:
             return
     try:
-        chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
+        chat_id, channel = await get_channeplay_cb(_, cplay, CallbackQuery)
     except:
         return
     user_name = CallbackQuery.from_user.first_name
@@ -614,7 +614,7 @@ async def play_playlists_command(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("slider") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def slider_queries(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
@@ -687,7 +687,7 @@ async def close_menu(_, CallbackQuery):
 
 
 @app.on_callback_query(filters.regex("stop_downloading") & ~BANNED_USERS)
-@ActualAdminCB
+@actual_admin_cb
 async def stop_download(client, CallbackQuery: CallbackQuery, _):
     message_id = CallbackQuery.message.id
     task = lyrical.get(message_id)

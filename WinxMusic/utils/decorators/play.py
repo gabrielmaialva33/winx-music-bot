@@ -1,5 +1,6 @@
 import asyncio
 
+from pyrogram import Client
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import (
     ChannelsTooMuch,
@@ -9,7 +10,7 @@ from pyrogram.errors import (
     UserAlreadyParticipant,
     UserNotParticipant,
 )
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
@@ -36,34 +37,34 @@ from strings import get_string
 links = {}
 
 
-async def join_chat(message, chat_id, _, myu, attempts=1):
+async def join_chat(message: Message, chat_id: int, _, myu: Message = None, attempts=1):
     max_attempts = len(assistants) - 1  # Set the maximum number of attempts
     userbot = await get_assistant(chat_id)
 
     if chat_id in links:
-        invitelink = links[chat_id]
+        invite_link = links[chat_id]
     else:
         if message.chat.username:
-            invitelink = message.chat.username
+            invite_link = message.chat.username
             try:
-                await userbot.resolve_peer(invitelink)
+                await userbot.resolve_peer(invite_link)
             except:
                 pass
         else:
             try:
-                invitelink = await app.export_chat_invite_link(message.chat.id)
+                invite_link = await app.export_chat_invite_link(message.chat.id)
             except ChatAdminRequired:
                 return await myu.edit(_["call_1"])
             except Exception as e:
                 return await myu.edit(_["call_3"].format(app.mention, type(e).__name__))
 
-        if invitelink.startswith("https://t.me/+"):
-            invitelink = invitelink.replace("https://t.me/+", "https://t.me/joinchat/")
-        links[chat_id] = invitelink
+        if invite_link.startswith("https://t.me/+"):
+            invite_link = invite_link.replace("https://t.me/+", "https://t.me/joinchat/")
+        links[chat_id] = invite_link
 
     try:
         await asyncio.sleep(1)
-        await userbot.join_chat(invitelink)
+        await userbot.join_chat(invite_link)
     except InviteRequestSent:
         try:
             await app.approve_chat_join_request(chat_id, userbot.id)
@@ -99,8 +100,8 @@ async def join_chat(message, chat_id, _, myu, attempts=1):
         pass
 
 
-def PlayWrapper(command):
-    async def wrapper(client, message):
+def play_wrapper(command: callable):
+    async def wrapper(client: Client, message: Message):
         language = await get_lang(message.chat.id)
         _ = get_string(language)
         if message.sender_chat:
@@ -108,7 +109,7 @@ def PlayWrapper(command):
                 [
                     [
                         InlineKeyboardButton(
-                            text="How to Fix ?",
+                            text="Como resolver isso?",
                             callback_data="AnonymousAdmin",
                         ),
                     ]
@@ -123,7 +124,7 @@ def PlayWrapper(command):
         if PRIVATE_BOT_MODE == str(True):
             if not await is_served_private_chat(message.chat.id):
                 await message.reply_text(
-                    "**PRIVATE MUSIC BOT**\n\nOnly For Authorized chats from the owner ask my owner to allow your chat first."
+                    "**BOT DE MÚSICA PRIVADO**\n\nSomente para chats autorizados pelo dono. Peça ao meu dono para permitir o seu chat primeiro."
                 )
                 return await app.leave_chat(message.chat.id)
         if await is_commanddelete_on(message.chat.id):
@@ -169,7 +170,7 @@ def PlayWrapper(command):
             is_call_active = (await app.get_chat(chat_id)).is_call_active
             if not is_call_active:
                 return await message.reply_text(
-                    "**No active video chat found **\n\nPlease make sure you started the voicechat."
+                    "**Nenhum chat de vídeo ativo encontrado**\n\nPor favor, certifique-se de que você iniciou o chat de voz."
                 )
         except Exception:
             pass
@@ -216,8 +217,8 @@ def PlayWrapper(command):
                 except ChatAdminRequired:
                     return await message.reply_text(_["call_1"])
                 if (
-                    get.status == ChatMemberStatus.BANNED
-                    or get.status == ChatMemberStatus.RESTRICTED
+                        get.status == ChatMemberStatus.BANNED
+                        or get.status == ChatMemberStatus.RESTRICTED
                 ):
                     try:
                         await app.unban_chat_member(chat_id, userbot.id)

@@ -16,23 +16,23 @@ from WinxMusic.utils.database import (
 from WinxMusic.utils.exceptions import AssistantErr
 from WinxMusic.utils.inline.play import stream_markup, telegram_markup
 from WinxMusic.utils.inline.playlist import close_markup
-from WinxMusic.utils.pastebin import Winxbin
+from WinxMusic.utils.pastebin import winxbin
 from WinxMusic.utils.stream.queue import put_queue, put_queue_index
 from WinxMusic.utils.thumbnails import gen_qthumb, gen_thumb
 
 
 async def stream(
-    _,
-    mystic,
-    user_id,
-    result,
-    chat_id,
-    user_name,
-    original_chat_id,
-    video: Union[bool, str] = None,
-    streamtype: Union[bool, str] = None,
-    spotify: Union[bool, str] = None,
-    forceplay: Union[bool, str] = None,
+        _,
+        mystic,
+        user_id,
+        result,
+        chat_id,
+        user_name,
+        original_chat_id,
+        video: Union[bool, str] = None,
+        streamtype: Union[bool, str] = None,
+        spotify: Union[bool, str] = None,
+        forceplay: Union[bool, str] = None,
 ):
     if not result:
         return
@@ -120,7 +120,7 @@ async def stream(
         if count == 0:
             return
         else:
-            link = await Winxbin(msg)
+            link = await winxbin(msg)
             lines = msg.count("\n")
             if lines >= 17:
                 car = os.linesep.join(msg.split(os.linesep)[:17])
@@ -329,7 +329,7 @@ async def stream(
             if count == 0:
                 return
             else:
-                link = await Winxbin(msg)
+                link = await winxbin(msg)
                 lines = msg.count("\n")
                 if lines >= 17:
                     car = os.linesep.join(msg.split(os.linesep)[:17])

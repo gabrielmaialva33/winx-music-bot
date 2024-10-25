@@ -85,7 +85,7 @@ async def activevi_(_, message: Message):
 @app.on_message(filters.command(AC_COMMAND) & SUDOERS)
 async def vc(client, message: Message):
     ac_audio = str(len(await get_active_chats()))
-    await message.reply_text(f"Informações dos Chats Ativos: {ac_audio}")
+    await message.reply_text(f"<b>Chats Ativos</b>: {ac_audio}")
 
 
 __MODULE__ = "Ativo"

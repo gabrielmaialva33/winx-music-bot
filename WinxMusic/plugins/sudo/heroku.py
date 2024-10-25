@@ -25,9 +25,9 @@ from WinxMusic.utils.database import (
     remove_active_chat,
     remove_active_video_chat,
 )
-from WinxMusic.utils.decorators import AdminActual
+from WinxMusic.utils.decorators import admin_actual
 from WinxMusic.utils.decorators.language import language
-from WinxMusic.utils.pastebin import Winxbin
+from WinxMusic.utils.pastebin import winxbin
 from config import BANNED_USERS
 from strings import get_command
 
@@ -48,7 +48,7 @@ async def is_heroku():
 
 
 async def paste_neko(code: str):
-    return await Winxbin(code)
+    return await winxbin(code)
 
 
 @app.on_message(filters.command(GETLOG_COMMAND) & SUDOERS)
@@ -59,7 +59,7 @@ async def log_(client, message, _):
             if HAPP is None:
                 return await message.reply_text(_["heroku_1"])
             data = HAPP.get_log()
-            link = await Winxbin(data)
+            link = await winxbin(data)
             return await message.reply_text(link)
         else:
             if os.path.exists(config.LOG_FILE_NAME):
@@ -247,7 +247,7 @@ async def update_(client, message, _):
         return await response.edit("Bot is up to date")
     ordinal = lambda format: "%d%s" % (
         format,
-        "tsnrhtdd"[(format // 10 % 10 != 1) * (format % 10 < 4) * format % 10 :: 4],
+        "tsnrhtdd"[(format // 10 % 10 != 1) * (format % 10 < 4) * format % 10:: 4],
     )
     updates = "".join(
         f"<b>➣ #{info.count()}: <a href={REPO_}/commit/{info}>{info.summary}</a> By -> {info.author}</b>\n\t\t\t\t<b>➥ Commited On:</b> {ordinal(int(datetime.fromtimestamp(info.committed_date).strftime('%d')))} {datetime.fromtimestamp(info.committed_date).strftime('%b')}, {datetime.fromtimestamp(info.committed_date).strftime('%Y')}\n\n"
@@ -257,7 +257,7 @@ async def update_(client, message, _):
     _final_updates_ = f"{_update_response_} {updates}"
 
     if len(_final_updates_) > 4096:
-        url = await Winxbin(updates)
+        url = await winxbin(updates)
         nrs = await response.edit(
             f"**A new upadte is available for the Bot!**\n\n➣ Pushing upadtes Now\n\n__**Updates:**__\n\n[Check Upadtes]({url})",
             disable_web_page_preview=True,
@@ -311,7 +311,7 @@ async def update_(client, message, _):
 
 
 @app.on_message(filters.command(REBOOT_COMMAND) & filters.group & ~BANNED_USERS)
-@AdminActual
+@admin_actual
 async def reboot(client, message: Message, _):
     mystic = await message.reply_text(
         f"Please Wait... \nRebooting{app.mention} For Your Chat."

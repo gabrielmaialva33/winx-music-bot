@@ -12,7 +12,7 @@ from WinxMusic.utils.database import (
     get_particulars,
     get_userss,
 )
-from WinxMusic.utils.decorators import languageCB
+from WinxMusic.utils.decorators import language_cb
 from WinxMusic.utils.decorators.play import join_chat
 from WinxMusic.utils.inline.playlist import (
     botplaylist_markup,
@@ -26,7 +26,7 @@ loop = asyncio.get_running_loop()
 
 
 @app.on_callback_query(filters.regex("get_playmarkup") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def get_play_markup(_client: Client, callback_query: CallbackQuery, _):
     try:
         await callback_query.answer()
@@ -39,7 +39,7 @@ async def get_play_markup(_client: Client, callback_query: CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("get_top_playlists") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def get_topz_playlists(_client: Client, callback_query: CallbackQuery, _):
     try:
         await callback_query.answer()
@@ -52,7 +52,7 @@ async def get_topz_playlists(_client: Client, callback_query: CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("SERVERTOP") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def server_to_play(_client: Client, callback_query: CallbackQuery, _):
     message = callback_query.message
     userbot = await get_assistant(callback_query.message.chat.id)

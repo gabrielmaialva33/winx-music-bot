@@ -5,7 +5,7 @@ from WinxMusic.utils.database import get_lang, is_commanddelete_on, is_maintenan
 from strings import get_string
 
 
-def language(mystic):
+def language(mystic: callable):
     async def wrapper(_, message, **kwargs):
         try:
             language = await get_lang(message.chat.id)
@@ -27,7 +27,7 @@ def language(mystic):
     return wrapper
 
 
-def languageCB(mystic):
+def language_cb(mystic: callable):
     async def wrapper(_, CallbackQuery, **kwargs):
         try:
             language = await get_lang(CallbackQuery.message.chat.id)
@@ -48,7 +48,7 @@ def languageCB(mystic):
     return wrapper
 
 
-def LanguageStart(mystic):
+def language_start(mystic: callable):
     async def wrapper(_, message, **kwargs):
         try:
             language = await get_lang(message.chat.id)

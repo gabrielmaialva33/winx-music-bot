@@ -6,7 +6,7 @@ from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils.database import get_loop
-from WinxMusic.utils.decorators import AdminRightsCheck
+from WinxMusic.utils.decorators import admin_rights_check
 from WinxMusic.utils.inline.play import stream_markup, telegram_markup
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import gen_thumb
@@ -17,7 +17,7 @@ SKIP_COMMAND = get_command("SKIP_COMMAND")
 
 
 @app.on_message(filters.command(SKIP_COMMAND) & filters.group & ~BANNED_USERS)
-@AdminRightsCheck
+@admin_rights_check
 async def skip(cli, message: Message, _, chat_id):
     if not len(message.command) < 2:
         loop = await get_loop(chat_id)

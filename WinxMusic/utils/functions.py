@@ -7,81 +7,79 @@ from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
 
 MARKDOWN = """
-ʀᴇᴀᴅ ᴛʜᴇ ʙᴇʟᴏᴡ ᴛᴇxᴛ ᴄᴀʀᴇғᴜʟʟʏ ᴛᴏ ғɪɴᴅ ᴏᴜᴛ ʜᴏᴡ ғᴏʀᴍᴀᴛᴛɪɴɢ ᴡᴏʀᴋs!
+Leia o texto abaixo com atenção para descobrir como funciona a formatação!
 
-<u>sᴜᴘᴘᴏʀᴛᴇᴅ ғɪʟʟɪɴɢs:</u>
+<u>Preenchimentos suportados:</u>
 
-{GROUPNAME} - ɢʀᴏᴜᴘ's ɴᴀᴍᴇ
-{NAME} - ᴜsᴇʀ ɴᴀᴍᴇ
-{ID} - ᴜsᴇʀ ɪᴅ
-{FIRSTNAME} - ᴜsᴇʀ ғɪʀsᴛ ɴᴀᴍᴇ 
-{SURNAME} - ɪғ ᴜsᴇʀ ʜᴀs sᴜʀɴᴀᴍᴇ sᴏ ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ sᴜʀɴᴀᴍᴇ ᴇʟsᴇ ɴᴏᴛʜɪɴɢ
-{USERNAME} - ᴜsᴇʀ ᴜsᴇʀɴᴀᴍᴇ
+{GROUPNAME} - Nome do grupo
+{NAME} - Nome do usuário
+{ID} - ID do usuário
+{FIRSTNAME} - Primeiro nome do usuário
+{SURNAME} - Se o usuário tem sobrenome, isso mostrará o sobrenome, caso contrário, nada
+{USERNAME} - Nome de usuário do usuário
 
-{TIME} - ᴛᴏᴅᴀʏ  ᴛɪᴍᴇ
-{DATE} - ᴛᴏᴅᴀʏ ᴅᴀᴛᴇ 
-{WEEKDAY} - ᴛᴏᴅᴀʏ ᴡᴇᴇᴋᴅᴀʏ 
+{TIME} - Hora atual
+{DATE} - Data atual
+{WEEKDAY} - Dia da semana atual
 
-<b><u>NOTE:</u></b> ғɪʟʟɪɴɢs ᴏɴʟʏ ᴡᴏʀᴋs ɪɴ ᴡᴇʟᴄᴏᴍᴇ ᴍᴏᴅᴜʟᴇ.
+<b><u>NOTA:</u></b> Os preenchimentos só funcionam no módulo de boas-vindas.
 
-<u>sᴜᴘᴘᴏʀᴛᴇᴅ ғᴏʀᴍᴀᴛᴛɪɴɢ:</u>
+<u>Formatação suportada:</u>
 
-<code>**Bold**</code> : ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <b>Bold</b> ᴛᴇxᴛ.
-<code>~~strike~~</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <strike>strike</strike> ᴛᴇxᴛ.
-<code>__italic__</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <i>italic</i> ᴛᴇxᴛ
-<code>--underline--</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <u>underline</u> ᴛᴇxᴛ.
-<code>`code words`</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <code>code</code> ᴛᴇxᴛ.
-<code>||spoiler||</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <spoiler>Spoiler</spoiler> ᴛᴇxᴛ.
-<code>[hyperlink](google.com)</code>: ᴛʜɪs ᴡɪʟʟ ᴄʀᴇᴀᴛᴇ ᴀ <a href='https://www.google.com'>hyperlink</a> text
-<code>> hello</code>  ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <blockquote>hello</blockquote>
-<b>Note:</b> ʏᴏᴜ ᴄᴀɴ ᴜsᴇ ʙᴏᴛʜ ᴍᴀʀᴋᴅᴏᴡɴ & ʜᴛᴍʟ ᴛᴀɢs.
-
-
-<u>ʙᴜᴛᴛᴏɴ ғᴏʀᴍᴀᴛᴛɪɴɢ:</u>
-
-- > <blockquote>text ~ [button text, button link]</blockquote>
+<code>**Negrito**</code>: Isso aparecerá como texto em <b>Negrito</b>.
+<code>~~riscado~~</code>: Isso aparecerá como texto <strike>riscado</strike>.
+<code>__itálico__</code>: Isso aparecerá como texto em <i>itálico</i>.
+<code>--sublinhado--</code>: Isso aparecerá como texto <u>sublinhado</u>.
+<code>`palavras de código`</code>: Isso aparecerá como texto <code>código</code>.
+<code>||spoiler||</code>: Isso aparecerá como texto <spoiler>Spoiler</spoiler>.
+<code>[hiperlink](google.com)</code>: Isso criará um <a href='https://www.google.com'>hiperlink</a>.
+<code>> olá</code>: Isso aparecerá como <blockquote>olá</blockquote>.
+<b>Nota:</b> Você pode usar tanto Markdown quanto tags HTML.
 
 
-<u>ᴇxᴀᴍᴘʟᴇ:</u>
+<u>Formatação de botão:</u>
 
-<b>example</b>  
-<blockquote><i>button with markdown</i> <code>formatting</code> ~ [button text, https://google.com]</blockquote>
+- > <blockquote>texto ~ [texto do botão, link do botão]</blockquote>
+
+
+<u>Exemplo:</u>
+
+<b>Exemplo</b>  
+<blockquote><i>botão com markdown</i> <code>formatação</code> ~ [texto do botão, https://google.com]</blockquote>
 """
 WELCOMEHELP = """
-/setwelcome - ʀᴇᴘʟʏ ᴛʜɪs ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ ᴄᴏɴᴛᴀɪɴɪɴɢ ᴄᴏʀʀᴇᴄᴛ
-ғᴏʀᴍᴀᴛ ғᴏʀ ᴀ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ, ᴄʜᴇᴄᴋ ᴇɴᴅ ᴏғ ᴛʜɪs ᴍᴇssᴀɢᴇ.
+/setwelcome - Responda esta mensagem contendo o formato correto para uma mensagem de boas-vindas, verifique o final desta mensagem.
 
-/delwelcome - ᴅᴇʟᴇᴛᴇ ᴛʜᴇ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ.
-/getwelcome - ɢᴇᴛ ᴛʜᴇ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ.
+/delwelcome - Apaga a mensagem de boas-vindas.
+/getwelcome - Exibe a mensagem de boas-vindas.
 
-<b>SET_WELCOME -></b>
+<b>CONFIGURAR_BOAS_VINDAS -></b>
 
-<b>ᴛᴏ sᴇᴛ ᴀ ᴘʜᴏᴛᴏ ᴏʀ ɢɪғ ᴀs ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ. ᴀᴅᴅ ʏᴏᴜʀ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ ᴀs ᴄᴀᴘᴛɪᴏɴ ᴛᴏ ᴛʜᴇ ᴘʜᴏᴛᴏ ᴏʀ ɢɪғ. ᴛʜᴇ ᴄᴀᴘᴛɪᴏɴ ᴍᴜsᴇ ʙᴇ ɪɴ ᴛʜᴇ ғᴏʀᴍᴀᴛ ɢɪᴠᴇɴ ʙᴇʟᴏᴡ.</b>
+<b>Para definir uma foto ou GIF como mensagem de boas-vindas, adicione sua mensagem de boas-vindas como legenda da foto ou GIF. A legenda deve estar no formato abaixo.</b>
 
-ғᴏʀ ᴛᴇxᴛ ᴡᴇʟᴄᴏᴍᴇ ᴍᴇssᴀɢᴇ ᴊᴜsᴛ sᴇɴᴅ ᴛʜᴇ ᴛᴇxᴛ. ᴛʜᴇɴ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅ 
+Para mensagem de boas-vindas em texto, basta enviar o texto. Em seguida, responda com o comando.
 
-ᴛʜᴇ ғᴏʀᴍᴀᴛ sʜᴏᴜʟᴅ ʙᴇ sᴏᴍᴇᴛʜɪɴɢ ʟɪᴋᴇ ʙᴇʟᴏᴡ.
+O formato deve ser algo como o seguinte:
 
-{GROUPNAME} - ɢʀᴏᴜᴘ's ɴᴀᴍᴇ
-{NAME} - ᴜsᴇʀ ғɪʀsᴛ ɴᴀᴍᴇ + sᴜʀɴᴀᴍᴇ
-{ID} - ᴜsᴇʀ ɪᴅ
-{FIRSTNAME} - ᴜsᴇʀ ғɪʀsᴛ ɴᴀᴍᴇ 
-{SURNAME} - ɪғ ᴜsᴇʀ ʜᴀs sᴜʀɴᴀᴍᴇ sᴏ ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ sᴜʀɴᴀᴍᴇ ᴇʟsᴇ ɴᴏᴛʜɪɴɢ
-{USERNAME} - ᴜsᴇʀ ᴜsᴇʀɴᴀᴍᴇ
+{GROUPNAME} - Nome do grupo
+{NAME} - Primeiro nome + sobrenome do usuário
+{ID} - ID do usuário
+{FIRSTNAME} - Primeiro nome do usuário
+{SURNAME} - Se o usuário tem sobrenome, isso mostrará o sobrenome, caso contrário, nada
+{USERNAME} - Nome de usuário do usuário
 
-{TIME} - ᴛᴏᴅᴀʏ  ᴛɪᴍᴇ
-{DATE} - ᴛᴏᴅᴀʏ ᴅᴀᴛᴇ 
-{WEEKDAY} - ᴛᴏᴅᴀʏ ᴡᴇᴇᴋᴅᴀʏ 
+{TIME} - Hora atual
+{DATE} - Data atual
+{WEEKDAY} - Dia da semana atual
 
-
-~ #This separater (~) should be there between text and buttons, remove this comment also
+~ #Esse separador (~) deve estar entre o texto e os botões, remova também este comentário.
 
 button=[Duck, https://duckduckgo.com]
 button2=[Github, https://github.com]
 
-<b>NOTES -></b>
+<b>NOTAS -></b>
 
-ᴄʜᴇᴄᴋᴏᴜᴛ /markdownhelp ᴛᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ ᴀʙᴏᴜᴛ ғᴏʀᴍᴀᴛᴛɪɴɢs ᴀɴᴅ ᴏᴛʜᴇʀ sʏɴᴛᴀx.
+Verifique /markdownhelp para saber mais sobre formatações e outras sintaxes.
 """
 
 
@@ -150,7 +148,7 @@ async def get_data_and_name(replied_message, message):
         if replied_message and (replied_message.sticker or replied_message.video_note):
             data = None
         elif (
-            replied_message and not replied_message.text and not replied_message.caption
+                replied_message and not replied_message.text and not replied_message.caption
         ):
             data = None
         else:
@@ -171,10 +169,6 @@ async def get_data_and_name(replied_message, message):
 
 
 async def extract_userid(message, text: str):
-    """
-    NOT TO BE USED OUTSIDE THIS FILE
-    """
-
     def is_int(text: str):
         try:
             int(text)
@@ -208,12 +202,12 @@ async def extract_user_and_reason(message, sender_chat=False):
     try:
         if message.reply_to_message:
             reply = message.reply_to_message
-            # if reply to a message and no reason is given
+            # se responder a uma mensagem e nenhuma razão for dada
             if not reply.from_user:
                 if (
-                    reply.sender_chat
-                    and reply.sender_chat != message.chat.id
-                    and sender_chat
+                        reply.sender_chat
+                        and reply.sender_chat != message.chat.id
+                        and sender_chat
                 ):
                     id_ = reply.sender_chat.id
                 else:
@@ -248,9 +242,9 @@ async def extract_user(message):
 
 
 def get_file_id_from_message(
-    message,
-    max_file_size=3145728,
-    mime_types=["image/png", "image/jpeg"],
+        message,
+        max_file_size=3145728,
+        mime_types=["image/png", "image/jpeg"],
 ):
     file_id = None
     if message.document:
@@ -286,13 +280,13 @@ def get_file_id_from_message(
     return file_id
 
 
-async def time_converter(message: Message, time_value: str) -> datetime:
+async def time_converter(message: Message, time_value: str) -> Message | datetime:
     unit = ["m", "h", "d"]
     check_unit = "".join(list(filter(time_value[-1].lower().endswith, unit)))
     currunt_time = datetime.now()
     time_digit = time_value[:-1]
     if not time_digit.isdigit():
-        return await message.reply_text("Incorrect time specified")
+        return await message.reply_text("Tempo especificado incorreto.")
     if check_unit == "m":
         temp_time = currunt_time + timedelta(minutes=int(time_digit))
     elif check_unit == "h":
@@ -300,5 +294,5 @@ async def time_converter(message: Message, time_value: str) -> datetime:
     elif check_unit == "d":
         temp_time = currunt_time + timedelta(days=int(time_digit))
     else:
-        return await message.reply_text("Incorrect time specified.")
+        return await message.reply_text("Tempo especificado incorreto.")
     return temp_time

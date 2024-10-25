@@ -21,7 +21,7 @@ from WinxMusic.utils.database import (
     is_on_off,
     is_served_private_chat,
 )
-from WinxMusic.utils.decorators.language import LanguageStart
+from WinxMusic.utils.decorators.language import language_start
 from WinxMusic.utils.formatters import get_readable_time
 from WinxMusic.utils.functions import MARKDOWN, WELCOMEHELP
 from WinxMusic.utils.inline import private_panel, start_pannel
@@ -36,7 +36,7 @@ START_COMMAND = get_command("START_COMMAND")
 
 
 @app.on_message(filters.command(START_COMMAND) & filters.private & ~BANNED_USERS)
-@LanguageStart
+@language_start
 async def start_comm(client: Client, message: Message, _):
     chat_id = message.chat.id
     await add_served_user(message.from_user.id)
@@ -231,7 +231,7 @@ async def start_comm(client: Client, message: Message, _):
 
 
 @app.on_message(filters.command(START_COMMAND) & filters.group & ~BANNED_USERS)
-@LanguageStart
+@language_start
 async def testbot(_client: Client, message: Message, _):
     uptime = int(time.time() - _boot_)
     chat_id = message.chat.id

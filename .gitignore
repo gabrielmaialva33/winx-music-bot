@@ -1,4 +1,5 @@
 .env
+.winx.env
 .cache
 Winxlogs.txt
 .DS_Store

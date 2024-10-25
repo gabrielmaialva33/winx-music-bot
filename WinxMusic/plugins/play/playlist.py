@@ -15,10 +15,10 @@ from WinxMusic.utils.database import (
     get_playlist_names,
     save_playlist,
 )
-from WinxMusic.utils.decorators import language, languageCB
+from WinxMusic.utils.decorators import language, language_cb
 from WinxMusic.utils.decorators.play import botplaylist_markup, join_chat
 from WinxMusic.utils.inline.playlist import get_playlist_markup, warning_markup
-from WinxMusic.utils.pastebin import Winxbin
+from WinxMusic.utils.pastebin import winxbin
 from WinxMusic.utils.stream.stream import stream
 from config import BANNED_USERS, SERVER_PLAYLIST_LIMIT
 from strings import get_command
@@ -47,7 +47,7 @@ async def check_playlist(client: Client, message: Message, _):
         count += 1
         msg += f"\n\n{count}- {title[:70]}\n"
         msg += _["playlist_5"].format(duration)
-    link = await Winxbin(msg)
+    link = await winxbin(msg)
     lines = msg.count("\n")
     if lines >= 17:
         car = os.linesep.join(msg.split(os.linesep)[:17])
@@ -139,7 +139,7 @@ async def del_plist_msg(client, message: Message, _):
 
 
 @app.on_callback_query(filters.regex("play_playlist") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def play_playlist(client, CallbackQuery, _):
     message = CallbackQuery.message
     userbot = await get_assistant(message.chat.id)
@@ -200,7 +200,7 @@ async def play_playlist(client, CallbackQuery, _):
 
 
 @app.on_message(filters.command(PLAY_PLAYLIST_COMMAND) & ~BANNED_USERS & filters.group)
-@languageCB
+@language_cb
 async def play_playlist_command(client, message, _):
     try:
         try:
@@ -209,8 +209,8 @@ async def play_playlist_command(client, message, _):
         except ChatAdminRequired:
             return await msg.edit_text(_["call_1"])
         if (
-            get.status == ChatMemberStatus.BANNED
-            or get.status == ChatMemberStatus.RESTRICTED
+                get.status == ChatMemberStatus.BANNED
+                or get.status == ChatMemberStatus.RESTRICTED
         ):
             try:
                 await app.unban_chat_member(chat_id, userbot.id)
@@ -343,7 +343,7 @@ async def add_playlist(client, message: Message, _):
 
 
 @app.on_callback_query(filters.regex("remove_playlist") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def del_plist(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     videoid = callback_data.split(None, 1)[1]
@@ -363,7 +363,7 @@ async def del_plist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("remove_playlist") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def del_plist(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     videoid = callback_data.split(None, 1)[1]
@@ -384,7 +384,7 @@ async def del_plist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("add_playlist") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def add_playlist(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     videoid = callback_data.split(None, 1)[1]
@@ -429,7 +429,7 @@ async def add_playlist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("del_playlist") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def del_plist(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     videoid = callback_data.split(None, 1)[1]
@@ -450,7 +450,7 @@ async def del_plist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("delete_whole_playlist") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def del_whole_playlist(client, CallbackQuery, _):
     _playlist = await get_playlist_names(CallbackQuery.from_user.id)
     for x in _playlist:
@@ -460,7 +460,7 @@ async def del_whole_playlist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("get_playlist_playmode") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def get_playlist_playmode_(client, CallbackQuery, _):
     try:
         await CallbackQuery.answer()
@@ -473,7 +473,7 @@ async def get_playlist_playmode_(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("home_play") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def home_play_(client, CallbackQuery, _):
     pass
 
@@ -488,7 +488,7 @@ async def home_play_(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("delete_warning") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def delete_warning_message(client, CallbackQuery, _):
     try:
         await CallbackQuery.answer()
@@ -499,7 +499,7 @@ async def delete_warning_message(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("del_back_playlist") & ~BANNED_USERS)
-@languageCB
+@language_cb
 async def del_back_playlist(client, CallbackQuery, _):
     user_id = CallbackQuery.from_user.id
     _playlist = await get_playlist_names(user_id)

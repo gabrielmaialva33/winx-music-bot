@@ -4,7 +4,7 @@ from pyrogram.types import Message
 
 from WinxMusic import app
 from WinxMusic.utils.database import set_cmode
-from WinxMusic.utils.decorators.admins import AdminActual
+from WinxMusic.utils.decorators.admins import admin_actual
 from config import BANNED_USERS
 from strings import get_command
 
@@ -12,7 +12,7 @@ CHANNELPLAY_COMMAND = get_command("CHANNELPLAY_COMMAND")
 
 
 @app.on_message(filters.command(CHANNELPLAY_COMMAND) & filters.group & ~BANNED_USERS)
-@AdminActual
+@admin_actual
 async def playmode_(_client: Client, message: Message, _):
     if len(message.command) < 2:
         return await message.reply_text(

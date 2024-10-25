@@ -1,28 +1,31 @@
+from pyrogram.types import Message
+
 from WinxMusic import app
 from WinxMusic.utils.database import is_on_off
 from config import LOG, LOG_GROUP_ID
 
 
-async def play_logs(message, streamtype):
+async def play_logs(message: Message, streamtype: str):
     if await is_on_off(LOG):
         if message.chat.username:
             chatusername = f"@{message.chat.username}"
         else:
-            chatusername = "ᴘʀɪᴠᴀᴛᴇ ɢʀᴏᴜᴘ"
+            chatusername = "🔒 Grupo Privado"
 
         logger_text = f"""
-**{app.mention} ᴘʟᴀʏ ʟᴏɢ**
+🎵 **Registro de Reprodução - {app.mention}** 🎵
 
-**ᴄʜᴀᴛ ɪᴅ :** `{message.chat.id}`
-**ᴄʜᴀᴛ ɴᴀᴍᴇ :** {message.chat.title}
-**ᴄʜᴀᴛ ᴜsᴇʀɴᴀᴍᴇ :** {chatusername}
+📌 **ID do Chat:** `{message.chat.id}`
+🏷️ **Nome do Chat:** {message.chat.title}
+🔗 **Nome de Usuário do Chat:** {chatusername}
 
-**ᴜsᴇʀ ɪᴅ :** `{message.from_user.id}`
-**ɴᴀᴍᴇ :** {message.from_user.mention}
-**ᴜsᴇʀɴᴀᴍᴇ :** @{message.from_user.username}
+👤 **ID do Usuário:** `{message.from_user.id}`
+📛 **Nome:** {message.from_user.mention}
+📱 **Nome de Usuário:** @{message.from_user.username}
 
-**ǫᴜᴇʀʏ :** {message.text.split(None, 1)[1]}
-**sᴛʀᴇᴀᴍᴛʏᴘᴇ :** {streamtype}"""
+🔍 **Consulta:** {message.text.split(None, 1)[1]}
+🎧 **Tipo de Transmissão:** {streamtype}"""
+
         if message.chat.id != LOG_GROUP_ID:
             try:
                 await app.send_message(

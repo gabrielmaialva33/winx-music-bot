@@ -12,7 +12,7 @@ from pyrogram.types import (
 
 from WinxMusic import HELPABLE, app
 from WinxMusic.utils.database import get_lang, is_commanddelete_on
-from WinxMusic.utils.decorators.language import LanguageStart
+from WinxMusic.utils.decorators.language import language_start
 from WinxMusic.utils.inline.help import private_help_panel
 from config import BANNED_USERS, START_IMG_URL
 from strings import get_command, get_string
@@ -60,7 +60,7 @@ def paginate_modules(page_n, module_dict, chat=None, close: bool = False):
             ]
         )
 
-    pairs = [modules[i : i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
+    pairs = [modules[i: i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
     max_num_pages = ceil(len(pairs) / COLUMN_SIZE) if len(pairs) > 0 else 1
     modulo_page = page_n % max_num_pages
 
@@ -83,7 +83,7 @@ def paginate_modules(page_n, module_dict, chat=None, close: bool = False):
     ]
 
     if len(pairs) > COLUMN_SIZE:
-        pairs = pairs[modulo_page * COLUMN_SIZE : COLUMN_SIZE * (modulo_page + 1)] + [
+        pairs = pairs[modulo_page * COLUMN_SIZE: COLUMN_SIZE * (modulo_page + 1)] + [
             navigation_buttons
         ]
     else:
@@ -102,7 +102,7 @@ def paginate_modules(page_n, module_dict, chat=None, close: bool = False):
 @app.on_message(filters.command(HELP_COMMAND) & filters.private & ~BANNED_USERS)
 @app.on_callback_query(filters.regex("settings_back_helper") & ~BANNED_USERS)
 async def helper_private(
-    _client: Client, update: Union[types.Message, types.CallbackQuery]
+        _client: Client, update: Union[types.Message, types.CallbackQuery]
 ):
     is_callback = isinstance(update, types.CallbackQuery)
     if is_callback:
@@ -142,7 +142,7 @@ async def helper_private(
 
 
 @app.on_message(filters.command(HELP_COMMAND) & filters.group & ~BANNED_USERS)
-@LanguageStart
+@language_start
 async def help_com_group(client, message: Message, _):
     keyboard = private_help_panel(_)
     await message.reply_text(_["help_2"], reply_markup=InlineKeyboardMarkup(keyboard))
@@ -176,17 +176,17 @@ async def help_button(client: Client, query: CallbackQuery):
         prev_page_num = int(chat_match.group(3))
         close = int(chat_match.group(4)) == 1
         text = (
-            f"<b><u>Here is the help for {HELPABLE[module].__MODULE__}:</u></b>\n"
-            + HELPABLE[module].__HELP__
+                f"<b><u>Aqui está a ajuda para {HELPABLE[module].__MODULE__}:</u></b>\n"
+                + HELPABLE[module].__HELP__
         )
         key = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="↪️ Back",
+                        text="↪️ Voltar",
                         callback_data=f"help_back({prev_page_num},{int(close)})",
                     ),
-                    InlineKeyboardButton(text="🔄 close", callback_data="close"),
+                    InlineKeyboardButton(text="🔄 Fechar", callback_data="close"),
                 ],
             ]
         )
@@ -201,17 +201,17 @@ async def help_button(client: Client, query: CallbackQuery):
         prev_page_num = int(mod_match.group(2))
         close = int(mod_match.group(3)) == 1
         text = (
-            f"<b><u>Aqui está a ajuda para {HELPABLE[module].__MODULE__}:</u></b>\n"
-            + HELPABLE[module].__HELP__
+                f"<b><u>Aqui está a ajuda para {HELPABLE[module].__MODULE__}:</u></b>\n"
+                + HELPABLE[module].__HELP__
         )
         key = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="↪️ Back",
+                        text="↪️ Voltar",
                         callback_data=f"help_back({prev_page_num},{int(close)})",
                     ),
-                    InlineKeyboardButton(text="🔄 close", callback_data="close"),
+                    InlineKeyboardButton(text="🔄 Fechar", callback_data="close"),
                 ],
             ]
         )

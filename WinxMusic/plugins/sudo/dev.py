@@ -218,13 +218,6 @@ __HELP__ = f"""
 <b>{command("DELSUDO_COMMAND")} [Nome de usuário, ID do usuário ou responder a um usuário] - Remover dos sudoers do bot</b>
 <b>{command("SUDOUSERS_COMMAND")} - Obter uma lista de todos os sudoers</b>
 
-<b><u>Heroku:</u></b>
-
-<b>{command("USAGE_COMMAND")}</b> - Uso de Dyno
-<b>{command("GETVAR_COMMAND")} [Nome da Variável]</b> - Obter uma variável de configuração
-<b>{command("DELVAR_COMMAND")} [Nome da Variável]</b> - Excluir uma variável de configuração
-<b>{command("SETVAR_COMMAND")} [Nome da Variável] [Valor]</b> - Adicionar ou atualizar uma variável. Separe a variável e seu valor com um espaço
-
 <b><u>Comandos do Bot:</u></b>
 
 <b>{command("RESTART_COMMAND")}</b> - Reiniciar o bot (apenas SUDOERS)
