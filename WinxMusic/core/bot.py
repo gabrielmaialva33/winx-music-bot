@@ -96,7 +96,7 @@ class WinxBot(Client):
         try:
             await self.send_message(
                 config.LOG_GROUP_ID,
-                text=f"🚀 <u><b>{self.mention} Bot Iniciado :</b></u>\n\n🆔 Id: <code>{self.id}</code>\n📛 Nome: {self.name}\n🔗 Nome de usuário: @{self.username}",
+                text=f"🚀 <u><b>{self.mention} Bot Iniciado :</b></u>\n\n🆔 <b>ID</b>: <code>{self.id}</code>\n📛 <b>Nome</b>: {self.name}\n🔗 <b>Nome de usuário:</b> @{self.username}",
             )
         except:
             LOGGER(__name__).error(
@@ -161,6 +161,6 @@ class WinxBot(Client):
         LOGGER(__name__).info("Bot is shutting down")
         await self.send_message(
             config.LOG_GROUP_ID,
-            text=f"🛑 <u><b>{self.mention} Bot Desligado :</b></u>\n\n🆔 Id: <code>{self.id}</code>\n📛 Nome: {self.name}\n🔗 Nome de usuário: @{self.username}",
+            text=f"🛑 <u><b>{self.mention} Bot Desligado :</b></u>\n\n🆔 <b>ID</b>: <code>{self.id}</code>\n📛 <b>Nome</b>: {self.name}\n🔗 <b>Nome de usuário:</b> @{self.username}",
         )
         await super().stop()

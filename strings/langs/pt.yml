@@ -215,8 +215,8 @@ lyrics_3: "❌ Falha ao buscar letras 🥲.\n\n**Tentativa de busca por:** {0}"
 lyrics_4: "Clique no botão abaixo para evitar a busca de letras com longos spams."
 
 # Ping
-ping_1: "» {0} está pingando..."
-ping_2: "**» PONG**: `{0}`ms \n\n<b><u>Estatísticas do sistema {1} :</u></b>\n\n🌋 Uptime : {2}\n🌋 RAM : {3} \n🌋 CPU : {4} \n🌋 Disco : {5} \n🌋 Py-tgcalls : `{6} ms`"
+ping_1: "📡 {0} está pingando..."
+ping_2: "**PONG**: `{0}`ms \n\n<b><u>Estatísticas do sistema {1} :</u></b>\n\n⏳ Uptime: {2}\n🧠 RAM: {3} \n💻 CPU: {4} \n💾 Disco: {5} \n🎧 Py-tgcalls: `{6} ms`"
 
 # Song
 song_1: "🚫 Você só pode baixar músicas ou vídeos do YouTube em chat privado. Por favor, inicie o chat comigo em privado."

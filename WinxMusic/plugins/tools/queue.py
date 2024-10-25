@@ -167,7 +167,7 @@ async def queued_tracks(_client: Client, callback_query: CallbackQuery, _):
     basic[videoid] = False
     buttons = queue_back_markup(_, what)
     med = InputMediaPhoto(
-        media="https://telegra.ph//file/6f7d35131f69951c74ee5.jpg",
+        media="https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/queue_img.png",
         caption=_["queue_1"],
     )
     await callback_query.edit_message_media(media=med)
@@ -176,12 +176,12 @@ async def queued_tracks(_client: Client, callback_query: CallbackQuery, _):
     for x in got:
         j += 1
         if j == 1:
-            msg += f'Current playing:\n\n🏷Title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
+            msg += f'Tocando agora:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
         elif j == 2:
-            msg += f'Queued:\n\n🏷Title: {x["title"]}\nDuratiom: {x["dur"]}\nby: {x["by"]}\n\n'
+            msg += f'Na fila:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
         else:
-            msg += f'🏷Title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
-    if "Queued" in msg:
+            msg += f'🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
+    if "Na fila" in msg:
         if len(msg) < 700:
             await asyncio.sleep(1)
             return await callback_query.edit_message_text(msg, reply_markup=buttons)
@@ -228,24 +228,24 @@ async def queue_back(_client: Client, callback_query: CallbackQuery, _):
     type = (got[0]["streamtype"]).title()
     DUR = get_duration(got)
     if "live_" in file:
-        IMAGE = get_image(videoid)
+        image = get_image(videoid)
     elif "vid_" in file:
-        IMAGE = get_image(videoid)
+        image = get_image(videoid)
     elif "index_" in file:
-        IMAGE = config.STREAM_IMG_URL
+        image = config.STREAM_IMG_URL
     else:
         if videoid == "telegram":
-            IMAGE = (
+            image = (
                 config.TELEGRAM_AUDIO_URL
                 if type == "Audio"
                 else config.TELEGRAM_VIDEO_URL
             )
         elif videoid == "soundcloud":
-            IMAGE = config.SOUNCLOUD_IMG_URL
+            image = config.SOUNCLOUD_IMG_URL
         elif "saavn" in videoid:
-            IMAGE = got[0].get("thumb") or config.TELEGRAM_AUDIO_URL
+            image = got[0].get("thumb") or config.TELEGRAM_AUDIO_URL
         else:
-            IMAGE = get_image(videoid)
+            image = get_image(videoid)
     send = (
         "**⌛️ Duração:** Duração desconhecida\n\nClique no botão abaixo para ver a lista completa na fila"
         if DUR == "Unknown"
@@ -272,7 +272,7 @@ async def queue_back(_client: Client, callback_query: CallbackQuery, _):
     )
     basic[videoid] = True
 
-    med = InputMediaPhoto(media=IMAGE, caption=cap)
+    med = InputMediaPhoto(media=image, caption=cap)
     mystic = await callback_query.edit_message_media(media=med, reply_markup=upl)
     if DUR != "Unknown":
         try:
