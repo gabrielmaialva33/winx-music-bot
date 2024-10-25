@@ -60,7 +60,7 @@ def paginate_modules(page_n, module_dict, chat=None, close: bool = False):
             ]
         )
 
-    pairs = [modules[i: i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
+    pairs = [modules[i : i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
     max_num_pages = ceil(len(pairs) / COLUMN_SIZE) if len(pairs) > 0 else 1
     modulo_page = page_n % max_num_pages
 
@@ -83,7 +83,7 @@ def paginate_modules(page_n, module_dict, chat=None, close: bool = False):
     ]
 
     if len(pairs) > COLUMN_SIZE:
-        pairs = pairs[modulo_page * COLUMN_SIZE: COLUMN_SIZE * (modulo_page + 1)] + [
+        pairs = pairs[modulo_page * COLUMN_SIZE : COLUMN_SIZE * (modulo_page + 1)] + [
             navigation_buttons
         ]
     else:
@@ -102,7 +102,7 @@ def paginate_modules(page_n, module_dict, chat=None, close: bool = False):
 @app.on_message(filters.command(HELP_COMMAND) & filters.private & ~BANNED_USERS)
 @app.on_callback_query(filters.regex("settings_back_helper") & ~BANNED_USERS)
 async def helper_private(
-        _client: Client, update: Union[types.Message, types.CallbackQuery]
+    _client: Client, update: Union[types.Message, types.CallbackQuery]
 ):
     is_callback = isinstance(update, types.CallbackQuery)
     if is_callback:
@@ -176,8 +176,8 @@ async def help_button(client: Client, query: CallbackQuery):
         prev_page_num = int(chat_match.group(3))
         close = int(chat_match.group(4)) == 1
         text = (
-                f"<b><u>Aqui está a ajuda para {HELPABLE[module].__MODULE__}:</u></b>\n"
-                + HELPABLE[module].__HELP__
+            f"<b><u>Aqui está a ajuda para {HELPABLE[module].__MODULE__}:</u></b>\n"
+            + HELPABLE[module].__HELP__
         )
         key = InlineKeyboardMarkup(
             [
@@ -201,8 +201,8 @@ async def help_button(client: Client, query: CallbackQuery):
         prev_page_num = int(mod_match.group(2))
         close = int(mod_match.group(3)) == 1
         text = (
-                f"<b><u>Aqui está a ajuda para {HELPABLE[module].__MODULE__}:</u></b>\n"
-                + HELPABLE[module].__HELP__
+            f"<b><u>Aqui está a ajuda para {HELPABLE[module].__MODULE__}:</u></b>\n"
+            + HELPABLE[module].__HELP__
         )
         key = InlineKeyboardMarkup(
             [

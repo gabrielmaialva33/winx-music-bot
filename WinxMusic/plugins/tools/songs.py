@@ -9,7 +9,8 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
     InputMediaAudio,
     InputMediaVideo,
-    Message, CallbackQuery,
+    Message,
+    CallbackQuery,
 )
 
 from WinxMusic import YouTube, app

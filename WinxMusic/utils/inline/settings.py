@@ -25,11 +25,11 @@ def setting_markup(_):
 
 
 def audio_quality_markup(
-        _,
-        LOW: Union[bool, str] = None,
-        MEDIUM: Union[bool, str] = None,
-        HIGH: Union[bool, str] = None,
-        STUDIO: Union[bool, str] = None,
+    _,
+    LOW: Union[bool, str] = None,
+    MEDIUM: Union[bool, str] = None,
+    HIGH: Union[bool, str] = None,
+    STUDIO: Union[bool, str] = None,
 ):
     buttons = [
         [
@@ -78,13 +78,13 @@ def audio_quality_markup(
 
 
 def video_quality_markup(
-        _,
-        SD_360p: Union[bool, str] = None,
-        SD_480p: Union[bool, str] = None,
-        HD_720p: Union[bool, str] = None,
-        FHD_1080p: Union[bool, str] = None,
-        QHD_2K: Union[bool, str] = None,
-        UHD_4K: Union[bool, str] = None,
+    _,
+    SD_360p: Union[bool, str] = None,
+    SD_480p: Union[bool, str] = None,
+    HD_720p: Union[bool, str] = None,
+    FHD_1080p: Union[bool, str] = None,
+    QHD_2K: Union[bool, str] = None,
+    UHD_4K: Union[bool, str] = None,
 ):
     buttons = [
         [
@@ -153,9 +153,9 @@ def video_quality_markup(
 
 
 def cleanmode_settings_markup(
-        _,
-        status: Union[bool, str] = None,
-        dels: Union[bool, str] = None,
+    _,
+    status: Union[bool, str] = None,
+    dels: Union[bool, str] = None,
 ):
     buttons = [
         [
@@ -207,10 +207,10 @@ def auth_users_markup(_, status: Union[bool, str] = None):
 
 
 def playmode_users_markup(
-        _,
-        Direct: Union[bool, str] = None,
-        Group: Union[bool, str] = None,
-        Playtype: Union[bool, str] = None,
+    _,
+    Direct: Union[bool, str] = None,
+    Group: Union[bool, str] = None,
+    Playtype: Union[bool, str] = None,
 ):
     buttons = [
         [

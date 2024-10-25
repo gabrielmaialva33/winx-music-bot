@@ -125,7 +125,8 @@ async def top_users_ten(_client: Client, callback_query: CallbackQuery, _):
     mystic = await callback_query.edit_message_text(
         _["gstats_3"].format(
             f"do {callback_query.message.chat.title}" if what == "Here" else what
-        ) + " 🔝"
+        )
+        + " 🔝"
     )
     if what == "Tracks":
         stats = await get_global_tops()
@@ -280,7 +281,9 @@ async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
 @language_cb
 async def overall_stats(client, CallbackQuery, _):
     if CallbackQuery.from_user.id not in SUDOERS:
-        return await CallbackQuery.answer("🔐 Somente para usuários Sudo", show_alert=True)
+        return await CallbackQuery.answer(
+            "🔐 Somente para usuários Sudo", show_alert=True
+        )
     callback_data = CallbackQuery.data.strip()
     what = callback_data.split(None, 1)[1]
     if what != "s":
@@ -295,7 +298,7 @@ async def overall_stats(client, CallbackQuery, _):
     sc = platform.system()
     p_core = psutil.cpu_count(logical=False)
     t_core = psutil.cpu_count(logical=True)
-    ram = str(round(psutil.virtual_memory().total / (1024.0 ** 3))) + " GB"
+    ram = str(round(psutil.virtual_memory().total / (1024.0**3))) + " GB"
     try:
         cpu_freq = psutil.cpu_freq().current
         if cpu_freq >= 1000:
@@ -305,11 +308,11 @@ async def overall_stats(client, CallbackQuery, _):
     except:
         cpu_freq = "Não foi possível obter"
     hdd = psutil.disk_usage("/")
-    total = hdd.total / (1024.0 ** 3)
+    total = hdd.total / (1024.0**3)
     total = str(total)
-    used = hdd.used / (1024.0 ** 3)
+    used = hdd.used / (1024.0**3)
     used = str(used)
-    free = hdd.free / (1024.0 ** 3)
+    free = hdd.free / (1024.0**3)
     free = str(free)
     mod = len(ALL_MODULES)
     db = pymongodb

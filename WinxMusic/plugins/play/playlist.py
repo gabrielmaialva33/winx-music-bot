@@ -209,8 +209,8 @@ async def play_playlist_command(client, message, _):
         except ChatAdminRequired:
             return await msg.edit_text(_["call_1"])
         if (
-                get.status == ChatMemberStatus.BANNED
-                or get.status == ChatMemberStatus.RESTRICTED
+            get.status == ChatMemberStatus.BANNED
+            or get.status == ChatMemberStatus.RESTRICTED
         ):
             try:
                 await app.unban_chat_member(chat_id, userbot.id)

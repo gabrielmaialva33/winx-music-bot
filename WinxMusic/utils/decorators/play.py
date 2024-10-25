@@ -59,7 +59,9 @@ async def join_chat(message: Message, chat_id: int, _, myu: Message = None, atte
                 return await myu.edit(_["call_3"].format(app.mention, type(e).__name__))
 
         if invite_link.startswith("https://t.me/+"):
-            invite_link = invite_link.replace("https://t.me/+", "https://t.me/joinchat/")
+            invite_link = invite_link.replace(
+                "https://t.me/+", "https://t.me/joinchat/"
+            )
         links[chat_id] = invite_link
 
     try:
@@ -217,8 +219,8 @@ def play_wrapper(command: callable):
                 except ChatAdminRequired:
                     return await message.reply_text(_["call_1"])
                 if (
-                        get.status == ChatMemberStatus.BANNED
-                        or get.status == ChatMemberStatus.RESTRICTED
+                    get.status == ChatMemberStatus.BANNED
+                    or get.status == ChatMemberStatus.RESTRICTED
                 ):
                     try:
                         await app.unban_chat_member(chat_id, userbot.id)
