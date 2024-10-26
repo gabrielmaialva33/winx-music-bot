@@ -17,15 +17,15 @@ STREAM_COMMAND = get_command("STREAM_COMMAND")
 @app.on_message(filters.command(STREAM_COMMAND) & filters.group & ~BANNED_USERS)
 @play_wrapper
 async def stream_command(
-    _client: Client,
-    message: Message,
-    _,
-    chat_id,
-    video,
-    channel,
-    playmode,
-    url,
-    fplay,
+        _client: Client,
+        message: Message,
+        _,
+        chat_id,
+        video,
+        channel,
+        playmode,
+        url,
+        fplay,
 ):
     if url:
         mystic = await message.reply_text(
