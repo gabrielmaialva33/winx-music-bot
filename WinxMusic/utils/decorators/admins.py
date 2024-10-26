@@ -37,7 +37,7 @@ def admin_rights_check(mystic: callable):
             language = await get_lang(message.chat.id)
             _ = get_string(language)
         except:
-            _ = get_string("pt")
+            _ = get_string("pt_br")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
                 [
@@ -92,7 +92,7 @@ def admin_actual(mystic: callable):
             language = await get_lang(message.chat.id)
             _ = get_string(language)
         except:
-            _ = get_string("pt")
+            _ = get_string("pt_br")
 
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
@@ -133,7 +133,7 @@ def actual_admin_cb(mystic: callable):
             language = await get_lang(callback_query.message.chat.id)
             _ = get_string(language)
         except:
-            _ = get_string("pt")
+            _ = get_string("pt_br")
 
         if not await is_maintenance():
             if callback_query.from_user.id not in SUDOERS:

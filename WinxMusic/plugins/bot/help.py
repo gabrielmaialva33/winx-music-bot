@@ -166,7 +166,7 @@ async def help_button(client: Client, query: CallbackQuery):
         language = await get_lang(query.message.chat.id)
         _ = get_string(language)
     except:
-        _ = get_string("pt")
+        _ = get_string("pt_br")
 
     top_text = _["help_1"]
 

@@ -31,21 +31,21 @@ for filename in os.listdir(r"./strings"):
         )
 
 for filename in os.listdir(r"./strings/langs/"):
-    if "pt" not in languages:
-        languages["pt"] = yaml.safe_load(
+    if "pt_br" not in languages:
+        languages["pt_br"] = yaml.safe_load(
             open(r"./strings/langs/pt.yml", encoding="utf8")
         )
-        languages_present["pt"] = languages["pt"]["name"]
+        languages_present["pt_br"] = languages["pt_br"]["name"]
     if filename.endswith(".yml"):
         language_name = filename[:-4]
-        if language_name == "pt":
+        if language_name == "pt_br":
             continue
         languages[language_name] = yaml.safe_load(
             open(r"./strings/langs/" + filename, encoding="utf8")
         )
-        for item in languages["pt"]:
+        for item in languages["pt_br"]:
             if item not in languages[language_name]:
-                languages[language_name][item] = languages["pt"][item]
+                languages[language_name][item] = languages["pt_br"][item]
     try:
         languages_present[language_name] = languages[language_name]["name"]
     except:
