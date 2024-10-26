@@ -25,7 +25,7 @@ def cookies():
 
 
 def get_ytdl_options(
-        ytdl_opts: Union[str, dict, list], commandline: bool = True
+    ytdl_opts: Union[str, dict, list], commandline: bool = True
 ) -> Union[str, dict, list]:
     token_data = os.getenv("TOKEN_DATA")
 
@@ -114,7 +114,7 @@ class YouTubeAPI:
                         return entity.url
         if offset in (None,):
             return None
-        return text[offset: offset + length]
+        return text[offset : offset + length]
 
     async def details(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
@@ -269,10 +269,10 @@ class YouTubeAPI:
         return formats_available, link
 
     async def slider(
-            self,
-            link: str,
-            query_type: int,
-            videoid: Union[bool, str] = None,
+        self,
+        link: str,
+        query_type: int,
+        videoid: Union[bool, str] = None,
     ):
         if videoid:
             link = self.base + link
@@ -287,15 +287,15 @@ class YouTubeAPI:
         return title, duration_min, thumbnail, vidid
 
     async def download(
-            self,
-            link: str,
-            mystic,
-            video: Union[bool, str] = None,
-            videoid: Union[bool, str] = None,
-            songaudio: Union[bool, str] = None,
-            songvideo: Union[bool, str] = None,
-            format_id: Union[bool, str] = None,
-            title: Union[bool, str] = None,
+        self,
+        link: str,
+        mystic,
+        video: Union[bool, str] = None,
+        videoid: Union[bool, str] = None,
+        songaudio: Union[bool, str] = None,
+        songvideo: Union[bool, str] = None,
+        format_id: Union[bool, str] = None,
+        title: Union[bool, str] = None,
     ) -> str:
         if videoid:
             link = self.base + link

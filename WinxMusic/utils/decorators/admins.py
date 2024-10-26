@@ -114,8 +114,8 @@ def admin_actual(mystic: callable):
                 )
 
                 if member.status != ChatMemberStatus.ADMINISTRATOR or (
-                        member.privileges is None
-                        or not member.privileges.can_manage_video_chats
+                    member.privileges is None
+                    or not member.privileges.can_manage_video_chats
                 ):
                     return await message.reply(_["general_5"])
 
@@ -154,7 +154,7 @@ def actual_admin_cb(mystic: callable):
                 )
 
                 if a is None or (
-                        a.privileges is None or not a.privileges.can_manage_video_chats
+                    a.privileges is None or not a.privileges.can_manage_video_chats
                 ):
                     if callback_query.from_user.id not in SUDOERS:
                         token = await int_to_alpha(callback_query.from_user.id)
