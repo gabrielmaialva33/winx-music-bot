@@ -11,3 +11,6 @@ __pycache__/
 *.session-journal
 tempdb/
 .idea/
+plugins
+utils
+.venv
