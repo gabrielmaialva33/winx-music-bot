@@ -1,5 +1,7 @@
 .env
 .winx.env
+.cinewinx.env
+.dev.env
 .cache
 Winxlogs.txt
 .DS_Store
