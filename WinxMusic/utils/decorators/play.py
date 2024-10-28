@@ -208,7 +208,7 @@ def play_wrapper(command: callable):
                 member.chat.id async for member in userbot.get_call_members(chat_id)
             ]
             # Checking if assistant id not in list so clear queues and remove active voice chat and process
-            if userbot.id not in call_participants_id:
+            if not call_participants_id or userbot.id not in call_participants_id:
                 await Winx.stop_stream(chat_id)
 
         else:

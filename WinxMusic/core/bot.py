@@ -11,7 +11,7 @@ from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import (
     ChatSendPhotosForbidden,
     ChatWriteForbidden,
-    FloodWait,
+    FloodWait, MessageIdInvalid,
 )
 from pyrogram.types import (
     BotCommand,
@@ -50,6 +50,8 @@ class WinxBot(Client):
             await asyncio.sleep(time)
             if time < 25:
                 return await self.edit_message_text(self, *args, **kwargs)
+        except MessageIdInvalid:
+            pass
 
     async def send_message(self, *args, **kwargs):
         if kwargs.get("send_direct", False):
