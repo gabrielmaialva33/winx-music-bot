@@ -11,7 +11,7 @@ def language(mystic: callable):
             language = await get_lang(message.chat.id)
             language = get_string(language)
         except:
-            language = get_string("pt_br")
+            language = get_string("pt")
         if not await is_maintenance():
             if message.from_user.id not in SUDOERS:
                 if message.chat.type == ChatType.PRIVATE:
@@ -33,7 +33,7 @@ def language_cb(mystic: callable):
             language = await get_lang(CallbackQuery.message.chat.id)
             language = get_string(language)
         except:
-            language = get_string("pt_br")
+            language = get_string("pt")
         if not await is_maintenance():
             if CallbackQuery.from_user.id not in SUDOERS:
                 if CallbackQuery.message.chat.type == ChatType.PRIVATE:
@@ -54,7 +54,7 @@ def language_start(mystic: callable):
             language = await get_lang(message.chat.id)
             language = get_string(language)
         except:
-            language = get_string("pt_br")
+            language = get_string("pt")
         return await mystic(_, message, language)
 
     return wrapper
