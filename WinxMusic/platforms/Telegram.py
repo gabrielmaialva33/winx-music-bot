@@ -182,7 +182,7 @@ class TeleAPI:
                 await mystic.edit_text(
                     "✅ Download concluído com sucesso...\n📂 Processando arquivo agora"
                 )
-                downloader.pop(message.id)
+                downloader.pop(message.id, None)
             except:
                 await mystic.edit_text(_["tg_2"])
 
@@ -203,7 +203,7 @@ class TeleAPI:
         await task
         downloaded = downloader.get(message.id)
         if downloaded:
-            downloader.pop(message.id)
+            downloader.pop(message.id, None)
             return False
         verify = lyrical.get(mystic.id)
         if not verify:
