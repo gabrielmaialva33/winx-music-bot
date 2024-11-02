@@ -25,6 +25,5 @@ gunicorn
 youtube-search
 youtube-search-python
 yt-dlp
-# use pyrogram version fixed: 2.1.30
 git+https://github.com/KurimuzonAkuma/pyrogram@v2.1.30
 git+https://github.com/Vivekkumar-IN/yt-dlp-youtube-oauth2
