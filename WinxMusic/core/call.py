@@ -10,7 +10,6 @@ from pytgcalls.types import (
     GroupCallConfig,
     MediaStream,
     StreamAudioEnded,
-    StreamVideoEnded,
     Update,
 )
 
@@ -97,11 +96,11 @@ class Call:
             pass
 
     async def skip_stream(
-        self,
-        chat_id: int,
-        link: str,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            link: str,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -159,12 +158,12 @@ class Call:
         await assistant.leave_call(config.LOG_GROUP_ID)
 
     async def join_call(
-        self,
-        chat_id: int,
-        original_chat_id: int,
-        link,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            original_chat_id: int,
+            link,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -505,8 +504,9 @@ class Call:
 
             @call.on_update(filters.stream_end)
             async def stream_end_handler(client, update: Update):
-                if isinstance(update, (StreamVideoEnded, StreamAudioEnded)):
-                    await self.change_stream(client, update.chat_id)
+                if not isinstance(update, StreamAudioEnded):
+                    return
+                await self.change_stream(client, update.chat_id)
 
 
 Winx = Call()

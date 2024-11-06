@@ -10,12 +10,13 @@ motor
 psutil
 pytube
 pykeyboard
-py-tgcalls
+py-tgcalls==2.0.5
 ntgcalls
 python-dotenv
 pyyaml
 requests
 speedtest-cli
+PyTgCrypto
 spotipy
 tgcrypto
 urllib3

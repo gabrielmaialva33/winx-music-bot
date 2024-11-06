@@ -12,7 +12,7 @@ from yt_dlp import YoutubeDL
 
 import config
 from WinxMusic.utils.database import is_on_off
-from WinxMusic.utils.formatters import time_to_seconds
+from WinxMusic.utils.formatters import time_to_seconds, seconds_to_min
 
 
 def cookies():
@@ -25,7 +25,7 @@ def cookies():
 
 
 def get_ytdl_options(
-    ytdl_opts: Union[str, dict, list], commandline: bool = True
+        ytdl_opts: Union[str, dict, list], commandline: bool = True
 ) -> Union[str, dict, list]:
     token_data = os.getenv("TOKEN_DATA")
 
@@ -76,7 +76,7 @@ async def shell_cmd(cmd):
     return out.decode("utf-8")
 
 
-class YouTubeAPI:
+class YouTube:
     def __init__(self):
         self.base = "https://www.youtube.com/watch?v="
         self.regex = r"(?:youtube\.com|youtu\.be)"
@@ -114,7 +114,7 @@ class YouTubeAPI:
                         return entity.url
         if offset in (None,):
             return None
-        return text[offset : offset + length]
+        return text[offset: offset + length]
 
     async def details(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
@@ -187,21 +187,22 @@ class YouTubeAPI:
         else:
             return 0, stderr.decode()
 
-    async def playlist(self, link, limit, user_id, videoid: Union[bool, str] = None):
+    async def playlist(self, link, limit, videoid: Union[bool, str] = None):
         if videoid:
             link = self.listbase + link
         if "&" in link:
             link = link.split("&")[0]
 
-        cmd = get_ytdl_options(
-            f"yt-dlp -i --get-id --flat-playlist --playlist-end {limit} --skip-download {link}"
+        cmd = (
+            f"yt-dlp -i --compat-options no-youtube-unavailable-videos "
+            f'--get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
+            f"2>/dev/null"
         )
+
         playlist = await shell_cmd(cmd)
+
         try:
-            result = playlist.split("\n")
-            for key in result:
-                if key == "":
-                    result.remove(key)
+            result = [key for key in playlist.split("\n") if key]
         except:
             result = []
         return result
@@ -211,21 +212,45 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
-        results = VideosSearch(link, limit=1)
-        for result in (await results.next())["result"]:
-            title = result["title"]
-            duration_min = result["duration"]
-            vidid = result["id"]
-            yturl = result["link"]
-            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
-        track_details = {
-            "title": title,
-            "link": yturl,
-            "vidid": vidid,
-            "duration_min": duration_min,
-            "thumb": thumbnail,
-        }
-        return track_details, vidid
+        if link.startswith("http://") or link.startswith("https://"):
+            return await self._track(link)
+        try:
+            results = VideosSearch(link, limit=1)
+            for result in (await results.next())["result"]:
+                title = result["title"]
+                duration_min = result["duration"]
+                vidid = result["id"]
+                yturl = result["link"]
+                thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+            track_details = {
+                "title": title,
+                "link": yturl,
+                "vidid": vidid,
+                "duration_min": duration_min,
+                "thumb": thumbnail,
+            }
+            return track_details, vidid
+        except Exception:
+            return await self._track(link)
+
+    async def _track(self, q):
+        options = get_ytdl_options({
+            'format': 'best',
+            'noplaylist': True,
+            'quiet': True,
+            'extract_flat': "in_playlist",
+        })
+        with YoutubeDL(options) as ydl:
+            info_dict = ydl.extract_info(f"ytsearch: {q}", download=False)
+            details = info_dict.get("entries")[0]
+            info = {
+                "title": details["title"],
+                "link": details["url"],
+                "vidid": details["id"],
+                "duration_min": seconds_to_min(details["duration"]) if details["duration"] != 0 else None,
+                "thumb": details["thumbnails"][0]["url"],
+            }
+            return info, details["id"]
 
     async def formats(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
@@ -269,10 +294,10 @@ class YouTubeAPI:
         return formats_available, link
 
     async def slider(
-        self,
-        link: str,
-        query_type: int,
-        videoid: Union[bool, str] = None,
+            self,
+            link: str,
+            query_type: int,
+            videoid: Union[bool, str] = None,
     ):
         if videoid:
             link = self.base + link
@@ -287,15 +312,15 @@ class YouTubeAPI:
         return title, duration_min, thumbnail, vidid
 
     async def download(
-        self,
-        link: str,
-        mystic,
-        video: Union[bool, str] = None,
-        videoid: Union[bool, str] = None,
-        songaudio: Union[bool, str] = None,
-        songvideo: Union[bool, str] = None,
-        format_id: Union[bool, str] = None,
-        title: Union[bool, str] = None,
+            self,
+            link: str,
+            mystic,
+            video: Union[bool, str] = None,
+            videoid: Union[bool, str] = None,
+            songaudio: Union[bool, str] = None,
+            songvideo: Union[bool, str] = None,
+            format_id: Union[bool, str] = None,
+            title: Union[bool, str] = None,
     ) -> str:
         if videoid:
             link = self.base + link

@@ -105,6 +105,7 @@ class WinxBot(Client):
             LOGGER(__name__).error(
                 "Bot has failed to access the log group. Make sure that you have added your bot to your log channel and promoted as admin!"
             )
+            LOGGER(__name__).error("An error occurred", exc_info=True)
             # sys.exit()
         if config.SET_CMDS == str(True):
             try:

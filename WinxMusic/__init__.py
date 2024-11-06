@@ -28,7 +28,7 @@ userbot = Userbot()
 
 from .platforms import *
 
-YouTube = YouTubeAPI()
+YouTube = YouTube()
 Carbon = CarbonAPI()
 Spotify = SpotifyAPI()
 Saavn = SaavnAPI()
