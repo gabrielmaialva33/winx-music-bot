@@ -25,7 +25,7 @@ def cookies():
 
 
 def get_ytdl_options(
-        ytdl_opts: Union[str, dict, list], commandline: bool = True
+    ytdl_opts: Union[str, dict, list], commandline: bool = True
 ) -> Union[str, dict, list]:
     token_data = os.getenv("TOKEN_DATA")
 
@@ -114,7 +114,7 @@ class YouTube:
                         return entity.url
         if offset in (None,):
             return None
-        return text[offset: offset + length]
+        return text[offset : offset + length]
 
     async def details(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
@@ -234,12 +234,14 @@ class YouTube:
             return await self._track(link)
 
     async def _track(self, q):
-        options = get_ytdl_options({
-            'format': 'best',
-            'noplaylist': True,
-            'quiet': True,
-            'extract_flat': "in_playlist",
-        })
+        options = get_ytdl_options(
+            {
+                "format": "best",
+                "noplaylist": True,
+                "quiet": True,
+                "extract_flat": "in_playlist",
+            }
+        )
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(f"ytsearch: {q}", download=False)
             details = info_dict.get("entries")[0]
@@ -247,7 +249,11 @@ class YouTube:
                 "title": details["title"],
                 "link": details["url"],
                 "vidid": details["id"],
-                "duration_min": seconds_to_min(details["duration"]) if details["duration"] != 0 else None,
+                "duration_min": (
+                    seconds_to_min(details["duration"])
+                    if details["duration"] != 0
+                    else None
+                ),
                 "thumb": details["thumbnails"][0]["url"],
             }
             return info, details["id"]
@@ -294,10 +300,10 @@ class YouTube:
         return formats_available, link
 
     async def slider(
-            self,
-            link: str,
-            query_type: int,
-            videoid: Union[bool, str] = None,
+        self,
+        link: str,
+        query_type: int,
+        videoid: Union[bool, str] = None,
     ):
         if videoid:
             link = self.base + link
@@ -312,15 +318,15 @@ class YouTube:
         return title, duration_min, thumbnail, vidid
 
     async def download(
-            self,
-            link: str,
-            mystic,
-            video: Union[bool, str] = None,
-            videoid: Union[bool, str] = None,
-            songaudio: Union[bool, str] = None,
-            songvideo: Union[bool, str] = None,
-            format_id: Union[bool, str] = None,
-            title: Union[bool, str] = None,
+        self,
+        link: str,
+        mystic,
+        video: Union[bool, str] = None,
+        videoid: Union[bool, str] = None,
+        songaudio: Union[bool, str] = None,
+        songvideo: Union[bool, str] = None,
+        format_id: Union[bool, str] = None,
+        title: Union[bool, str] = None,
     ) -> str:
         if videoid:
             link = self.base + link
