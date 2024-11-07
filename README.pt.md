@@ -41,7 +41,7 @@ ___
 
 # 🎶 Configurações do Winx Music Bot
 
-Para iniciar a configuração do Winx Music Bot, consulte as instruções detalhadas [aqui](https://github.com/gabrielmaialva33/winx-music-bot/blob/master/config/README.md).
+Para iniciar a configuração do Winx Music Bot, consulte as instruções detalhadas [aqui](https://github.com/gabrielmaialva33/winx-music-bot/blob/master/config/README.pt.md).
 
 ---
 
