@@ -1,4 +1,9 @@
-# 🎵 **Winx Music Bot** 🎶
+<table>
+  <tr>
+    <td><img src="./assets/start_img_2.png" alt="TypeScript" width="300"></td>
+    <td><h1>🎵 Ｗｉｎｘ Ｂｏｔ 🎶</h1></td>
+  </tr>
+</table>
 
 [Winx Music Bot](https://github.com/gabrielmaialva33/winx-music-bot) é um poderoso bot de música e vídeo para o Telegram, escrito em Python utilizando Pyrogram e Py-Tgcalls. Com ele, você pode transmitir músicas, vídeos e até transmissões ao vivo nas chamadas em grupo por meio de várias fontes. 🚀
 
