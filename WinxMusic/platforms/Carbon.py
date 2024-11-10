@@ -67,7 +67,7 @@ colour = [
 ]
 
 
-class CarbonAPI:
+class Carbon:
     def __init__(self):
         self.language = "auto"
         self.drop_shadow = True
@@ -79,7 +79,7 @@ class CarbonAPI:
 
     async def generate(self, text: str, user_id):
         async with aiohttp.ClientSession(
-            headers={"Content-Type": "application/json"},
+                headers={"Content-Type": "application/json"},
         ) as ses:
             params = {
                 "code": text,

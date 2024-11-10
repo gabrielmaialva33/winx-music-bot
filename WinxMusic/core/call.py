@@ -14,7 +14,7 @@ from pytgcalls.types import (
 )
 
 import config
-from WinxMusic import LOGGER, YouTube, app, userbot
+from WinxMusic import LOGGER, app, userbot, Platform
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (
     add_active_chat,
@@ -96,11 +96,11 @@ class Call:
             pass
 
     async def skip_stream(
-        self,
-        chat_id: int,
-        link: str,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            link: str,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -158,12 +158,12 @@ class Call:
         await assistant.leave_call(config.LOG_GROUP_ID)
 
     async def join_call(
-        self,
-        chat_id: int,
-        original_chat_id: int,
-        link,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            original_chat_id: int,
+            link,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -251,7 +251,7 @@ class Call:
             video = True if str(streamtype) == "video" else False
             call_config = GroupCallConfig(auto_start=False)
             if "live_" in queued:
-                n, link = await YouTube.video(videoid, True)
+                n, link = await Platform.youtube.video(videoid, True)
                 if n == 0:
                     return await app.send_message(
                         original_chat_id,
@@ -265,7 +265,7 @@ class Call:
                     )
                 else:
                     try:
-                        image = await YouTube.thumbnail(videoid, True)
+                        image = await Platform.youtube.thumbnail(videoid, True)
                     except:
                         image = None
                     if image and config.PRIVATE_BOT_MODE == str(True):
@@ -305,7 +305,7 @@ class Call:
             elif "vid_" in queued:
                 mystic = await app.send_message(original_chat_id, _["call_8"])
                 try:
-                    file_path, direct = await YouTube.download(
+                    file_path, direct = await Platform.youtube.download(
                         videoid,
                         mystic,
                         videoid=True,
@@ -323,7 +323,7 @@ class Call:
                     )
                 else:
                     try:
-                        image = await YouTube.thumbnail(videoid, True)
+                        image = await Platform.youtube.thumbnail(videoid, True)
                     except:
                         image = None
                     if image and config.PRIVATE_BOT_MODE == str(True):
@@ -394,7 +394,7 @@ class Call:
                     image = None
                 else:
                     try:
-                        image = await YouTube.thumbnail(videoid, True)
+                        image = await Platform.youtube.thumbnail(videoid, True)
                     except:
                         image = None
                 if video:

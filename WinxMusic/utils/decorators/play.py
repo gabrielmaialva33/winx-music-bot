@@ -12,7 +12,7 @@ from pyrogram.errors import (
 )
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from WinxMusic import YouTube, app
+from WinxMusic import app, Platform
 from WinxMusic.core.call import Winx
 from WinxMusic.core.userbot import assistants
 from WinxMusic.misc import SUDOERS
@@ -145,7 +145,7 @@ def play_wrapper(command: callable):
             if message.reply_to_message
             else None
         )
-        url = await YouTube.url(message)
+        url = await Platform.youtube.url(message)
         if audio_telegram is None and video_telegram is None and url is None:
             if len(message.command) < 2:
                 if "stream" in message.command:
@@ -219,8 +219,8 @@ def play_wrapper(command: callable):
                 except ChatAdminRequired:
                     return await message.reply_text(_["call_1"])
                 if (
-                    get.status == ChatMemberStatus.BANNED
-                    or get.status == ChatMemberStatus.RESTRICTED
+                        get.status == ChatMemberStatus.BANNED
+                        or get.status == ChatMemberStatus.RESTRICTED
                 ):
                     try:
                         await app.unban_chat_member(chat_id, userbot.id)

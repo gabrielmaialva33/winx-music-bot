@@ -2,7 +2,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
 import config
-from WinxMusic import YouTube, app
+from WinxMusic import app, Platform
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils.database import get_loop
@@ -104,7 +104,7 @@ async def skip(cli, message: Message, _, chat_id):
     duration_min = check[0]["dur"]
     status = True if str(streamtype) == "video" else None
     if "live_" in queued:
-        n, link = await YouTube.video(videoid, True)
+        n, link = await Platform.youtube.video(videoid, True)
         if n == 0:
             return await message.reply_text(_["admin_11"].format(title))
         try:
@@ -126,7 +126,7 @@ async def skip(cli, message: Message, _, chat_id):
     elif "vid_" in queued:
         mystic = await message.reply_text(_["call_8"], disable_web_page_preview=True)
         try:
-            file_path, direct = await YouTube.download(
+            file_path, direct = await Platform.youtube.download(
                 videoid,
                 mystic,
                 videoid=True,
@@ -203,11 +203,11 @@ async def skip(cli, message: Message, _, chat_id):
             db[chat_id][0]["markup"] = "tg"
         elif "saavn" in videoid:
             button = telegram_markup(_, chat_id)
+            url = check[0]["url"]
+            details = await Platform.saavn.info(url)
             run = await message.reply_photo(
-                photo=check[0]["thumb"],
-                caption=_["stream_1"].format(
-                    title, config.SUPPORT_GROUP, check[0]["dur"], user
-                ),
+                photo=details["thumb"] or config.TELEGRAM_AUDIO_URL,
+                caption=_["stream_1"].format(title, url, check[0]["dur"], user),
                 reply_markup=InlineKeyboardMarkup(button),
             )
             db[chat_id][0]["mystic"] = run

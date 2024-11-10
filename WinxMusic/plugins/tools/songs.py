@@ -13,7 +13,7 @@ from pyrogram.types import (
     CallbackQuery,
 )
 
-from WinxMusic import YouTube, app
+from WinxMusic import app, Platform
 from WinxMusic.platforms.Youtube import get_ytdl_options
 from WinxMusic.utils.decorators.language import language, language_cb
 from WinxMusic.utils.formatters import convert_bytes
@@ -49,9 +49,9 @@ async def song_command_group(_client: Client, message: Message, _):
 async def song_command_private(_client: Client, message: Message, _):
     await message.delete()
 
-    url = await YouTube.url(message)
+    url = await Platform.youtube.url(message)
     if url:
-        if not await YouTube.exists(url):
+        if not await Platform.youtube.exists(url):
             return await message.reply_text(_["song_5"])
 
         mystic = await message.reply_text(_["play_1"])
@@ -62,7 +62,7 @@ async def song_command_private(_client: Client, message: Message, _):
             duration_sec,
             thumbnail,
             vidid,
-        ) = await YouTube.details(url)
+        ) = await Platform.youtube.details(url)
 
         if str(duration_min) == "None":
             return await mystic.edit_text(_["song_3"])
@@ -98,7 +98,7 @@ async def song_command_private(_client: Client, message: Message, _):
             duration_sec,
             thumbnail,
             vidid,
-        ) = await YouTube.details(query)
+        ) = await Platform.youtube.details(query)
 
     except:
         return await mystic.edit_text(_["play_3"])
@@ -150,7 +150,7 @@ async def song_helper_cb(_client: Client, callback_query: CallbackQuery, _):
 
     if stype == "audio":
         try:
-            formats_available, link = await YouTube.formats(vidid, True)
+            formats_available, link = await Platform.youtube.formats(vidid, True)
         except:
             return await callback_query.edit_message_text(_["song_7"])
 
@@ -192,7 +192,7 @@ async def song_helper_cb(_client: Client, callback_query: CallbackQuery, _):
 
     else:
         try:
-            formats_available, link = await YouTube.formats(vidid, True)
+            formats_available, link = await Platform.youtube.formats(vidid, True)
         except Exception as e:
             print(e)
             return await callback_query.edit_message_text(_["song_7"])
@@ -265,7 +265,7 @@ async def song_download_cb(client: Client, callback_query: CallbackQuery, _):
         height = callback_query.message.photo.height
 
         try:
-            file_path = await YouTube.download(
+            file_path = await Platform.youtube.download(
                 yturl,
                 mystic,
                 songvideo=True,
@@ -301,7 +301,7 @@ async def song_download_cb(client: Client, callback_query: CallbackQuery, _):
 
     elif stype == "audio":
         try:
-            filename = await YouTube.download(
+            filename = await Platform.youtube.download(
                 yturl,
                 mystic,
                 songaudio=True,

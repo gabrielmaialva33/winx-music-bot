@@ -1,7 +1,7 @@
 from pyrogram import filters, Client
 from pyrogram.types import CallbackQuery
 
-from WinxMusic import YouTube, app
+from WinxMusic import app, Platform
 from WinxMusic.utils.channelplay import get_channeplay_cb
 from WinxMusic.utils.decorators.language import language_cb
 from WinxMusic.utils.stream.stream import stream
@@ -34,7 +34,7 @@ async def play_live_stream(client: Client, callback_query: CallbackQuery, _):
         _["play_2"].format(channel) if channel else _["play_1"]
     )
     try:
-        details, track_id = await YouTube.track(vidid, True)
+        details, track_id = await Platform.youtube.track(vidid, True)
     except Exception:
         return await mystic.edit_text(_["play_3"])
     ffplay = True if fplay == "f" else None

@@ -7,7 +7,7 @@ from youtubesearchpython.__future__ import VideosSearch
 import config
 
 
-class SpotifyAPI:
+class Spotify:
     def __init__(self):
         self.regex = r"^(https:\/\/open.spotify.com\/)(.*)$"
         self.client_id = config.SPOTIFY_CLIENT_ID

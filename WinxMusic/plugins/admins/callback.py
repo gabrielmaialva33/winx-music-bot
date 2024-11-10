@@ -4,7 +4,7 @@ from pyrogram import filters, Client
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InputMediaPhoto
 
 import config
-from WinxMusic import Apple, Spotify, YouTube, app
+from WinxMusic import app, Platform
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import SUDOERS, db
 from WinxMusic.utils import time_to_seconds
@@ -258,7 +258,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
         status = True if str(streamtype) == "video" else None
         db[chat_id][0]["played"] = 0
         if "live_" in queued:
-            n, link = await YouTube.video(videoid, True)
+            n, link = await Platform.youtube.video(videoid, True)
             if n == 0:
                 return await callback_query.message.reply_text(
                     _["admin_11"].format(title)
@@ -285,7 +285,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
                 _["call_8"], disable_web_page_preview=True
             )
             try:
-                file_path, direct = await YouTube.download(
+                file_path, direct = await Platform.youtube.download(
                     videoid,
                     mystic,
                     videoid=True,
@@ -425,7 +425,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
         await callback_query.answer()
         mystic = await callback_query.message.reply_text(_["admin_32"])
         if "vid_" in file_path:
-            n, file_path = await YouTube.video(playing[0]["vidid"], True)
+            n, file_path = await Platform.youtube.video(playing[0]["vidid"], True)
             if n == 0:
                 return await mystic.edit_text(_["admin_30"])
         try:
@@ -471,7 +471,7 @@ async def play_music(_client: Client, callback_query: CallbackQuery, _):
         _["play_2"].format(channel) if channel else _["play_1"]
     )
     try:
-        details, track_id = await YouTube.track(vidid, True)
+        details, track_id = await Platform.youtube.track(vidid, True)
     except Exception:
         return await mystic.edit_text(_["play_3"])
     if details["duration_min"]:
@@ -564,7 +564,7 @@ async def play_playlists_command(_client: Client, callback_query: CallbackQuery,
     if ptype == "yt":
         spotify = False
         try:
-            result = await YouTube.playlist(
+            result = await Platform.youtube.playlist(
                 videoid,
                 config.PLAYLIST_FETCH_LIMIT,
                 callback_query.from_user.id,
@@ -574,22 +574,22 @@ async def play_playlists_command(_client: Client, callback_query: CallbackQuery,
             return await mystic.edit_text(_["play_3"])
     if ptype == "spplay":
         try:
-            result, spotify_id = await Spotify.playlist(videoid)
+            result, spotify_id = await Platform.spotify.playlist(videoid)
         except Exception:
             return await mystic.edit_text(_["play_3"])
     if ptype == "spalbum":
         try:
-            result, spotify_id = await Spotify.album(videoid)
+            result, spotify_id = await Platform.spotify.album(videoid)
         except Exception:
             return await mystic.edit_text(_["play_3"])
     if ptype == "spartist":
         try:
-            result, spotify_id = await Spotify.artist(videoid)
+            result, spotify_id = await Platform.spotify.artist(videoid)
         except Exception:
             return await mystic.edit_text(_["play_3"])
     if ptype == "apple":
         try:
-            result, apple_id = await Apple.playlist(videoid, True)
+            result, apple_id = await Platform.apple.playlist(videoid, True)
         except Exception:
             return await mystic.edit_text(_["play_3"])
     try:
@@ -642,7 +642,7 @@ async def slider_queries(_client: Client, callback_query: CallbackQuery, _):
             await callback_query.answer(_["playcb_2"])
         except:
             pass
-        title, duration_min, thumbnail, vidid = await YouTube.slider(query, query_type)
+        title, duration_min, thumbnail, vidid = await Platform.youtube.slider(query, query_type)
         buttons = slider_markup(_, vidid, user_id, query, query_type, cplay, fplay)
         med = InputMediaPhoto(
             media=thumbnail,
@@ -663,7 +663,7 @@ async def slider_queries(_client: Client, callback_query: CallbackQuery, _):
             await callback_query.answer(_["playcb_2"])
         except:
             pass
-        title, duration_min, thumbnail, vidid = await YouTube.slider(query, query_type)
+        title, duration_min, thumbnail, vidid = await Platform.youtube.slider(query, query_type)
         buttons = slider_markup(_, vidid, user_id, query, query_type, cplay, fplay)
         med = InputMediaPhoto(
             media=thumbnail,

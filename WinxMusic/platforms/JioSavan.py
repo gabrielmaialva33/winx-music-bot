@@ -6,7 +6,7 @@ import yt_dlp
 from config import seconds_to_time
 
 
-class SaavnAPI:
+class Saavn:
     def __init__(self):
         pass
 

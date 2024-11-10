@@ -7,7 +7,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
 
 import config
-from WinxMusic import HELPABLE, Telegram, YouTube, app
+from WinxMusic import HELPABLE, app, Platform
 from WinxMusic.misc import SUDOERS, _boot_
 from WinxMusic.plugins.play.playlist import del_plist_msg
 from WinxMusic.plugins.sudo.sudoers import sudoers_list
@@ -117,7 +117,7 @@ async def start_comm(client: Client, message: Message, _):
             except Exception as e:
                 print(e)
                 return
-            thumbnail = await YouTube.thumbnail(videoid, True)
+            thumbnail = await Platform.youtube.thumbnail(videoid, True)
             await m.delete()
             await message.reply_photo(photo=thumbnail, caption=msg)
             return
@@ -138,7 +138,7 @@ async def start_comm(client: Client, message: Message, _):
             lyrical = config.lyrical
             lyrics = lyrical.get(query)
             if lyrics:
-                await Telegram.send_split_text(message, lyrics)
+                await Platform.telegram.send_split_text(message, lyrics)
                 return
             else:
                 await message.reply_text("Falha ao obter as letras da música.")

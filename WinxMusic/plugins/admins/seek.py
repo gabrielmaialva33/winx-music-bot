@@ -1,7 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from WinxMusic import YouTube, app
+from WinxMusic import app, Platform
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils import admin_rights_check, seconds_to_min
@@ -45,7 +45,7 @@ async def seek_comm(cli, message: Message, _, chat_id):
         to_seek = duration_played + duration_to_skip + 1
     mystic = await message.reply_text(_["admin_32"])
     if "vid_" in file_path:
-        n, file_path = await YouTube.video(playing[0]["vidid"], True)
+        n, file_path = await Platform.youtube.video(playing[0]["vidid"], True)
         if n == 0:
             return await message.reply_text(_["admin_30"])
     try:

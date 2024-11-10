@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from youtubesearchpython.__future__ import VideosSearch
 
 
-class AppleAPI:
+class Apple:
     def __init__(self):
         self.regex = r"^(https:\/\/music.apple.com\/)(.*)$"
         self.base = "https://music.apple.com/in/playlist/"

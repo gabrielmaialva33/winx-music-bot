@@ -7,7 +7,7 @@ from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import ChatAdminRequired, UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from WinxMusic import Carbon, YouTube, app
+from WinxMusic import app, Platform
 from WinxMusic.utils.database import (
     delete_playlist,
     get_assistant,
@@ -53,7 +53,7 @@ async def check_playlist(client: Client, message: Message, _):
         car = os.linesep.join(msg.split(os.linesep)[:17])
     else:
         car = msg
-    carbon = await Carbon.generate(car, randint(100, 10000000000))
+    carbon = await Platform.carbon.generate(car, randint(100, 10000000000))
     await get.delete()
     await message.reply_photo(carbon, caption=_["playlist_15"].format(link))
 
@@ -147,11 +147,11 @@ async def play_playlist(client, CallbackQuery, _):
         try:
             get = await app.get_chat_member(CallbackQuery.message.chat.id, userbot.id)
         except ChatAdminRequired:
-            return await msg.edit(
+            return await message.edit(
                 _["call_1"],
             )
         if get.status == ChatMemberStatus.BANNED:
-            return await msg.edit(_["call_2"])
+            return await message.edit(_["call_2"])
     except UserNotParticipant:
         msg = await message.reply_text("🥀")
         await join_chat(message, message.chat.id, _, msg)
@@ -207,18 +207,18 @@ async def play_playlist_command(client, message, _):
             userbot = await get_assistant(message.chat.id)
             get = await app.get_chat_member(message.chat.id, userbot.id)
         except ChatAdminRequired:
-            return await msg.edit_text(_["call_1"])
+            return await message.edit_text(_["call_1"])
         if (
-            get.status == ChatMemberStatus.BANNED
-            or get.status == ChatMemberStatus.RESTRICTED
+                get.status == ChatMemberStatus.BANNED
+                or get.status == ChatMemberStatus.RESTRICTED
         ):
             try:
-                await app.unban_chat_member(chat_id, userbot.id)
+                await app.unban_chat_member(message.chat.id, userbot.id)
             except:
-                return await msg.edit_text(
+                return await message.edit_text(
                     text=_["call_2"].format(userbot.username, userbot.id),
                 )
-            await join_chat(message, message.chat.id, _, msg)
+            await join_chat(message, message.chat.id, _, message)
     except UserNotParticipant:
         msg = await message.reply_text("🥀")
         await join_chat(message, message.chat.id, _, msg)
@@ -411,7 +411,7 @@ async def add_playlist(client, CallbackQuery, _):
         duration_sec,
         thumbnail,
         vidid,
-    ) = await YouTube.details(videoid, True)
+    ) = await Platform.youtube.details(videoid, True)
     title = (title[:50]).title()
     plist = {
         "videoid": vidid,

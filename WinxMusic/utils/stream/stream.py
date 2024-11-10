@@ -5,7 +5,7 @@ from typing import Union
 from pyrogram.types import InlineKeyboardMarkup
 
 import config
-from WinxMusic import Carbon, Saavn, YouTube, app
+from WinxMusic import app, Platform
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (
@@ -22,17 +22,17 @@ from WinxMusic.utils.thumbnails import gen_qthumb, gen_thumb
 
 
 async def stream(
-    _,
-    mystic,
-    user_id,
-    result,
-    chat_id,
-    user_name,
-    original_chat_id,
-    video: Union[bool, str] = None,
-    streamtype: Union[bool, str] = None,
-    spotify: Union[bool, str] = None,
-    forceplay: Union[bool, str] = None,
+        _,
+        mystic,
+        user_id,
+        result,
+        chat_id,
+        user_name,
+        original_chat_id,
+        video: Union[bool, str] = None,
+        streamtype: Union[bool, str] = None,
+        spotify: Union[bool, str] = None,
+        forceplay: Union[bool, str] = None,
 ):
     if not result:
         return
@@ -54,7 +54,7 @@ async def stream(
                     duration_sec,
                     thumbnail,
                     vidid,
-                ) = await YouTube.details(search, False if spotify else True)
+                ) = await Platform.youtube.details(search, False if spotify else True)
             except:
                 continue
             if str(duration_min) == "None":
@@ -82,7 +82,7 @@ async def stream(
                     db[chat_id] = []
                 status = True if video else None
                 try:
-                    file_path, direct = await YouTube.download(
+                    file_path, direct = await Platform.youtube.download(
                         vidid, mystic, video=status, videoid=True
                     )
                 except:
@@ -126,7 +126,7 @@ async def stream(
                 car = os.linesep.join(msg.split(os.linesep)[:17])
             else:
                 car = msg
-            carbon = await Carbon.generate(car, randint(100, 10000000))
+            carbon = await Platform.carbon.generate(car, randint(100, 10000000))
             upl = close_markup(_)
             return await app.send_photo(
                 original_chat_id,
@@ -135,7 +135,7 @@ async def stream(
                 reply_markup=upl,
             )
 
-    elif streamtype == "youtube":
+    elif streamtype == "Platform.youtube":
         link = result["link"]
         vidid = result["vidid"]
         title = (result["title"]).title()
@@ -143,7 +143,7 @@ async def stream(
         thumbnail = result["thumb"]
         status = True if video else None
         try:
-            file_path, direct = await YouTube.download(
+            file_path, direct = await Platform.youtube.download(
                 vidid, mystic, videoid=True, video=status
             )
         except:
@@ -276,7 +276,7 @@ async def stream(
                 duration_sec = search["duration_sec"]
                 link = search["url"]
                 thumb = search["thumb"]
-                file_path, n = await Saavn.download(link)
+                file_path, n = await Platform.saavn.download(link)
                 if await is_active_chat(chat_id):
                     await put_queue(
                         chat_id,
@@ -335,7 +335,7 @@ async def stream(
                     car = os.linesep.join(msg.split(os.linesep)[:17])
                 else:
                     car = msg
-                carbon = await Carbon.generate(car, randint(100, 10000000))
+                carbon = await Platform.carbon.generate(car, randint(100, 10000000))
                 upl = close_markup(_)
                 return await app.send_photo(
                     original_chat_id,
@@ -469,7 +469,7 @@ async def stream(
         else:
             if not forceplay:
                 db[chat_id] = []
-            n, file_path = await YouTube.video(link)
+            n, file_path = await Platform.youtube.video(link)
             if n == 0:
                 raise AssistantErr(_["str_3"])
             await Winx.join_call(

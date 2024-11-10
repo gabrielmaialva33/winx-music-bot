@@ -5,7 +5,7 @@ from yt_dlp import YoutubeDL
 from WinxMusic.utils.formatters import seconds_to_min
 
 
-class SoundAPI:
+class SoundCloud:
     def __init__(self):
         self.opts = {
             "outtmpl": "downloads/%(id)s.%(ext)s",
