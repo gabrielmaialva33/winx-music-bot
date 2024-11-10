@@ -2,23 +2,43 @@ import asyncio
 
 from pyrogram import Client as c
 
-API_ID = input("\nEnter Your API_ID:\n > ")
-API_HASH = input("\nEnter Your API_HASH:\n > ")
 
-i = c("winxstring", in_memory=True, api_id=API_ID, api_hash=API_HASH)
+async def generate_session(api_id, api_hash):
+    i = c("winxstring", in_memory=True, api_id=api_id, api_hash=api_hash)
 
-
-async def main():
     await i.start()
     ss = await i.export_session_string()
-    print("\nHERE IS YOUR STRING SESSION, COPY IT, DON'T SHARE!!\n")
-    print(f"\n{ss}\n")
-    print("\n STRING GENERATED\n")
-    xx = f"HERE IS YOUR STRING SESSION, COPY IT, DON'T SHARE!!\n\n`{ss}`\n\n STRING GENERATED"
+    session_message = (
+        "HERE IS YOUR STRING SESSION, COPY IT, DON'T SHARE!!\n\n"
+        f"`{ss}`\n\nSTRING GENERATED SUCCESSFULLY!"
+    )
     try:
-        await i.send_message("me", xx)
+        await i.send_message("me", session_message)
+        print("Session string sent to your saved messages!")
     except BaseException:
         pass
 
+    print(session_message)
+    return ss
 
-asyncio.run(main())
+
+def start_session_generation():
+    api_id = input("\nEnter Your API ID:\n> ")
+    api_hash = input("\nEnter Your API HASH:\n> ")
+
+    if not api_id or not api_hash:
+        print("Please enter both API ID and API HASH!")
+        return
+
+    try:
+        int(api_id)
+    except ValueError:
+        print("API ID must be a number!")
+        return
+
+    asyncio.run(generate_session(api_id, api_hash))
+
+
+if __name__ == "__main__":
+    print("Welcome to Pyrogram String Session Generator!")
+    start_session_generation()
