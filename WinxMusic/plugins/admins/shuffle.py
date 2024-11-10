@@ -1,7 +1,6 @@
 import random
 
-from lexica import Client
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 
 from WinxMusic import app
