@@ -15,13 +15,13 @@ from WinxMusic.utils.database import (
     is_nonadmin_chat,
     set_loop,
 )
-from config import BANNED_USERS, adminlist
+from config import BANNED_USERS, adminlist, PREFIXES
 from strings import get_command, get_string
 
 STOP_COMMAND = get_command("STOP_COMMAND")
 
 
-@app.on_message(filters.command(STOP_COMMAND) & filters.group & ~BANNED_USERS)
+@app.on_message(filters.command(STOP_COMMAND, PREFIXES) & filters.group & ~BANNED_USERS)
 async def stop_music(cli, message: Message):
     if await is_maintenance() is False:
         if message.from_user.id not in SUDOERS:

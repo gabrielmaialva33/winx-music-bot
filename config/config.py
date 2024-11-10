@@ -161,14 +161,18 @@ STRING_SESSIONS = list(map(str.strip, getenv("STRING_SESSIONS", None).split(",")
 ### DONT TOUCH or EDIT codes after this line
 BANNED_USERS = filters.user()
 YTDOWNLOADER = 1
+
 LOG = 2
 LOG_FILE_NAME = "Winxlogs.txt"
 TEMP_DB_FOLDER = "tempdb"
+PREFIXES = ["/", "!", "%", ",", ".", "@", "#"]
+
 adminlist = {}
 lyrical = {}
 chatstats = {}
 userstats = {}
 clean = {}
+
 
 autoclean = []
 

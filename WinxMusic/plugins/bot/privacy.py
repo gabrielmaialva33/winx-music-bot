@@ -4,6 +4,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 import config
 from WinxMusic import app
+from config import PREFIXES
 from strings import get_command
 
 PRIVACY_COMMAND = get_command("PRIVACY_COMMAND")
@@ -17,7 +18,7 @@ Se você tiver qualquer dúvida ou preocupação, sinta-se à vontade para entra
 """
 
 
-@app.on_message(filters.command(PRIVACY_COMMAND))
+@app.on_message(filters.command(PRIVACY_COMMAND, PREFIXES))
 async def privacy(_client: Client, message: Message):
     keyboard = InlineKeyboardMarkup(
         [[InlineKeyboardButton("Ver Política de Privacidade", url=config.PRIVACY_LINK)]]

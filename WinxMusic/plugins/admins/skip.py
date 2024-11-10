@@ -1,3 +1,4 @@
+from lexica import Client
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
@@ -10,15 +11,15 @@ from WinxMusic.utils.decorators import admin_rights_check
 from WinxMusic.utils.inline.play import stream_markup, telegram_markup
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import gen_thumb
-from config import BANNED_USERS
+from config import BANNED_USERS, PREFIXES
 from strings import get_command
 
 SKIP_COMMAND = get_command("SKIP_COMMAND")
 
 
-@app.on_message(filters.command(SKIP_COMMAND) & filters.group & ~BANNED_USERS)
+@app.on_message(filters.command(SKIP_COMMAND, PREFIXES) & filters.group & ~BANNED_USERS)
 @admin_rights_check
-async def skip(cli, message: Message, _, chat_id):
+async def skip(_client: Client, message: Message, _, chat_id: int):
     if not len(message.command) < 2:
         loop = await get_loop(chat_id)
         if loop != 0:

@@ -5,13 +5,13 @@ from WinxMusic import app
 from WinxMusic.utils.database import get_playmode, get_playtype, is_nonadmin_chat
 from WinxMusic.utils.decorators import language
 from WinxMusic.utils.inline.settings import playmode_users_markup
-from config import BANNED_USERS
+from config import BANNED_USERS, PREFIXES
 from strings import get_command
 
 PLAYMODE_COMMAND = get_command("PLAYMODE_COMMAND")
 
 
-@app.on_message(filters.command(PLAYMODE_COMMAND) & filters.group & ~BANNED_USERS)
+@app.on_message(filters.command(PLAYMODE_COMMAND, PREFIXES) & filters.group & ~BANNED_USERS)
 @language
 async def playmode_(_client: Client, message: Message, _):
     playmode = await get_playmode(message.chat.id)

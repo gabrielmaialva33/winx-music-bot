@@ -20,7 +20,7 @@ from WinxMusic.utils.decorators.play import botplaylist_markup, join_chat
 from WinxMusic.utils.inline.playlist import get_playlist_markup, warning_markup
 from WinxMusic.utils.pastebin import winxbin
 from WinxMusic.utils.stream.stream import stream
-from config import BANNED_USERS, SERVER_PLAYLIST_LIMIT
+from config import BANNED_USERS, SERVER_PLAYLIST_LIMIT, PREFIXES
 from strings import get_command
 
 ADD_PLAYLIST_COMMAND = get_command("ADD_PLAYLIST_COMMAND")
@@ -29,7 +29,7 @@ PLAYLIST_COMMAND = get_command("PLAYLIST_COMMAND")
 DELETE_PLAYLIST_COMMAND = get_command("DELETE_PLAYLIST_COMMAND")
 
 
-@app.on_message(filters.command(PLAYLIST_COMMAND) & ~BANNED_USERS)
+@app.on_message(filters.command(PLAYLIST_COMMAND, PREFIXES) & ~BANNED_USERS)
 @language
 async def check_playlist(client: Client, message: Message, _):
     _playlist = await get_playlist_names(message.from_user.id)

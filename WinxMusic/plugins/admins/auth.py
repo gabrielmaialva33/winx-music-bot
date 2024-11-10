@@ -10,7 +10,7 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators import admin_actual, language
 from WinxMusic.utils.formatters import int_to_alpha
-from config import BANNED_USERS, adminlist
+from config import BANNED_USERS, adminlist, PREFIXES
 from strings import command, get_command
 
 AUTH_COMMAND = get_command("AUTH_COMMAND")
@@ -18,7 +18,7 @@ UNAUTH_COMMAND = get_command("UNAUTH_COMMAND")
 AUTHUSERS_COMMAND = get_command("AUTHUSERS_COMMAND")
 
 
-@app.on_message(filters.command(AUTH_COMMAND) & filters.group & ~BANNED_USERS)
+@app.on_message(filters.command(AUTH_COMMAND, PREFIXES) & filters.group & ~BANNED_USERS)
 @admin_actual
 async def auth(_client: Client, message: Message, _):
     if not message.reply_to_message:
@@ -80,7 +80,7 @@ async def auth(_client: Client, message: Message, _):
         await message.reply_text(_["auth_3"])
 
 
-@app.on_message(filters.command(UNAUTH_COMMAND) & filters.group & ~BANNED_USERS)
+@app.on_message(filters.command(UNAUTH_COMMAND, PREFIXES) & filters.group & ~BANNED_USERS)
 @admin_actual
 async def unauthusers(_client: Client, message: Message, _):
     if not message.reply_to_message:
@@ -113,7 +113,7 @@ async def unauthusers(_client: Client, message: Message, _):
         return await message.reply_text(_["auth_5"])
 
 
-@app.on_message(filters.command(AUTHUSERS_COMMAND) & filters.group & ~BANNED_USERS)
+@app.on_message(filters.command(AUTHUSERS_COMMAND, PREFIXES) & filters.group & ~BANNED_USERS)
 @language
 async def authusers(_client: Client, message: Message, _):
     _playlist = await get_authuser_names(message.chat.id)

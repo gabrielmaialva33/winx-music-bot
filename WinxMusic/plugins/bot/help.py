@@ -14,7 +14,7 @@ from WinxMusic import HELPABLE, app
 from WinxMusic.utils.database import get_lang, is_commanddelete_on
 from WinxMusic.utils.decorators.language import language_start
 from WinxMusic.utils.inline.help import private_help_panel
-from config import BANNED_USERS, START_IMG_URL
+from config import BANNED_USERS, START_IMG_URL, PREFIXES
 from strings import get_command, get_string
 
 HELP_COMMAND = get_command("HELP_COMMAND")
@@ -99,7 +99,7 @@ def paginate_modules(page_n, module_dict, chat=None, close: bool = False):
     return pairs
 
 
-@app.on_message(filters.command(HELP_COMMAND) & filters.private & ~BANNED_USERS)
+@app.on_message(filters.command(HELP_COMMAND, PREFIXES) & filters.private & ~BANNED_USERS)
 @app.on_callback_query(filters.regex("settings_back_helper") & ~BANNED_USERS)
 async def helper_private(
         _client: Client, update: Union[types.Message, types.CallbackQuery]

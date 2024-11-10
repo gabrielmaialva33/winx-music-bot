@@ -5,13 +5,13 @@ from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.utils.database import is_music_playing, music_on
 from WinxMusic.utils.decorators import admin_rights_check
-from config import BANNED_USERS
+from config import BANNED_USERS, PREFIXES
 from strings import get_command
 
 RESUME_COMMAND = get_command("RESUME_COMMAND")
 
 
-@app.on_message(filters.command(RESUME_COMMAND) & filters.group & ~BANNED_USERS)
+@app.on_message(filters.command(RESUME_COMMAND, PREFIXES) & filters.group & ~BANNED_USERS)
 @admin_rights_check
 async def resume_com(cli, message: Message, _, chat_id):
     if not len(message.command) == 1:
