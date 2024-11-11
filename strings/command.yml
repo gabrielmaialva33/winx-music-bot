@@ -111,3 +111,4 @@ GBANNED_COMMAND: [ "gbannedusers" ]
 # AnimiZeY
 MOVIES_COMMAND: [ "movies", "movie" , "filmes" , "filme" ]
 ANIME_COMMAND: [ "anime", "animes" ]
+FOLDER_COMMAND: [ "folder", "folders" , "pastas" , "pasta" ]

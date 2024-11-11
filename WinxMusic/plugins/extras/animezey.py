@@ -42,6 +42,7 @@ class ContextManager:
     & ~BANNED_USERS
 )
 async def scan_movie_folder(_, message: Message):
+    context_db.update({message.from_user.id: {}})
     query = (
         message.text.split(None, 1)[1].strip()
         if len(message.text.split()) > 1
@@ -68,7 +69,7 @@ async def scan_movie_folder(_, message: Message):
     context_manager = ContextManager(message.from_user.id)
     context_manager.update_context(query=query, page_token=next_page_token, page_index=cur_page_index,
                                    files=video_files)
-    
+
     await send_results_page(message, message.from_user.id)
 
     await Platform.animezey.close()
@@ -80,6 +81,7 @@ async def scan_movie_folder(_, message: Message):
     & ~BANNED_USERS
 )
 async def scan_anime_folder(_, message: Message):
+    context_db.update({message.from_user.id: {}})
     query = (
         message.text.split(None, 1)[1].strip()
         if len(message.text.split()) > 1
@@ -172,6 +174,7 @@ async def send_results_page(message: Message, user_id: int):
 
 @app.on_callback_query(filters.regex(r"^alpha_cancel$"))
 async def cancel_alpha(_client: Client, callback_query: CallbackQuery):
+    context_db.pop(callback_query.from_user.id, None)
     await callback_query.message.delete()
 
 
