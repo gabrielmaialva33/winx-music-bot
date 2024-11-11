@@ -11,6 +11,7 @@ from config import BANNED_USERS, PREFIXES
 from strings import get_command, get_string
 
 MOVIES_COMMAND = get_command("MOVIES_COMMAND")
+ANIME_COMMAND = get_command("ANIME_COMMAND")
 
 RESULTS_PER_PAGE = 4
 
@@ -40,7 +41,7 @@ class ContextManager:
     & filters.group
     & ~BANNED_USERS
 )
-async def scan_folder(_, message: Message):
+async def scan_movie_folder(_, message: Message):
     query = (
         message.text.split(None, 1)[1].strip()
         if len(message.text.split()) > 1
@@ -76,6 +77,44 @@ async def scan_folder(_, message: Message):
 
     # for video in video_files:
     #     await message.reply_text(f"Video Name: {video['name']}\nMimeType: {video['mimeType']}\nLink: {video['link']}")
+
+    await send_results_page(message, message.from_user.id)
+
+    await Platform.animezey.close()
+
+
+@app.on_message(
+    filters.command(ANIME_COMMAND, prefixes=PREFIXES)
+    & filters.group
+    & ~BANNED_USERS
+)
+async def scan_anime_folder(_, message: Message):
+    query = (
+        message.text.split(None, 1)[1].strip()
+        if len(message.text.split()) > 1
+        else (message.reply_to_message.text if message.reply_to_message else None)
+    )
+    if not query:
+        return await message.reply_text("🎬 𝗜𝗻𝗳𝗼𝗿𝗺𝗲 𝗼 𝗾𝘂𝗲 𝗱𝗲𝘀𝗲𝗷𝗮 𝗯𝘂𝘀𝗰𝗮𝗿.")
+
+    result = await Platform.animezey.search_anime(query)
+    if not result:
+        return await message.reply_text("No results found.")
+
+    next_page_token = result.get('nextPageToken') or None
+    cur_page_index = result.get('curPageIndex') or 0
+
+    video_files = [
+        file for file in result['data']['files']
+        if file['mimeType'] in ('video/x-matroska', 'video/mp4')
+    ]
+
+    if not video_files:
+        return await message.reply_text("No video files found.")
+
+    context_manager = ContextManager(message.from_user.id)
+    context_manager.update_context(query=query, page_token=next_page_token, page_index=cur_page_index,
+                                   files=video_files)
 
     await send_results_page(message, message.from_user.id)
 
