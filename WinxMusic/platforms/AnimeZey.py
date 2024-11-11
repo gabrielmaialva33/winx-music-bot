@@ -10,7 +10,12 @@ from typing import Optional, TypedDict, List, Dict, Union, Any
 
 import aiohttp
 from pyrogram import filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
+from pyrogram.types import (
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+    CallbackQuery,
+    Message,
+)
 
 from WinxMusic import app
 from WinxMusic.utils import get_readable_time, convert_bytes
@@ -44,7 +49,7 @@ class AnimeZey:
         self.session: Optional[aiohttp.ClientSession] = None
         self.session_headers: Dict[str, str] = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
+            "Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
             "Content-Type": "application/json",
         }
         self.timeout: int = 60
@@ -56,12 +61,12 @@ class AnimeZey:
         return self.session
 
     async def request(
-            self, endpoint: str, method: str, data: Optional[Dict[str, Any]] = None
+        self, endpoint: str, method: str, data: Optional[Dict[str, Any]] = None
     ) -> Union[Dict[str, Any], str, None]:
         session = await self._get_session()
         try:
             async with session.request(
-                    method, f"{self.base_url}{endpoint}", json=data
+                method, f"{self.base_url}{endpoint}", json=data
             ) as response:
                 response.raise_for_status()
                 content_type = response.headers.get("Content-Type", "")
@@ -78,14 +83,14 @@ class AnimeZey:
             return None
 
     async def search_anime(
-            self, query: str, page_token: Optional[str] = None
+        self, query: str, page_token: Optional[str] = None
     ) -> Union[Dict[str, Any], str, None]:
         return await self.request(
             "/0:search", "POST", {"q": query, "page_token": page_token, "page_index": 0}
         )
 
     async def search_movie(
-            self, query: str, page_token: Optional[str] = None
+        self, query: str, page_token: Optional[str] = None
     ) -> Optional[SearchMovieResponse]:
         response: Union[Dict[str, Any], str, None] = await self.request(
             "/1:search",
@@ -105,7 +110,7 @@ class AnimeZey:
             await self.session.close()
 
     async def download(self, file_name: str, link: str, mystic: Message) -> bool:
-        download_id = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+        download_id = "".join(random.choices(string.ascii_letters + string.digits, k=8))
         user_id = mystic.from_user.id
 
         sanitized_file_name: str = re.sub(r'[\/\?<>\\:\*\|"]', "_", file_name)
@@ -162,8 +167,9 @@ class AnimeZey:
                         await mystic.edit_text(text, reply_markup=upl)
                     except Exception as e:
                         print(e)
-                        pass
-                    left_time["update_time"] = datetime.now() + timedelta(seconds=self.sleep)
+                    left_time["update_time"] = datetime.now() + timedelta(
+                        seconds=self.sleep
+                    )
 
             speed_counter["start"] = time.time()
             left_time["update_time"] = datetime.now()
@@ -171,7 +177,7 @@ class AnimeZey:
             try:
                 async with session.get(f"{self.base_url}{link}") as response:
                     response.raise_for_status()
-                    total_size = int(response.headers.get('Content-Length', 0))
+                    total_size = int(response.headers.get("Content-Length", 0))
                     chunk_size = 1024 * 1024  # 1MB
 
                     with open(file_path, "wb") as file:
@@ -181,7 +187,9 @@ class AnimeZey:
                             current_size += len(chunk)
                             await progress(current_size, total_size)
 
-                    await mystic.edit_text("✅ Download concluído com sucesso...\n📂 Processando arquivo agora")
+                    await mystic.edit_text(
+                        "✅ Download concluído com sucesso...\n📂 Processando arquivo agora"
+                    )
                     downloader.pop("eta", None)
                     downloader.pop(download_id, None)
                     return True
@@ -196,10 +204,14 @@ class AnimeZey:
                 eta = get_readable_time(low)
             except:
                 eta = "Desconhecido"
-            await mystic.edit_text(f"Muitos downloads simultâneos! Tempo estimado de espera: {eta}.")
+            await mystic.edit_text(
+                f"Muitos downloads simultâneos! Tempo estimado de espera: {eta}."
+            )
             return False
 
-        task = asyncio.create_task(download_file(), name=f"download_{sanitized_file_name}")
+        task = asyncio.create_task(
+            download_file(), name=f"download_{sanitized_file_name}"
+        )
         downloader[download_id] = task
         await task
         downloaded = downloader.get("eta")
@@ -263,7 +275,9 @@ class AnimeZey:
         return file_path
 
 
-@app.on_callback_query(filters.regex(pattern=r"^stop_downloading_animezey_([a-zA-Z0-9]+)"))
+@app.on_callback_query(
+    filters.regex(pattern=r"^stop_downloading_animezey_([a-zA-Z0-9]+)")
+)
 async def stop_downloading_animezey(_, callback_query: CallbackQuery):
     download_id = callback_query.data.split("_")[3]
 
