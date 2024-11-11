@@ -47,7 +47,6 @@ async def scan_movie_folder(_, message: Message):
         if len(message.text.split()) > 1
         else (message.reply_to_message.text if message.reply_to_message else None)
     )
-    print("query:", query)
     if not query:
         return await message.reply_text("🎬 𝗜𝗻𝗳𝗼𝗿𝗺𝗲 𝗼 𝗳𝗶𝗹𝗺𝗲 𝗾𝘂𝗲 𝗱𝗲𝘀𝗲𝗷𝗮 𝗯𝘂𝘀𝗰𝗮𝗿.")
 
@@ -55,13 +54,8 @@ async def scan_movie_folder(_, message: Message):
     if not result:
         return await message.reply_text("No results found.")
 
-    print("result:", result)
-
     next_page_token = result.get('nextPageToken') or None
     cur_page_index = result.get('curPageIndex') or 0
-
-    print("next_page_token:", next_page_token)
-    print("cur_page_index:", cur_page_index)
 
     video_files = [
         file for file in result['data']['files']
@@ -74,10 +68,7 @@ async def scan_movie_folder(_, message: Message):
     context_manager = ContextManager(message.from_user.id)
     context_manager.update_context(query=query, page_token=next_page_token, page_index=cur_page_index,
                                    files=video_files)
-
-    # for video in video_files:
-    #     await message.reply_text(f"Video Name: {video['name']}\nMimeType: {video['mimeType']}\nLink: {video['link']}")
-
+    
     await send_results_page(message, message.from_user.id)
 
     await Platform.animezey.close()
@@ -245,8 +236,6 @@ async def view_movie(_client: Client, callback_query: CallbackQuery):
             LOGGER(__name__).error("An error occurred", exc_info=True)
         return await callback_query.message.edit(err)
     return await callback_query.message.delete()
-
-    # await callback_query.message.edit(f"🎬 <b>Filme:</b> <a href='{Platform.animezey.base_url + link}'>{name}</a>")
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
