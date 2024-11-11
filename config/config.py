@@ -151,7 +151,8 @@ SET_CMDS = getenv("SET_CMDS", "False")
 # You'll need a Pyrogram String Session for these vars. Generate String from our session generator bot @WinxStringBot
 STRING_SESSIONS = list(map(str.strip, getenv("STRING_SESSIONS", None).split(",")))
 
-TOKEN_DATA = getenv("TOKEN_DATA", None)
+# TOKEN_DATA = getenv("TOKEN_DATA", None)
+
 # __        __     _ _  __  __ ___  __  __ _    _  ___ _    _____ _____
 # \ \      / /__ _| | |/ _|/ _|_ _||  \/  | |  | |__ \ |  | |_   _|_   _|
 #  \ \ /\ / / _ \ | | | |_| |_| | || |\/| | |  | | / / |  | | | |   | |
