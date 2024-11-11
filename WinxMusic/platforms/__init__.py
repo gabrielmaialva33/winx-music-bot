@@ -1,3 +1,4 @@
+from .AnimeZey import AnimeZey
 from .Apple import Apple
 from .Carbon import Carbon
 from .JioSavan import Saavn
@@ -10,6 +11,7 @@ from .Youtube import YouTube
 
 class PlaTForms:
     def __init__(self):
+        self.animezey = AnimeZey()
         self.apple = Apple()
         self.carbon = Carbon()
         self.saavn = Saavn()

@@ -107,3 +107,7 @@ AC_COMMAND: [ "ac" ]
 GBAN_COMMAND: [ "gban" ]
 UNGBAN_COMMAND: [ "ungban" ]
 GBANNED_COMMAND: [ "gbannedusers" ]
+
+# AnimiZeY
+MOVIES_COMMAND: [ "movies", "movie" , "filmes" , "filme" ]
+ANIME_COMMAND: [ "anime", "animes" ]
