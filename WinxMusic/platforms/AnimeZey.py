@@ -1,15 +1,18 @@
 import asyncio
 import json
 import os
+import random
 import re
+import string
 import time
 from datetime import datetime, timedelta
 from typing import Optional, TypedDict, List, Dict, Union, Any
 
 import aiohttp
 from pyrogram import filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 
+from WinxMusic import app
 from WinxMusic.utils import get_readable_time, convert_bytes
 
 downloader = {}
@@ -101,11 +104,12 @@ class AnimeZey:
         if self.session and not self.session.closed:
             await self.session.close()
 
-    async def download(self, file_name: str, link: str, mystic) -> bool:
+    async def download(self, file_name: str, link: str, mystic: Message) -> bool:
+        download_id = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+        user_id = mystic.from_user.id
+
         sanitized_file_name: str = re.sub(r'[\/\?<>\\:\*\|"]', "_", file_name)
         file_path: str = f"downloads/{sanitized_file_name}"
-
-        print(f"Downloading {file_name} to {file_path}")
 
         left_time = {}
         speed_counter = {}
@@ -122,15 +126,12 @@ class AnimeZey:
                 current_time = time.time()
                 start_time = speed_counter.get("start")
                 check_time = current_time - start_time
-
-                call_filename = file_name.replace(" ", "_")
-                print(f"call_filename {call_filename}")
                 upl = InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
                                 text="🚦 Cancelar Download",
-                                callback_data="stop_downloading_" + call_filename
+                                callback_data=f"stop_downloading_animezey_{download_id}",
                             ),
                         ]
                     ]
@@ -140,6 +141,7 @@ class AnimeZey:
                     percentage = str(round(percentage, 2))
                     speed = current / check_time
                     eta = int((total - current) / speed)
+                    downloader[download_id] = task
                     downloader["eta"] = eta
                     eta = get_readable_time(eta)
                     if not eta:
@@ -181,13 +183,14 @@ class AnimeZey:
 
                     await mystic.edit_text("✅ Download concluído com sucesso...\n📂 Processando arquivo agora")
                     downloader.pop("eta", None)
+                    downloader.pop(download_id, None)
                     return True
             except Exception as e:
                 await mystic.edit_text(f"Erro ao baixar: {str(e)}")
                 return False
 
         if len(downloader) > 10:
-            timers = [downloader[x] for x in downloader]
+            timers = [downloader[x] for x in downloader if x != "eta"]
             try:
                 low = min(timers)
                 eta = get_readable_time(low)
@@ -197,7 +200,7 @@ class AnimeZey:
             return False
 
         task = asyncio.create_task(download_file(), name=f"download_{sanitized_file_name}")
-        downloader[file_name] = task
+        downloader[download_id] = task
         await task
         downloaded = downloader.get("eta")
         if downloaded:
@@ -231,22 +234,44 @@ class AnimeZey:
             },
         )
 
+    async def get_duration(self, file_path: str) -> int:
+        print(f"Getting duration for: {file_path}")
+        try:
+            duration = 0
+            process = await asyncio.create_subprocess_exec(
+                "ffprobe",
+                "-v",
+                "error",
+                "-show_entries",
+                "format=duration",
+                "-of",
+                "default=noprint_wrappers=1:nokey=1",
+                file_path,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+            )
+            stdout, _ = await process.communicate()
+            duration = int(float(stdout))
+        except Exception as e:
+            print(f"Error getting duration: {e}")
+            duration = 0
+        return duration
 
-@app.on_callback_query(filters.regex(pattern=r"^stop_downloading_\w+"))
+    async def get_filepath(self, file_name: str) -> str:
+        sanitized_file_name: str = re.sub(r'[\/\?<>\\:\*\|"]', "_", file_name)
+        file_path = os.path.join(os.path.realpath("downloads"), sanitized_file_name)
+        return file_path
+
+
+@app.on_callback_query(filters.regex(pattern=r"^stop_downloading_animezey_([a-zA-Z0-9]+)"))
 async def stop_downloading_animezey(_, callback_query: CallbackQuery):
-    user_id = int(callback_query.data.split("_")[2])
-    file_name = callback_query.data.split("_")[3]
-    print(f"User ID: {user_id}, File Name: {file_name}")
+    download_id = callback_query.data.split("_")[3]
 
-    if callback_query.from_user.id != user_id:
-        return await callback_query.answer("❌ Você não está autorizado a fazer isso.", show_alert=True)
+    task = downloader.get(download_id)
+    if task:
+        task.cancel()
+        downloader.pop(download_id, None)
 
-    del downloader["eta"]
+    # todo remove file if exists?
 
-    # cancel the download task here by
-    # accessing the task from the downloader dict
-    # and cancelling it
-
-
-
-    await callback_query.edit_message_text("Download cancelado.")
+    await callback_query.edit_message_text("🚦 Download cancelado com sucesso.")

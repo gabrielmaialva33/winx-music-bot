@@ -134,8 +134,7 @@ async def stream(
                 caption=_["playlist_18"].format(link, position),
                 reply_markup=upl,
             )
-
-    elif streamtype == "Platform.youtube":
+    elif streamtype == "youtube":
         link = result["link"]
         vidid = result["vidid"]
         title = (result["title"]).title()
@@ -343,7 +342,6 @@ async def stream(
                     caption=_["playlist_18"].format(link, position),
                     reply_markup=upl,
                 )
-
     elif streamtype == "soundcloud":
         file_path = result["filepath"]
         title = result["title"]
@@ -555,3 +553,53 @@ async def stream(
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
             await mystic.delete()
+    elif streamtype == 'animezey':
+        file_path = result["path"]
+        link = result["link"]
+        title = (result["title"]).title()
+        duration_min = result["dur"]
+        status = True if video else None
+        if await is_active_chat(chat_id):
+            await put_queue(
+                chat_id,
+                original_chat_id,
+                file_path,
+                title,
+                duration_min,
+                user_name,
+                streamtype,
+                user_id,
+                "video" if video else "audio",
+            )
+            position = len(db.get(chat_id)) - 1
+            await app.send_message(
+                original_chat_id,
+                _["queue_4"].format(position, title[:30], duration_min, user_name),
+            )
+        else:
+            if not forceplay:
+                db[chat_id] = []
+            await Winx.join_call(chat_id, original_chat_id, file_path, video=status)
+            await put_queue(
+                chat_id,
+                original_chat_id,
+                file_path,
+                title,
+                duration_min,
+                user_name,
+                streamtype,
+                user_id,
+                "video" if video else "audio",
+                forceplay=forceplay,
+            )
+            if video:
+                await add_active_video_chat(chat_id)
+            button = telegram_markup(_, chat_id)
+            run = await app.send_photo(
+                original_chat_id,
+                photo=config.TELEGRAM_VIDEO_URL if video else config.TELEGRAM_AUDIO_URL,
+                caption=_["stream_1"].format(title, link, duration_min, user_name),
+                reply_markup=InlineKeyboardMarkup(button),
+            )
+            db[chat_id][0]["mystic"] = run
+            db[chat_id][0]["markup"] = "tg"
