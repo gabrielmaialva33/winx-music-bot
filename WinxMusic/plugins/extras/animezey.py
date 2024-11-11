@@ -53,7 +53,7 @@ async def scan_movie_folder(_, message: Message):
 
     result = await Platform.animezey.search_movie(query)
     if not result:
-        return await message.reply_text("No results found.")
+        return await message.reply_text("<b>No results found.</b>")
 
     next_page_token = result.get('nextPageToken') or None
     cur_page_index = result.get('curPageIndex') or 0
@@ -64,7 +64,7 @@ async def scan_movie_folder(_, message: Message):
     ]
 
     if not video_files:
-        return await message.reply_text("No video files found.")
+        return await message.reply_text("<b>No video files found.</b>")
 
     context_manager = ContextManager(message.from_user.id)
     context_manager.update_context(query=query, page_token=next_page_token, page_index=cur_page_index,
@@ -92,7 +92,7 @@ async def scan_anime_folder(_, message: Message):
 
     result = await Platform.animezey.search_anime(query)
     if not result:
-        return await message.reply_text("No results found.")
+        return await message.reply_text("<b>No results found.</b>")
 
     next_page_token = result.get('nextPageToken') or None
     cur_page_index = result.get('curPageIndex') or 0
@@ -103,7 +103,7 @@ async def scan_anime_folder(_, message: Message):
     ]
 
     if not video_files:
-        return await message.reply_text("No video files found.")
+        return await message.reply_text("<b>No video files found.</b>")
 
     context_manager = ContextManager(message.from_user.id)
     context_manager.update_context(query=query, page_token=next_page_token, page_index=cur_page_index,
