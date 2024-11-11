@@ -1,6 +1,6 @@
 
 
-<table>
+<table style="width:100%" align="center" border="0">
   <tr>
     <td><img src="./assets/start_img_2.png" alt="TypeScript" width="300"></td>
     <td><h1>🎵 Ｗｉｎｘ Ｂｏｔ 🎶</h1></td>
