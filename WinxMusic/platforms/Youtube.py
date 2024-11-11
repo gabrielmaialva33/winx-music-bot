@@ -27,7 +27,7 @@ def cookies():
 def get_ytdl_options(
     ytdl_opts: Union[str, dict, list], commandline: bool = True
 ) -> Union[str, dict, list]:
-    token_data = os.getenv("TOKEN_DATA")
+    token_data = os.getenv("TOKEN_DATA") or config.TOKEN_DATA
 
     if isinstance(ytdl_opts, list):
         if token_data:

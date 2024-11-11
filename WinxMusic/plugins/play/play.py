@@ -329,7 +329,6 @@ async def play_commnd(
                     LOGGER(__name__).error("An error occurred", exc_info=True)
                 return await mystic.edit_text(err)
             return await mystic.delete()
-
         elif await Platform.soundcloud.valid(url):
             try:
                 details, track_path = await Platform.soundcloud.download(url)
@@ -403,8 +402,9 @@ async def play_commnd(
         if "-v" in query:
             query = query.replace("-v", "")
         try:
-            details, track_id = await Platform.soundcloud.track(query)
-        except Exception:
+            details, track_id = await Platform.youtube.track(query)
+        except Exception as e:
+            print(e)
             return await mystic.edit_text(_["play_3"])
         streamtype = "youtube"
     if str(playmode) == "Direct" and not plist_type:

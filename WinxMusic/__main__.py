@@ -61,6 +61,7 @@ async def init():
 
     await Winx.decorators()
     LOGGER("WinxMusic").info("WinxMusic Started Successfully")
+
     await idle()
     await app.stop()
     await userbot.stop()
