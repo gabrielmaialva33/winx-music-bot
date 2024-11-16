@@ -10,7 +10,7 @@ motor
 psutil
 pytube
 pykeyboard
-py-tgcalls==2.0.6
+py-tgcalls
 ntgcalls
 python-dotenv
 pyyaml
