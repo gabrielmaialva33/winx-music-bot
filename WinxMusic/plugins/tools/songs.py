@@ -14,7 +14,6 @@ from pyrogram.types import (
 )
 
 from WinxMusic import app, Platform
-from WinxMusic.platforms.Youtube import get_ytdl_options
 from WinxMusic.utils.decorators.language import language, language_cb
 from WinxMusic.utils.formatters import convert_bytes
 from WinxMusic.utils.inline.song import song_markup
@@ -251,7 +250,7 @@ async def song_download_cb(client: Client, callback_query: CallbackQuery, _):
     stype, format_id, vidid = callback_request.split("|")
     mystic = await callback_query.edit_message_text(_["song_8"])
     yturl = f"https://www.youtube.com/watch?v={vidid}"
-    with yt_dlp.YoutubeDL(get_ytdl_options({"quiet": True})) as ytdl:
+    with yt_dlp.YoutubeDL({"quiet": True}) as ytdl:
         x = ytdl.extract_info(yturl, download=False)
 
     title = (x["title"]).title()

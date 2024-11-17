@@ -1,4 +1,4 @@
-import asyncio
+
 import importlib
 import sys
 
@@ -6,20 +6,14 @@ from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
+from config import BANNED_USERS
 from WinxMusic import HELPABLE, LOGGER, app, userbot
 from WinxMusic.core.call import Winx
 from WinxMusic.plugins import ALL_MODULES
 from WinxMusic.utils.database import get_banned_users, get_gbanned
-from config import BANNED_USERS
 
 
 async def init():
-    if sys.version_info < (3, 9):
-        LOGGER("WinxMusic").error(
-            "WinxMusic is optimized for Python 3.9 or higher. Exiting..."
-        )
-        sys.exit(1)
-
     if len(config.STRING_SESSIONS) == 0:
         LOGGER("WinxMusic").error(
             "No Assistant Clients Vars Defined!.. Exiting Process."
@@ -48,7 +42,7 @@ async def init():
     LOGGER("WinxMusic.plugins").info("Successfully Imported All Modules ")
     await userbot.start()
     await Winx.start()
-    LOGGER("WinxMusic").info("Assistant Started Sucessfully")
+    LOGGER("YukkiMusic").info("Assistant Started Sucessfully")
     try:
         await Winx.stream_call(
             "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
@@ -68,5 +62,5 @@ async def init():
 
 
 if __name__ == "__main__":
-    asyncio.get_event_loop_policy().get_event_loop().run_until_complete(init())
+    app.run(init())
     LOGGER("WinxMusic").info("Stopping WinxMusic! GoodBye")
