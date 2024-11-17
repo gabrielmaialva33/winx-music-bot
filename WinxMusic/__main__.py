@@ -41,7 +41,7 @@ async def init():
     LOGGER("WinxMusic.plugins").info("Successfully Imported All Modules ")
     await userbot.start()
     await Winx.start()
-    LOGGER("YukkiMusic").info("Assistant Started Sucessfully")
+    LOGGER("WinxMusic").info("Assistant Started Sucessfully")
     try:
         await Winx.stream_call(
             "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
