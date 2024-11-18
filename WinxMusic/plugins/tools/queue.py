@@ -47,7 +47,7 @@ async def ping_com(_client: Client, message: Message, _):
             return await message.reply_text(_["setting_12"])
         try:
             await app.get_chat(chat_id)
-        except:
+        except Exception:
             return await message.reply_text(_["cplay_4"])
         cplay = True
     else:
@@ -134,7 +134,7 @@ async def ping_com(_client: Client, message: Message, _):
                         break
                 else:
                     break
-        except:
+        except Exception:
             return
 
 
@@ -142,7 +142,7 @@ async def ping_com(_client: Client, message: Message, _):
 async def quite_timer(_client: Client, callback_query: CallbackQuery):
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
 
 
@@ -154,7 +154,7 @@ async def queued_tracks(_client: Client, callback_query: CallbackQuery, _):
     what, videoid = callback_request.split("|")
     try:
         chat_id, channel = await get_channeplay_cb(_, what, callback_query)
-    except:
+    except Exception:
         return
     if not await is_active_chat(chat_id):
         return await callback_query.answer(_["general_6"], show_alert=True)
@@ -213,7 +213,7 @@ async def queue_back(_client: Client, callback_query: CallbackQuery, _):
     cplay = callback_data.split(None, 1)[1]
     try:
         chat_id, channel = await get_channeplay_cb(_, cplay, callback_query)
-    except:
+    except Exception:
         return
     if not await is_active_chat(chat_id):
         return await callback_query.answer(_["general_6"], show_alert=True)
@@ -299,5 +299,5 @@ async def queue_back(_client: Client, callback_query: CallbackQuery, _):
                         break
                 else:
                     break
-        except:
+        except Exception:
             return

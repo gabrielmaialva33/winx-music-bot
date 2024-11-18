@@ -99,7 +99,7 @@ async def song_command_private(_client: Client, message: Message, _):
             vidid,
         ) = await Platform.youtube.details(query)
 
-    except:
+    except Exception:
         return await mystic.edit_text(_["play_3"])
 
     if str(duration_min) == "None":
@@ -144,13 +144,13 @@ async def song_helper_cb(_client: Client, callback_query: CallbackQuery, _):
 
     try:
         await callback_query.answer(_["song_6"], show_alert=True)
-    except:
+    except Exception:
         pass
 
     if stype == "audio":
         try:
             formats_available, link = await Platform.youtube.formats(vidid, True)
-        except:
+        except Exception:
             return await callback_query.edit_message_text(_["song_7"])
 
         keyboard = InlineKeyboard()
@@ -242,7 +242,7 @@ async def song_helper_cb(_client: Client, callback_query: CallbackQuery, _):
 async def song_download_cb(client: Client, callback_query: CallbackQuery, _):
     try:
         await callback_query.answer("📥 <b>Baixando...</b>")
-    except:
+    except Exception:
         pass
 
     callback_data = callback_query.data.strip()

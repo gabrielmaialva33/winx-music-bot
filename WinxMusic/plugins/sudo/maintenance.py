@@ -19,7 +19,7 @@ async def maintenance(_client: Client, message: Message):
     try:
         language = await get_lang(message.chat.id)
         _ = get_string(language)
-    except:
+    except Exception:
         _ = get_string("pt")
     usage = _["maint_1"]
     if len(message.command) != 2:

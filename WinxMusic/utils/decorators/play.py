@@ -48,7 +48,7 @@ async def join_chat(message: Message, chat_id: int, _, myu: Message = None, atte
             invite_link = message.chat.username
             try:
                 await userbot.resolve_peer(invite_link)
-            except:
+            except Exception:
                 pass
         else:
             try:
@@ -98,7 +98,7 @@ async def join_chat(message: Message, chat_id: int, _, myu: Message = None, atte
 
     try:
         await myu.delete()
-    except:
+    except Exception:
         pass
 
 
@@ -132,7 +132,7 @@ def play_wrapper(command: callable):
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()
-            except:
+            except Exception:
                 pass
 
         audio_telegram = (
@@ -162,7 +162,7 @@ def play_wrapper(command: callable):
                 return await message.reply_text(_["setting_12"])
             try:
                 chat = await app.get_chat(chat_id)
-            except:
+            except Exception:
                 return await message.reply_text(_["cplay_4"])
             channel = chat.title
         else:
@@ -224,7 +224,7 @@ def play_wrapper(command: callable):
                 ):
                     try:
                         await app.unban_chat_member(chat_id, userbot.id)
-                    except:
+                    except Exception:
                         return await message.reply_text(
                             text=_["call_2"].format(userbot.username, userbot.id),
                         )

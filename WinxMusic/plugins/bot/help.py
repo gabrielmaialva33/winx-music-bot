@@ -108,7 +108,7 @@ async def helper_private(
     if is_callback:
         try:
             await update.answer()
-        except:
+        except Exception:
             pass
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
@@ -120,7 +120,7 @@ async def helper_private(
         if await is_commanddelete_on(update.chat.id):
             try:
                 await update.delete()
-            except:
+            except Exception:
                 pass
         language = await get_lang(chat_id)
         _ = get_string(language)
@@ -165,7 +165,7 @@ async def help_button(client: Client, query: CallbackQuery):
     try:
         language = await get_lang(query.message.chat.id)
         _ = get_string(language)
-    except:
+    except Exception:
         _ = get_string("pt")
 
     top_text = _["help_1"]

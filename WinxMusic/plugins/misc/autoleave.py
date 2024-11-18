@@ -43,9 +43,9 @@ async def auto_leave():
                                 try:
                                     await client.leave_chat(chat_id)
                                     left += 1
-                                except:
+                                except Exception:
                                     continue
-            except:
+            except Exception:
                 pass
 
         while not await asyncio.sleep(config.AUTO_LEAVE_ASSISTANT_TIME):
@@ -92,7 +92,7 @@ async def auto_end():
                     try:
                         language = await get_lang(message.chat.id)
                         language = get_string(language)
-                    except:
+                    except Exception:
                         language = get_string("pt")
                     try:
                         await app.send_message(

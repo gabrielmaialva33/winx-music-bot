@@ -19,7 +19,7 @@ async def inline_query_handler(client: Client, query: InlineQuery):
     if text.strip() == "":
         try:
             await client.answer_inline_query(query.id, results=answer, cache_time=10)
-        except:
+        except Exception:
             return
     else:
         a = VideosSearch(text, limit=20)
@@ -68,5 +68,5 @@ __Responda com /play nesta mensagem pesquisada para reproduzir no chat de voz.__
             )
         try:
             return await client.answer_inline_query(query.id, results=answers)
-        except:
+        except Exception:
             return

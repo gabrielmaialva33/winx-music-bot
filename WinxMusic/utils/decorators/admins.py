@@ -31,12 +31,12 @@ def admin_rights_check(mystic: callable):
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()
-            except:
+            except Exception:
                 pass
         try:
             language = await get_lang(message.chat.id)
             _ = get_string(language)
-        except:
+        except Exception:
             _ = get_string("pt")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
@@ -56,7 +56,7 @@ def admin_rights_check(mystic: callable):
                 return await message.reply_text(_["setting_12"])
             try:
                 await app.get_chat(chat_id)
-            except:
+            except Exception:
                 return await message.reply_text(_["cplay_4"])
         else:
             chat_id = message.chat.id
@@ -85,13 +85,13 @@ def admin_actual(mystic: callable):
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()
-            except:
+            except Exception:
                 pass
 
         try:
             language = await get_lang(message.chat.id)
             _ = get_string(language)
-        except:
+        except Exception:
             _ = get_string("pt")
 
         if message.sender_chat:
@@ -132,7 +132,7 @@ def actual_admin_cb(mystic: callable):
         try:
             language = await get_lang(callback_query.message.chat.id)
             _ = get_string(language)
-        except:
+        except Exception:
             _ = get_string("pt")
 
         if not await is_maintenance():

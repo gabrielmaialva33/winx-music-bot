@@ -78,7 +78,7 @@ class Call:
         try:
             await _clear_(chat_id)
             await assistant.leave_call(chat_id)
-        except:
+        except Exception:
             pass
 
     async def force_stop_stream(self, chat_id: int):
@@ -86,21 +86,21 @@ class Call:
         try:
             check = db.get(chat_id)
             check.pop(0)
-        except:
+        except Exception:
             pass
         await remove_active_video_chat(chat_id)
         await remove_active_chat(chat_id)
         try:
             await assistant.leave_call(chat_id)
-        except:
+        except Exception:
             pass
 
     async def skip_stream(
-        self,
-        chat_id: int,
-        link: str,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            link: str,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -158,12 +158,12 @@ class Call:
         await assistant.leave_call(config.LOG_GROUP_ID)
 
     async def join_call(
-        self,
-        chat_id: int,
-        original_chat_id: int,
-        link,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            original_chat_id: int,
+            link,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -229,11 +229,11 @@ class Call:
             if not check:
                 await _clear_(chat_id)
                 return await client.leave_call(chat_id)
-        except:
+        except Exception:
             try:
                 await _clear_(chat_id)
                 return await client.leave_call(chat_id)
-            except:
+            except Exception:
                 return
         else:
             queued = check[0]["file"]
@@ -266,7 +266,7 @@ class Call:
                 else:
                     try:
                         image = await Platform.youtube.thumbnail(videoid, True)
-                    except:
+                    except Exception:
                         image = None
                     if image and config.PRIVATE_BOT_MODE == str(True):
                         stream = MediaStream(
@@ -311,7 +311,7 @@ class Call:
                         videoid=True,
                         video=True if str(streamtype) == "video" else False,
                     )
-                except:
+                except Exception:
                     return await mystic.edit_text(
                         _["call_7"], disable_web_page_preview=True
                     )
@@ -324,7 +324,7 @@ class Call:
                 else:
                     try:
                         image = await Platform.youtube.thumbnail(videoid, True)
-                    except:
+                    except Exception:
                         image = None
                     if image and config.PRIVATE_BOT_MODE == str(True):
                         stream = MediaStream(
@@ -340,7 +340,7 @@ class Call:
                         )
                 try:
                     await client.play(chat_id, stream, config=call_config)
-                except:
+                except Exception:
                     return await app.send_message(
                         original_chat_id,
                         text=_["call_7"],
@@ -395,7 +395,7 @@ class Call:
                 else:
                     try:
                         image = await Platform.youtube.thumbnail(videoid, True)
-                    except:
+                    except Exception:
                         image = None
                 if video:
                     stream = MediaStream(

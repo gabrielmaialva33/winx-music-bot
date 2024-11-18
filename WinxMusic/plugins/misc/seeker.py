@@ -72,7 +72,7 @@ async def leave_if_muted():
                         await set_loop(chat_id, 0)
 
                     del muted[chat_id]
-                except:
+                except Exception:
                     del muted[chat_id]
 
 
@@ -93,7 +93,7 @@ async def markup_timer():
             try:
                 language = await get_lang(chat_id)
                 _ = get_string(language)
-            except:
+            except Exception:
                 _ = get_string("pt")
 
             is_muted = False
@@ -142,14 +142,14 @@ async def markup_timer():
             try:
                 mystic = playing[0]["mystic"]
                 markup = playing[0]["markup"]
-            except:
+            except Exception:
                 continue
 
             try:
                 check = wrong[chat_id][mystic.id]
                 if check is False:
                     continue
-            except:
+            except Exception:
                 pass
 
             try:

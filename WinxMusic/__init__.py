@@ -3,8 +3,12 @@ from WinxMusic.core.dir import dirr
 from WinxMusic.core.git import git
 from WinxMusic.core.userbot import Userbot
 from WinxMusic.misc import dbb, heroku, sudo
+from .core.cookies import save_cookies
 
 from .logging import LOGGER
+
+# Save cookies in txt
+save_cookies()
 
 # Directories
 dirr()

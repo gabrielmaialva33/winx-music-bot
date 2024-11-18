@@ -53,7 +53,7 @@ async def langs_command(client, message: Message, _):
 async def lanuagecb(client, CallbackQuery, _):
     try:
         await CallbackQuery.answer()
-    except:
+    except Exception:
         pass
     keyboard = lanuages_keyboard(_)
     return await CallbackQuery.edit_message_reply_markup(reply_markup=keyboard)
@@ -73,7 +73,7 @@ async def language_markup(client, CallbackQuery, _):
         await CallbackQuery.answer(
             "Your language changed successfully..", show_alert=True
         )
-    except:
+    except Exception:
         return await CallbackQuery.answer(
             "Failed to change language or language in under Upadte",
             show_alert=True,

@@ -28,7 +28,7 @@ class Telegram:
 
     async def send_split_text(self, message, string):
         n = self.chars_limit
-        out = [(string[i : i + n]) for i in range(0, len(string), n)]
+        out = [(string[i: i + n]) for i in range(0, len(string), n)]
         j = 0
         for x in out:
             if j <= 2:
@@ -49,42 +49,42 @@ class Telegram:
             file_name = file.file_name
             if file_name is None:
                 file_name = "🎵 Áudio do Telegram" if audio else "🎥 Vídeo do Telegram"
-        except:
+        except Exception:
             file_name = "🎵 Áudio do Telegram" if audio else "🎥 Vídeo do Telegram"
         return file_name
 
     async def get_duration(self, file: Union[Video, Voice, Message]):
         try:
             dur = seconds_to_min(file.duration)
-        except:
+        except Exception:
             dur = "Unknown"
         return dur
 
     async def get_filepath(
-        self,
-        audio: Union[Voice, Message, bool, str] = None,
-        video: Union[Video, Message, bool, str] = None,
+            self,
+            audio: Union[Voice, Message, bool, str] = None,
+            video: Union[Video, Message, bool, str] = None,
     ):
         if audio:
             try:
                 file_name = (
-                    audio.file_unique_id
-                    + "."
-                    + (
-                        (audio.file_name.split(".")[-1])
-                        if (not isinstance(audio, Voice))
-                        else "ogg"
-                    )
+                        audio.file_unique_id
+                        + "."
+                        + (
+                            (audio.file_name.split(".")[-1])
+                            if (not isinstance(audio, Voice))
+                            else "ogg"
+                        )
                 )
-            except:
+            except Exception:
                 file_name = audio.file_unique_id + "." + ".ogg"
             file_name = os.path.join(os.path.realpath("downloads"), file_name)
         if video:
             try:
                 file_name = (
-                    video.file_unique_id + "." + (video.file_name.split(".")[-1])
+                        video.file_unique_id + "." + (video.file_name.split(".")[-1])
                 )
-            except:
+            except Exception:
                 file_name = video.file_unique_id + "." + "mp4"
             file_name = os.path.join(os.path.realpath("downloads"), file_name)
         return file_name
@@ -96,20 +96,20 @@ class Telegram:
                     if response.status == 200:
                         content_type = response.headers.get("Content-Type", "")
                         if (
-                            "application/vnd.apple.mpegurl" in content_type
-                            or "application/x-mpegURL" in content_type
+                                "application/vnd.apple.mpegurl" in content_type
+                                or "application/x-mpegURL" in content_type
                         ):
                             return True
                         if any(
-                            keyword in content_type
-                            for keyword in [
-                                "audio",
-                                "video",
-                                "mp4",
-                                "mpegurl",
-                                "m3u8",
-                                "mpeg",
-                            ]
+                                keyword in content_type
+                                for keyword in [
+                                    "audio",
+                                    "video",
+                                    "mp4",
+                                    "mpegurl",
+                                    "m3u8",
+                                    "mpeg",
+                                ]
                         ):
                             return True
                         if url.endswith((".m3u8", ".index", ".mp4", ".mpeg", ".mpd")):
@@ -164,7 +164,7 @@ class Telegram:
 ⏳ **Tempo restante:** {eta}"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
-                    except:
+                    except Exception:
                         pass
                     left_time[message.id] = datetime.now() + timedelta(
                         seconds=self.sleep
@@ -183,7 +183,7 @@ class Telegram:
                     "✅ Download concluído com sucesso...\n📂 Processando arquivo agora"
                 )
                 downloader.pop(message.id, None)
-            except:
+            except Exception:
                 await mystic.edit_text(_["tg_2"])
 
         if len(downloader) > 10:
@@ -193,7 +193,7 @@ class Telegram:
             try:
                 low = min(timers)
                 eta = get_readable_time(low)
-            except:
+            except Exception:
                 eta = "Unknown"
             await mystic.edit_text(_["tg_1"].format(eta))
             return False

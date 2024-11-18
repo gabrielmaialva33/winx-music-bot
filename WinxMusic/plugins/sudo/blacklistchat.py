@@ -28,7 +28,7 @@ async def blacklist_chat_func(_client: Client, message: Message, _):
         await message.reply_text("⚠️ Algo deu errado.")
     try:
         await app.leave_chat(chat_id)
-    except:
+    except Exception:
         pass
 
 

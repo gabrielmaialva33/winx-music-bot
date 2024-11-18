@@ -120,7 +120,7 @@ async def top_users_ten(_client: Client, callback_query: CallbackQuery, _):
     upl = back_stats_markup(_)
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     mystic = await callback_query.edit_message_text(
         _["gstats_3"].format(
@@ -204,7 +204,7 @@ async def top_users_ten(_client: Client, callback_query: CallbackQuery, _):
                 if extract is None:
                     continue
                 await asyncio.sleep(0.5)
-            except:
+            except Exception:
                 continue
             limit += 1
             msg += f"🔗`{extract}` Tocou {count} vezes no bot.\n\n"
@@ -234,7 +234,7 @@ async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
         upl = back_stats_buttons(_)
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     await callback_query.edit_message_text(_["gstats_8"] + " 📈")
     served_chats = len(await get_served_chats())
@@ -292,7 +292,7 @@ async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
         upl = back_stats_buttons(_)
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     await callback_query.edit_message_text(_["gstats_8"] + " 📊")
     sc = platform.system()
@@ -305,7 +305,7 @@ async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
             cpu_freq = f"{round(cpu_freq / 1000, 2)}GHz"
         else:
             cpu_freq = f"{round(cpu_freq, 2)}MHz"
-    except:
+    except Exception:
         cpu_freq = "Não foi possível obter"
     hdd = psutil.disk_usage("/")
     total = hdd.total / (1024.0 ** 3)
@@ -370,7 +370,7 @@ async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
 async def back_buttons(_client: Client, callback_query: CallbackQuery, _):
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     command = callback_query.matches[0].group(1)
     if command == "TOPMARKUPGET":

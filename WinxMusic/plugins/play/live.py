@@ -17,18 +17,18 @@ async def play_live_stream(client: Client, callback_query: CallbackQuery, _):
     if callback_query.from_user.id != int(user_id):
         try:
             return await callback_query.answer(_["playcb_1"], show_alert=True)
-        except:
+        except Exception:
             return
     try:
         chat_id, channel = await get_channeplay_cb(_, cplay, callback_query)
-    except:
+    except Exception:
         return
     video = True if mode == "v" else None
     user_name = callback_query.from_user.first_name
     await callback_query.message.delete()
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     mystic = await callback_query.message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]

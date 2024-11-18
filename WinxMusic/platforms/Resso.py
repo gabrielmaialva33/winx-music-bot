@@ -33,7 +33,7 @@ class Resso:
                 des = tag.get("content", None)
                 try:
                     des = des.split("·")[0]
-                except:
+                except Exception:
                     pass
         if des == "":
             return

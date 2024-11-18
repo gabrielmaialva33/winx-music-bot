@@ -30,7 +30,7 @@ loop = asyncio.get_running_loop()
 async def get_play_markup(_client: Client, callback_query: CallbackQuery, _):
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     buttons = botplaylist_markup(_)
     return await callback_query.edit_message_reply_markup(
@@ -43,7 +43,7 @@ async def get_play_markup(_client: Client, callback_query: CallbackQuery, _):
 async def get_topz_playlists(_client: Client, callback_query: CallbackQuery, _):
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     buttons = top_play_markup(_)
     return await callback_query.edit_message_reply_markup(
@@ -67,7 +67,7 @@ async def server_to_play(_client: Client, callback_query: CallbackQuery, _):
         if get.status == ChatMemberStatus.BANNED:
             try:
                 await app.unban_chat_member(chat_id, userbot.id)
-            except:
+            except Exception:
                 return await myu.edit(
                     text=_["call_2"].format(userbot.username, userbot.id),
                 )
@@ -79,7 +79,7 @@ async def server_to_play(_client: Client, callback_query: CallbackQuery, _):
     user_name = callback_query.from_user.first_name
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     callback_data = callback_query.data.strip()
     what = callback_data.split(None, 1)[1]

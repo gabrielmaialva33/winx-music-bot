@@ -16,7 +16,6 @@ python-dotenv
 pyyaml
 requests
 speedtest-cli
-PyTgCrypto
 spotipy
 tgcrypto
 urllib3
@@ -26,5 +25,5 @@ gunicorn
 youtube-search
 youtube-search-python
 yt-dlp
-git+https://github.com/KurimuzonAkuma/pyrogram@v2.1.32
+git+https://github.com/KurimuzonAkuma/pyrogram
 git+https://github.com/Vivekkumar-IN/yt-dlp-youtube-oauth2

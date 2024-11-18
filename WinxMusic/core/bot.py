@@ -8,18 +8,16 @@ import sys
 
 from pyrogram import Client
 from pyrogram.enums import ChatMemberStatus
-from pyrogram.errors import (
-    ChatSendPhotosForbidden,
-    ChatWriteForbidden,
-    FloodWait,
-    MessageIdInvalid,
-)
-from pyrogram.types import (
-    BotCommand,
-    BotCommandScopeAllChatAdministrators,
-    BotCommandScopeAllGroupChats,
-    BotCommandScopeAllPrivateChats,
-)
+from pyrogram.types import BotCommand
+from pyrogram.types import BotCommandScopeAllChatAdministrators
+from pyrogram.types import BotCommandScopeAllGroupChats
+from pyrogram.types import BotCommandScopeAllPrivateChats
+from pyrogram.types import BotCommandScopeChat
+from pyrogram.types import BotCommandScopeChatMember
+from pyrogram.errors import ChatSendPhotosForbidden
+from pyrogram.errors import ChatWriteForbidden
+from pyrogram.errors import FloodWait
+from pyrogram.errors import MessageIdInvalid
 
 import config
 
@@ -41,6 +39,9 @@ class WinxBot(Client):
             api_hash=config.API_HASH,
             bot_token=config.BOT_TOKEN,
             in_memory=True,
+            sleep_threshold=240,
+            max_concurrent_transmissions=5,
+            workers=50,
         )
 
     async def edit_message_text(self, *args, **kwargs):
@@ -91,62 +92,105 @@ class WinxBot(Client):
     async def start(self):
         await super().start()
         get_me = await self.get_me()
-
         self.username = get_me.username
         self.id = get_me.id
-        self.name = self.me.first_name + " " + (self.me.last_name or "")
-        self.mention = self.me.mention
+        self.name = f"{get_me.first_name} {get_me.last_name or ''}"
+        self.mention = get_me.mention
 
         try:
             await self.send_message(
                 config.LOG_GROUP_ID,
                 text=f"🚀 <u><b>{self.mention} Bot Iniciado :</b></u>\n\n🆔 <b>ID</b>: <code>{self.id}</code>\n📛 <b>Nome</b>: {self.name}\n🔗 <b>Nome de usuário:</b> @{self.username}",
             )
-        except:
+        except Exception as e:
             LOGGER(__name__).error(
-                "Bot has failed to access the log group. Make sure that you have added your bot to your log channel and promoted as admin!"
+                "Bot failed to access the log group. Ensure the bot is added and promoted as admin."
             )
-            LOGGER(__name__).error("An error occurred", exc_info=True)
-            # sys.exit()
+            LOGGER(__name__).error("Error details:", exc_info=True)
+            sys.exit()
+
         if config.SET_CMDS == str(True):
             try:
+                await self._set_default_commands()
+            except Exception as e:
+                LOGGER(__name__).warning("Failed to set commands:", exc_info=True)
+
+    async def _set_default_commands(self):
+        private_commands = [
+            BotCommand("start", "Iniciar o bot"),
+            BotCommand("help", "Obter o menu de ajuda"),
+            BotCommand("ping", "Verificar se o bot está ativo ou inativo"),
+        ]
+        group_commands = [BotCommand("play", "Começar a tocar a música solicitada")]
+        admin_commands = [
+            BotCommand("play", "Começar a tocar a música solicitada"),
+            BotCommand("skip", "Ir para a próxima música na fila"),
+            BotCommand("pause", "Pausar a música atual"),
+            BotCommand("resume", "Retomar a música pausada"),
+            BotCommand("end", "Limpar a fila e sair do chat de voz"),
+            BotCommand("shuffle", "Embaralhar aleatoriamente a playlist na fila"),
+            BotCommand("playmode", "Alterar o modo de reprodução padrão do seu chat"),
+            BotCommand("settings", "Abrir as configurações do bot para o seu chat"),
+        ]
+        owner_commands = [
+            BotCommand("update", "Atualizar o bot"),
+            BotCommand("restart", "Reiniciar o bot"),
+            BotCommand("logs", "Obter os registros"),
+            BotCommand("export", "Exportar todos os dados do MongoDB"),
+            BotCommand("import", "Importar todos os dados no MongoDB"),
+            BotCommand("addsudo", "Adicionar um usuário como sudoer"),
+            BotCommand("delsudo", "Remover um usuário dos sudoers"),
+            BotCommand("sudolist", "Listar todos os usuários sudo"),
+            BotCommand("log", "Obter os registros do bot"),
+            BotCommand("getvar", "Obter uma variável de ambiente específica"),
+            BotCommand("delvar", "Excluir uma variável de ambiente específica"),
+            BotCommand("setvar", "Definir uma variável de ambiente específica"),
+            BotCommand("usage", "Obter informações sobre o uso do Dyno"),
+            BotCommand("maintenance", "Ativar ou desativar o modo de manutenção"),
+            BotCommand("logger", "Ativar ou desativar o registro de atividades"),
+            BotCommand("block", "Bloquear um usuário"),
+            BotCommand("unblock", "Desbloquear um usuário"),
+            BotCommand("blacklist", "Adicionar um chat à lista negra"),
+            BotCommand("whitelist", "Remover um chat da lista negra"),
+            BotCommand("blacklisted", "Listar todos os chats na lista negra"),
+            BotCommand("autoend", "Ativar ou desativar o término automático para transmissões"),
+            BotCommand("reboot", "Reiniciar o bot"),
+            BotCommand("restart", "Reiniciar o bot"),
+        ]
+
+        await self.set_bot_commands(
+            private_commands, scope=BotCommandScopeAllPrivateChats()
+        )
+        await self.set_bot_commands(
+            group_commands, scope=BotCommandScopeAllGroupChats()
+        )
+        await self.set_bot_commands(
+            admin_commands, scope=BotCommandScopeAllChatAdministrators()
+        )
+
+        LOG_GROUP_ID = (
+            f"@{config.LOG_GROUP_ID}"
+            if isinstance(config.LOG_GROUP_ID, str)
+               and not config.LOG_GROUP_ID.startswith("@")
+            else config.LOG_GROUP_ID
+        )
+
+        for owner_id in config.OWNER_ID:
+            try:
                 await self.set_bot_commands(
-                    commands=[
-                        BotCommand("start", "Iniciar o bot"),
-                        BotCommand("help", "Abrir o menu de ajuda"),
-                        BotCommand("ping", "Verificar se o bot está ativo ou inativo"),
-                    ],
-                    scope=BotCommandScopeAllPrivateChats(),
+                    owner_commands,
+                    scope=BotCommandScopeChatMember(
+                        chat_id=LOG_GROUP_ID, user_id=owner_id
+                    ),
                 )
                 await self.set_bot_commands(
-                    commands=[
-                        BotCommand("play", "Iniciar a reprodução da música solicitada"),
-                    ],
-                    scope=BotCommandScopeAllGroupChats(),
+                    private_commands + owner_commands, scope=BotCommandScopeChat(chat_id=owner_id)
                 )
-                await self.set_bot_commands(
-                    commands=[
-                        BotCommand("play", "Iniciar a reprodução da música solicitada"),
-                        BotCommand("skip", "Pular para a próxima faixa na fila"),
-                        BotCommand("pause", "Pausar a música atual"),
-                        BotCommand("resume", "Retomar a música pausada"),
-                        BotCommand("end", "Limpar a fila e sair do chat de voz"),
-                        BotCommand(
-                            "shuffle", "Embaralhar aleatoriamente a playlist na fila."
-                        ),
-                        BotCommand(
-                            "playmode",
-                            "Permite alterar o modo de reprodução padrão para o seu chat",
-                        ),
-                        BotCommand(
-                            "settings",
-                            "Abrir as configurações do bot de música para o seu chat.",
-                        ),
-                    ],
-                    scope=BotCommandScopeAllChatAdministrators(),
+            except Exception as e:
+                LOGGER(__name__).warning(
+                    "Failed to set owner commands for user %s:", owner_id, exc_info=True
                 )
-            except:
-                pass
+
         else:
             pass
         try:
@@ -156,6 +200,7 @@ class WinxBot(Client):
                 sys.exit()
         except Exception:
             pass
+        get_me = await self.get_me()
         if get_me.last_name:
             self.name = get_me.first_name + " " + get_me.last_name
         else:

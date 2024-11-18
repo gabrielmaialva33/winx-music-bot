@@ -65,7 +65,7 @@ async def markup_panel(_client: Client, callback_query: CallbackQuery, _):
         await callback_query.edit_message_reply_markup(
             reply_markup=InlineKeyboardMarkup(buttons)
         )
-    except:
+    except Exception:
         return
     if chat_id not in wrong:
         wrong[chat_id] = {}
@@ -88,7 +88,7 @@ async def del_back_playlist(_client: Client, callback_query: CallbackQuery, _):
         await callback_query.edit_message_reply_markup(
             reply_markup=InlineKeyboardMarkup(buttons)
         )
-    except:
+    except Exception:
         return
     if chat_id not in wrong:
         wrong[chat_id] = {}
@@ -122,7 +122,7 @@ async def del_back_playlist(_client: Client, callback_query: CallbackQuery, _):
         await callback_query.edit_message_reply_markup(
             reply_markup=InlineKeyboardMarkup(buttons)
         )
-    except:
+    except Exception:
         return
 
 
@@ -205,7 +205,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
             return await callback_query.answer(_["admin_21"], show_alert=True)
         try:
             popped = check.pop(0)
-        except:
+        except Exception:
             return await callback_query.answer(_["admin_22"], show_alert=True)
         check = db.get(chat_id)
         if not check:
@@ -235,9 +235,9 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
                 )
                 try:
                     return await Winx.stop_stream(chat_id)
-                except:
+                except Exception:
                     return
-        except:
+        except Exception:
             try:
                 await callback_query.edit_message_text(
                     f"» Track skipped by  {mention} !"
@@ -246,7 +246,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
                     _["admin_10"].format(mention), disable_web_page_preview=True
                 )
                 return await Winx.stop_stream(chat_id)
-            except:
+            except Exception:
                 return
         await callback_query.answer()
         queued = check[0]["file"]
@@ -291,7 +291,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
                     videoid=True,
                     video=status,
                 )
-            except:
+            except Exception:
                 return await mystic.edit_text(_["call_7"])
             try:
                 await Winx.skip_stream(chat_id, file_path, video=status)
@@ -436,7 +436,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
                 duration,
                 playing[0]["streamtype"],
             )
-        except:
+        except Exception:
             return await mystic.edit_text(_["admin_34"])
         if int(command) in [1, 3]:
             db[chat_id][0]["played"] -= duration_to_skip
@@ -455,17 +455,17 @@ async def play_music(_client: Client, callback_query: CallbackQuery, _):
     if callback_query.from_user.id != int(user_id):
         try:
             return await callback_query.answer(_["playcb_1"], show_alert=True)
-        except:
+        except Exception:
             return
     try:
         chat_id, channel = await get_channeplay_cb(_, cplay, callback_query)
-    except:
+    except Exception:
         return
     user_name = callback_query.from_user.first_name
     try:
         await callback_query.message.delete()
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     mystic = await callback_query.message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
@@ -522,7 +522,7 @@ async def anonymous_check(_client: Client, callback_query: CallbackQuery):
             "You are an anonymous admin\nRevert back to user to use me",
             show_alert=True,
         )
-    except:
+    except Exception:
         return
 
 
@@ -542,17 +542,17 @@ async def play_playlists_command(_client: Client, callback_query: CallbackQuery,
     if callback_query.from_user.id != int(user_id):
         try:
             return await callback_query.answer(_["playcb_1"], show_alert=True)
-        except:
+        except Exception:
             return
     try:
         chat_id, channel = await get_channeplay_cb(_, cplay, callback_query)
-    except:
+    except Exception:
         return
     user_name = callback_query.from_user.first_name
     await callback_query.message.delete()
     try:
         await callback_query.answer()
-    except:
+    except Exception:
         pass
     mystic = await callback_query.message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
@@ -629,7 +629,7 @@ async def slider_queries(_client: Client, callback_query: CallbackQuery, _):
     if callback_query.from_user.id != int(user_id):
         try:
             return await callback_query.answer(_["playcb_1"], show_alert=True)
-        except:
+        except Exception:
             return
     what = str(what)
     rtype = int(rtype)
@@ -640,7 +640,7 @@ async def slider_queries(_client: Client, callback_query: CallbackQuery, _):
             query_type = int(rtype + 1)
         try:
             await callback_query.answer(_["playcb_2"])
-        except:
+        except Exception:
             pass
         title, duration_min, thumbnail, vidid = await Platform.youtube.slider(query, query_type)
         buttons = slider_markup(_, vidid, user_id, query, query_type, cplay, fplay)
@@ -661,7 +661,7 @@ async def slider_queries(_client: Client, callback_query: CallbackQuery, _):
             query_type = int(rtype - 1)
         try:
             await callback_query.answer(_["playcb_2"])
-        except:
+        except Exception:
             pass
         title, duration_min, thumbnail, vidid = await Platform.youtube.slider(query, query_type)
         buttons = slider_markup(_, vidid, user_id, query, query_type, cplay, fplay)
@@ -682,7 +682,7 @@ async def close_menu(_, callback_query: CallbackQuery):
     try:
         await callback_query.message.delete()
         await callback_query.answer()
-    except:
+    except Exception:
         return
 
 
@@ -705,13 +705,13 @@ async def stop_download(_client: Client, callback_query: CallbackQuery, _):
             task.cancel()
             try:
                 lyrical.pop(message_id)
-            except:
+            except Exception:
                 pass
             await callback_query.answer("Downloading Cancelled", show_alert=True)
             return await callback_query.edit_message_text(
                 f"Downloading cancelled by {callback_query.from_user.mention}"
             )
-        except:
+        except Exception:
             return await callback_query.answer(
                 "Failed to stop downloading", show_alert=True
             )
