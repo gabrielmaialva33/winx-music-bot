@@ -12,9 +12,7 @@ files = [
     ".m4a",
     ".mp4",
     ".webm",
-    ".png",
-    ".session",
-    ".session-journal",
+    ".png"
 ]
 
 

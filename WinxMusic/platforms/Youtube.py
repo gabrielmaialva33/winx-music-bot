@@ -79,7 +79,7 @@ class YouTube:
                         return entity.url
         if offset in (None,):
             return None
-        return text[offset : offset + length]
+        return text[offset: offset + length]
 
     async def details(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
@@ -137,7 +137,7 @@ class YouTube:
             "yt-dlp",
             "-g",
             "-f",
-            "best[height<=?720][width<=?1280]",
+            "best",
             f"--cookies {cookies()}",
             f"{link}",
         ]
@@ -266,10 +266,10 @@ class YouTube:
         return formats_available, link
 
     async def slider(
-        self,
-        link: str,
-        query_type: int,
-        videoid: Union[bool, str] = None,
+            self,
+            link: str,
+            query_type: int,
+            videoid: Union[bool, str] = None,
     ):
         if videoid:
             link = self.base + link
@@ -284,15 +284,15 @@ class YouTube:
         return title, duration_min, thumbnail, vidid
 
     async def download(
-        self,
-        link: str,
-        mystic,
-        video: Union[bool, str] = None,
-        videoid: Union[bool, str] = None,
-        songaudio: Union[bool, str] = None,
-        songvideo: Union[bool, str] = None,
-        format_id: Union[bool, str] = None,
-        title: Union[bool, str] = None,
+            self,
+            link: str,
+            mystic,
+            video: Union[bool, str] = None,
+            videoid: Union[bool, str] = None,
+            songaudio: Union[bool, str] = None,
+            songvideo: Union[bool, str] = None,
+            format_id: Union[bool, str] = None,
+            title: Union[bool, str] = None,
     ) -> str:
         if videoid:
             link = self.base + link
@@ -398,7 +398,7 @@ class YouTube:
                     "yt-dlp",
                     "-g",
                     "-f",
-                    "best[height<=?720][width<=?1280]",
+                    "best",
                     f"--cookies {cookies()}",
                     link,
                 ]
@@ -414,7 +414,8 @@ class YouTube:
                     downloaded_file = stdout.decode().split("\n")[0]
                     direct = None
                 else:
-                    return
+                    downloaded_file = await loop.run_in_executor(None, video_dl)
+                    direct = True
         else:
             direct = True
             downloaded_file = await loop.run_in_executor(None, audio_dl)

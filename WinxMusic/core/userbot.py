@@ -1,6 +1,6 @@
-import asyncio
 import sys
 
+import asyncio
 from pyrogram import Client
 
 import config
@@ -21,6 +21,7 @@ class Userbot(Client):
                 api_id=config.API_ID,
                 api_hash=config.API_HASH,
                 in_memory=True,
+                no_updates=True,
                 session_string=session.strip(),
             )
             self.clients.append(client)
