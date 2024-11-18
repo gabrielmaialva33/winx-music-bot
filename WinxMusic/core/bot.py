@@ -153,7 +153,9 @@ class WinxBot(Client):
             BotCommand("blacklist", "Adicionar um chat à lista negra"),
             BotCommand("whitelist", "Remover um chat da lista negra"),
             BotCommand("blacklisted", "Listar todos os chats na lista negra"),
-            BotCommand("autoend", "Ativar ou desativar o término automático para transmissões"),
+            BotCommand(
+                "autoend", "Ativar ou desativar o término automático para transmissões"
+            ),
             BotCommand("reboot", "Reiniciar o bot"),
             BotCommand("restart", "Reiniciar o bot"),
         ]
@@ -171,7 +173,7 @@ class WinxBot(Client):
         LOG_GROUP_ID = (
             f"@{config.LOG_GROUP_ID}"
             if isinstance(config.LOG_GROUP_ID, str)
-               and not config.LOG_GROUP_ID.startswith("@")
+            and not config.LOG_GROUP_ID.startswith("@")
             else config.LOG_GROUP_ID
         )
 
@@ -184,7 +186,8 @@ class WinxBot(Client):
                     ),
                 )
                 await self.set_bot_commands(
-                    private_commands + owner_commands, scope=BotCommandScopeChat(chat_id=owner_id)
+                    private_commands + owner_commands,
+                    scope=BotCommandScopeChat(chat_id=owner_id),
                 )
             except Exception as e:
                 LOGGER(__name__).warning(
