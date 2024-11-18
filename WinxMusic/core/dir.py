@@ -5,15 +5,7 @@ from os import listdir, mkdir
 from config import TEMP_DB_FOLDER
 
 # remove all files on startup  that contains these extentions
-files = [
-    ".jpg",
-    ".jpeg",
-    ".mp3",
-    ".m4a",
-    ".mp4",
-    ".webm",
-    ".png"
-]
+files = [".jpg", ".jpeg", ".mp3", ".m4a", ".mp4", ".webm", ".png"]
 
 
 def dirr():
