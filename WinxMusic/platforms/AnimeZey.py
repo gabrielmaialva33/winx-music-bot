@@ -49,7 +49,7 @@ class AnimeZey:
         self.session: Optional[aiohttp.ClientSession] = None
         self.session_headers: Dict[str, str] = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
+            "Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
             "Content-Type": "application/json",
         }
         self.timeout: int = 60
@@ -61,12 +61,12 @@ class AnimeZey:
         return self.session
 
     async def request(
-            self, endpoint: str, method: str, data: Optional[Dict[str, Any]] = None
+        self, endpoint: str, method: str, data: Optional[Dict[str, Any]] = None
     ) -> Union[Dict[str, Any], str, None]:
         session = await self._get_session()
         try:
             async with session.request(
-                    method, f"{self.base_url}{endpoint}", json=data
+                method, f"{self.base_url}{endpoint}", json=data
             ) as response:
                 response.raise_for_status()
                 content_type = response.headers.get("Content-Type", "")
@@ -83,14 +83,14 @@ class AnimeZey:
             return None
 
     async def search_anime(
-            self, query: str, page_token: Optional[str] = None
+        self, query: str, page_token: Optional[str] = None
     ) -> Union[Dict[str, Any], str, None]:
         return await self.request(
             "/0:search", "POST", {"q": query, "page_token": page_token, "page_index": 0}
         )
 
     async def search_movie(
-            self, query: str, page_token: Optional[str] = None
+        self, query: str, page_token: Optional[str] = None
     ) -> Optional[SearchMovieResponse]:
         response: Union[Dict[str, Any], str, None] = await self.request(
             "/1:search",
