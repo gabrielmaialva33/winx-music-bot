@@ -78,7 +78,7 @@ async def ai(_: Client, message: Message):
 
     try:
         completion = client.chat.completions.create(
-            model="meta/llama-3.2-1b-instruct",
+            model="nvidia/llama-3.1-nemotron-51b-instruct",
             messages=prompt,
             temperature=0.5,
             top_p=1,
