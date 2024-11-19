@@ -36,7 +36,9 @@ class ContextManager:
         context_db.pop(self.user_id, None)
 
 
-@app.on_message(filters.regex("winx", re.IGNORECASE) & ~BANNED_USERS)
+@app.on_message(filters.regex("winx", re.IGNORECASE)
+                & filters.group
+                & ~BANNED_USERS)
 async def ai(_: Client, message: Message):
     username = message.from_user.first_name
 
