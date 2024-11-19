@@ -105,5 +105,8 @@ async def ai(_: Client, message: Message):
 
 @app.on_message(filters.reply & ~BANNED_USERS)
 async def handle_reply(_: Client, message: Message):
-    if message.reply_to_message and message.reply_to_message.from_user.id == (await app.get_me()).id:
-        return await ai(_, message)
+    me = await app.get_me()
+    if message.reply_to_message.from_user.id != me.id:
+        return
+
+    await ai(_, message)
