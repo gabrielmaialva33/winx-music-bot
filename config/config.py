@@ -15,7 +15,7 @@ API_HASH = getenv("API_HASH")
 BOT_TOKEN = getenv("BOT_TOKEN")
 
 # Get it from https://openai.com
-OPENAI_API_KEY = getenv("OPENAI_API_KEY")
+OPENAI_API_KEY = getenv("OPENAI_API_KEY", "")
 
 # You can paste your cookies to https://batbin.me, save them, and get a link to paste here
 COOKIE_LINK = getenv("COOKIE_LINK", None)
