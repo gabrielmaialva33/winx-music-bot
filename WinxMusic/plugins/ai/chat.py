@@ -83,6 +83,7 @@ async def ai(_: Client, message: Message):
             temperature=0.5,
             top_p=1,
             max_tokens=256,
+            max_completion_tokens=256,
             stream=False
         )
 
