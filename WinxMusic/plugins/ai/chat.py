@@ -78,11 +78,11 @@ async def ai(_: Client, message: Message):
 
     try:
         completion = client.chat.completions.create(
-            model="google/gemma-2-27b-it",
+            model="meta/llama-3.2-1b-instruct",
             messages=prompt,
             temperature=0.5,
             top_p=1,
-            max_tokens=56,
+            max_tokens=256,
             stream=False
         )
 
