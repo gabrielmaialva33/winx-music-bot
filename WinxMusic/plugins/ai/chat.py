@@ -74,8 +74,6 @@ async def ai(_: Client, message: Message):
 
     prompt = [persona] + conversation_history[-5:]
 
-    print("Prompt:", prompt)
-
     try:
         completion = client.chat.completions.create(
             model="nvidia/llama-3.1-nemotron-51b-instruct",
@@ -85,9 +83,6 @@ async def ai(_: Client, message: Message):
             max_tokens=256,
             stream=False
         )
-
-        # Get the AI's response
-        print("Completion:", completion)
 
         # Correctly access the response using the attributes
         ai_response = completion.choices[0].message.content
