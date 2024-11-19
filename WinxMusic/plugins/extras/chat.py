@@ -99,11 +99,11 @@ async def ai(_: Client, message: Message):
         return await message.reply_text("Ocorreu um erro ao processar sua mensagem. Tente novamente mais tarde.")
 
 
-@app.on_message(filters.reply & ~BANNED_USERS)
-async def handle_reply(_: Client, message: Message):
-    me = await app.get_me()
-    # if the message is not a reply to the bot, ignore it
-    if message.reply_to_message.from_user.id != me.id:
-        return
-
-    await ai(_, message)
+# @app.on_message(filters.reply & ~BANNED_USERS)
+# async def handle_reply(_: Client, message: Message):
+#     me = await app.get_me()
+#     # if the message is not a reply to the bot, ignore it
+#     if message.reply_to_message.from_user.id != me.id:
+#         return
+#
+#     await ai(_, message)
