@@ -78,8 +78,7 @@ async def ai(_: Client, message: Message):
         completion = client.chat.completions.create(
             model="nvidia/llama-3.1-nemotron-51b-instruct",
             messages=prompt,
-            temperature=0.5,
-            top_p=1,
+            temperature=0.8,
             max_tokens=256,
             stream=False
         )
