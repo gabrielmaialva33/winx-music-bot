@@ -23,6 +23,10 @@ def save_file(pastebin_url, file_path="cookies/cookies.txt"):
 
 def save_cookies():
     full_url = str(config.COOKIE_LINK)
+    if full_url is None:
+        LOGGER(__name__).error("No cookie link provided.")
+        return
+
     paste_id = full_url.split("/")[-1]
     pastebin_url = f"https://batbin.me/raw/{paste_id}"
 

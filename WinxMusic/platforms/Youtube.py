@@ -1,10 +1,10 @@
+import asyncio
 import glob
 import os
 import random
 import re
 from typing import Union
 
-import asyncio
 from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
 from youtubesearchpython.__future__ import VideosSearch
@@ -79,7 +79,7 @@ class YouTube:
                         return entity.url
         if offset in (None,):
             return None
-        return text[offset : offset + length]
+        return text[offset: offset + length]
 
     async def details(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
@@ -137,7 +137,7 @@ class YouTube:
             "yt-dlp",
             "-g",
             "-f",
-            "best",
+            "best[height<=?720][width<=?1280]",
             f"--cookies {cookies()}",
             f"{link}",
         ]
@@ -266,10 +266,10 @@ class YouTube:
         return formats_available, link
 
     async def slider(
-        self,
-        link: str,
-        query_type: int,
-        videoid: Union[bool, str] = None,
+            self,
+            link: str,
+            query_type: int,
+            videoid: Union[bool, str] = None,
     ):
         if videoid:
             link = self.base + link
@@ -284,15 +284,15 @@ class YouTube:
         return title, duration_min, thumbnail, vidid
 
     async def download(
-        self,
-        link: str,
-        mystic,
-        video: Union[bool, str] = None,
-        videoid: Union[bool, str] = None,
-        songaudio: Union[bool, str] = None,
-        songvideo: Union[bool, str] = None,
-        format_id: Union[bool, str] = None,
-        title: Union[bool, str] = None,
+            self,
+            link: str,
+            mystic,
+            video: Union[bool, str] = None,
+            videoid: Union[bool, str] = None,
+            songaudio: Union[bool, str] = None,
+            songvideo: Union[bool, str] = None,
+            format_id: Union[bool, str] = None,
+            title: Union[bool, str] = None,
     ) -> str:
         if videoid:
             link = self.base + link
@@ -308,6 +308,7 @@ class YouTube:
                 "quiet": True,
                 "no_warnings": True,
                 "cookiefile": f"{cookies()}",
+                "prefer_ffmpeg": True,
             }
 
             x = YoutubeDL(ydl_optssx)
@@ -327,6 +328,7 @@ class YouTube:
                 "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
+                "prefer_ffmpeg": True,
                 "cookiefile": f"{cookies()}",
             }
 
