@@ -20,7 +20,7 @@ async def on_bot_added(_, message: Message):
                     message.chat.username if message.chat.username else "ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ"
                 )
                 msg = (
-                    f"🎉 **Bot de música adicionado em um novo grupo #Novo_Grupo**\n\n"
+                    f"🎉 **Bot de música adicionado em um novo grupo #NovoGrupo**\n\n"
                     f"📋 **Nome do Chat:** {message.chat.title}\n"
                     f"🆔 **ID do Chat:** {message.chat.id}\n"
                     f"🔗 **Nome de usuário do Chat:** @{username}\n"
@@ -67,7 +67,7 @@ async def on_bot_kicked(_, message: Message):
             )
             chat_id = message.chat.id
             left = (
-                f"🤖 O bot foi removido do grupo {title} #Grupo_Removido\n"
+                f"🤖 O bot foi removido do grupo {title} #GrupoRemovido\n"
                 f"📋 **Nome do Chat**: {title}\n"
                 f"🆔 **ID do Chat**: {chat_id}\n"
                 f"🔗 **Nome de Usuário do Chat**: {username}\n"
