@@ -7,14 +7,14 @@ from .core.cookies import save_cookies
 
 from .logging import LOGGER
 
-# Save cookies in txt
-save_cookies()
-
 # Directories
 dirr()
 
 # Check Git Updates
 git()
+
+# Save cookies in txt
+save_cookies()
 
 # Initialize Memory DB
 dbb()
