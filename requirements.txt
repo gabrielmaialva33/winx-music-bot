@@ -25,7 +25,6 @@ gunicorn
 youtube-search
 youtube-search-python
 yt-dlp
+openai
 git+https://github.com/KurimuzonAkuma/pyrogram
 git+https://github.com/Vivekkumar-IN/yt-dlp-youtube-oauth2
-
-openai

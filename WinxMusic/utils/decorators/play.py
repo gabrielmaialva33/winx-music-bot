@@ -1,14 +1,12 @@
 import asyncio
 
 from pyrogram import Client
-from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import (
     ChannelsTooMuch,
     ChatAdminRequired,
     FloodWait,
     InviteRequestSent,
-    UserAlreadyParticipant,
-    UserNotParticipant,
+    UserAlreadyParticipant, ChannelPrivate,
 )
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
@@ -201,36 +199,20 @@ def play_wrapper(command: callable):
         else:
             fplay = None
 
-        if await is_active_chat(chat_id):
-            userbot = await get_assistant(message.chat.id)
-            # Getting all members id that in voicechat
-            call_participants_id = [
-                member.chat.id async for member in userbot.get_call_members(chat_id)
-            ]
-            # Checking if assistant id not in list so clear queues and remove active voice chat and process
-            if not call_participants_id or userbot.id not in call_participants_id:
-                await Winx.stop_stream(chat_id)
-
-        else:
-            userbot = await get_assistant(message.chat.id)
-            try:
+            if await is_active_chat(chat_id):
+                userbot = await get_assistant(message.chat.id)
+                # Getting all members id that in voicechat
                 try:
-                    get = await app.get_chat_member(chat_id, userbot.id)
-                except ChatAdminRequired:
-                    return await message.reply_text(_["call_1"])
-                if (
-                        get.status == ChatMemberStatus.BANNED
-                        or get.status == ChatMemberStatus.RESTRICTED
-                ):
-                    try:
-                        await app.unban_chat_member(chat_id, userbot.id)
-                    except Exception:
-                        return await message.reply_text(
-                            text=_["call_2"].format(userbot.username, userbot.id),
-                        )
-            except UserNotParticipant:
-                myu = await message.reply_text(_["call_5"])
-                await join_chat(message, chat_id, _, myu)
+                    call_participants_id = [
+                        member.chat.id
+                        async for member in userbot.get_call_members(chat_id)
+                        if member.chat
+                    ]
+                    # Checking if assistant id not in list so clear queues and remove active voice chat and process
+                    if not call_participants_id or userbot.id not in call_participants_id:
+                        await Winx.stop_stream(chat_id)
+                except ChannelPrivate:
+                    pass
 
         return await command(
             client,

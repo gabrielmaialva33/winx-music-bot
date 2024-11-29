@@ -14,7 +14,7 @@ dirr()
 git()
 
 # Save cookies in txt
-save_cookies()
+# save_cookies()
 
 # Initialize Memory DB
 dbb()
