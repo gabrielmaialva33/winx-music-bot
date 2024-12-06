@@ -79,7 +79,7 @@ class Carbon:
 
     async def generate(self, text: str, user_id):
         async with aiohttp.ClientSession(
-            headers={"Content-Type": "application/json"},
+                headers={"Content-Type": "application/json"},
         ) as ses:
             params = {
                 "code": text,

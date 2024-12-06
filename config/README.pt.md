@@ -1,6 +1,8 @@
 # Configurações do Winx Music Bot
 
-As variáveis de configuração (config vars) são basicamente as variáveis que configuram ou modificam o bot para funcionar, sendo as necessidades básicas para que plugins ou códigos operem. É necessário definir as variáveis obrigatórias para que o bot funcione e ative as funcionalidades básicas.
+As variáveis de configuração (config vars) são basicamente as variáveis que configuram ou modificam o bot para
+funcionar, sendo as necessidades básicas para que plugins ou códigos operem. É necessário definir as variáveis
+obrigatórias para que o bot funcione e ative as funcionalidades básicas.
 
 ## Variáveis Obrigatórias
 
@@ -16,13 +18,17 @@ As variáveis de configuração (config vars) são basicamente as variáveis que
 
 ## Variáveis Não Obrigatórias
 
-- Estas são variáveis extras para recursos adicionais no Music Bot. Você pode deixar as variáveis não obrigatórias por agora e adicioná-las depois.
+- Estas são variáveis extras para recursos adicionais no Music Bot. Você pode deixar as variáveis não obrigatórias por
+  agora e adicioná-las depois.
 
 1. `DURATION_LIMIT`: Duração máxima personalizada para áudio (música) no chat de voz. Padrão para 60 min.
-2. `SONG_DOWNLOAD_DURATION_LIMIT`: Limite de duração para baixar músicas em formato MP3 ou MP4 pelo bot. Padrão para 180 min.
-3. `VIDEO_STREAM_LIMIT`: Número máximo de chamadas de vídeo permitidas no bot. Pode ser ajustado posteriormente via /set_video_limit no Telegram. Padrão para 3 chats.
+2. `SONG_DOWNLOAD_DURATION_LIMIT`: Limite de duração para baixar músicas em formato MP3 ou MP4 pelo bot. Padrão para 180
+   min.
+3. `VIDEO_STREAM_LIMIT`: Número máximo de chamadas de vídeo permitidas no bot. Pode ser ajustado posteriormente via
+   /set_video_limit no Telegram. Padrão para 3 chats.
 4. `SERVER_PLAYLIST_LIMIT`: Limite máximo para usuários salvarem playlists no servidor do bot. Padrão para 30.
-5. `PLAYLIST_FETCH_LIMIT`: Limite máximo para buscar faixas da playlist de links do YouTube, Spotify, Apple. Padrão para 25.
+5. `PLAYLIST_FETCH_LIMIT`: Limite máximo para buscar faixas da playlist de links do YouTube, Spotify, Apple. Padrão para
+   25.
 6. `CLEANMODE_MINS`: Tempo após o qual o bot apagará suas mensagens antigas dos chats. Padrão para 5 min.
 7. `SUPPORT_CHANNEL`: Se você tiver um canal para seu bot de música, insira o link do canal aqui.
 8. `SUPPORT_GROUP`: Se você tiver um grupo de suporte para o bot, insira o link do grupo aqui.
@@ -42,12 +48,14 @@ As variáveis de configuração (config vars) são basicamente as variáveis que
 2. `YOUTUBE_EDIT_SLEEP`: Tempo de espera para o Downloader do YouTube. Padrão para 3 segundos.
 3. `TELEGRAM_EDIT_SLEEP`: Tempo de espera para o Downloader do Telegram. Padrão para 5 segundos.
 4. `AUTO_LEAVING_ASSISTANT`: Defina como `True` para que o assistente saia após um tempo determinado.
-5. `ASSISTANT_LEAVE_TIME`: Tempo após o qual o assistente sairá dos chats automaticamente. Padrão para 5400 segundos, ou 90 min.
+5. `ASSISTANT_LEAVE_TIME`: Tempo após o qual o assistente sairá dos chats automaticamente. Padrão para 5400 segundos, ou
+   90 min.
 6. `SET_CMDS`: Defina como `True` para que o bot configure os comandos do menu de chat automaticamente.
 
 ## Variáveis do Spotify
 
-- Para reproduzir músicas ou playlists do Spotify no Winx Music Bot. Essas variáveis não são essenciais, você pode deixá-las em branco.
+- Para reproduzir músicas ou playlists do Spotify no Winx Music Bot. Essas variáveis não são essenciais, você pode
+  deixá-las em branco.
 
 1. `SPOTIFY_CLIENT_ID`: Obtenha em https://developer.spotify.com/dashboard
 2. `SPOTIFY_CLIENT_SECRET`: Obtenha em https://developer.spotify.com/dashboard

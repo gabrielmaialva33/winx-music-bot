@@ -2,25 +2,32 @@ import asyncio
 from typing import Union
 
 from ntgcalls import TelegramServerError
+from pyrogram.errors import (
+    ChannelsTooMuch,
+    ChatAdminRequired,
+    FloodWait,
+    InviteRequestSent,
+    UserAlreadyParticipant,
+)
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls, filters
-from pytgcalls.exceptions import AlreadyJoinedError, NoActiveGroupCall
+from pytgcalls.exceptions import AlreadyJoinedError
 from pytgcalls.types import (
     ChatUpdate,
     GroupCallConfig,
     MediaStream,
-    StreamAudioEnded,
     Update,
 )
+from pytgcalls.types import StreamAudioEnded
 
 import config
-from WinxMusic import LOGGER, app, userbot, Platform
+from WinxMusic import LOGGER, Platform, app, userbot
+from WinxMusic.core.userbot import assistants
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (
     add_active_chat,
     add_active_video_chat,
     get_audio_bitrate,
-    get_lang,
     get_loop,
     get_video_bitrate,
     group_assistant,
@@ -29,11 +36,18 @@ from WinxMusic.utils.database import (
     remove_active_video_chat,
     set_loop,
 )
+from WinxMusic.utils.database import (
+    get_assistant,
+    get_lang,
+    set_assistant,
+)
 from WinxMusic.utils.exceptions import AssistantErr
 from WinxMusic.utils.inline.play import stream_markup, telegram_markup
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import gen_thumb
 from strings import get_string
+
+links = {}
 
 
 async def _clear_(chat_id):
@@ -96,11 +110,11 @@ class Call:
             pass
 
     async def skip_stream(
-        self,
-        chat_id: int,
-        link: str,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            link: str,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -120,7 +134,11 @@ class Call:
                 video_parameters=video_stream_quality,
             )
         else:
-            stream = MediaStream(link, audio_parameters=audio_stream_quality)
+            stream = MediaStream(
+                link,
+                audio_parameters=audio_stream_quality,
+                video_flags=MediaStream.Flags.IGNORE,
+            )
 
         await assistant.play(chat_id, stream, config=call_config)
 
@@ -157,13 +175,87 @@ class Call:
         await asyncio.sleep(0.5)
         await assistant.leave_call(config.LOG_GROUP_ID)
 
+    async def join_chat(self, chat_id, attempts=1):
+        max_attempts = len(assistants) - 1
+        assistant = await get_assistant(chat_id)
+        try:
+            language = await get_lang(chat_id)
+            _ = get_string(language)
+        except Exception:
+            _ = get_string("en")
+        try:
+            chat = await app.get_chat(chat_id)
+        except ChatAdminRequired:
+            raise AssistantErr(_["call_1"])
+        except Exception as e:
+            raise AssistantErr(_["call_3"].format(app.mention, type(e).__name__))
+        if chat_id in links:
+            invite_link = links[chat_id]
+        else:
+            if chat.username:
+                invite_link = chat.username
+                try:
+                    await assistant.resolve_peer(invite_link)
+                except Exception:
+                    pass
+            else:
+                try:
+                    invite_link = await app.export_chat_invite_link(chat_id)
+                except ChatAdminRequired:
+                    raise AssistantErr(_["call_1"])
+                except Exception as e:
+                    raise AssistantErr(
+                        _["call_3"].format(app.mention, type(e).__name__)
+                    )
+
+            if invite_link.startswith("https://t.me/+"):
+                invite_link = invite_link.replace(
+                    "https://t.me/+", "https://t.me/joinchat/"
+                )
+            links[chat_id] = invite_link
+
+        try:
+            await asyncio.sleep(1)
+            await assistant.join_chat(invite_link)
+        except InviteRequestSent:
+            try:
+                await app.approve_chat_join_request(chat_id, assistant.id)
+            except Exception as e:
+                raise AssistantErr(_["call_3"].format(type(e).__name__))
+            await asyncio.sleep(1)
+            raise AssistantErr(_["call_6"].format(app.mention))
+        except UserAlreadyParticipant:
+            pass
+        except ChannelsTooMuch:
+            if attempts <= max_attempts:
+                attempts += 1
+                assistant = await set_assistant(chat_id)
+                return await self.join_chat(chat_id, attempts)
+            else:
+                raise AssistantErr(_["call_9"].format(config.SUPPORT_GROUP))
+        except FloodWait as e:
+            time = e.value
+            if time < 20:
+                await asyncio.sleep(time)
+                attempts += 1
+                return await self.join_chat(chat_id, attempts)
+            else:
+                if attempts <= max_attempts:
+                    attempts += 1
+                    assistant = await set_assistant(chat_id)
+                    return await self.join_chat(chat_id, attempts)
+
+                raise AssistantErr(_["call_10"].format(time))
+        except Exception as e:
+            raise AssistantErr(_["call_3"].format(type(e).__name__))
+
     async def join_call(
-        self,
-        chat_id: int,
-        original_chat_id: int,
-        link,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            original_chat_id: int,
+            link,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -183,7 +275,11 @@ class Call:
                 video_parameters=video_stream_quality,
             )
         else:
-            stream = MediaStream(link, audio_parameters=audio_stream_quality)
+            stream = MediaStream(
+                link,
+                audio_parameters=audio_stream_quality,
+                video_flags=MediaStream.Flags.IGNORE,
+            )
 
         try:
             await assistant.play(
@@ -191,10 +287,18 @@ class Call:
                 stream=stream,
                 config=call_config,
             )
-        except NoActiveGroupCall:
-            raise AssistantErr(
-                "**No active video chat found **\n\nPlease make sure you started the voicechat."
-            )
+        except Exception:
+            await self.join_chat(chat_id)
+            try:
+                await assistant.play(
+                    chat_id=chat_id,
+                    stream=stream,
+                    config=call_config,
+                )
+            except Exception as e:
+                raise AssistantErr(
+                    "**No Active Voice Chat Found**\n\nPlease make sure group's voice chat is enabled. If already enabled, please end it and start fresh voice chat again and if the problem continues, try /restart"
+                )
 
         except AlreadyJoinedError:
             raise AssistantErr(
@@ -279,6 +383,7 @@ class Call:
                         stream = MediaStream(
                             link,
                             audio_parameters=audio_stream_quality,
+                            video_flags=MediaStream.Flags.IGNORE,
                         )
                 try:
                     await client.play(chat_id, stream, config=call_config)
@@ -337,6 +442,7 @@ class Call:
                         stream = MediaStream(
                             file_path,
                             audio_parameters=audio_stream_quality,
+                            video_flags=MediaStream.Flags.IGNORE,
                         )
                 try:
                     await client.play(chat_id, stream, config=call_config)
@@ -369,7 +475,11 @@ class Call:
                         video_parameters=video_stream_quality,
                     )
                     if str(streamtype) == "video"
-                    else MediaStream(videoid, audio_parameters=audio_stream_quality)
+                    else MediaStream(
+                        videoid,
+                        audio_parameters=audio_stream_quality,
+                        video_flags=MediaStream.Flags.IGNORE,
+                    )
                 )
                 try:
                     await client.play(chat_id, stream, config=call_config)
@@ -388,10 +498,15 @@ class Call:
                 db[chat_id][0]["mystic"] = run
                 db[chat_id][0]["markup"] = "tg"
             else:
+                url = check[0].get("url")
                 if videoid == "telegram":
                     image = None
                 elif videoid == "soundcloud":
                     image = None
+                elif "saavn" in videoid:
+                    url = check[0].get("url")
+                    details = await Platform.saavn.info(url)
+                    image = details["thumb"]
                 else:
                     try:
                         image = await Platform.youtube.thumbnail(videoid, True)
@@ -415,6 +530,7 @@ class Call:
                         stream = MediaStream(
                             queued,
                             audio_parameters=audio_stream_quality,
+                            video_flags=MediaStream.Flags.IGNORE,
                         )
                 try:
                     await client.play(chat_id, stream, config=call_config)
@@ -455,14 +571,13 @@ class Call:
                     button = telegram_markup(_, chat_id)
                     run = await app.send_photo(
                         original_chat_id,
-                        photo=check[0]["thumb"],
-                        caption=_["stream_1"].format(
-                            title, config.SUPPORT_GROUP, check[0]["dur"], user
-                        ),
+                        photo=image,
+                        caption=_["stream_1"].format(title, url, check[0]["dur"], user),
                         reply_markup=InlineKeyboardMarkup(button),
                     )
                     db[chat_id][0]["mystic"] = run
                     db[chat_id][0]["markup"] = "tg"
+
                 else:
                     img = await gen_thumb(videoid)
                     button = stream_markup(_, videoid, chat_id)

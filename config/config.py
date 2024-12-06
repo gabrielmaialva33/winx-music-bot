@@ -244,7 +244,7 @@ SPOTIFY_PLAYLIST_IMG_URL = getenv(
 
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
+    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
 def seconds_to_time(seconds):
@@ -286,8 +286,8 @@ if GITHUB_REPO:
 
 if PING_IMG_URL:
     if (
-        PING_IMG_URL
-        != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/ping_img.png"
+            PING_IMG_URL
+            != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/ping_img.png"
     ):
         if not re.match("(?:http|https)://", PING_IMG_URL):
             print(
@@ -297,8 +297,8 @@ if PING_IMG_URL:
 
 if PLAYLIST_IMG_URL:
     if (
-        PLAYLIST_IMG_URL
-        != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/playlist_img.png"
+            PLAYLIST_IMG_URL
+            != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/playlist_img.png"
     ):
         if not re.match("(?:http|https)://", PLAYLIST_IMG_URL):
             print(
@@ -308,8 +308,8 @@ if PLAYLIST_IMG_URL:
 
 if GLOBAL_IMG_URL:
     if (
-        GLOBAL_IMG_URL
-        != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/global_stats_img.png"
+            GLOBAL_IMG_URL
+            != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/global_stats_img.png"
     ):
         if not re.match("(?:http|https)://", GLOBAL_IMG_URL):
             print(
@@ -319,8 +319,8 @@ if GLOBAL_IMG_URL:
 
 if STATS_IMG_URL:
     if (
-        STATS_IMG_URL
-        != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/stats_img.png"
+            STATS_IMG_URL
+            != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/stats_img.png"
     ):
         if not re.match("(?:http|https)://", STATS_IMG_URL):
             print(
@@ -330,8 +330,8 @@ if STATS_IMG_URL:
 
 if TELEGRAM_AUDIO_URL:
     if (
-        TELEGRAM_AUDIO_URL
-        != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_audio_img.png"
+            TELEGRAM_AUDIO_URL
+            != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_audio_img.png"
     ):
         if not re.match("(?:http|https)://", TELEGRAM_AUDIO_URL):
             print(
@@ -341,8 +341,8 @@ if TELEGRAM_AUDIO_URL:
 
 if STREAM_IMG_URL:
     if (
-        STREAM_IMG_URL
-        != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/stream_img.png"
+            STREAM_IMG_URL
+            != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/stream_img.png"
     ):
         if not re.match("(?:http|https)://", STREAM_IMG_URL):
             print(
@@ -352,8 +352,8 @@ if STREAM_IMG_URL:
 
 if SOUNCLOUD_IMG_URL:
     if (
-        SOUNCLOUD_IMG_URL
-        != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/soundcloud_img.png"
+            SOUNCLOUD_IMG_URL
+            != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/soundcloud_img.png"
     ):
         if not re.match("(?:http|https)://", SOUNCLOUD_IMG_URL):
             print(
@@ -363,8 +363,8 @@ if SOUNCLOUD_IMG_URL:
 
 if YOUTUBE_IMG_URL:
     if (
-        YOUTUBE_IMG_URL
-        != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/youtube_img.png"
+            YOUTUBE_IMG_URL
+            != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/youtube_img.png"
     ):
         if not re.match("(?:http|https)://", YOUTUBE_IMG_URL):
             print(
@@ -374,8 +374,8 @@ if YOUTUBE_IMG_URL:
 
 if TELEGRAM_VIDEO_URL:
     if (
-        TELEGRAM_VIDEO_URL
-        != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_video_img.png"
+            TELEGRAM_VIDEO_URL
+            != "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_video_img.png"
     ):
         if not re.match("(?:http|https)://", TELEGRAM_VIDEO_URL):
             print(

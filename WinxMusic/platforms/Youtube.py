@@ -3,7 +3,7 @@ import glob
 import os
 import random
 import re
-from typing import Union
+from typing import Union, Any
 
 from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
@@ -13,7 +13,9 @@ from yt_dlp import YoutubeDL
 import config
 from WinxMusic.utils.database import is_on_off
 from WinxMusic.utils.decorators import asyncify
-from WinxMusic.utils.formatters import time_to_seconds, seconds_to_min
+from WinxMusic.utils.formatters import seconds_to_min, time_to_seconds
+
+USE_COOKIES_ONLY = False
 
 
 def cookies():
@@ -79,7 +81,7 @@ class YouTube:
                         return entity.url
         if offset in (None,):
             return None
-        return text[offset : offset + length]
+        return text[offset: offset + length]
 
     async def details(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
@@ -266,10 +268,10 @@ class YouTube:
         return formats_available, link
 
     async def slider(
-        self,
-        link: str,
-        query_type: int,
-        videoid: Union[bool, str] = None,
+            self,
+            link: str,
+            query_type: int,
+            videoid: Union[bool, str] = None,
     ):
         if videoid:
             link = self.base + link
@@ -284,20 +286,25 @@ class YouTube:
         return title, duration_min, thumbnail, vidid
 
     async def download(
-        self,
-        link: str,
-        mystic,
-        video: Union[bool, str] = None,
-        videoid: Union[bool, str] = None,
-        songaudio: Union[bool, str] = None,
-        songvideo: Union[bool, str] = None,
-        format_id: Union[bool, str] = None,
-        title: Union[bool, str] = None,
-    ) -> str:
+            self,
+            link: str,
+            mystic,
+            video: Union[bool, str] = None,
+            videoid: Union[bool, str] = None,
+            songaudio: Union[bool, str] = None,
+            songvideo: Union[bool, str] = None,
+            format_id: Union[bool, str] = None,
+            title: Union[bool, str] = None,
+    ) -> tuple[str | Any, bool | None] | Any:
         if videoid:
+            vidid = link
             link = self.base + link
-        loop = asyncio.get_running_loop()
+        else:
+            pattern = r"(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|live_stream\?stream_id=|(?:\/|\?|&)v=)?([^&\n]+)"
+            match = re.search(pattern, link)
+            vidid = match.group(1)
 
+        @asyncify
         def audio_dl():
             ydl_optssx = {
                 "format": "bestaudio/best",
@@ -319,6 +326,7 @@ class YouTube:
             x.download([link])
             return xyz
 
+        @asyncify
         def video_dl():
             ydl_optssx = {
                 "format": "(bestvideo[height<=?720][width<=?1280][ext=mp4])+(bestaudio[ext=m4a])",
@@ -340,6 +348,7 @@ class YouTube:
             x.download([link])
             return xyz
 
+        @asyncify
         def song_video_dl():
             formats = f"{format_id}+140"
             fpath = f"downloads/{title}"
@@ -357,8 +366,11 @@ class YouTube:
             }
 
             x = YoutubeDL(ydl_optssx)
-            x.download([link])
+            info = x.extract_info(link)
+            file_path = x.prepare_filename(info)
+            return file_path
 
+        @asyncify
         def song_audio_dl():
             fpath = f"downloads/{title}.%(ext)s"
             ydl_optssx = {
@@ -381,20 +393,46 @@ class YouTube:
             }
 
             x = YoutubeDL(ydl_optssx)
-            x.download([link])
+            info = x.extract_info(link)
+            file_path = x.prepare_filename(info)
+            return file_path
+
+        @asyncify
+        def download_with_api():
+            ydl_optssx = {
+                "outtmpl": "downloads/%(id)s.%(ext)s",
+                "nocheckcertificate": True,
+                "quiet": True,
+                "no_warnings": True,
+                "nooverwrites": False,
+                "continuedl": True,
+            }
+
+            url = f"https://sapi.okflix.top/tube/stream/{vidid}.mp3"
+
+            try:
+                with YoutubeDL(ydl_optssx) as ydl:
+                    info = ydl.extract_info(url)
+                    file_path = ydl.prepare_filename(info)
+                    return file_path
+            except Exception:
+                return None
 
         if songvideo:
-            await loop.run_in_executor(None, song_video_dl)
-            fpath = f"downloads/{title}.mp4"
-            return fpath
+            return await song_video_dl()
+
         elif songaudio:
-            await loop.run_in_executor(None, song_audio_dl)
-            fpath = f"downloads/{title}.mp3"
+            if USE_COOKIES_ONLY:
+                return await song_audio_dl()
+            fpath = await download_with_api()
+            if not fpath:
+                fpath = await song_audio_dl()
             return fpath
+
         elif video:
             if await is_on_off(config.YTDOWNLOADER):
                 direct = True
-                downloaded_file = await loop.run_in_executor(None, video_dl)
+                downloaded_file = await video_dl()
             else:
                 command = [
                     "yt-dlp",
@@ -416,10 +454,15 @@ class YouTube:
                     downloaded_file = stdout.decode().split("\n")[0]
                     direct = None
                 else:
-                    downloaded_file = await loop.run_in_executor(None, video_dl)
+                    downloaded_file = await video_dl()
                     direct = True
         else:
             direct = True
-            downloaded_file = await loop.run_in_executor(None, audio_dl)
+            if USE_COOKIES_ONLY:
+                downloaded_file = await audio_dl()
+            else:
+                downloaded_file = await download_with_api()
+                if not downloaded_file:
+                    downloaded_file = await audio_dl()
 
         return downloaded_file, direct

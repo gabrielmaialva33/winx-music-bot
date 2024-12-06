@@ -1,7 +1,7 @@
 import re
+import unicodedata
 from typing import Dict
 
-import unicodedata
 from openai import OpenAI
 from pyrogram import filters, Client
 from pyrogram.types import Message
@@ -97,7 +97,6 @@ async def ai(_: Client, message: Message):
     except Exception as e:
         print(f"Error: {e}")
         return await message.reply_text("Ocorreu um erro ao processar sua mensagem. Tente novamente mais tarde.")
-
 
 # @app.on_message(filters.reply & ~BANNED_USERS)
 # async def handle_reply(_: Client, message: Message):
