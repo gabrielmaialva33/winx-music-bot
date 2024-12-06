@@ -172,7 +172,7 @@ class WinxBot(Client):
         LOG_GROUP_ID = (
             f"@{config.LOG_GROUP_ID}"
             if isinstance(config.LOG_GROUP_ID, str)
-               and not config.LOG_GROUP_ID.startswith("@")
+            and not config.LOG_GROUP_ID.startswith("@")
             else config.LOG_GROUP_ID
         )
 
